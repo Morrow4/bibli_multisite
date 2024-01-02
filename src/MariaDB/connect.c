@@ -8,7 +8,7 @@ void connect_database()
    char *db_user = "DB_USER";
    MYSQL *conn;
 
-   // Initialise la connection
+   // Initialise la connexion
    if (!(conn = mysql_init(0)))
    {
       fprintf(stderr, "Impossible d'initialiser la connection\n");
@@ -20,7 +20,7 @@ void connect_database()
    pritnf("Veuillez entrer le mot de passe de l'utilisateur :\n ")
    scanf("%62s", db_user_password); // Utilisation de "%s" pour les chaînes de caractères
 
-   // Connection à la base de donnée
+   // Connexion à la base de donnée
    if (!mysql_real_connect(
          conn,                  // Connection
          "mariadb.10.1.144.49", // Hôte
@@ -32,7 +32,7 @@ void connect_database()
          0                      // Options supplémentaires
       ))
    {
-      // Retourne l'échec de la connection et ferme le gestionnaire
+      // Retourne l'échec de la connexion et ferme le gestionnaire
       fprintf(stderr, "Erreur de connection au serveur: %s\n", mysql_error(conn));
       mysql_close(conn);
       exit(1);
