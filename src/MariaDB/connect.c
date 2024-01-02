@@ -4,8 +4,9 @@
 
 void connect_database()
 {
-   // Variable pour la connexion à la base de donnée
-   char *db_user = "DB_USER";
+   // Variables pour la connexion à la base de donnée
+   const char *user = "DB_USER";
+   char *db_user = getenv(db_user);
    MYSQL *conn;
 
    // Initialise la connexion
