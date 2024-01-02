@@ -1,4 +1,6 @@
-#include <mysql.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <mysql/mysql.h>
 
 void connect_database()
 {
