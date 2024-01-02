@@ -4,7 +4,7 @@
 #include <unistd.h>
 
 int main() {
-    connect.c;
+    connect_database.c;
 
     
 
