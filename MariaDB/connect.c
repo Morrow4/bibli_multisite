@@ -1,5 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include <mysql.h>
 
 void connect(int argc, char* argv[])
@@ -9,7 +7,7 @@ void connect(int argc, char* argv[])
    MYSQL *conn;
    if (!(conn = mysql_init(0)))
    {
-      fprintf(stderr, "impossible d'initialiser la connection struct\n");
+      fprintf(stderr, "Impossible d'initialiser la connection\n");
       exit(1);
    }
 
@@ -19,14 +17,14 @@ void connect(int argc, char* argv[])
          "mariadb.example.net",// Host
          "db_user",            // User account
          "db_user_password",   // User password
-         "test",               // Default database
+         "bibliotech",         // Default database
          3306,                 // Port number
          NULL,                 // Path to socket file
          0                     // Additional options
       ))
    {
       // retourne l'échec de la connection et ferme le gestionnaire
-      fprintf(stderr, "Error connecting to Server: %s\n", mysql_error(conn));
+      fprintf(stderr, "Erreur de connection au serveur: %s\n", mysql_error(conn));
       mysql_close(conn);
       exit(1);
    }
@@ -37,5 +35,4 @@ void connect(int argc, char* argv[])
    // Ferme la connection
    mysql_close(conn);
 
-   return 0;
 }
