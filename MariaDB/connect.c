@@ -3,7 +3,10 @@
 void connect(int argc, char* argv[])
 {
 
-   // initialise la connection
+   char *db_user = getenv("DB_USER");
+   char *db_password = ("DB_PASSWORD");
+
+   // Initialise la connection
    MYSQL *conn;
    if (!(conn = mysql_init(0)))
    {
@@ -11,28 +14,22 @@ void connect(int argc, char* argv[])
       exit(1);
    }
 
-   // Connect to the database
+   // Connection à la base de donnée
    if (!mysql_real_connect(
          conn,                 // Connection
-         "10.1.144.49",        // Host
-         "db_user",            // User account
-         "db_user_password",   // User password
-         "bibliotech",         // Default database
-         3306,                 // Port number
-         NULL,                 // Path to socket file
-         0                     // Additional options
+         "mariadb.10.1.144.49",        // Hôte
+         "db_user",            // Compte utilisateur de la variable d'environnement
+         "db_user_password",   // Mot de passe utilisateur de la variable d'environnement
+         "bibliotech",         // Base de donnée par défault
+         3306,                 // Numéro du port
+         NULL,                 // Chemin au fichier socket
+         0                     // Option additionnel
       ))
    {
-      // retourne l'échec de la connection et ferme le gestionnaire
+      // Retourne l'échec de la connection et ferme le gestionnaire
       fprintf(stderr, "Erreur de connection au serveur: %s\n", mysql_error(conn));
       mysql_close(conn);
       exit(1);
    }
-
-   // Utilise la connection
-   // ...
-
-   // Ferme la connection
-   mysql_close(conn);
 
 }
