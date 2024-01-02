@@ -4,7 +4,7 @@
 
 void connect_database()
 {
-   // Variables pour la connexion à la base de donnée
+   // Variables pour la connexion à la base de données
    const char *user = "DB_USER";
    char *db_user = getenv(db_user);
    MYSQL *conn;
@@ -21,7 +21,7 @@ void connect_database()
    pritnf("Veuillez entrer le mot de passe de l'utilisateur :\n ")
    scanf("%62s", db_user_password); // Utilisation de "%s" pour les chaînes de caractères
 
-   // Connexion à la base de donnée
+   // Connexion à la base de données
    if (!mysql_real_connect(
          conn,                  // Connection
          "mariadb.10.1.144.49", // Hôte
