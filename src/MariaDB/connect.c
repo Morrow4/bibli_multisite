@@ -1,9 +1,10 @@
 #include <mysql.h>
 
-void connect(char* db_user)
+void connect(int argc, char* argv[])
 {
-   // Variable d'environnement de connection au compte utilisateur
-   char *db_user = ("DB_USER");
+   // Variables d'environnement de connection
+   char *db_user = getenv("DB_USER");
+   char *db_password = ("DB_PASSWORD");
 
    // Initialise la connection
    MYSQL *conn;
@@ -12,10 +13,6 @@ void connect(char* db_user)
       fprintf(stderr, "Impossible d'initialiser la connection\n");
       exit(1);
    }
-
-   // Scanf
-   char db_user_password;
-   scanf("%d", &db_user_password);
 
    // Connection à la base de donnée
    if (!mysql_real_connect(
