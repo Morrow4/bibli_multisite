@@ -14,7 +14,7 @@ void connect(int argc, char* argv[])
    // Connect to the database
    if (!mysql_real_connect(
          conn,                 // Connection
-         "mariadb.example.net",// Host
+         "10.1.144.49",        // Host
          "db_user",            // User account
          "db_user_password",   // User password
          "bibliotech",         // Default database
