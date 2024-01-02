@@ -1,29 +1,33 @@
 #include <mysql.h>
 
-void connect(int argc, char* argv[])
+void connect_database()
 {
-   // Variables d'environnement de connection
-   char *db_user = getenv("DB_USER");
-   char *db_password = ("DB_PASSWORD");
+   // Variable pour la connexion à la base de donnée
+   char *db_user = "DB_USER";
+   MYSQL *conn;
 
    // Initialise la connection
-   MYSQL *conn;
    if (!(conn = mysql_init(0)))
    {
       fprintf(stderr, "Impossible d'initialiser la connection\n");
       exit(1);
    }
 
+   // Mot de passe de l'utilisateur
+   char db_user_password[63]; // Utilisation d'un tableau de caractère pour stocker le mot de passe
+   pritnf("Veuillez entrer le mot de passe de l'utilisateur :\n ")
+   scanf("%62s", db_user_password); // Utilisation de "%s" pour les chaînes de caractères
+
    // Connection à la base de donnée
    if (!mysql_real_connect(
-         conn,                 // Connection
-         "mariadb.10.1.144.49",// Hôte
-         "db_user",            // Compte utilisateur
-         "db_user_password",   // Mot de passe utilisateur
-         "bibliotech",         // Base de donnée par défault
-         3306,                 // Numéro du port
-         NULL,                 // Chemin au fichier socket
-         0                     // Option additionnel
+         conn,                  // Connection
+         "mariadb.10.1.144.49", // Hôte
+         db_user,               // Nom d'utilisateur
+         db_user_password,      // Mot de passe utilisateur
+         "bibliotech",          // Base de donnée par défaut
+         3306,                  // Numéro du port
+         NULL,                  // Chemin vers le fichier socket
+         0                      // Options supplémentaires
       ))
    {
       // Retourne l'échec de la connection et ferme le gestionnaire
