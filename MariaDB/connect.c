@@ -2,7 +2,7 @@
 
 void connect(int argc, char* argv[])
 {
-
+   // Variables d'environnement de connection
    char *db_user = getenv("DB_USER");
    char *db_password = ("DB_PASSWORD");
 
@@ -18,8 +18,8 @@ void connect(int argc, char* argv[])
    if (!mysql_real_connect(
          conn,                 // Connection
          "mariadb.10.1.144.49",// Hôte
-         "db_user",            // Compte utilisateur de la variable d'environnement
-         "db_user_password",   // Mot de passe utilisateur de la variable d'environnement
+         "db_user",            // Compte utilisateur
+         "db_user_password",   // Mot de passe utilisateur
          "bibliotech",         // Base de donnée par défault
          3306,                 // Numéro du port
          NULL,                 // Chemin au fichier socket
