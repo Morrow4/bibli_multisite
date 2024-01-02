@@ -17,7 +17,7 @@ void connect(int argc, char* argv[])
    // Connection à la base de donnée
    if (!mysql_real_connect(
          conn,                 // Connection
-         "mariadb.10.1.144.49",        // Hôte
+         "mariadb.10.1.144.49",// Hôte
          "db_user",            // Compte utilisateur de la variable d'environnement
          "db_user_password",   // Mot de passe utilisateur de la variable d'environnement
          "bibliotech",         // Base de donnée par défault
