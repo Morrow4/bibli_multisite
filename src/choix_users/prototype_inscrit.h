@@ -1,7 +1,7 @@
 // bibliotheque.h
 
-#ifndef PROTOTYPE INSCRIT_H
-#define PROTOTYPE INSCRIT_H
+#ifndef PROTOTYPE_INSCRIT_H
+#define PROTOTYPE_INSCRIT_H
 
 #include "prototype_invite.h"
 

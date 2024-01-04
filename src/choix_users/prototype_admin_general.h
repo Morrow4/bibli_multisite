@@ -1,5 +1,3 @@
-// bibliotheque.h
-
 #ifndef PROROTYPE_ADMIN_GENERAL_H
 #define PROROTYPE_ADMIN_GENERAL_H
 

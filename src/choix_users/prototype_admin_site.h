@@ -1,5 +1,3 @@
-// bibliotheque.h
-
 #ifndef PROROTYPE_ADMIN_SITE_H
 #define PROROTYPE_ADMIN_SITE_H
 
@@ -12,7 +10,7 @@ void Reservation_pour_adherent();
 void Ajout_adherent();
 
 // Prototype de Suppression_adherent
-void Suppression_adherent();
+void Suppression_adherent(const char *login);
 
 // Prototype de Consultation_Stat
 void Consultation_Stat();
