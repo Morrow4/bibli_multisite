@@ -64,7 +64,7 @@ void choix_admin_bibliotheque(int user_groupe) {
 
         case 12:
             printf("Valider la restitution un livre\n");
-            validation_restitutation();
+            validation_restitution();
             break;
 
         case 13:
