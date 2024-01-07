@@ -3,11 +3,11 @@
 #include <stdlib.h>
 #include <mysql/mysql.h>
 
-int get_user_type(uid_t user_uid)
+int get_user_type(char *username)
 {
     // Requête SQL pour récupérer le TypeUtilisateur en fonction de l'ID_Utilisateur
     char query[255];
-    sprintf(query, "SELECT TypeUtilisateur FROM Utilisateur WHERE ID_Utilisateur = '%s'", user_uid);
+    sprintf(query, "SELECT TypeUtilisateur FROM Utilisateur WHERE ID_Utilisateur = '%s'", username);
 
     if (mysql_query(conn, query))
     {
@@ -29,24 +29,35 @@ int get_user_type(uid_t user_uid)
     MYSQL_ROW row = mysql_fetch_row(result);
     if (row)
     {
-        if(row[0] == "AdminGeneral"){
+        if (row[0] == "AdminGeneral")
+        {
             user_group = 1;
-        }else if(row[0] == "AdminSite"){
+        }
+        else if (row[0] == "AdminSite")
+        {
             user_group = 2;
-        }else if(row[0] == "Inscrit"){
+        }
+        else if (row[0] == "Inscrit")
+        {
             user_group = 3;
-        }else if(row[0] == "Invite"){
+        }
+        else if (row[0] == "Invite")
+        {
             user_group = 4;
-        }else{
+        }
+        else
+        {
             printf("non trouve");
         }
         printf("Le type d'utilisateur pour %s est : %s\n", username, row[0]);
     }
     else
     {
-        printf("Utilisateur non trouvé : %s\n", user_uid);
+        printf("Utilisateur non trouvé : %s\n", username);
     }
 
     mysql_free_result(result);
     mysql_close(conn);
+
+    return (user_group);
 }
