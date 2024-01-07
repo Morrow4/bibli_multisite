@@ -39,7 +39,7 @@ void choix_admin_bibliotheque(int user_groupe) {
 
         case 7:
             printf("Supprimer un compte utilisateur\n");
-            Suppression_adherent();
+            Suppression_adherent(login);
             break;
 
         case 8:
@@ -64,7 +64,7 @@ void choix_admin_bibliotheque(int user_groupe) {
 
         case 12:
             printf("Valider la restitution un livre\n");
-            validation_restitutation();
+            validation_restitution();
             break;
 
         default:
