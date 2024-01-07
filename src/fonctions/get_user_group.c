@@ -5,8 +5,6 @@
 
 int get_user_type(uid_t user_uid)
 {
-    
-
     // Requête SQL pour récupérer le TypeUtilisateur en fonction de l'ID_Utilisateur
     char query[255];
     sprintf(query, "SELECT TypeUtilisateur FROM Utilisateur WHERE ID_Utilisateur = '%s'", user_uid);
