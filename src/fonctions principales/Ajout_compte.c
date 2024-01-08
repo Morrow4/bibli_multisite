@@ -32,6 +32,11 @@ void ajout_compte() {
                 do {
                     printf("Entrez votre choix : ");
                     scanf("%d", &choix_type);  
+
+                    scanf( "%10s", ma_string);
+                    mes-tests( ma-string );
+                    mon_nombre = atoi( ma-string );
+
                 } while (!gestion_int(choix_type)); //verification que c'est bien un entier et pas trop grand pour le buffer
             } while (choix_type < 1 || choix_type > 3); //verification de la valeur comprise
         }
@@ -61,35 +66,48 @@ void ajout_compte() {
     printf("En cas d'erreur de saisi, veuillez remplir le formulaire dans son integralité, une validation sera demandée en fin de saisie\\n");
     do {
         // Saisie formulaire utilisateur
+        int mon_compteur_login = 5;
         do {
+            mon_compteur_login--;
             printf("Entrez le login : ");
             scanf("%100s", login);
-        } while (!is_valid(login));
-
+            if (mon_compteur_login == 0){return}
+        } while (!is_valid(login) && ( mon_compteur_login >= 0 ) );
+        int mon_compteur_mp = 5;
         do {
+            mon_compteur_mp--;
             printf("Entrez le mot de passe : ");
             scanf("%255s", password);
-        } while (!is_valid(password));
-
+            if (mon_compteur_mp == 0){return}
+        } while (!is_valid(password) && ( mon_compteur_mp >= 0 ) );
+        int mon_compteur_mail = 5;
         do {
+            mon_compteur_mail--;
             printf("Entrez le mail : ");
             scanf("%100s", email);
-        } while (!is_valid(email));
-
+            if (mon_compteur_mail == 0){return}
+        } while (!is_valid(email) && ( mon_compteur_mail >= 0 ) );
+        int mon_compteur_nom = 5;
         do {
+            mon_compteur_nom--;
             printf("Entrez le nom : ");
             scanf("%50s", nom);
-        } while (!is_valid(nom));
-
+            if (mon_compteur_nom == 0){return}
+        } while (!is_valid(nom) && ( mon_compteur_nom >= 0 ) );
+        int mon_compteur_nom = 5;
         do {
+            mon_compteur_prenom--;
             printf("Entrez le prenom : ");
             scanf("%50s", prenom);
-        } while (!is_valid(prenom));
-
+            if (mon_compteur_prenom == 0){return}
+        } while (!is_valid(prenom) && ( mon_compteur_prenom >= 0 ) );
+        int mon_compteur_cherch = 5;
         do {
+            mon_compteur_cherch--;
             printf("Est-ce un chercheur ? (oui/non) : ");
             scanf("%1s", estChercheur);
-        } while (strcmp(estChercheur, "o") != 0 && strcmp(estChercheur, "n") != 0);
+            if (mon_compteur_prenom == 0){return}
+        } while (strcmp(estChercheur, "o") != 0 && strcmp(estChercheur, "n") != 0) && ( mon_compteur_cherch >= 0 ) );
 
         printf("Le login est %d, le mot de passe est %d, son groupe est %d, le mail est %d, le nom est %d, le prenom est %d, la personne est chercheur : %d",login, password, type_user, email, nom, prenom, estChercheur);
         do {

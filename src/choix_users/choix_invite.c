@@ -6,9 +6,11 @@
 #include prototype_invite.h
 
 void choix_admin_bibliotheque(int user_groupe) {
+    printf("+-------------Bienvenu!!-------------+\n\n")
+    printf("Voulez-vous...\n")
     switch(user_groupe) {
         case 1:
-            printf("Lister les livres et leur disponibilité dans les différents sites\n");
+            printf("Voici la liste des livres et leur disponibilité dans les différents sites\n");
             Liste_livres_et_dispo();
             break;
 

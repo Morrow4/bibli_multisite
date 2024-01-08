@@ -6,76 +6,70 @@
 #include prototype_admin_general.h
 
 void choix_admin_bibliotheque(int user_groupe) {
+
+    printf("+------------------MENU-------------------+\n");
+    printf("+---------Administrateur_Général----------+\n");
     switch(user_groupe) {
         case 1:
-            printf("Lister les livres et leur disponibilité dans les différents sites\n");
+            printf("1) Lister les livres et leur disponibilité dans les différents sites\n");
             Liste_livres_et_dispo();
             break;
 
         case 2:
-            printf("Réserver un livre\n");
+            printf("2) Réserver un livre\n");
             Reservation_soimeme_Livre();
             break;
 
         case 3:
-            printf("S inscrire sur une liste attente pour réserver un livre\n");
+            printf("3) S inscrire sur une liste attente pour réserver un livre\n");
             Inscri_liste_attente_livre();
             break;
 
         case 4:
-            printf("Consulter le délai d attente pour emprunter un livre indisponible\n");
+            printf("4) Consulter le délai d attente pour emprunter un livre indisponible\n");
             Affichage_delai_attente_livre();
             break;
 
         case 5:
-            printf("Réserver un livre pour un utilisateur inscrit\n");
+            printf("5) Réserver un livre pour un utilisateur inscrit\n");
             Reservation_pour_adherent();
             break;
 
         case 6:
-            printf("Ajouter un compte utilisateur\n");
-            Ajout_adherent();
+            printf("6) Ajouter un compte utilisateur ou administrateur\n");
+            Ajout_compte();
             break;
 
         case 7:
-            printf("Supprimer un compte utilisateur\n");
+            printf("7) Supprimer un compte utilisateur ou administrateur\n");
             Suppression_adherent();
             break;
 
         case 8:
-            printf("Consulter les statistiques\n");
+            printf("8) Consulter les statistiques\n");
             Consultation_Stat();
             break;
 
         case 9:
-            printf("Ajouter un livre\n");
+            printf("9) Ajouter un livre\n");
             Ajout_livre();
             break;
 
         case 10:
-            printf("Supprimer un livre\n");
+            printf("10) Supprimer un livre\n");
             Suppression_livre();
             break;
 
         case 11:
-            printf("Bloquer utilisateur temporairement\n");
+            printf("11) Bloquer utilisateur temporairement\n");
             Fonction_blocage_utilisateur();
             break;
 
         case 12:
-            printf("Valider la restitution un livre\n");
+            printf("12) Valider la restitution un livre\n");
             validation_restitution();
             break;
 
-        case 13:
-            printf("Ajouter un administrateur\n");
-            Ajouter_administrateur();
-            break;
-
-        case 14:
-            printf("Supprimer un administrateur\n");
-            Supprimer_administrateur();
-            break;
 
         default:
             printf("Déconnexion\n");
