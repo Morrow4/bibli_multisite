@@ -5,12 +5,12 @@
 #include "qui_et_quand.h" //son prototype
 
 void qui_et_quand(char **username, char **time_str) {
-    // Obtenez le nom de l'utilisateur à l'origine de l'exécution
-    uid_t uid = geteuid();
-    struct passwd *pwd = getpwuid(uid);
+    // Obtenir le nom de l'utilisateur à l'origine de l'exécution
+    uid_t uid = getuid();
+    struct passwd *pwd = getuid(uid);
     *username = (pwd != NULL) ? pwd->pw_name : "Inconnu";
 
-    // Obtenez la date et l'heure actuelles
+    // Obtenir la date et l'heure actuelles
     time_t now = time(NULL);
     struct tm *local_time = localtime(&now);
     *time_str = malloc(64);
