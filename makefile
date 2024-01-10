@@ -7,7 +7,7 @@ CC = gcc
 CFLAGS = -Wall -Wextra -g
 
 # Nom de l'executable
-TARGET = bibliotech.exe
+TARGET = build\bibliotech.exe
 
 # Dossier des fichiers source et objet
 SRC_DIRS = src src\choix_users src\fonctions principales
