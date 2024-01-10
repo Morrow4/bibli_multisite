@@ -10,7 +10,7 @@ CFLAGS = -Wall -Wextra -g
 TARGET = build\bibliotech.exe
 
 # Dossier des fichiers source et objet
-SRC_DIRS = src src\choix_users src\fonctions principales
+SRC_DIRS = src src\choix_users src\fonctions principales src\fonctions utilitaires src\MariaDB
 OBJ_DIR = objects
 
 # Générer la liste des fichiers source
