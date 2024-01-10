@@ -125,7 +125,7 @@ void ajout_compte() {
     fprintf(log_file, "Exécuté par: %s, Date et heure: %s\n", username, time_str);
 
 
-    //  Ajout de l'utilisateur dans la base de donnée
+    //  Ajout de l'utilisateur dans la base de donnée //Modifier pour mail
     char query[500];
     sprintf(query, "INSERT INTO Utilisateur (ID_Utilisateur, Nom, Prenom, Email, MotDePasse, TypeUtilisateur, EstChercheur) VALUES ('%s','%s', '%s', '%s', '%s', '%s', %s)",
             login, nom, prenom, email, password, type_user, (strcmp(estChercheur, "o") == 0) ? "1" : "0");
