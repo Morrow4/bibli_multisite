@@ -7,7 +7,7 @@ int get_user_type(char *username)
 {
     // Requête SQL pour récupérer le TypeUtilisateur en fonction de l'ID_Utilisateur
     char query[255];
-    sprintf(query, "SELECT TypeUtilisateur FROM Utilisateur WHERE ID_Utilisateur = '%s'", username);
+    sprintf(query, "SELECT TypeUtilisateur FROM Utilisateur WHERE Email = '%s'", username);
 
     if (mysql_query(conn, query))
     {
