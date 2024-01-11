@@ -30,6 +30,10 @@ $(TARGET): $(OBJECTS)
 %.o: $(SRC_DIR)/%.c
 	$(CC) $(CFLAGS) -c -o $@ $<
 
+# Règle de lancement
+
+launch: ./$(TARGET)
+
 # Nettoyer les fichiers objets et l'exécutable
 clean:
 	rm -f $(OBJECTS) $(TARGET)
