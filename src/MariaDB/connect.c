@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <mysql/mysql.h>
 #include "..\fonctions_utilitaires\utilitaire.h"
+#include "..\fonctions_principales\livre.h"
 
 void connect_database()
 {
