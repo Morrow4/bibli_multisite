@@ -3,6 +3,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <pwd.h>
+#include "fonctions_utilitaires\utilitaire.h"
 
 int main()
 {
