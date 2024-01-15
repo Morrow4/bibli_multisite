@@ -1,6 +1,8 @@
-#ifndef BIBLIOTHEQUE_H
-#define BIBLIOTHEQUE_H
+#ifndef UTILITAIRE_H
+#define UTILITAIRE_H
 
+#include <stdio.h>
+#include <stdlib.h>
 #include <mysql/mysql.h>
 
 /*
@@ -63,7 +65,7 @@ typedef struct
 void connect_database();
 
 // Prototypes des fonctions définies dans get_user_group.c
-int get_user_type(char *username);
+int get_user_type(MYSQL *conn, char *username);
 
 // Prototypes des fonctions définies dans votre fichier principal main.c
 void choix_admin_general();
