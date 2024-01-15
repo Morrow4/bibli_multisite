@@ -2,8 +2,9 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <mysql/mysql.h>
+#include "utilitaire.h"
 
-int get_user_type(char *username)
+int get_user_type(MYSQL *conn, char *username)
 {
     // Requête SQL pour récupérer le TypeUtilisateur en fonction de l'Email
     char query[255];

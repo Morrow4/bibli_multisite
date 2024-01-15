@@ -3,6 +3,8 @@
 #include <string.h>
 #include <unistd.h>
 #include <pwd.h>
+#include "fonctions_utilitaires\utilitaire.h"
+#include "fonctions_principales\livre.h"
 
 int main()
 {
@@ -29,7 +31,7 @@ int main()
     }
 
     // Recupération du groupe (BD ou systeme au choix)
-    int user_group = get_user_type(username);
+    int user_group = get_user_type(conn, username);
 
     // Renvoyer vers les fonctions par utilisateur
     switch (user_group) // pour faire un switch il faut apparemment une variable de type int, donc j'ai modifié tout ça en conséquent
