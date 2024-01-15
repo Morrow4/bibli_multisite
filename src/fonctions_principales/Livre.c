@@ -36,11 +36,11 @@ void ajout_livre(MYSQL *conn)
     // Exécuter la requête SQL
     if (mysql_query(conn, query))
     {
-        fprintf(stderr, "Erreur lors de l'ajout du livre : %s\n", mysql_error(conn));
+        fprintf(stderr, "Erreur lors de l ajout du livre : %s\n", mysql_error(conn));
         return;
     }
 
-    printf("Livre ajouté avec succès !\n");
+    printf("Succes de l ajout du livre !\n");
 }
 
 void mise_a_jour_livre(MYSQL *conn, char *ISBN)
@@ -73,11 +73,11 @@ void mise_a_jour_livre(MYSQL *conn, char *ISBN)
     // Exécuter la requête SQL
     if (mysql_query(conn, query))
     {
-        fprintf(stderr, "Erreur lors de la mise à jour du livre : %s\n", mysql_error(conn));
+        fprintf(stderr, "Erreur lors de la mise a jour du livre : %s\n", mysql_error(conn));
         return;
     }
 
-    printf("Livre mis à jour avec succès !\n");
+    printf("Succes de la mise a jour du livre !\n");
 }
 
 void suppression_livre(MYSQL *conn, char *ISBN)
@@ -93,5 +93,5 @@ void suppression_livre(MYSQL *conn, char *ISBN)
         return;
     }
 
-    printf("Livre supprimé avec succès !\n");
+    printf("Succes de la suppression du livre !\n");
 }
