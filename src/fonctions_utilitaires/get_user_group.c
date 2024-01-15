@@ -2,6 +2,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <mysql/mysql.h>
+#include "utilitaire.h"
 
 int get_user_type(char *username)
 {
