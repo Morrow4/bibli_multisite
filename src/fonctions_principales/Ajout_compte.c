@@ -28,24 +28,18 @@ void ajout_compte() {
         case 0: //admingeneral
             printf("Quel type d'utilisateur souhaitez-vous ajouter? [1]adherent/[2]adminsite/[3]admingeneral: ");
             do {
-                printf("Le choix doit être compris entre 1 et 3");
+                printf("Le choix doit être compris entre 1 et 3\n");
                 do {
                     printf("Entrez votre choix : ");
                     scanf("%d", &choix_type);  
-
-                    scanf( "%10s", ma_string);
-                    mes-tests( ma-string );
-                    mon_nombre = atoi( ma-string );
-
                 } while (!gestion_int(choix_type)); //verification que c'est bien un entier et pas trop grand pour le buffer
             } while (choix_type < 1 || choix_type > 3); //verification de la valeur comprise
-        }
         break;
         case 1: //adminsite
             choix_type = 1;
-
-        default: return;
-
+            break;
+        default: break;
+    }
     // Demander à l'administrateur quel type d'utilisateur il souhaite ajouter
 
     switch(choix_type)
@@ -107,7 +101,7 @@ void ajout_compte() {
             printf("Est-ce un chercheur ? (oui/non) : ");
             scanf("%1s", estChercheur);
             if (mon_compteur_prenom == 0){return}
-        } while (strcmp(estChercheur, "o") != 0 && strcmp(estChercheur, "n") != 0) && ( mon_compteur_cherch >= 0 ) );
+        } while ((strcmp(estChercheur, "o") != 0 && strcmp(estChercheur, "n") != 0) && ( mon_compteur_cherch >= 0 ) );
 
         printf("Le login est %d, le mot de passe est %d, son groupe est %d, le mail est %d, le nom est %d, le prenom est %d, la personne est chercheur : %d",login, password, type_user, email, nom, prenom, estChercheur);
         do {

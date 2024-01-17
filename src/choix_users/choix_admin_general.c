@@ -42,7 +42,7 @@ void choix_admin_bibliotheque(int user_groupe) {
 
         case 7:
             printf("7) Supprimer un compte utilisateur ou administrateur\n");
-            Suppression_adherent();
+            Suppression_compte();
             break;
 
         case 8:
