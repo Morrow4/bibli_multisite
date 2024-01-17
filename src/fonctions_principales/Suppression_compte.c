@@ -18,7 +18,7 @@ int is_valid(const char *str) {
     return 1;  // tous les caractères sont valides = is valide
 }
 
-void Suppression_adherent(const char *login) {
+void Suppression_compte(const char *login) {
 
     int choix_type;  // variable pour type d'utilisateur
     char type_user[15]; //nom du type utilisateur choisi
@@ -56,7 +56,7 @@ void Suppression_adherent(const char *login) {
             break;    
         case 3: //admingeneral
             type_user="AdminGeneral";
-            break;    
+            break;
     }
     char *username, *time_str;
     qui_et_quand(&username, &time_str);

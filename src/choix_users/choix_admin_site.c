@@ -39,12 +39,12 @@ void choix_admin_bibliotheque(int user_groupe)
 
     case 6:
         printf("6) Ajouter un compte utilisateur\n");
-        Ajout_adherent();
+        Ajout_compte();
         break;
 
     case 7:
         printf("7) Supprimer un compte utilisateur\n");
-        Suppression_adherent(login);
+        Suppression_compte(login);
         break;
 
     case 8:
