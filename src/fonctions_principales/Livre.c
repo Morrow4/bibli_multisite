@@ -95,3 +95,36 @@ void suppression_livre(MYSQL *conn, char *ISBN)
 
     printf("Succes de la suppression du livre !\n");
 }
+
+void recherche_ISBN(MYSQL *conn, char *titre, char *auteur)
+{
+    // Préparer la requête SQL pour la recherche d'ISBN par titre ou auteur
+    char query[1024];
+    sprintf(query, "SELECT ISBN FROM Livre WHERE Titre='%s' OR Auteur='%s'", titre, auteur);
+
+    // Exécuter la requête SQL
+    if (mysql_query(conn, query))
+    {
+        fprintf(stderr, "Erreur lors de la recherche d'ISBN : %s\n", mysql_error(conn));
+        return;
+    }
+
+    MYSQL_RES *result = mysql_store_result(conn);
+
+    if (!result)
+    {
+        fprintf(stderr, "Aucun résultat retourné par la requête\n");
+        return;
+    }
+
+    // Afficher les ISBNs trouvés
+    printf("Résultats de la recherche d'ISBN pour le livre avec titre \"%s\" ou auteur \"%s\" :\n", titre, auteur);
+    MYSQL_ROW row;
+    while ((row = mysql_fetch_row(result)) != NULL)
+    {
+        printf("ISBN: %s\n", row[0]);
+        printf("------------------------------\n");
+    }
+
+    mysql_free_result(result);
+}
