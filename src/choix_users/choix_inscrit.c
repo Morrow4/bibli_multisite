@@ -6,8 +6,8 @@
 #include prototype_inscrit.h
 
 void choix_admin_bibliotheque(int user_groupe) {
-    printf("+-------------Bienvenu!!-------------+\n\n")
-    printf("+---------Que souhaitez vous faire?----------+\n")
+    printf("+-------------Bienvenu!!-------------+\n\n");
+    printf("+---------Que souhaitez vous faire?----------+\n");
     switch(user_groupe) {
         case 1:
             printf("1) Lister les livres et leur disponibilité dans les différents sites\n");
@@ -16,7 +16,7 @@ void choix_admin_bibliotheque(int user_groupe) {
 
         case 2:
             printf("2) Réserver un livre\n");
-            Reservation_soimeme_Livre();
+            Emprunt_soimeme();
             break;
 
         case 3:

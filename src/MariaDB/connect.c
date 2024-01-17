@@ -20,7 +20,7 @@ void connect_database()
 
    // Mot de passe de l'utilisateur
    char db_user_password[255]; // Utilisation d'un tableau de caractère pour stocker le mot de passe
-   pritnf("Veuillez entrer le mot de passe de l'utilisateur :\n ")
+   printf("Veuillez entrer le mot de passe de l'utilisateur :\n ")
        scanf("%254s", db_user_password); // Utilisation de "%s" pour les chaînes de caractères
 
    // Connexion à la base de données

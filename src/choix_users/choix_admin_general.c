@@ -32,7 +32,7 @@ void choix_admin_bibliotheque(int user_groupe) {
 
         case 5:
             printf("5) Réserver un livre pour un utilisateur inscrit\n");
-            Reservation_pour_adherent();
+            Emprunt_pour_adherent();
             break;
 
         case 6:
