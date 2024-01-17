@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <mysql/mysql.h>
 #include "livre.h"
 
 void ajout_exemplaire(MYSQL *conn)
@@ -9,7 +10,6 @@ void ajout_exemplaire(MYSQL *conn)
     char ISBN[13];
     char site_principal[50];
     char chercheur_str[5];
-    int disponibilite = 1; // le livre est disponible lors de l'ajout
 
     printf("Veuillez saisir les informations de l exemplaire :\n");
     printf("ISBN : ");
@@ -26,8 +26,8 @@ void ajout_exemplaire(MYSQL *conn)
 
     // Preparer la requete SQL pour l'ajout de l exemplaire
     char query[1024];
-    sprintf(query, "INSERT INTO Exemplaire (ISBN, Disponibilite, SitePrincipal, EstLivrePourChercheur) VALUES ('%s', '%s', '%s', '%s')",
-            ISBN, disponibilite, site_principal, chercheur);
+    sprintf(query, "INSERT INTO Exemplaire (ISBN, SitePrincipal, EstLivrePourChercheur) VALUES ('%s', '%s', '%s', '%s')",
+            ISBN, site_principal, chercheur);
 
     // Executer la requête SQL
     if (mysql_query(conn, query))
@@ -94,14 +94,14 @@ void suppression_exemplaire(MYSQL *conn, int id_exemplaire)
 
 void recherche_exemplaire(MYSQL *conn, char *ISBN)
 {
-    // Préparer la requête SQL pour la recherche d'exemplaires par ISBN
+    // Preparer la requete SQL pour la recherche d exemplaires par ISBN
     char query[1024];
     sprintf(query, "SELECT ID_Exemplaire, SitePrincipal, Disponibilite, EstLivrePourChercheur FROM Exemplaire WHERE ISBN='%s'", ISBN);
 
-    // Exécuter la requête SQL
+    // Executer la requete SQL
     if (mysql_query(conn, query))
     {
-        fprintf(stderr, "Erreur lors de la recherche d'exemplaires : %s\n", mysql_error(conn));
+        fprintf(stderr, "Erreur lors de la recherche d exemplaires : %s\n", mysql_error(conn));
         return;
     }
 
@@ -109,12 +109,12 @@ void recherche_exemplaire(MYSQL *conn, char *ISBN)
 
     if (!result)
     {
-        fprintf(stderr, "Aucun résultat retourné par la requête\n");
+        fprintf(stderr, "La requete ne retourne aucun resultat\n");
         return;
     }
 
-    // Afficher les informations des exemplaires trouvés
-    printf("Résultats de la recherche d'exemplaires pour le livre avec ISBN %s :\n", ISBN);
+    // Afficher les informations des exemplaires trouves
+    printf("Resultats de la recherche d exemplaires pour le livre avec ISBN %s :\n", ISBN);
     MYSQL_ROW row;
     while ((row = mysql_fetch_row(result)) != NULL)
     {
