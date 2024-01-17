@@ -67,10 +67,13 @@ void connect_database();
 // Prototypes des fonctions définies dans get_user_group.c
 int get_user_type(MYSQL *conn, char *username);
 
-// Prototypes des fonctions définies dans votre fichier principal main.c
+// Prototypes des fonctions définies dans main.c
 void choix_admin_general();
 void choix_admin_site();
 void choix_inscrit();
 void choix_invite();
+
+// Prototypes des fonctions définies dans utile.c
+int is_valid(const char *str)
 
 #endif
