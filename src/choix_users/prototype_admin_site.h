@@ -21,6 +21,9 @@ void Ajout_livre();
 // Prototype de Suppression_livre
 void Suppression_livre();
 
+//Prototype d'emprunt pour un adherent
+void Emprunt_pour_adherent();
+
 // Prototype de Fonction_blocage_utilisateur (s'il existe)
 void Fonction_blocage_utilisateur();
 
