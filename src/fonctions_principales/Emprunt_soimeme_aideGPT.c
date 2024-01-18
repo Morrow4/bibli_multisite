@@ -29,10 +29,29 @@ int nombreLivresParTitre(const char *titreRecherche) {
     return nombreLivres;
 }
 
+
 // Fonction pour afficher les détails du livre
 void afficherDetailsLivre(const Livre *livre) {
     printf("%-7d%-30s%-30s%-15s\n", i + 1, livre->Titre, livre->Edition, livre->ISBN);
 }
+
+// Fonction pour effectuer l'emprunt
+void effectuerEmprunt(MYSQL *conn, const char *ISBN) {
+
+    char query[255];
+    // Exemple : Réduire le nombre d'exemplaires disponibles
+    sprintf(query, "UPDATE Exemplaire SET Disponibilite = false WHERE ISBN = '%s' AND Disponibilite = true LIMIT 1", ISBN);
+    if (mysql_query(conn, query) != 0) {
+        fprintf(stderr, "Erreur lors de la mise à jour du nombre d'exemplaires\n");
+        return;
+    }
+
+    // Exemple : Insérer une nouvelle entrée dans la table Emprunt
+    sprintf(query, "INSERT INTO Emprunt (ID_Exemplaire, ID_Utilisateur, SiteDeRestitution, DateEmprunt) VALUES ((SELECT ID_Exemplaire FROM Exemplaire WHERE ISBN = '%s' AND Disponibilite = false LIMIT 1), 'ID_Utilisateur_Actuel', 'SiteDeRestitution_À_Définir', NOW())", ISBN);
+    if (mysql_query(conn, query) != 0) {
+        fprintf(stderr, "Erreur lors de l'ajout de l'emprunt\n");
+        return;
+    }
 
 // Fonction pour vérifier et effectuer l'emprunt
 void verifierEtEffectuerEmprunt(MYSQL *conn, const char *ISBN) {
