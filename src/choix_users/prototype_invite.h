@@ -2,6 +2,6 @@
 #define PROTOTYPE_INVITE_H
 
 // Prototype de Liste_livres_et_dispo
-void Liste_livres_et_dispo();
+void Liste_exemplaires_dispo();
 
 #endif // PROTOTYPE_INVITE_H
