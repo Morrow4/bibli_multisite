@@ -20,7 +20,7 @@ void choix_admin_bibliotheque(int user_groupe) {
             break;
 
         case 3:
-            printf("3) S inscrire sur une liste attente pour réserver un livre\n");
+            printf("3) S'inscrire sur une liste attente pour réserver un livre\n");
             Inscri_liste_attente_livre();
             break;
 
