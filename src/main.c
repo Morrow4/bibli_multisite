@@ -8,6 +8,7 @@
 
 int main()
 {
+    MYSQL *conn;
     uid_t user_uid = getuid();
 
     // Ouvrir la connexion à la base de données
