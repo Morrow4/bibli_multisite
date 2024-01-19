@@ -27,7 +27,7 @@ $(TARGET):	$(OBJECTS)
 	$(CC) $(CFLAGS) -o $@ $^
 
 # Règle générique pour la compilation des fichiers objets
-	$(OBJ_DIR)/%.o: %.c
+$(OBJ_DIR)/%.o:	%.c
     $(CC) $(CFLAGS) -c -o $@ $<
 
 # Règle de lancement
