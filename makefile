@@ -24,7 +24,7 @@ all:	$(TARGET)
 
 # Règle générique pour la compilation des fichiers objets
 $(OBJ_DIR)/%.o:	src/%.c
-    $(CC) $(CFLAGS) -c -o $@ $<
+	$(CC) $(CFLAGS) -c $< -o $@
 
 # Règle pour compiler l'exécutable
 $(TARGET):	$(OBJECTS)
