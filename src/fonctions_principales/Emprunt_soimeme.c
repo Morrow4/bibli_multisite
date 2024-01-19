@@ -95,10 +95,11 @@ void Emprunt_soimeme(MYSQL *conn) {
     if (reponse == 'n' || reponse == 'N') {
         printf("Saisissez le titre du livre : ");
         char titreSaisi[255];
+        char *pointeurTitresaisi = titresaisi;
         scanf(" %[^\n]", titreSaisi);
 
         // Appel de la fonction compter le nombre de livres par titre
-        tailleTab = nombreLivresParTitre(conn, titreSaisi);
+        tailleTab = nombreLivresParTitre(pointeurTitresaisi);
 
         // Affichage dans un tableau le numéro d'affichage des livres, titre, éditions, isbn
         printf("Numéro  Titre                          Edition                       ISBN\n");
@@ -106,7 +107,7 @@ void Emprunt_soimeme(MYSQL *conn) {
 
         // Récupérer les livres
         for (int i = 0; i < tailleTab; i++) {
-            afficherDetailsLivre(&livres[i]);
+            afficherDetailsLivre(&Livre[i]);
         }
 
         // Saisie du numéro du livre
