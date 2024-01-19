@@ -17,7 +17,7 @@ OBJ_DIR = objects
 SRC = $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.c))
 
 # Générer la liste des fichiers objets à partir des fichiers source
-OBJECTS = $(patsubst %.c,$(OBJ_DIR)/%.o,$(notdir $(SOURCES)))
+OBJECTS = $(patsubst %.c,$(OBJ_DIR)/%.o,$(notdir $(SRC)))
 
 # Règle par défaut
 all: $(TARGET)
@@ -27,7 +27,7 @@ $(TARGET): $(OBJECTS)
 	$(CC) $(CFLAGS) -o $@ $^
 
 # Règle générique pour la compilation des fichiers objets
-%.o: $(SRC_DIR)/%.c
+%.o: $(SRC_DIRS)/%.c
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 # Règle de lancement
