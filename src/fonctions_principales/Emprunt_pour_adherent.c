@@ -3,5 +3,5 @@
 #include <stdlib.h>
 
 void Emprunt_pour_adherent{
-    return 0;
+    return;
 }
