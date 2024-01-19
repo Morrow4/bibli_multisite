@@ -2,7 +2,6 @@
 #define LIVRE_H
 
 #include <mysql/mysql.h>
-
 #include <stdio.h>
 #include <stdlib.h>
 
