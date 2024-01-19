@@ -7,10 +7,10 @@ CC = gcc
 CFLAGS = -Wall -Wextra -g
 
 # Nom de l'executable
-TARGET = build\bibliotech.exe
+TARGET = build/bibliotech.exe
 
 # Dossier des fichiers source et objet
-SRC_DIRS = src src\choix_users src\fonctions_principales src\fonctions_utilitaires src\MariaDB cron
+SRC_DIRS = src src/choix_users src/fonctions_principales src/fonctions_utilitaires src/MariaDB cron
 OBJ_DIR = objects
 
 # Générer la liste des fichiers source
