@@ -8,11 +8,11 @@
 
 int main()
 {
-    MYSQL *conn;
     uid_t user_uid = getuid();
 
     // Ouvrir la connexion à la base de données
     connect_database();
+    MYSQL *conn;
 
     // Utilisez la fonction getpwuid() pour récupérer les informations sur l'utilisateur
     struct passwd *pwd = getpwuid(user_uid);
