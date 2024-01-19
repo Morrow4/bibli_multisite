@@ -14,7 +14,7 @@ SRC_DIRS = src src\choix_users src\fonctions_principales src\fonctions_utilitair
 OBJ_DIR = objects
 
 # Générer la liste des fichiers source
-SRC = $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.c))
+SRC = $(foreach dir,$(SRC_DIRS),$(wildcard $(SRC_DIRS)/*.c))
 
 # Générer la liste des fichiers objets à partir des fichiers source
 OBJECTS = $(patsubst %.c,$(OBJ_DIR)/%.o,$(notdir $(SRC)))
