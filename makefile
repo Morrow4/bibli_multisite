@@ -27,7 +27,7 @@ $(TARGET):	$(OBJECTS)
 	$(CC) $(CFLAGS) -o $@ $^
 
 # Règle générique pour la compilation des fichiers objets
-$(OBJ_DIR)/%.o: %.c
+	$(OBJ_DIR)/%.o: %.c
     $(CC) $(CFLAGS) -c -o $@ $<
 
 # Règle de lancement
@@ -35,5 +35,4 @@ $(OBJ_DIR)/%.o: %.c
 launch:	./$(TARGET)
 
 # Nettoyer les fichiers objets et l'exécutable
-clean:
-	rm -f $(OBJECTS) $(TARGET)
+clean:	rm -f $(OBJECTS) $(TARGET)
