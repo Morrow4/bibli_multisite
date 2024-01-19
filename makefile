@@ -23,7 +23,7 @@ OBJECTS = $(patsubst %.c,$(OBJ_DIR)/%.o,$(notdir $(SRCS)))
 all:	$(TARGET)
 
 # Règle générique pour la compilation des fichiers objets
-$(OBJECTS)/%.o:	$(SRCS)/%.c
+$(OBJECTS):	$(SRCS)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 # Règle pour compiler l'exécutable
