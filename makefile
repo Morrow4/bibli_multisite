@@ -29,6 +29,7 @@ all:	$(TARGET)
 
 # Règle générique pour la compilation des fichiers objets
 $(OBJ_DIR)/%.o:	$(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.h))
+	@mkdir -p $@
 	$(CC) $(CFLAGS) $(INC_FLAGS) -c $(filter %$*.c,$(SRCS)) -o $@
 
 # Règle pour compiler l'exécutable
