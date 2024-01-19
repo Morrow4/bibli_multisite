@@ -12,23 +12,21 @@ int main()
 
     // Ouvrir la connexion à la base de données
     connect_database();
+    MYSQL *conn;
 
     // Utilisez la fonction getpwuid() pour récupérer les informations sur l'utilisateur
-    struct passwd *pwd = getpwuid(uid);
+    struct passwd *pwd = getpwuid(user_uid);
 
     // Vérifiez si les informations sur l'utilisateur ont été trouvées
-    if (pwd != NULL)
-    {
-        // Récupérez le nom d'utilisateur (login) à partir de la structure passwd
-        char *username = pwd->pw_name;
-    }
-    else
+    if (pwd == NULL)
     {
         // Gestion d'erreur si les informations ne sont pas disponibles
         fprintf(stderr, "Impossible de récupérer les informations sur l'utilisateur.\n");
 
         return 1; // Quitter le programme avec un code d'erreur
     }
+    // Récupérez le nom d'utilisateur (login) à partir de la structure passwd
+    char *username = pwd->pw_name;
 
     // Recupération du groupe (BD ou systeme au choix)
     int user_group = get_user_type(conn, username);
