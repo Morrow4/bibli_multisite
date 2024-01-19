@@ -28,7 +28,7 @@ $(OBJ_DIR)/%.o:	$(SRC_DIRS)/%.c
 
 # Règle pour compiler l'exécutable
 $(TARGET):	$(OBJECTS)
-	$(CC) $^ -o $@
+	$(CC) $(CFLAGS) $(OBJECTS) -o $@
 
 # Règle de lancement
 
