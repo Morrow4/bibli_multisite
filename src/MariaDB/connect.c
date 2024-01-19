@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <mysql/mysql.h>
-#include "src\fonctions_utilitaires\utilitaire.h"
-#include "src\fonctions_principales\livre.h"
+#include "utilitaire.h"
+#include "livre.h"
 
 void connect_database()
 {
