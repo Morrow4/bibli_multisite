@@ -45,7 +45,7 @@ int main()
         break;
 
     case 3: // inscrit
-        choix_inscrit();
+        choix_inscrit(username);
         break;
 
     case 4: // invite
