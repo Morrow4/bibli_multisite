@@ -56,7 +56,7 @@ void effectuerEmprunt(MYSQL *conn, const char *ISBN) {
         fprintf(stderr, "Erreur lors de l'ajout de l'emprunt\n");
         return;
     }
-
+}
 // Fonction pour vérifier et effectuer l'emprunt
 void verifierEtEffectuerEmprunt(MYSQL *conn, const char *ISBN) {
     double joursDeRetard;
