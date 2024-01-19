@@ -14,7 +14,7 @@ SRC_DIRS = src src\choix_users src\fonctions_principales src\fonctions_utilitair
 OBJ_DIR = objects
 
 # Générer la liste des fichiers source
-SRC = $(foreach dir,$(SRC_DIRS),$(wildcard $(SRC_DIRS)/*.c))
+SRC = $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.c))
 
 # Générer la liste des fichiers objets à partir des fichiers source
 OBJECTS = $(patsubst %.c,$(OBJ_DIR)/%.o,$(notdir $(SRC)))
@@ -27,8 +27,8 @@ $(TARGET): $(OBJECTS)
 	$(CC) $(CFLAGS) -o $@ $^
 
 # Règle générique pour la compilation des fichiers objets
-%.o: $(SRC_DIRS)/%.c
-	$(CC) $(CFLAGS) -c -o $@ $<
+$(OBJ_DIR)/%.o: %.c
+    $(CC) $(CFLAGS) -c -o $@ $<
 
 # Règle de lancement
 
