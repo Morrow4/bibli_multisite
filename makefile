@@ -27,8 +27,8 @@ INC_FLAGS = $(foreach dir,$(INC_DIRS),-I$(dir))
 all:	$(TARGET)
 
 # Règle générique pour la compilation des fichiers objets
-$(OBJ_DIR)/%.o: $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.h))
-	$(CC) $(CFLAGS) $(INC_FLAGS) -c $< -o $@
+$(OBJ_DIR)/%.o:	$(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.h))
+	$(CC) $(CFLAGS) $(INC_FLAGS) -c $(filter %$*.c,$(SRCS)) -o $@
 
 # Règle pour compiler l'exécutable
 $(TARGET):	$(OBJECTS)
