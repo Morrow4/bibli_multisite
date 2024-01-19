@@ -14,21 +14,21 @@ SRC_DIRS = src src\choix_users src\fonctions_principales src\fonctions_utilitair
 OBJ_DIR = objects
 
 # Générer la liste des fichiers source
-SRC = $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.c))
+SRCS = $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.c))
 
 # Générer la liste des fichiers objets à partir des fichiers source
-OBJECTS = $(patsubst %.c,$(OBJ_DIR)/%.o,$(notdir $(SRC)))
+OBJECTS = $(patsubst %.c,$(OBJ_DIR)/%.o,$(notdir $(SRCS)))
 
 # Règle par défaut
 all:	$(TARGET)
 
+# Règle générique pour la compilation des fichiers objets
+$(OBJ_DIR)/%.o:	src/%.c
+    $(CC) $(CFLAGS) -c -o $@ $<
+
 # Règle pour compiler l'exécutable
 $(TARGET):	$(OBJECTS)
-	$(CC) $(CFLAGS) -o $@ $^
-
-# Règle générique pour la compilation des fichiers objets
-$(OBJ_DIR)/%.o:	%.c
-    $(CC) $(CFLAGS) -c -o $@ $<
+	$(CC) $^ -o $@
 
 # Règle de lancement
 
@@ -37,4 +37,4 @@ launch:
 
 # Nettoyer les fichiers objets et l'exécutable
 clean:	
-	rm -f $(OBJECTS) $(TARGET)
+	rm -rf $(OBJ_DIR)/*.o $(TARGET)
