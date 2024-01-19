@@ -74,6 +74,6 @@ void choix_inscrit();
 void choix_invite();
 
 // Prototypes des fonctions définies dans utile.c
-int is_valid(const char *str)
+int is_valid(const char *str);
 
 #endif
