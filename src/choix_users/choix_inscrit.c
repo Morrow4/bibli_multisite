@@ -16,7 +16,7 @@ void choix_admin_bibliotheque(int user_groupe) {
 
         case 2:
             printf("2) Réserver un livre\n");
-            Emprunt_soimeme();
+            Emprunt_soimeme(username);
             break;
 
         case 3:

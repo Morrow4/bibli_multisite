@@ -36,22 +36,35 @@ void afficherDetailsLivre(const Livre *livre) {
 }
 
 // Fonction pour effectuer l'emprunt
-void effectuerEmprunt(MYSQL *conn, const char *ISBN) {
+void effectuerEmprunt(MYSQL *conn, const char *ISBN, char *username) {
 
     char query[255];
     // Réduire le nombre d'exemplaires disponibles
-    sprintf(query, "UPDATE Exemplaire SET Disponibilite = false WHERE ISBN = '%s' AND Disponibilite = true LIMIT 1", ISBN);
+    //Verifier s'il existe des ISBN pour l'exemplaire demandé
+        sprintf(query, "SELECT ID_Exemplaire FROM Exemplaire WHERE ISBN = '%s' AND Disponibilite = true LIMIT 1", ISBN);
+    if (mysql_query(conn, query) != 0) {
+        fprintf(stderr, "Erreur de verification\n");
+        return;
+    }
+    //Stocker dans une variable
+    char *Var_IdExemplaire;
+    result = mysql_store_result(conn);
+    if ((row = mysql_fetch_row(result)) != NULL) {
+        sscanf(row[0], "%d", &Var_IdExemplaire);
+    }
+    return Var_IdExemplaire;
+
+    //Comme en-dessous where ID exemplaire = %s, lavariable
+    sprintf(query, "UPDATE Exemplaire SET Disponibilite = false WHERE ID_Exemplaire = '%s' AND Disponibilite = true LIMIT 1", Var_IdExemplaire);
     if (mysql_query(conn, query) != 0) {
         fprintf(stderr, "Erreur lors de la mise à jour du nombre d'exemplaires\n");
         return;
     }
 
-    // Exemple : Insérer une nouvelle entrée dans la table Emprunt
     //récupération de l'ID_Utilisateur = Email
-    //récupération de l'ID_Exemplaire
-    //recupération du SitedeRestitution
-    //DateEmprunt = Date du Jour
-    sprintf(query, "INSERT INTO Emprunt (ID_Exemplaire, ID_Utilisateur, SiteDeRestitution, DateEmprunt) VALUES ((SELECT ID_Exemplaire FROM Exemplaire WHERE ISBN = '%s' AND Disponibilite = false LIMIT 1), 'ID_Utilisateur_Actuel', 'SiteDeRestitution_À_Définir', NOW())", ISBN);
+    qui(username);
+
+    sprintf(query, "INSERT INTO Emprunt (ID_Exemplaire, ID_Utilisateur, DateEmprunt) VALUES ('%s', '%s', 'NOW()')", Var_IdExemplaire, username);
     if (mysql_query(conn, query) != 0) {
         fprintf(stderr, "Erreur lors de l'ajout de l'emprunt\n");
         return;
@@ -95,10 +108,11 @@ void Emprunt_soimeme(MYSQL *conn) {
     if (reponse == 'n' || reponse == 'N') {
         printf("Saisissez le titre du livre : ");
         char titreSaisi[255];
+        char *pointeurTitresaisi = titresaisi;
         scanf(" %[^\n]", titreSaisi);
 
         // Appel de la fonction compter le nombre de livres par titre
-        tailleTab = nombreLivresParTitre(conn, titreSaisi);
+        tailleTab = nombreLivresParTitre(pointeurTitresaisi);
 
         // Affichage dans un tableau le numéro d'affichage des livres, titre, éditions, isbn
         printf("Numéro  Titre                          Edition                       ISBN\n");
@@ -106,7 +120,7 @@ void Emprunt_soimeme(MYSQL *conn) {
 
         // Récupérer les livres
         for (int i = 0; i < tailleTab; i++) {
-            afficherDetailsLivre(&livres[i]);
+            afficherDetailsLivre(&Livre[i]);
         }
 
         // Saisie du numéro du livre
