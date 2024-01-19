@@ -32,7 +32,9 @@ $(TARGET):	$(OBJECTS)
 
 # Règle de lancement
 
-launch:	./$(TARGET)
+launch:	
+	./$(TARGET)
 
 # Nettoyer les fichiers objets et l'exécutable
-clean:	rm -f $(OBJECTS) $(TARGET)
+clean:	
+	rm -f $(OBJECTS) $(TARGET)
