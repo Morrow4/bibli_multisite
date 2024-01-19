@@ -2,6 +2,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void Liste_livres_et_dispo{
+void Liste_exemplaires_dispo{
     return 0;
 }
