@@ -13,6 +13,7 @@ TARGET = build/bibliotech.exe
 SRC_DIRS = src src/choix_users src/fonctions_principales src/fonctions_utilitaires src/MariaDB cron
 OBJ_DIR = objects
 INC_DIRS = $(SRC_DIRS)  # Ajoutez ici les dossiers contenant vos fichiers d'en-tête
+MYSQL_INC = $(shell mysql_config --cflags)
 
 # Générer la liste des fichiers source
 SRCS = $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.c))
@@ -21,7 +22,7 @@ SRCS = $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.c))
 OBJECTS = $(patsubst %.c,$(OBJ_DIR)/%.o,$(notdir $(SRCS)))
 
 # Générer les options d'inclusion des fichiers d'en-tête
-INC_FLAGS = $(foreach dir,$(INC_DIRS),-I$(dir))
+INC_FLAGS = $(foreach dir,$(INC_DIRS),-I$(dir)) $(MYSQL_INC)
 
 # Règle par défaut
 all:	$(TARGET)
