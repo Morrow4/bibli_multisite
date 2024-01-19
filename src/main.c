@@ -14,7 +14,7 @@ int main()
     connect_database();
 
     // Utilisez la fonction getpwuid() pour récupérer les informations sur l'utilisateur
-    struct passwd *pwd = getpwuid(uid);
+    struct passwd *pwd = getpwuid(user_uid);
 
     // Vérifiez si les informations sur l'utilisateur ont été trouvées
     if (pwd != NULL)
