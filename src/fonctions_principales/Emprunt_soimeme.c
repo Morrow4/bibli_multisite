@@ -16,6 +16,7 @@ typedef struct {
 // Déclaration de variables globales
 MYSQL_RES *result;
 MYSQL_ROW row;
+MYSQL *conn;
 
 // Fonction Compter le nombre de livres par titre
 int nombreLivresParTitre(const char *titreRecherche) {
