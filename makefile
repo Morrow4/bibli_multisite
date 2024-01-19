@@ -12,7 +12,7 @@ TARGET = build/bibliotech.exe
 # Dossier des fichiers source, objets et en-têtes
 SRC_DIRS = src src/choix_users src/fonctions_principales src/fonctions_utilitaires src/MariaDB cron
 OBJ_DIR = objects
-INC_DIRS = include  # Ajoutez ici le dossier contenant vos fichiers d'en-tête
+INC_DIRS = $(SRC_DIRS)  # Ajoutez ici les dossiers contenant vos fichiers d'en-tête
 
 # Générer la liste des fichiers source
 SRCS = $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.c))
