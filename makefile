@@ -20,7 +20,7 @@ SRC = $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.c))
 OBJECTS = $(patsubst %.c,$(OBJ_DIR)/%.o,$(notdir $(SRC)))
 
 # Règle par défaut
-all: $(TARGET)
+all:	$(TARGET)
 
 # Règle pour compiler l'exécutable
 $(TARGET): $(OBJECTS)
@@ -32,7 +32,7 @@ $(OBJ_DIR)/%.o: %.c
 
 # Règle de lancement
 
-launch: ./$(TARGET)
+launch:	./$(TARGET)
 
 # Nettoyer les fichiers objets et l'exécutable
 clean:
