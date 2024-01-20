@@ -3,6 +3,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <pwd.h>
+#include <mysql/mysql.h>
 #include "utilitaire.h"
 #include "livre.h"
 
