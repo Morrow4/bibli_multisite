@@ -9,7 +9,6 @@
 #include <pwd.h>
 #include <time.h>
 #include <mysql/mysql.h>
-#include <mysql/mysql.h>
 
 /* // Structure pour représenter un utilisateur
 typedef struct
