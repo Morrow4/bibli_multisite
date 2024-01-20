@@ -5,7 +5,6 @@
 // Prototypes des fonctions (à définir dans un autre fichier)
 #include "utilitaire.h"
 #include "fonctions_bdd.h"
-#include "prototype_admin_site.h"
 
 void choix_admin_site_bibliotheque(int user_groupe)
 {

@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 // Prototypes des fonctions (à définir dans un autre fichier)
-#include "prototype_invite.h"
+#include "fonctions_bdd.h"
 
 void choix_invite_bibliotheque(int user_groupe) {
     printf("+-------------Bienvenu!!-------------+\n\n");

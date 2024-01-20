@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 // Prototypes des fonctions
-#include "prototype_admin_general.h"
+#include "fonctions_bdd.h"
 
 void choix_admin_general_bibliotheque(int user_groupe) {
 

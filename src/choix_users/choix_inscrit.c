@@ -4,7 +4,7 @@
 #include <mysql/mysql.h>
 
 // Prototypes des fonctions (à définir dans un autre fichier)
-#include "prototype_inscrit.h"
+#include "fonctions_bdd.h"
 
 void choix_inscrit_bibliotheque(int user_groupe)
 {
