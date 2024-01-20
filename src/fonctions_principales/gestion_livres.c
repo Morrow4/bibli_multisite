@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "fonctions_bdd.h"
-#include "../fonctions_utilitaires/utilitaire.h"
+#include "utilitaire.h"
 
 void ajout_livre(MYSQL *conn)
 {

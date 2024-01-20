@@ -1,10 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "prototype_inscrit.h"
 #include <mysql/mysql.h>
 #include "fonctions_bdd.h"
-#include "../fonctions_utilitaires/utilitaire.h"
+#include "utilitaire.h"
 
 // Structure pour stocker les informations d'un livre
 typedef struct
@@ -179,7 +178,7 @@ void Emprunt_soimeme(MYSQL *conn)
         {
             // Récupération de l'ISBN en variable "ISBN_true"
             char ISBN_true[14];
-            strcpy(ISBN_true, livres[numLivre - 1].ISBN);
+            strcpy(ISBN_true, Livre[numLivre - 1].ISBN);
 
             // Vérifier et effectuer l'emprunt
             verifierEtEffectuerEmprunt(conn, ISBN_true);
@@ -197,7 +196,7 @@ void Emprunt_soimeme(MYSQL *conn)
         scanf(" %s", ISBN_test);
 
         // Vérifier et effectuer l'emprunt
-        verifierEtEffectuerEmprunt(conn, ISBN_test);
+        verifierEtEffectuerEmprunt(conn, ISBN_test, username);
     }
     else
     {
