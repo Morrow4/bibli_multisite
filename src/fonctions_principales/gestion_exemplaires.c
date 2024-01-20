@@ -3,7 +3,7 @@
 #include <string.h>
 #include <mysql/mysql.h>
 #include "fonctions_bdd.h"
-#include "../fonctions_utilitaires/utilitaire.h"
+#include "utilitaire.h"
 
 void ajout_exemplaire(MYSQL *conn)
 {

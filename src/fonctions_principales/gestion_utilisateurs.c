@@ -4,7 +4,7 @@
 #include <unistd.h>
 #include <mysql/mysql.h>
 #include "fonctions_bdd.h"
-#include "../fonctions_utilitaires/utilitaire.h"
+#include "utilitaire.h"
 
 #define ALLOWED_CHARS_FORMAT "[0-9a-zA-Z.@]" // format authorisé
 

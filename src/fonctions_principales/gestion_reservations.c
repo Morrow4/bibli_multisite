@@ -4,7 +4,7 @@
 #include <mysql/mysql.h>
 #include <stdbool.h>
 #include "fonctions_bdd.h"
-#include "../fonctions_utilitaires/utilitaire.h"
+#include "utilitaire.h"
 
 // Fonction de réservation
 void reserver_livre(MYSQL *conn, char *email_utilisateur, char *isbn_livre)
