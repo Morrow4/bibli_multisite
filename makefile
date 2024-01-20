@@ -28,10 +28,6 @@ INC_FLAGS = $(foreach dir,$(INC_DIRS),-I$(dir)) $(MYSQL_INC)
 # Règle par défaut
 all:	$(TARGET)
 
-# Règle générique pour la compilation des fichiers objets
-$(OBJ_DIR)/%.o:	$(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.h))
-	$(CC) $(CFLAGS) $(INC_FLAGS) -c $(filter %$*.c,$(SRCS)) -o $@
-
 # Créer le dossier objects s'il n'existe pas
 $(OBJ_DIR):
 	@mkdir -p $@
@@ -39,6 +35,10 @@ $(OBJ_DIR):
 # Créer le dossier build s'il n'existe pas
 $(BUILD):
 	@mkdir -p $@
+
+# Règle générique pour la compilation des fichiers objets
+$(OBJ_DIR)/%.o:	$(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.h))
+	$(CC) $(CFLAGS) $(INC_FLAGS) -c $(filter %$*.c,$(SRCS)) -o $@
 
 # Règle pour compiler l'exécutable
 $(TARGET):	$(OBJECTS)
