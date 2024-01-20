@@ -3,6 +3,7 @@
 #include <string.h>
 #include <mysql/mysql.h>
 #include "fonctions_bdd.h"
+#include "../fonctions_utilitaires/utilitaire.h"
 
 void verifier_et_valider_restitution(MYSQL *conn, int id_restitution)
 {

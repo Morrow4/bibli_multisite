@@ -1,8 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "qui_et_quand.h"
-#include "gestion_entier.h"
+#include "../fonctions_utilitaires/utilitaire.h"
 #include "prototype_admin_general.h"
 #include <mysql/mysql.h>
 #include "fonctions_bdd.h"

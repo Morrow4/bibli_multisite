@@ -3,9 +3,9 @@
 #include <string.h>
 #include <mysql/mysql.h>
 #include <unistd.h>
-#include "qui_et_quand.h"
 #include "prototype_admin_general.h"
 #include "fonctions_bdd.h"
+#include "../fonctions_utilitaires/utilitaire.h"
 
 #define ALLOWED_CHARS_FORMAT "[0-9a-zA-Z.@]" // format authorisé
 

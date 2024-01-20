@@ -4,6 +4,7 @@
 #include "prototype_inscrit.h"
 #include <mysql/mysql.h>
 #include "fonctions_bdd.h"
+#include "../fonctions_utilitaires/utilitaire.h"
 
 // Structure pour stocker les informations d'un livre
 typedef struct
