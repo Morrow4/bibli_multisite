@@ -10,7 +10,7 @@ void Reservation_pour_adherent();
 void Ajout_compte();
 
 // Prototype de Suppression_adherent
-void Suppression_adherent(const char *login);
+void Suppression_compte(const char *login);
 
 // Prototype de Consultation_Stat
 void Consultation_Stat();

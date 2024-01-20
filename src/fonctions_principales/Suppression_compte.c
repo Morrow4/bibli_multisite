@@ -21,7 +21,8 @@ int is_valid(const char *str) {
 void Suppression_compte() {
 
     int choix_type;  // variable pour type d'utilisateur
-    char type_user[15]; //nom du type utilisateur choisi
+    char login[101];
+    char type_user; //nom du type d'utilisateur
 
     int user_group = get_user_type(getuid());  // groupe de l'utilisateur executant la commande
 
@@ -69,12 +70,15 @@ void Suppression_compte() {
 
     // Écrivez l'en-tête du log
     fprintf(log_file, "Tentative de suppression par l'utilisateur: %s, Date et heure: %s\n", username, time_str);
-    int mon_compteur_login = 5;
+    int mon_compteur_log = 5;
         do {
             mon_compteur_log--;
             printf("Veuillez saisir l'adresse mail complet de l'utilisateur que vous souhaitez supprimer : \n")
-            scanf("%100s\n", login);
-            if (mon_compteur_log == 0){return}
+            scanf("%100s", login);
+            if (mon_compteur_log == 0){
+                fclose(log_file); //fin de compteur = fermeture du fichier
+                free(time_str);
+                return;}
         } while (!is_valid(login) && ( mon_compteur_log >= 0 ) );
 
     // Vérifiez si l'utilisateur existe
@@ -99,6 +103,7 @@ void Suppression_compte() {
     char query[500];
     sprintf(query, "DELETE FROM Utilisateur WHERE ID_Utilisateur = '%s'", login);
     if (mysql_query(conn, query)) {
+        perror("Erreur de suppression dans la base de données");
         fprintf(log_file, "Erreur de suppression dans la base de données: %s\n", mysql_error(conn));
     } else {
         printf("Utilisateur supprimé avec succès de la base de données.\n");
@@ -111,8 +116,8 @@ void Suppression_compte() {
         fprintf(log_file, "Erreur lors de la suppression de l'utilisateur dans le système.\n");
     } else {
         printf("Utilisateur supprimé avec succès du système.\n");
-    }
-    
+    }    
+    fclose(log_file);   
     fclose(log_file);
     free(time_str);
 }
