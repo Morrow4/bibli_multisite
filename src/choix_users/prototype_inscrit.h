@@ -15,7 +15,7 @@ void Inscri_liste_attente_livre();
 void Affichage_delai_attente_livre();
 
 // Prototypes des fonctions utilisées dans Emprunt_soimeme.c
-int get_user_type(uid_t user_uid);
+int get_user_type(MYSQL *conn, char *username);
 void qui(const char *username);
 
 #endif // PROTOTYPE INSCRIT_H
