@@ -6,7 +6,7 @@
 #include <pwd.h>
 #include <time.h>
 #include <mysql/mysql.h>
-#include "utilitaire.h"
+#include "../header/utilitaire.h"
 
 int get_user_type(MYSQL *conn, char *username)
 {

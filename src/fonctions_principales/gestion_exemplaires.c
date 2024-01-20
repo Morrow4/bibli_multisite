@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <mysql/mysql.h>
-#include "fonctions_bdd.h"
-#include "utilitaire.h"
+#include "../header/fonctions_bdd.h"
+#include "../header/utilitaire.h"
 
 void ajout_exemplaire(MYSQL *conn)
 {

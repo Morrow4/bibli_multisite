@@ -3,8 +3,8 @@
 #include <string.h>
 #include <unistd.h>
 #include <mysql/mysql.h>
-#include "fonctions_bdd.h"
-#include "utilitaire.h"
+#include "../header/fonctions_bdd.h"
+#include "../header/utilitaire.h"
 
 #define ALLOWED_CHARS_FORMAT "[0-9a-zA-Z.@]" // format authorisé
 
