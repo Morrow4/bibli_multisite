@@ -5,6 +5,8 @@
 #include <pwd.h>
 #include <mysql/mysql.h>
 #include "header/utilitaire.h"
+#include "header/fonctions_choix_user.h"
+#include "header/fonctions_bdd.h"
 
 int main()
 {
