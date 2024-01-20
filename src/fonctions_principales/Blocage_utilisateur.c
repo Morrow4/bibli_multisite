@@ -73,7 +73,7 @@ void Blocage_compte() {
         do {
             mon_compteur_log--;
             printf("Veuillez saisir l'adresse mail complet de l'utilisateur que vous souhaitez bloquer : \n");
-            scanf("%100s\n", login);
+            scanf("%100s", login);
             if (mon_compteur_log == 0){return}
         } while (!is_valid(login) && ( mon_compteur_log >= 0 ) );
     int mon_compteur_raison = 5;
