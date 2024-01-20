@@ -1,6 +1,7 @@
 // Inclusion des en-têtes nécessaires
 #include <stdio.h>
 #include <stdlib.h>
+#include <mysql/mysql.h>
 
 // Prototypes des fonctions (à définir dans un autre fichier)
 #include "prototype_inscrit.h"
