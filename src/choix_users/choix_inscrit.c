@@ -1,6 +1,7 @@
 // Inclusion des en-têtes nécessaires
 #include <stdio.h>
 #include <stdlib.h>
+#include <mysql/mysql.h>
 
 // Prototypes des fonctions (à définir dans un autre fichier)
 #include "prototype_inscrit.h"
@@ -16,7 +17,8 @@ void choix_admin_bibliotheque(int user_groupe) {
 
         case 2:
             printf("2) Réserver un livre\n");
-            Emprunt_soimeme(username);
+            MYSQL* conn;
+            Emprunt_soimeme(conn);
             break;
 
         case 3:

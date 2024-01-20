@@ -18,7 +18,7 @@ int is_valid(const char *str) {
     return 1;  // tous les caractères sont valides = is valide
 }
 
-void Suppression_compte(const char *login) {
+void Suppression_compte() {
 
     int choix_type;  // variable pour type d'utilisateur
     char type_user[15]; //nom du type utilisateur choisi
