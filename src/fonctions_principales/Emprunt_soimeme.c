@@ -178,7 +178,7 @@ void Emprunt_soimeme(MYSQL *conn)
         {
             // Récupération de l'ISBN en variable "ISBN_true"
             char ISBN_true[14];
-            strcpy(ISBN_true, livres[numLivre - 1].ISBN);
+            strcpy(ISBN_true, Livre[numLivre - 1].ISBN);
 
             // Vérifier et effectuer l'emprunt
             verifierEtEffectuerEmprunt(conn, ISBN_true);
