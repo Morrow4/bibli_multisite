@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <mysql/mysql.h>
-#include "livre.h"
+#include "fonctions_bdd.h"
 
 void ajout_exemplaire(MYSQL *conn)
 {

@@ -3,6 +3,7 @@
 #include <string.h>
 #include <mysql/mysql.h>
 #include <stdbool.h>
+#include "fonctions_bdd.h"
 
 // Fonction d'emprunt
 void emprunter_livre(MYSQL *conn, char *email_utilisateur, int id_reservation)

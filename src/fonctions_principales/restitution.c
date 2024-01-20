@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <mysql/mysql.h>
+#include "fonctions_bdd.h"
 
 void verifier_et_valider_restitution(MYSQL *conn, int id_restitution)
 {

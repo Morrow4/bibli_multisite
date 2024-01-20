@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "livre.h"
+#include "fonctions_bdd.h"
 
 void ajout_livre(MYSQL *conn)
 {
