@@ -6,9 +6,6 @@
     "stdlib.h": "c",
     "utilitaire.h": "c",
     "prototype_admin_site.h": "c",
-    "fonctions_bdd.h": "c",
-    "stdbool.h": "c",
-    "prototype_admin_general.h": "c",
-    "string.h": "c"
+    "fonctions_bdd.h": "c"
   }
 }
