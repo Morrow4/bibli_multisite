@@ -112,7 +112,7 @@ void ajout_compte() {
     } while (strcmp(info_valid, "n" ));
 
     // Ouverture du fichier de log
-    FILE *log_file = fopen("/var/log/user_bibliotech", "a");
+    FILE *log_file = fopen("/var/log/user_bibliotech", "r");
     if (log_file == NULL) {
         perror("Erreur lors de l'ouverture du fichier de log");
         exit(1);
