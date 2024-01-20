@@ -196,7 +196,7 @@ void Emprunt_soimeme(MYSQL *conn)
         scanf(" %s", ISBN_test);
 
         // Vérifier et effectuer l'emprunt
-        verifierEtEffectuerEmprunt(conn, ISBN_test);
+        verifierEtEffectuerEmprunt(conn, ISBN_test, username);
     }
     else
     {
