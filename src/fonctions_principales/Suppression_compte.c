@@ -3,67 +3,75 @@
 #include <string.h>
 #include <mysql/mysql.h>
 #include <unistd.h>
-#include "qui_et_quand.h"
 #include "prototype_admin_general.h"
+#include "fonctions_bdd.h"
+#include "../fonctions_utilitaires/utilitaire.h"
 
-#define ALLOWED_CHARS_FORMAT "[0-9a-zA-Z.@]" //format authorisé
+#define ALLOWED_CHARS_FORMAT "[0-9a-zA-Z.@]" // format authorisé
 
-int is_valid(const char *str) {
-    while (*str) {
-        if (!strchr(ALLOWED_CHARS_FORMAT, *str)) {
-            return 0;  // caractère non autorisé trouvé = is not valid
+int is_valid(const char *str)
+{
+    while (*str)
+    {
+        if (!strchr(ALLOWED_CHARS_FORMAT, *str))
+        {
+            return 0; // caractère non autorisé trouvé = is not valid
         }
-        str++; 
+        str++;
     }
-    return 1;  // tous les caractères sont valides = is valide
+    return 1; // tous les caractères sont valides = is valide
 }
 
-void Suppression_compte() {
+void Suppression_compte()
+{
 
     int choix_type;  // variable pour type d'utilisateur
     char login[101];
     char type_user; //nom du type d'utilisateur
 
-    int user_group = get_user_type(getuid());  // groupe de l'utilisateur executant la commande
+    int user_group = get_user_type(getuid()); // groupe de l'utilisateur executant la commande
 
-    switch(user_group) //pour faire un switch il faut apparemment une variable de type int, donc j'ai modifié tout ça en conséquent
+    switch (user_group) // pour faire un switch il faut apparemment une variable de type int, donc j'ai modifié tout ça en conséquent
     {
-        case 0: //admingeneral
-            printf("Quel type d'utilisateur souhaitez-vous supprimer? [1]adherent/[2]adminsite/[3]admingeneral: ");
-            do {
-                printf("Le choix doit être compris entre 1 et 3\n");
-                do {
-                    printf("Entrez votre choix : ");
-                    scanf("%d", &choix_type);  
-                } while (!gestion_int(choix_type)); //verification que c'est bien un entier et pas trop grand pour le buffer
-            } while (choix_type < 1 || choix_type > 3); //verification de la valeur comprise
+    case 0: // admingeneral
+        printf("Quel type d'utilisateur souhaitez-vous supprimer? [1]adherent/[2]adminsite/[3]admingeneral: ");
+        do
+        {
+            printf("Le choix doit être compris entre 1 et 3\n");
+            do
+            {
+                printf("Entrez votre choix : ");
+                scanf("%d", &choix_type);
+            } while (!gestion_int(choix_type));     // verification que c'est bien un entier et pas trop grand pour le buffer
+        } while (choix_type < 1 || choix_type > 3); // verification de la valeur comprise
         break;
-        case 1: //adminsite
-            choix_type = 1;
-            break;
-        default: 
-            return;
-            break;
+    case 1: // adminsite
+        choix_type = 1;
+        break;
+    default:
+        return;
+        break;
     }
     // l'administrateur a choisi quel type d'utilisateur il souhaite supprimer
 
-    switch(choix_type)
+    switch (choix_type)
     {
-        case 1: //inscrit
-            type_user="Inscrit";
-            break;
-        case 2: //adminsite
-            type_user="AdminSite";
-            break;    
-        case 3: //admingeneral
-            type_user="AdminGeneral";
-            break;
+    case 1: // inscrit
+        type_user = "Inscrit";
+        break;
+    case 2: // adminsite
+        type_user = "AdminSite";
+        break;
+    case 3: // admingeneral
+        type_user = "AdminGeneral";
+        break;
     }
     char *username, *time_str;
     qui_et_quand(&username, &time_str);
     // Ouvrez le fichier de log
     FILE *log_file = fopen("/var/log/user_bibliotech", "a");
-    if (log_file == NULL) {
+    if (log_file == NULL)
+    {
         perror("Erreur lors de l'ouverture du fichier de log");
         exit(1);
     }
@@ -84,7 +92,8 @@ void Suppression_compte() {
     // Vérifiez si l'utilisateur existe
     char query_select[500];
     sprintf(query_select, "SELECT * FROM Utilisateur WHERE ID_Utilisateur = '%s'", login);
-    if (mysql_query(conn, query_select)) {
+    if (mysql_query(conn, query_select))
+    {
         fprintf(log_file, "Erreur lors de la vérification de l'utilisateur dans la base de données: %s\n", mysql_error(conn));
         fclose(log_file);
         free(time_str);
@@ -92,29 +101,35 @@ void Suppression_compte() {
     }
 
     MYSQL_RES *result = mysql_store_result(conn);
-    if (mysql_num_rows(result) == 0) {
+    if (mysql_num_rows(result) == 0)
+    {
         printf("L'utilisateur avec le login '%s' n'a pas été trouvé dans la base de données.\n", login);
         fclose(log_file);
         free(time_str);
         return;
     }
-    
+
     // Suppression de l'utilisateur de la base de données
     char query[500];
     sprintf(query, "DELETE FROM Utilisateur WHERE ID_Utilisateur = '%s'", login);
     if (mysql_query(conn, query)) {
         perror("Erreur de suppression dans la base de données");
         fprintf(log_file, "Erreur de suppression dans la base de données: %s\n", mysql_error(conn));
-    } else {
+    }
+    else
+    {
         printf("Utilisateur supprimé avec succès de la base de données.\n");
     }
 
     // Suppression de l'utilisateur du système Ubuntu
     char command[500];
     sprintf(command, "userdel -r %s", login);
-    if (system(command) != 0) {
+    if (system(command) != 0)
+    {
         fprintf(log_file, "Erreur lors de la suppression de l'utilisateur dans le système.\n");
-    } else {
+    }
+    else
+    {
         printf("Utilisateur supprimé avec succès du système.\n");
     }    
     fclose(log_file);   
