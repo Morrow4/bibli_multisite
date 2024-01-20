@@ -5,7 +5,7 @@
 #include <pwd.h>
 #include <mysql/mysql.h>
 #include "utilitaire.h"
-#include "src/fonctions_principales/fonctions_bdd.h"
+#include "fonctions_bdd.h"
 
 int main()
 {
