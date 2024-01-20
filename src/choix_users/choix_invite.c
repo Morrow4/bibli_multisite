@@ -5,9 +5,9 @@
 // Prototypes des fonctions (à définir dans un autre fichier)
 #include "prototype_invite.h"
 
-void choix_admin_bibliotheque(int user_groupe) {
+void choix_invite_bibliotheque(int user_groupe) {
     printf("+-------------Bienvenu!!-------------+\n\n");
-    printf("Voulez-vous...\n");
+    printf("Que voulez-vous faire?\n");
     switch(user_groupe) {
         case 1:
             printf("Voici la liste des livres et leur disponibilité dans les différents sites\n");

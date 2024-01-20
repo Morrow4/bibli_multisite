@@ -6,7 +6,7 @@
 // Prototypes des fonctions (à définir dans un autre fichier)
 #include "prototype_inscrit.h"
 
-void choix_admin_bibliotheque(int user_groupe) {
+void choix_inscrit_bibliotheque(int user_groupe) {
     printf("+-------------Bienvenu!!-------------+\n\n");
     printf("+---------Que souhaitez vous faire?----------+\n");
     switch(user_groupe) {
@@ -16,7 +16,7 @@ void choix_admin_bibliotheque(int user_groupe) {
             break;
 
         case 2:
-            printf("2) Réserver un livre\n");
+            printf("2) Emprunter un livre\n");
             MYSQL* conn;
             Emprunt_soimeme(conn);
             break;

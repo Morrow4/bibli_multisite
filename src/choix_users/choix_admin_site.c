@@ -7,7 +7,7 @@
 #include "fonctions_principales/livre.h"
 #include "prototype_admin_site.h"
 
-void choix_admin_bibliotheque(int user_groupe)
+void choix_admin_site_bibliotheque(int user_groupe)
 {
     printf("+------------------MENU-------------------+\n");
     printf("+-----------Administrateur_Site-----------+\n");
