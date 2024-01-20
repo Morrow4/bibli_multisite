@@ -13,7 +13,7 @@ TARGET = $(BUILD)/bibliotech.exe
 SRC_DIRS = src src/choix_users src/fonctions_principales src/fonctions_utilitaires src/MariaDB cron
 OBJ_DIR = objects
 BUILD = build
-INC_DIRS = header
+INC_DIRS = 	
 MYSQL_INC = $(shell mysql_config --cflags)
 
 # Générer la liste des fichiers source

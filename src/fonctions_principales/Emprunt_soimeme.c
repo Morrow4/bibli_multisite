@@ -2,8 +2,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include <mysql/mysql.h>
-#include "../header/fonctions_bdd.h"
-#include "../header/utilitaire.h"
+#include <pwd.h>
+#include "/header/fonctions_bdd.h"
+#include "/header/utilitaire.h"
 
 // Structure pour stocker les informations d'un livre
 typedef struct
@@ -196,6 +197,7 @@ void Emprunt_soimeme(MYSQL *conn)
         scanf(" %s", ISBN_test);
 
         // Vérifier et effectuer l'emprunt
+        char *username = pwd->pw_name;
         verifierEtEffectuerEmprunt(conn, ISBN_test, username);
     }
     else
