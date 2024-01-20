@@ -3,10 +3,15 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <stdbool.h>
+#include <unistd.h>
+#include <pwd.h>
+#include <time.h>
+#include <mysql/mysql.h>
 #include <mysql/mysql.h>
 
-/*
-// Structure pour représenter un utilisateur
+/* // Structure pour représenter un utilisateur
 typedef struct
 {
     int ID_Utilisateur;
@@ -18,62 +23,14 @@ typedef struct
     int EstChercheur;
     int EstBloque;
     char CommentaireBlocage[255];
-} Utilisateur;
+} Utilisateur; */
 
-// Structure pour représenter un livre
-typedef struct
-{
-    char ISBN[255];
-    char Titre[255];
-    char Auteur[255];
-    char Edition[255];
-    char Genre[255];
-} Livre;
-
-// Structure pour représenter un exemplaire
-typedef struct
-{
-    int ID_Exemplaire;
-    char ISBN[255];
-    int Disponibilite;
-    char SitePrincipal[255];
-    int EstLivrePourChercheur;
-} Exemplaire;
-
-// Structure pour représenter un emprunt
-typedef struct
-{
-    int ID_Emprunt;
-    int ID_Exemplaire;
-    char SiteDeRestitution[255];
-    char DateEmprunt[255]; // Vous pouvez utiliser un type de date approprié ici
-} Emprunt;
-
-// Structure pour représenter une réservation
-typedef struct
-{
-    int ID_Reservation;
-    int ID_Utilisateur;
-    char ISBN[255];
-    char DateReservation[255]; // Vous pouvez utiliser un type de date approprié ici
-    int EstSurListeAttente;
-    int PositionListeAttente;
-} Reservation;
-*/
-
-// Prototypes des fonctions définies dans connect.c
-void connect_database();
-
-// Prototypes des fonctions définies dans get_user_group.c
+// utilitaire.c
 int get_user_type(MYSQL *conn, char *username);
-
-// Prototypes des fonctions définies dans main.c
-void choix_admin_general();
-void choix_admin_site();
-void choix_inscrit();
-void choix_invite();
-
-// Prototypes des fonctions définies dans utile.c
-int is_valid(const char *str);
+bool estEntier(const char *str);
+bool limiteTailleInt(const char *str, int limite);
+bool gestion_int(int valeur);
+void qui_et_quand(char **username, char **time_str);
+void qui(char **username);
 
 #endif
