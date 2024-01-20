@@ -45,7 +45,7 @@ void choix_admin_bibliotheque(int user_groupe)
 
     case 7:
         printf("7) Supprimer un compte utilisateur\n");
-        Suppression_compte(login);
+        Suppression_compte();
         break;
 
     case 8:
