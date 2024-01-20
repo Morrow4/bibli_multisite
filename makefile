@@ -7,11 +7,12 @@ CC = gcc
 CFLAGS = -Wall -Wextra -g
 
 # Nom de l'executable
-TARGET = build/bibliotech.exe
+TARGET = $(BUILD)/bibliotech.exe
 
-# Dossier des fichiers source, objets et en-têtes
+# Dossier des fichiers source, objets, en-têtes et build
 SRC_DIRS = src src/choix_users src/fonctions_principales src/fonctions_utilitaires src/MariaDB cron
 OBJ_DIR = objects
+BUILD = build
 INC_DIRS = $(SRC_DIRS)  # Ajoutez ici les dossiers contenant vos fichiers d'en-tête
 MYSQL_INC = $(shell mysql_config --cflags)
 
@@ -29,8 +30,15 @@ all:	$(TARGET)
 
 # Règle générique pour la compilation des fichiers objets
 $(OBJ_DIR)/%.o:	$(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.h))
-	@mkdir -p $@
 	$(CC) $(CFLAGS) $(INC_FLAGS) -c $(filter %$*.c,$(SRCS)) -o $@
+
+# Créer le dossier objects s'il n'existe pas
+$(OBJ_DIR):
+    @mkdir -p $@
+
+# Créer le dossier build s'il n'existe pas
+$(BUILD):
+    @mkdir -p $@
 
 # Règle pour compiler l'exécutable
 $(TARGET):	$(OBJECTS)
