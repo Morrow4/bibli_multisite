@@ -72,15 +72,15 @@ void Blocage_compte() {
     int mon_compteur_log = 5;
         do {
             mon_compteur_log--;
-            printf("Veuillez saisir l'adresse mail complet de l'utilisateur que vous souhaitez bloquer : \n")
-            scanf("%100s\n", login);
+            printf("Veuillez saisir l'adresse mail complet de l'utilisateur que vous souhaitez bloquer : \n");
+            scanf("%100s", login);
             if (mon_compteur_log == 0){return}
         } while (!is_valid(login) && ( mon_compteur_log >= 0 ) );
     int mon_compteur_raison = 5;
         do {
             mon_compteur_raison--;
-            printf("Veuillez saisir la raison dans un format autorisé (lettre, majuscule, chiffre, point, arobase) : \n")
-            scanf("%100s\n", raison);
+            printf("Veuillez saisir la raison dans un format autorisé (lettre, majuscule, chiffre, point, arobase) : \n");
+            scanf("%100s", raison);
             if (mon_compteur_log == 0){return}
         } while (!is_valid(login) && ( mon_compteur_log >= 0 ) );
 

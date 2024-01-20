@@ -3,6 +3,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <pwd.h>
+#include <mysql/mysql.h>
 #include "utilitaire.h"
 #include "livre.h"
 
@@ -12,7 +13,7 @@ int main()
 
     // Ouvrir la connexion à la base de données
     connect_database();
-    MYSQL *conn;
+    MYSQL *conn = mysql_init(NULL);
 
     // Utilisez la fonction getpwuid() pour récupérer les informations sur l'utilisateur
     struct passwd *pwd = getpwuid(user_uid);

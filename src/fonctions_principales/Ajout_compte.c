@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h> 
 #include "qui_et_quand.h"
 #include "gestion_entier.h"
 #include "prototype_admin_general.h"

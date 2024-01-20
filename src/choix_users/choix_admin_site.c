@@ -3,8 +3,9 @@
 #include <stdlib.h>
 
 // Prototypes des fonctions (à définir dans un autre fichier)
-#include "..\fonctions_utilitaires\utilitaire.h"
-#include "..\fonctions_principales\livre.h"
+#include "fonctions_utilitaires/utilitaire.h"
+#include "fonctions_principales/livre.h"
+#include "prototype_admin_site.h"
 
 void choix_admin_bibliotheque(int user_groupe)
 {
@@ -44,7 +45,7 @@ void choix_admin_bibliotheque(int user_groupe)
 
     case 7:
         printf("7) Supprimer un compte utilisateur\n");
-        Suppression_compte(login);
+        Suppression_compte();
         break;
 
     case 8:
@@ -54,6 +55,7 @@ void choix_admin_bibliotheque(int user_groupe)
 
     case 9:
         printf("9) Ajouter un livre\n");
+        MYSQL* conn;
         Ajout_livre(conn);
         break;
 

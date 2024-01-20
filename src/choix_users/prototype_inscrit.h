@@ -6,7 +6,7 @@
 #include "prototype_invite.h"
 
 // Prototype de Reservation_soimeme_Livre
-void Reservation_soimeme_Livre();
+void Emprunt_soimeme();
 
 // Prototype de Inscri_liste_attente_livre
 void Inscri_liste_attente_livre();
