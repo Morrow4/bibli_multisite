@@ -20,7 +20,7 @@ void choix_inscrit_bibliotheque(char *username)
     printf("Veuillez entrer le numéro du choix correspondant : \n");
     scanf("%d", choix_user);
 
-    switch (user_groupe)
+    switch (choiw_user)
     {
     case 1:
         Liste_livres_et_dispo();

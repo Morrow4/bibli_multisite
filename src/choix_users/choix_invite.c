@@ -17,7 +17,7 @@ void choix_invite_bibliotheque(int user_groupe)
     printf("Veuillez entrer le numéro du choix correspondant : \n");
     scanf("%d", choix_user);
 
-    switch (user_groupe)
+    switch (choix_user)
     {
     case 1:
         printf("Voici la liste des livres et leur disponibilité dans les différents sites\n");
