@@ -9,7 +9,7 @@ void choix_inscrit_bibliotheque(int user_groupe)
 {
     int choix_user;
 
-    printf("+-------------Bienvenu!!-------------+\n\n");
+    printf("+-------------Bienvenue!!-------------+\n\n");
     printf("+---------Que souhaitez vous faire?----------+\n");
     printf("1) Lister les livres et leur disponibilité dans les différents sites\n");
     printf("2) Réserver un livre\n");

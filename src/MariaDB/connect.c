@@ -14,7 +14,7 @@ void connect_database()
    // Initialise la connexion
    if (!(conn = mysql_init(0)))
    {
-      fprintf(stderr, "Impossible d'initialiser la connection\n");
+      fprintf(stderr, "Impossible d'initialiser la connexion\n");
       exit(1);
    }
 
@@ -23,7 +23,7 @@ void connect_database()
 
    // Connexion à la base de données
    if (!mysql_real_connect(
-           conn,                  // Connection
+           conn,                  // Connexion
            "mariadb.10.1.144.49", // Hôte
            db_user,               // Nom d'utilisateur
            db_user_password,      // Mot de passe utilisateur
@@ -34,7 +34,7 @@ void connect_database()
            ))
    {
       // Retourne l'échec de la connexion et ferme le gestionnaire
-      fprintf(stderr, "Erreur de connection au serveur: %s\n", mysql_error(conn));
+      fprintf(stderr, "Erreur de connexion au serveur: %s\n", mysql_error(conn));
       mysql_close(conn);
       exit(1);
    }
