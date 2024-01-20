@@ -1,3 +1,3 @@
-void Validation_restitution(){
+void Validation_restitution() {
     return 0;
 }

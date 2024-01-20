@@ -5,7 +5,7 @@
 // Prototypes des fonctions
 #include "prototype_admin_general.h"
 
-void choix_admin_bibliotheque(int user_groupe) {
+void choix_admin_general_bibliotheque(int user_groupe) {
 
     printf("+------------------MENU-------------------+\n");
     printf("+---------Administrateur_Général----------+\n");

@@ -89,7 +89,7 @@ void ajout_compte() {
             scanf("%50s", nom);
             if (mon_compteur_nom == 0){return}
         } while (!is_valid(nom) && ( mon_compteur_nom >= 0 ) );
-        int mon_compteur_nom = 5;
+        int mon_compteur_prenom = 5;
         do {
             mon_compteur_prenom--;
             printf("Entrez le prenom : ");
@@ -101,12 +101,12 @@ void ajout_compte() {
             mon_compteur_cherch--;
             printf("Est-ce un chercheur ? (oui/non) : ");
             scanf("%1s", estChercheur);
-            if (mon_compteur_prenom == 0){return}
+            if (mon_compteur_cherch== 0){return}
         } while ((strcmp(estChercheur, "o") != 0 && strcmp(estChercheur, "n") != 0) && ( mon_compteur_cherch >= 0 ) );
 
         printf("Le login est %d, le mot de passe est %d, son groupe est %d, le mail est %d, le nom est %d, le prenom est %d, la personne est chercheur : %d",login, password, type_user, email, nom, prenom, estChercheur);
         do {
-            printf ("Validez-vous ces informations? o/n")
+            printf ("Validez-vous ces informations? o/n");
             scanf("%1s", info_valid)
         } while (strcmp(info_valid, "o" ) != 0 && strcmp(info_valid, "n") != 0);
     } while (strcmp(info_valid, "n" ));
@@ -122,8 +122,8 @@ void ajout_compte() {
 
     //  Ajout de l'utilisateur dans la base de donnée //Modifier pour mail
     char query[500];
-    sprintf(query, "INSERT INTO Utilisateur (ID_Utilisateur, Nom, Prenom, Email, MotDePasse, TypeUtilisateur, EstChercheur) VALUES ('%s','%s', '%s', '%s', '%s', '%s', %s)",
-            login, nom, prenom, email, password, type_user, (strcmp(estChercheur, "o") == 0) ? "1" : "0");
+    sprintf(query, "INSERT INTO Utilisateur (ID_Utilisateur, Nom, Prenom, MotDePasse, TypeUtilisateur, EstChercheur) VALUES ('%s','%s', '%s', '%s', '%s', '%s')",
+            login, nom, prenom, password, type_user, (strcmp(estChercheur, "o") == 0) ? "1" : "0");
 
     if (mysql_query(conn, query)) {
         fprintf(stderr, "Erreur d'insertion: %s\n", mysql_error(conn));
