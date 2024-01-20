@@ -5,7 +5,7 @@
 #include "../header/fonctions_bdd.h"
 #include "../header/fonctions_choix_user.h"
 
-void choix_admin_site_bibliotheque(int user_groupe)
+void choix_admin_site_bibliotheque(int user_groupe, char *username)
 {
     int choix_user;
 

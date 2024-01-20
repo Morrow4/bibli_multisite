@@ -7,8 +7,8 @@
 #include <unistd.h>
 
 void choix_invite_bibliotheque(int user_groupe);
-void choix_inscrit_bibliotheque(int user_groupe);
-void choix_admin_site_bibliotheque(int user_groupe);
-void choix_admin_general_bibliotheque(int user_groupe);
+void choix_inscrit_bibliotheque(int user_groupe, char *username);
+void choix_admin_site_bibliotheque(int user_groupe, char *username);
+void choix_admin_general_bibliotheque(int user_groupe, char *username);
 
 #endif
