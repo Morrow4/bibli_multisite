@@ -7,6 +7,16 @@
 #include <string.h>
 #include <stdbool.h>
 
+// Structure pour stocker les informations d'un livre
+typedef struct Livre
+{
+    char ISBN[14];
+    char Titre[255];
+    char Auteur[100];
+    char Edition[100];
+    char Genre[100];
+} Livre;
+
 // Livre.c
 void ajout_livre(MYSQL *conn);
 void mise_a_jour_livre(MYSQL *conn, char *ISBN);
