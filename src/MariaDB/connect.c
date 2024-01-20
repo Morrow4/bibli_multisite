@@ -36,7 +36,7 @@ void connect_database()
            ))
    {
       // Retourne l'échec de la connexion et ferme le gestionnaire
-      fprintf(stderr, "Erreur de connection au serveur: %s\n", mysql_error(conn));
+      fprintf(stderr, "Erreur de connexion au serveur: %s\n", mysql_error(conn));
       mysql_close(conn);
       exit(1);
    }
