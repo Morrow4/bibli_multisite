@@ -37,23 +37,24 @@ void afficherDetailsLivre(const Livre *livre) {
 }
 
 // Fonction pour effectuer l'emprunt
-void effectuerEmprunt(MYSQL *conn, const char *ISBN, char *username) {
+void effectuerEmprunt(MYSQL *conn, const char *ISBN, const char *username) {
 
     char query[255];
     // Réduire le nombre d'exemplaires disponibles
     //Verifier s'il existe des ISBN pour l'exemplaire demandé
-        sprintf(query, "SELECT ID_Exemplaire FROM Exemplaire WHERE ISBN = '%s' AND Disponibilite = true LIMIT 1", ISBN);
+    sprintf(query, "SELECT ID_Exemplaire FROM Exemplaire WHERE ISBN = '%s' AND Disponibilite = true LIMIT 1", ISBN);
     if (mysql_query(conn, query) != 0) {
         fprintf(stderr, "Erreur de verification\n");
         return;
     }
+
     //Stocker dans une variable
-    char *Var_IdExemplaire;
+    char Var_IdExemplaire[255];
     result = mysql_store_result(conn);
     if ((row = mysql_fetch_row(result)) != NULL) {
         sscanf(row[0], "%d", &Var_IdExemplaire);
+        return;
     }
-    return Var_IdExemplaire;
 
     //Comme en-dessous where ID exemplaire = %s, lavariable
     sprintf(query, "UPDATE Exemplaire SET Disponibilite = false WHERE ID_Exemplaire = '%s' AND Disponibilite = true LIMIT 1", Var_IdExemplaire);
@@ -72,7 +73,7 @@ void effectuerEmprunt(MYSQL *conn, const char *ISBN, char *username) {
     }
 }
 // Fonction pour vérifier et effectuer l'emprunt
-void verifierEtEffectuerEmprunt(MYSQL *conn, const char *ISBN) {
+void verifierEtEffectuerEmprunt(MYSQL *conn, const char *ISBN, const char *username) {
     double joursDeRetard;
     int livreTrouve = trouverRetard(conn, ISBN, &joursDeRetard);
 
@@ -86,7 +87,7 @@ void verifierEtEffectuerEmprunt(MYSQL *conn, const char *ISBN) {
         }
 
         // Continuer le processus d'emprunt
-        effectuerEmprunt(conn, ISBN);
+        effectuerEmprunt(conn, ISBN, username);
     } else {
         printf("Livre non trouvé, veuillez contacter un administrateur.\n");
     }
@@ -113,7 +114,7 @@ void Emprunt_soimeme(MYSQL *conn) {
         scanf(" %[^\n]", titreSaisi);
 
         // Appel de la fonction compter le nombre de livres par titre
-        tailleTab = nombreLivresParTitre(pointeurTitresaisi);
+        tailleTab = nombreLivresParTitre(titresaisi);
 
         // Affichage dans un tableau le numéro d'affichage des livres, titre, éditions, isbn
         printf("Numéro  Titre                          Edition                       ISBN\n");
