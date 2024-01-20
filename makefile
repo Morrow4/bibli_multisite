@@ -34,11 +34,11 @@ $(OBJ_DIR)/%.o:	$(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.h))
 
 # Créer le dossier objects s'il n'existe pas
 $(OBJ_DIR):
-    @mkdir -p $@
+	@mkdir -p $@
 
 # Créer le dossier build s'il n'existe pas
 $(BUILD):
-    @mkdir -p $@
+	@mkdir -p $@
 
 # Règle pour compiler l'exécutable
 $(TARGET):	$(OBJECTS)
