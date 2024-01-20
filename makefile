@@ -16,6 +16,14 @@ BUILD = build
 INC_DIRS = $(SRC_DIRS)  # Ajoutez ici les dossiers contenant vos fichiers d'en-tête
 MYSQL_INC = $(shell mysql_config --cflags)
 
+# Créer le dossier objects s'il n'existe pas
+$(OBJ_DIR):
+	@mkdir -p $@
+
+# Créer le dossier build s'il n'existe pas
+$(BUILD):
+	@mkdir -p $@
+
 # Générer la liste des fichiers source
 SRCS = $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.c))
 
@@ -27,14 +35,6 @@ INC_FLAGS = $(foreach dir,$(INC_DIRS),-I$(dir)) $(MYSQL_INC)
 
 # Règle par défaut
 all:	$(TARGET)
-
-# Créer le dossier objects s'il n'existe pas
-$(OBJ_DIR):
-	@mkdir -p $@
-
-# Créer le dossier build s'il n'existe pas
-$(BUILD):
-	@mkdir -p $@
 
 # Règle générique pour la compilation des fichiers objets
 $(OBJ_DIR)/%.o:	$(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.h))
