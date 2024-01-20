@@ -55,6 +55,7 @@ void choix_admin_bibliotheque(int user_groupe)
 
     case 9:
         printf("9) Ajouter un livre\n");
+        MYSQL* conn;
         Ajout_livre(conn);
         break;
 
