@@ -15,7 +15,7 @@ int main()
     connect_database();
     MYSQL *conn = mysql_init(NULL);
 
-    // Utilisez la fonction getpwuid() pour récupérer les informations sur l'utilisateur
+    // On utilise la fonction getpwuid() pour récupérer les informations sur l'utilisateur
     struct passwd *pwd = getpwuid(user_uid);
 
     // Vérifiez si les informations sur l'utilisateur ont été trouvées
@@ -29,7 +29,7 @@ int main()
     // Récupérez le nom d'utilisateur (login) à partir de la structure passwd
     char *username = pwd->pw_name;
 
-    // Recupération du groupe (BD ou systeme au choix)
+    // Recupération du groupe
     int user_group = get_user_type(conn, username);
 
     // Renvoyer vers les fonctions par utilisateur
