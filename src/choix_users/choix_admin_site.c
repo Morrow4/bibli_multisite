@@ -5,6 +5,7 @@
 // Prototypes des fonctions (à définir dans un autre fichier)
 #include "src/fonctions_utilitaires/utilitaire.h"
 #include "src/fonctions_principales/livre.h"
+#include "src/choix_users/prototype_admin_site.h"
 
 void choix_admin_bibliotheque(int user_groupe)
 {
