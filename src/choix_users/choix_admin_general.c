@@ -1,80 +1,84 @@
 // Inclusion des en-têtes nécessaires
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include "../fonctions_principales/fonctions_bdd.h"
 
-// Prototypes des fonctions
-#include "prototype_admin_general.h"
-
-void choix_admin_general_bibliotheque(int user_groupe) {
+void choix_admin_general_bibliotheque(int user_groupe)
+{
+    int choix_user;
 
     printf("+------------------MENU-------------------+\n");
     printf("+---------Administrateur_Général----------+\n");
-    switch(user_groupe) {
-        case 1:
-            printf("1) Lister les livres et leur disponibilité dans les différents sites\n");
-            Liste_livres_et_dispo();
-            break;
+    printf("1) Lister les livres et leur disponibilité dans les différents sites\n");
+    printf("2) Réserver un livre\n");
+    printf("3) S inscrire sur une liste attente pour réserver un livre\n");
+    printf("4) Consulter le délai d attente pour emprunter un livre indisponible\n");
+    printf("5) Réserver un livre pour un utilisateur inscrit\n");
+    printf("6) Ajouter un compte utilisateur ou administrateur\n");
+    printf("7) Supprimer un compte utilisateur ou administrateur\n");
+    printf("8) Consulter les statistiques\n");
+    printf("9) Ajouter un livre\n");
+    printf("10) Supprimer un livre\n");
+    printf("11) Bloquer utilisateur temporairement\n");
+    printf("12) Valider la restitution un livre\n");
+    printf("13) Déconnexion\n");
 
-        case 2:
-            printf("2) Réserver un livre\n");
-            Reservation_soimeme_Livre();
-            break;
+    printf("Veuillez entrer le numéro du choix correspondant : \n");
+    scanf("%d", choix_user);
 
-        case 3:
-            printf("3) S inscrire sur une liste attente pour réserver un livre\n");
-            Inscri_liste_attente_livre();
-            break;
+    switch (user_groupe)
+    {
+    case 1:
+        Liste_livres_et_dispo();
+        break;
 
-        case 4:
-            printf("4) Consulter le délai d attente pour emprunter un livre indisponible\n");
-            Affichage_delai_attente_livre();
-            break;
+    case 2:
+        Reservation_soimeme_Livre();
+        break;
 
-        case 5:
-            printf("5) Réserver un livre pour un utilisateur inscrit\n");
-            Emprunt_pour_adherent();
-            break;
+    case 3:
+        Inscri_liste_attente_livre();
+        break;
 
-        case 6:
-            printf("6) Ajouter un compte utilisateur ou administrateur\n");
-            Ajout_compte();
-            break;
+    case 4:
+        Affichage_delai_attente_livre();
+        break;
 
-        case 7:
-            printf("7) Supprimer un compte utilisateur ou administrateur\n");
-            Suppression_compte();
-            break;
+    case 5:
+        Emprunt_pour_adherent();
+        break;
 
-        case 8:
-            printf("8) Consulter les statistiques\n");
-            Consultation_Stat();
-            break;
+    case 6:
+        Ajout_compte();
+        break;
 
-        case 9:
-            printf("9) Ajouter un livre\n");
-            Ajout_livre();
-            break;
+    case 7:
+        Suppression_compte();
+        break;
 
-        case 10:
-            printf("10) Supprimer un livre\n");
-            Suppression_livre();
-            break;
+    case 8:
+        Consultation_Stat();
+        break;
 
-        case 11:
-            printf("11) Bloquer utilisateur temporairement\n");
-            Fonction_blocage_utilisateur();
-            break;
+    case 9:
+        Ajout_livre();
+        break;
 
-        case 12:
-            printf("12) Valider la restitution un livre\n");
-            validation_restitution();
-            break;
+    case 10:
+        Suppression_livre();
+        break;
 
+    case 11:
+        Fonction_blocage_utilisateur();
+        break;
 
-        default:
-            printf("Déconnexion\n");
-            // Fonction de déconnexion ou autre traitement
-            break;
+    case 12:
+        validation_restitution();
+        break;
+
+    default:
+        // Fonction de déconnexion ou autre traitement
+        break;
     }
 }
-//test

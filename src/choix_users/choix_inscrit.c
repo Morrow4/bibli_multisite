@@ -1,10 +1,8 @@
 // Inclusion des en-têtes nécessaires
 #include <stdio.h>
 #include <stdlib.h>
-#include <mysql/mysql.h>
-
-// Prototypes des fonctions (à définir dans un autre fichier)
-#include "prototype_inscrit.h"
+#include <string.h>
+#include "../fonctions_principales/fonctions_bdd.h"
 
 void choix_inscrit_bibliotheque(int user_groupe)
 {
@@ -17,6 +15,8 @@ void choix_inscrit_bibliotheque(int user_groupe)
     printf("3) S'inscrire sur une liste attente pour réserver un livre\n");
     printf("4) Consulter le délai d attente pour emprunter un livre indisponible\n");
     printf("5) Déconnexion\n");
+
+    printf("Veuillez entrer le numéro du choix correspondant : \n");
     scanf("%d", choix_user);
 
     switch (user_groupe)
