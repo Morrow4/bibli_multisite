@@ -4,7 +4,9 @@
 #define PROTOTYPE_INSCRIT_H
 
 #include "prototype_invite.h"
+#include <mysql/mysql.h>
 
+MYSQL* conn;
 // Prototype de Reservation_soimeme_Livre
 void Emprunt_soimeme();
 
