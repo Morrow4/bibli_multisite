@@ -2,6 +2,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void Consultation_Stat{
+void Consultation_Stat(){
     return 0;
 }

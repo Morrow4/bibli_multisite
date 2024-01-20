@@ -28,7 +28,7 @@ void Emprunt_pour_adherent();
 void Fonction_blocage_utilisateur();
 
 // Prototype de validation_restitutation
-void validation_restitutation();
+void validation_restitution();
 
 // Prototype de Ajouter_administrateur
 void Ajouter_administrateur();

@@ -2,6 +2,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void Emprunt_pour_adherent{
+void Emprunt_pour_adherent(){
     return;
 }
