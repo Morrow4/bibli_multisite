@@ -24,3 +24,5 @@ void valider_restitution_livres_en_transit(MYSQL *conn)
         }
     }
 }
+
+// faire une fonction qui permet à l'admin de valider la restitution
