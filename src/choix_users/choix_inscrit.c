@@ -6,7 +6,7 @@
 // Prototypes des fonctions (à définir dans un autre fichier)
 #include "prototype_inscrit.h"
 
-void choix_admin_bibliotheque(int user_groupe)
+void choix_inscrit_bibliotheque(int user_groupe)
 {
     int choix_user;
 
