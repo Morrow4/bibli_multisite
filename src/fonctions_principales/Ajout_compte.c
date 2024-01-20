@@ -107,7 +107,7 @@ void ajout_compte() {
         printf("Le login est %d, le mot de passe est %d, son groupe est %d, le mail est %d, le nom est %d, le prenom est %d, la personne est chercheur : %d",login, password, type_user, email, nom, prenom, estChercheur);
         do {
             printf ("Validez-vous ces informations? o/n");
-            scanf("%1s", info_valid)
+            scanf("%1s", info_valid);
         } while (strcmp(info_valid, "o" ) != 0 && strcmp(info_valid, "n") != 0);
     } while (strcmp(info_valid, "n" ));
 
