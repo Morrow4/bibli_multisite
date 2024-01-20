@@ -14,7 +14,7 @@ void connect_database()
    // Initialise la connexion
    if (!(conn = mysql_init(0)))
    {
-      fprintf(stderr, "Impossible d'initialiser la connection\n");
+      fprintf(stderr, "Impossible d'initialiser la connexion\n");
       exit(1);
    }
 
