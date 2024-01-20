@@ -3,4 +3,4 @@
 
 void qui(char **username);
 
-#endif // PROTOTYPE_QUI_ET_QUAND_H
+#endif // PROTOTYPE_QUI_H
