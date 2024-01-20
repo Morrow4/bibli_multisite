@@ -3,6 +3,7 @@
 #include <string.h>
 #include "prototype_inscrit.h"
 #include <mysql/mysql.h>
+#include "livre.h"
 
 // Structure pour stocker les informations d'un livre
 typedef struct {
@@ -162,7 +163,7 @@ void Emprunt_soimeme(MYSQL *conn) {
             printf("Numéro de livre incorrect. Sortie du menu.\n");
         }
     } else if (reponse == 'o' || reponse == 'O') {
-        char ISBN_test[14];
+        char ISBN_test[15];
         // Comparaison de ISBN_test avec ceux de la base de données
         printf("Veuillez saisir l'ISBN du livre : ");
         scanf(" %s", ISBN_test);
