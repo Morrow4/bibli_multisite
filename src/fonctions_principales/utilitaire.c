@@ -21,8 +21,7 @@ int get_user_type(MYSQL *conn, char *username)
     if (mysql_query(conn, query))
     {
         fprintf(stderr, "Erreur lors de l'exécution de la requête : %s\n", mysql_error(conn));
-        mysql_close(conn);
-        exit(1);
+        return -1; // Retournez une valeur spéciale pour indiquer une erreur
     }
 
     MYSQL_RES *result = mysql_store_result(conn);
@@ -30,8 +29,7 @@ int get_user_type(MYSQL *conn, char *username)
     if (!result)
     {
         fprintf(stderr, "Aucun résultat retourné par la requête\n");
-        mysql_close(conn);
-        exit(1);
+        return -1; // Retournez une valeur spéciale pour indiquer une erreur
     }
 
     // Récupération du résultat
@@ -56,7 +54,7 @@ int get_user_type(MYSQL *conn, char *username)
         }
         else
         {
-            printf("non trouve");
+            printf("non trouvé");
         }
         printf("Le type d'utilisateur pour %s est : %s\n", username, row[0]);
     }
@@ -66,9 +64,11 @@ int get_user_type(MYSQL *conn, char *username)
     }
 
     mysql_free_result(result);
-    mysql_close(conn);
 
-    return (user_group);
+    // Ne fermez pas la connexion ici, laissez le programme principal gérer la fermeture
+    // mysql_close(conn);
+
+    return user_group;
 }
 
 bool estEntier(const char *str)
