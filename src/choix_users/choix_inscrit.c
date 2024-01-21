@@ -9,6 +9,7 @@
 void choix_inscrit_bibliotheque(MYSQL *conn, char *username)
 {
     int choix_user;
+    char ISBN[13];
 
     printf("+---------------------------Bienvenue !--------------------------+\n\n");
     printf("+--------------------Que souhaitez-vous faire ?--------------------+\n");
