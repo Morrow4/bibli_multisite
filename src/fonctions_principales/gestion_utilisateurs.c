@@ -254,8 +254,8 @@ void suppression_compte(MYSQL *conn)
     do
     {
         mon_compteur_log--;
-        printf("Veuillez saisir l'adresse mail complet de l'utilisateur que vous souhaitez supprimer : \n")
-            scanf("%100s", login);
+        printf("Veuillez saisir l'adresse mail complet de l'utilisateur que vous souhaitez supprimer : \n");
+            scanf("%100s", log);
         if (mon_compteur_log == 0)
         {
             fclose(log_file); // fin de compteur = fermeture du fichier
@@ -320,7 +320,7 @@ void blocage_compte(MYSQL *conn)
     char type_user[15]; // nom du type utilisateur choisi
     char login[100], raison[101];
 
-    int user_group = get_user_type(getuid()); // groupe de l'utilisateur executant la commande
+    int user_group = get_user_type(getpwuid()); // groupe de l'utilisateur executant la commande
 
     switch (user_group) // pour faire un switch il faut apparemment une variable de type int, donc j'ai modifié tout ça en conséquent
     {
