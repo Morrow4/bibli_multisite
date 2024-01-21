@@ -152,7 +152,8 @@ void ajout_compte(MYSQL *conn, char *username)
         exit(1);
     }
 
-    char date_et_heure[50] = ctime(time_str);
+    time_t now;
+    char date_et_heure[50] = ctime(time(&now));
     fprintf(log_file, "Exécuté par: %s, Date et heure: %s\n", username, date_et_heure);
 
     //  Ajout de l'utilisateur dans la base de donnée //Modifier pour mail
