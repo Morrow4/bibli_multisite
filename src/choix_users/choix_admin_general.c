@@ -38,17 +38,14 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username){
         printf("Veuillez saisir l'ISBN du livre que vous voulez réserver : ");
         scanf("%d", &ISBN);
         reserver_livre(conn, username, ISBN);
-        free(ISBN);
         break;
 
     case 3:
         printf("Veuillez saisir le login de l'utilisateur qui veut réserver un livre : ");
-        scanf("%d", &login_utilisateur);
+        scanf("%s", &login_utilisateur);
         printf("Veuillez saisir l'ISBN du livre que vous voulez réserver : ");
         scanf("%d", &ISBN);
         reserver_livre(conn, login_utilisateur, ISBN);
-        free(login_utilisateur);
-        free(ISBN);
         break;
 
     case 4:
