@@ -37,7 +37,7 @@ void choix_admin_site_bibliotheque(MYSQL *conn, char *username)
         break;
 
     case 2:
-        Emprunt_soimeme(conn);
+        Emprunt_soimeme(conn, username);
         break;
 
     case 3:
