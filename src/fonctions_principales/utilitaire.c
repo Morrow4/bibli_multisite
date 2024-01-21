@@ -143,7 +143,7 @@ void qui(char *username)
     // Obtenir le nom de l'utilisateur à l'origine de l'exécution
     uid_t uid = getuid();
     struct passwd *pwd = getpwuid(uid);
-    *username = (pwd != NULL) ? pwd->pw_name : "Inconnu";
+    username = (pwd != NULL) ? pwd->pw_name : "Inconnu";
 }
 
 // Fonction pour déconnecter l'utilisateur
