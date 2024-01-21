@@ -13,26 +13,12 @@ int main()
     uid_t user_uid = getuid();
 
     // Ouvrir la connexion à la base de données
-
     MYSQL *conn = connect_database();
-
-    if (!(conn = mysql_init(NULL)))
+    if (conn == NULL)
     {
-        fprintf(stderr, "Impossible d'initialiser la connexion\n");
-        exit(1);
+        fprintf(stderr, "Erreur lors de la connexion à la base de données.\n");
+        return 1;
     }
-
-    //****************TEST****************
-    char q[255];
-    sprintf(q, "INSERT INTO Livre (ISBN, Titre, Auteur, Edition, Genre) VALUES ('test', 'test', 'test', 'test', 'test')");
-
-    // Exécuter la requête SQL if (mysql_query(conn, q))
-    {
-        fprintf(stderr, "Erreur lors de l ajout du livre (main): %s\n", mysql_error(conn));
-        return;
-    }
-    printf("Succes de l ajout du livre (main) !\n");
-    //***************FIN TEST**************
 
     // On utilise la fonction getpwuid() pour récupérer les informations sur l'utilisateur
     struct passwd *pwd = getpwuid(user_uid);
