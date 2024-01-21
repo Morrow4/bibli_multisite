@@ -84,7 +84,7 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
         scanf("%d", &id_emprunt);
         printf("Veuillez saisir le site sur lequel le livre est restitué : ");
         scanf("%s", site_restitution);
-        void enregistrer_restitution(conn, id_emprunt, site_restitution);
+        enregistrer_restitution(conn, id_emprunt, site_restitution);
         break;
 
     case 11:
