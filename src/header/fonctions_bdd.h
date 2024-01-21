@@ -52,9 +52,9 @@ void mettre_a_jour_date_restitution(MYSQL *conn, int id_restitution);
 
 // gestion_utilisateurs.c
 int is_valid(const char *str);
-void Suppression_compte();
-void ajout_compte();
-void Blocage_compte();
+void Suppression_compte(MYSQL *conn);
+void ajout_compte(MYSQL *conn);
+void Blocage_compte(MYSQL *conn);
 
 // emprunt_reservation.c
 void reserver_livre(MYSQL *conn, char *email_utilisateur, char *isbn_livre);
