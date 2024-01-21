@@ -27,7 +27,7 @@ void ajout_exemplaire(MYSQL *conn)
 
     // Preparer la requete SQL pour l'ajout de l exemplaire
     char query[1024];
-    sprintf(query, "INSERT INTO Exemplaire (ISBN, SitePrincipal, EstLivrePourChercheur) VALUES ('%s', '%s', '%s')",
+    sprintf(query, "INSERT INTO Exemplaire (ISBN, SitePrincipal, EstLivrePourChercheur) VALUES ('%s', '%s', '%d')",
             ISBN, site_principal, chercheur);
 
     // Executer la requête SQL
