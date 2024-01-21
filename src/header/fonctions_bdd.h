@@ -36,8 +36,9 @@ void ajout_livre(MYSQL *conn);
 void mise_a_jour_livre(MYSQL *conn, char *ISBN);
 void suppression_livre(MYSQL *conn, char *ISBN);
 void recherche_ISBN(MYSQL *conn, char *titre, char *auteur);
+void afficher_tous_les_livres(MYSQL *conn);
 
-// reservation.c
+// gestion_reservation.c
 bool au_moins_un_exemplaire_disponible(MYSQL *conn, char *isbn_livre);
 int obtenir_id_exemplaire_disponible(MYSQL *conn, char *isbn_livre);
 void mettre_a_jour_disponibilite_exemplaire(MYSQL *conn, int id_exemplaire, bool disponibilite);
@@ -73,7 +74,7 @@ void verifierEtEffectuerEmprunt(MYSQL *conn, const char *ISBN, const char *usern
 int trouverRetard(MYSQL *conn, const char *ISBN, double *joursDeRetard);
 void Emprunt_soimeme(MYSQL *conn, char *username);
 
-// Exemplaires.c
+// gestion_exemplaires.c
 void ajout_exemplaire(MYSQL *conn);
 void mise_a_jour_exemplaire(MYSQL *conn, int id_exemplaire);
 void suppression_exemplaire(MYSQL *conn, int id_exemplaire);
