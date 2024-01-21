@@ -130,3 +130,43 @@ void recherche_ISBN(MYSQL *conn, char *titre, char *auteur)
 
     mysql_free_result(result);
 }
+
+// Fonction pour afficher tous les livres avec leur disponibilité
+void afficher_tous_les_livres(MYSQL *conn)
+{
+    // Requête SQL pour récupérer les livres avec leur disponibilité
+    const char *query = "SELECT Livre.ISBN, Livre.Titre, Livre.Auteur, Livre.Edition, Livre.Genre, CASE WHEN EXISTS (
+        SELECT 1 FROM Exemplaire WHERE Exemplaire.ISBN = Livre.ISBN AND Exemplaire.Disponibilite = true) THEN 'Disponible' ELSE 'Indisponible' END AS Disponibilite FROM Livre";
+
+    // Exécuter la requête SQL
+    if (mysql_query(conn, query))
+    {
+        fprintf(stderr, "Erreur lors de la récupération des livres : %s\n", mysql_error(conn));
+        return;
+    }
+
+    // Récupérer le résultat de la requête
+    MYSQL_RES *result = mysql_store_result(conn);
+
+    // Vérifier si le résultat est valide
+    if (!result)
+    {
+        fprintf(stderr, "Aucun résultat retourné par la requête\n");
+        return;
+    }
+
+    // Afficher les en-têtes
+    printf("%-15s %-30s %-30s %-15s\n", "ISBN", "Titre", "Auteur", "Disponibilité");
+    printf("--------------------------------------------------------------\n");
+
+    // Afficher chaque livre avec sa disponibilité
+    MYSQL_ROW row;
+    while ((row = mysql_fetch_row(result)))
+    {
+        // Afficher les détails du livre
+        printf("%-15s %-30s %-30s %-15s\n", row[0], row[1], row[2], (row[3] && atoi(row[3]) ? "Disponible" : "Indisponible"));
+    }
+
+    // Libérer la mémoire du résultat
+    mysql_free_result(result);
+}
