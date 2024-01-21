@@ -318,6 +318,7 @@ void blocage_compte(MYSQL *conn)
 
     int choix_type;     // variable pour type d'utilisateur
     char type_user[15]; // nom du type utilisateur choisi
+    char login[100], raison[101];
 
     int user_group = get_user_type(getuid()); // groupe de l'utilisateur executant la commande
 
@@ -376,7 +377,7 @@ void blocage_compte(MYSQL *conn)
         scanf("%100s", login);
         if (mon_compteur_log == 0)
         {
-            return
+            return;
         }
     } while (!is_valid(login) && (mon_compteur_log >= 0));
     int mon_compteur_raison = 5;
@@ -387,7 +388,7 @@ void blocage_compte(MYSQL *conn)
         scanf("%100s", raison);
         if (mon_compteur_log == 0)
         {
-            return
+            return;
         }
     } while (!is_valid(login) && (mon_compteur_log >= 0));
 
