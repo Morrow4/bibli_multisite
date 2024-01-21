@@ -10,6 +10,8 @@
 
 int get_user_type(MYSQL *conn, char *username)
 {
+    int user_group = 0;
+
     // Requête SQL pour récupérer le TypeUtilisateur en fonction de l'Email
     char query[255];
     sprintf(query, "SELECT TypeUtilisateur FROM Utilisateur WHERE Email = '%s'", username);
@@ -34,19 +36,19 @@ int get_user_type(MYSQL *conn, char *username)
     MYSQL_ROW row = mysql_fetch_row(result);
     if (row)
     {
-        if (row[0] == "AdminGeneral")
+        if (strcmp(row[0], "AdminGeneral") == 0) //mappage chaîne de caractere a valeur numerique
         {
             user_group = 1;
         }
-        else if (row[0] == "AdminSite")
+        else if (strcmp(row[0], "AdminSite") == 0)
         {
             user_group = 2;
         }
-        else if (row[0] == "Inscrit")
+        else if (strcmp(row[0], "Inscrit") == 0)
         {
             user_group = 3;
         }
-        else if (row[0] == "Invite")
+        else if (strcmp(row[0], "Invite") == 0)
         {
             user_group = 4;
         }
@@ -140,6 +142,6 @@ void qui(char **username)
 {
     // Obtenir le nom de l'utilisateur à l'origine de l'exécution
     uid_t uid = getuid();
-    struct passwd *pwd = getuid(uid);
+    struct passwd *pwd = getpwuid(uid);
     *username = (pwd != NULL) ? pwd->pw_name : "Inconnu";
 }
