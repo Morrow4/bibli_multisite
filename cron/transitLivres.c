@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <mysql/mysql.h>
+#include <time.h>
+
 
 // Fonction pour marquer les livres en transit comme "ValiderApresTransit" tous les mercredis
 void valider_restitution_livres_en_transit(MYSQL *conn)
