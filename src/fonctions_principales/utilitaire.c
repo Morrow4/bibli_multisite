@@ -38,13 +38,13 @@ int get_user_type(MYSQL *conn, char *username)
     //    return -1; // Retournez une valeur spéciale pour indiquer une erreur
     //}
 
-    MYSQL_RES *result = mysql_store_result(conn);
+    //MYSQL_RES *result = mysql_store_result(conn);
 
-    if (!result)
-    {
-        fprintf(stderr, "Aucun résultat retourné par la requête\n");
-        return -1; // Retournez une valeur spéciale pour indiquer une erreur
-    }
+    //if (!result)
+    //{
+    //    fprintf(stderr, "Aucun résultat retourné par la requête\n");
+    //    return -1; // Retournez une valeur spéciale pour indiquer une erreur
+    //}
 
     // Récupération du résultat
     MYSQL_ROW row = mysql_fetch_row(result);
