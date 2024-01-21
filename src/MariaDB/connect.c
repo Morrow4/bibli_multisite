@@ -18,7 +18,7 @@ void connect_database()
       fprintf(stderr, "Impossible d'initialiser la connexion\n");
       exit(1);
    }
-   printf("connexion initialsée");
+   printf("Connexion initialsée !\n");
 
    // Mot de passe de l'utilisateur
    // const char *db_user_password = NULL;
