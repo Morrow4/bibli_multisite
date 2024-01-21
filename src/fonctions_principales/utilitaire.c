@@ -15,36 +15,36 @@ int get_user_type(MYSQL *conn, char *username)
     printf("username : %s", username);
 
     // *******************************TEST*************************************
-    char q[255];
-    sprintf(q, "INSERT INTO Livre (ISBN, Titre, Auteur, Edition, Genre) VALUES ('test', 'test', 'test', 'test', 'test')");
+    //char q[255];
+    //sprintf(q, "INSERT INTO Livre (ISBN, Titre, Auteur, Edition, Genre) VALUES ('test', 'test', 'test', 'test', 'test')");
 
     // Exécuter la requête SQL
-    if (mysql_query(conn, q))
-    {
-        fprintf(stderr, "Erreur lors de l ajout du livre : %s\n", mysql_error(conn));
-        return;
-    }
+    //if (mysql_query(conn, q))
+    //{
+    //    fprintf(stderr, "Erreur lors de l ajout du livre : %s\n", mysql_error(conn));
+    //    return;
+    //}
 
-    printf("Succes de l ajout du livre (utilitaire) !\n");
+    //printf("Succes de l ajout du livre (utilitaire) !\n");
     // **********************************************************************
 
     // Requête SQL pour récupérer le TypeUtilisateur en fonction de l'Email
     char query[255];
     sprintf(query, "SELECT TypeUtilisateur FROM Utilisateur WHERE Email = '%s'", username);
 
-    if (mysql_query(conn, query))
-    {
-        fprintf(stderr, "Erreur lors de l'exécution de la requête : %s\n", mysql_error(conn));
-        return -1; // Retournez une valeur spéciale pour indiquer une erreur
-    }
+    //if (mysql_query(conn, query))
+    //{
+    //    fprintf(stderr, "Erreur lors de l'exécution de la requête : %s\n", mysql_error(conn));
+    //    return -1; // Retournez une valeur spéciale pour indiquer une erreur
+    //}
 
     MYSQL_RES *result = mysql_store_result(conn);
 
-    if (!result)
-    {
-        fprintf(stderr, "Aucun résultat retourné par la requête\n");
-        return -1; // Retournez une valeur spéciale pour indiquer une erreur
-    }
+    //if (!result)
+    //{
+    //    fprintf(stderr, "Aucun résultat retourné par la requête\n");
+    //    return -1; // Retournez une valeur spéciale pour indiquer une erreur
+    //}
 
     // Récupération du résultat
     MYSQL_ROW row = mysql_fetch_row(result);
