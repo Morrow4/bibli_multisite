@@ -69,7 +69,7 @@ void choix_admin_site_bibliotheque(MYSQL *conn, char *username)
         break;
 
     case 10:
-        suppression_livre();
+        suppression_livre(conn);
         break;
 
     case 11:
@@ -77,7 +77,7 @@ void choix_admin_site_bibliotheque(MYSQL *conn, char *username)
         break;
 
     case 12:
-        valider_restitution();
+        valider_restitution(conn);
         break;
 
     default:
