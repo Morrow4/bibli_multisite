@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "../header/utilitaire.h"
 #include "../header/fonctions_bdd.h"
 #include "../header/fonctions_choix_user.h"
 
@@ -66,8 +67,8 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username){
 
     case 8:
         printf("Veuillez saisir l'ISBN du livre que vous voulez supprimer : ");
-        scanf("%d", &ISBN);
-        suppression_livre(conn, &ISBN);
+        scanf("%s", ISBN);
+        suppression_livre(conn, ISBN);
         break;
 
     case 9:
@@ -75,7 +76,7 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username){
         break;
 
     case 10:
-        verifier_et_valider_restitution(conn,id_emprunt);
+        verifier_et_valider_restitution(conn, id_emprunt);
         break;
 
     default:
