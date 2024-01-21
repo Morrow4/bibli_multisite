@@ -14,20 +14,6 @@ int get_user_type(MYSQL *conn, char *username)
 
     printf("username : %s", username);
 
-    // *******************************TEST*************************************
-    char q[255];
-    sprintf(q, "INSERT INTO Utilisateur (Email, Nom, Prenom, MotDePasse, TypeUtilisateur, EstChercheur, EstBloque, CommentaireBlocage) VALUES ('tezt@gmail.com', 'tezt', 'tezt', '123456', 'invite', false, false, NULL)");
-
-    // Exécuter la requête SQL
-    if (mysql_query(conn, q))
-    {
-        fprintf(stderr, "Erreur lors de l ajout de l'utilisateur : %s\n", mysql_error(conn));
-        return;
-    }
-
-    printf("Succes de l ajout de l'utilisateur !\n");
-    // **********************************************************************
-
     // Requête SQL pour récupérer le TypeUtilisateur en fonction de l'Email
     char query[255];
     sprintf(query, "SELECT TypeUtilisateur FROM Utilisateur WHERE Email = '%s'", username);
