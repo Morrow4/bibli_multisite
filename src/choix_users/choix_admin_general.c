@@ -54,7 +54,7 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username){
         break;
 
     case 5:
-        Suppression_compte(conn);
+        suppression_compte(conn);
         break;
 
     case 6:

@@ -10,6 +10,8 @@
 void choix_admin_site_bibliotheque(MYSQL *conn, char *username)
 {
     int choix_user;
+    char ISBN[20];
+    int id_emprunt = -1;
 
     printf("+-------------------------------MENU-------------------------------+\n");
     printf("+------------------------Administrateur Site-----------------------+\n");
@@ -69,7 +71,7 @@ void choix_admin_site_bibliotheque(MYSQL *conn, char *username)
         break;
 
     case 10:
-        suppression_livre(conn);
+        suppression_livre(conn, ISBN);
         break;
 
     case 11:
@@ -77,7 +79,7 @@ void choix_admin_site_bibliotheque(MYSQL *conn, char *username)
         break;
 
     case 12:
-        valider_restitution(conn);
+        verifier_et_valider_restitution(conn, id_emprunt);
         break;
 
     default:
