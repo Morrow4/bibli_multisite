@@ -77,7 +77,7 @@ void ajout_compte(MYSQL *conn)
             scanf("%100s", login);
             if (mon_compteur_login == 0)
             {
-                return
+                return;
             }
         } while (!is_valid(login) && (mon_compteur_login >= 0));
         int mon_compteur_mp = 5;
