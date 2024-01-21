@@ -18,10 +18,10 @@ void choix_admin_site_bibliotheque(MYSQL *conn, char *username)
     printf("+-------------------------------MENU-------------------------------+\n");
     printf("+------------------------Administrateur Site-----------------------+\n");
     printf("1) Lister les livres et leur disponibilité dans les différents sites\n");
-    printf("2) Réserver un livre\n");
+    printf("2) Emprunter un livre\n");
     printf("3) S inscrire sur une liste attente pour réserver un livre\n");
     printf("4) Consulter le délai d attente pour emprunter un livre indisponible\n");
-    printf("5) Réserver un livre pour un utilisateur inscrit\n");
+    printf("5) Emprunter un livre pour un utilisateur inscrit\n");
     printf("6) Ajouter un compte utilisateur\n");
     printf("7) Supprimer un compte utilisateur\n");
     printf("8) Consulter les statistiques\n");
