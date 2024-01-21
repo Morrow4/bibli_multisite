@@ -20,6 +20,6 @@ void qui(char *username);
 void deconnexion(MYSQL *conn);
 
 // MariaDB - connect.c
-void connect_database();
+MYSQL* connect_database();
 
 #endif
