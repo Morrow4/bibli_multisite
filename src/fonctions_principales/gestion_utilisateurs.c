@@ -26,7 +26,7 @@ void ajout_compte(MYSQL *conn, char *username)
     int choix_type;     // variable pour type d'utilisateur
     char type_user[15]; // nom du type utilisateur choisi
 
-    int user_group = get_user_type(conn, username); // groupe de l'utilisateur executant la commande
+    int user_group = get_user_type(conn); // groupe de l'utilisateur executant la commande
 
     switch (user_group) // pour faire un switch il faut apparemment une variable de type int, donc j'ai modifié tout ça en conséquent
     {
@@ -206,7 +206,7 @@ void suppression_compte(MYSQL *conn, char *username)
     char login[101];
     char type_user[15]; // nom du type d'utilisateur
 
-    int user_group = get_user_type(conn, username); // groupe de l'utilisateur executant la commande
+    int user_group = get_user_type(conn); // groupe de l'utilisateur executant la commande
 
     switch (user_group) // pour faire un switch il faut apparemment une variable de type int, donc j'ai modifié tout ça en conséquent
     {
@@ -327,7 +327,7 @@ void blocage_compte(MYSQL *conn, char *username)
     char type_user[15]; // nom du type utilisateur choisi
     char login[100], raison[101];
 
-    int user_group = get_user_type(conn, username); // groupe de l'utilisateur executant la commande
+    int user_group = get_user_type(conn); // groupe de l'utilisateur executant la commande
 
     switch (user_group) // pour faire un switch il faut apparemment une variable de type int, donc j'ai modifié tout ça en conséquent
     {
