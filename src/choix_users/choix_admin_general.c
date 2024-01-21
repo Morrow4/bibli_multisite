@@ -9,7 +9,7 @@
 void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
 {
     int choix_user;
-    char ISBN[20];
+    char ISBN[13];
     int id_emprunt = -1;
     char login_utilisateur[100];
     char site_restitution[50];
@@ -26,7 +26,8 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
     printf("8) Supprimer un livre\n");
     printf("9) Bloquer un utilisateur temporairement\n");
     printf("10) Valider la restitution d'un livre\n");
-    printf("11) Déconnexion\n");
+    printf("11) Emprunter un livre\n");
+    printf("12) Déconnexion\n");
 
     printf("Veuillez entrer le numéro du choix correspondant : \n");
     scanf("%d", &choix_user);
@@ -79,10 +80,14 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
 
     case 10:
         printf("Veuillez saisir le numéro d'identification de l'emprunt à restituer : ");
-        scanf("%d", id_emprunt);
+        scanf("%d", &id_emprunt);
         printf("Veuillez saisir le site sur lequel le livre est restitué : ");
         scanf("%s", site_restitution);
         void enregistrer_restitution(conn, id_emprunt, site_restitution);
+        break;
+
+    case 11:
+        Emprunt_soimeme(conn, username);
         break;
 
     default:
