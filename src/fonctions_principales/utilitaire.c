@@ -129,24 +129,24 @@ bool gestion_int(int valeur)
     return true;
 }
 
+void qui(char *username, size_t size)
+{
+    // Obtenir le nom de l'utilisateur à l'origine de l'exécution
+    uid_t uid = getuid();
+    struct passwd *pwd = getpwuid(uid);
+    snprintf(username, size, "%s", (pwd != NULL) ? pwd->pw_name : "Inconnu");
+}
+
 void qui_et_quand(char **username, char **time_str)
 {
     // Obtenir le nom de l'utilisateur à l'origine de l'exécution
-    qui(username);
+    qui(username, sizeof(username));
 
     // Obtenir la date et l'heure actuelles
     time_t now = time(NULL);
     struct tm *local_time = localtime(&now);
     *time_str = malloc(64);
     strftime(*time_str, 64, "%Y-%m-%d %H:%M:%S", local_time);
-}
-
-void qui(char *username)
-{
-    // Obtenir le nom de l'utilisateur à l'origine de l'exécution
-    uid_t uid = getuid();
-    struct passwd *pwd = getpwuid(uid);
-    username = (pwd != NULL) ? pwd->pw_name : "Inconnu";
 }
 
 // Fonction pour déconnecter l'utilisateur
