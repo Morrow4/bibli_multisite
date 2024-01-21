@@ -8,13 +8,15 @@
 #include "header/fonctions_choix_user.h"
 #include "header/fonctions_bdd.h"
 
-
 int main()
 {
     uid_t user_uid = getuid();
 
     // Ouvrir la connexion à la base de données
-    connect_database();
+    if (connect_database())
+    {
+        printf("Connexion réussie !");
+    }
     MYSQL *conn = mysql_init(NULL);
 
     // On utilise la fonction getpwuid() pour récupérer les informations sur l'utilisateur
