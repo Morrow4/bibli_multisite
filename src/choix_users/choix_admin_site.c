@@ -26,7 +26,7 @@ void choix_admin_site_bibliotheque(MYSQL *conn, char *username)
     printf("13) Déconnexion\n");
 
     printf("Veuillez entrer le numéro du choix correspondant : \n");
-    scanf("%d", choix_user);
+    scanf("%d", &choix_user);
 
     switch (choix_user)
     {

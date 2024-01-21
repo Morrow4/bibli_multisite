@@ -8,6 +8,8 @@
 void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
 {
     int choix_user;
+    int ISBN;
+    int id_emprunt;
 
     printf("+-------------------------------MENU-------------------------------+\n");
     printf("+----------------------Administrateur Général----------------------+\n");
@@ -24,7 +26,7 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
     printf("11) Déconnexion\n");
 
     printf("Veuillez entrer le numéro du choix correspondant : \n");
-    scanf("%d", choix_user);
+    scanf("%d", &choix_user);
 
     switch (choix_user)
     {
@@ -33,7 +35,6 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
         break;
 
     case 2:
-        int ISBN;
         printf("Veuillez saisir l'ISBN du livre que vous voulez réserver : ");
         scanf("%d", ISBN);
         reserver_livre(conn, username, ISBN);
@@ -41,7 +42,6 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
 
     case 3:
         char *login_utilisateur;
-        int ISBN;
         printf("Veuillez saisir le login de l'utilisateur qui veut réserver un livre : ");
         scanf("%d", login_utilisateur);
         printf("Veuillez saisir l'ISBN du livre que vous voulez réserver : ");
@@ -66,7 +66,6 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
         break;
 
     case 8:
-        int ISBN;
         printf("Veuillez saisir l'ISBN du livre que vous voulez supprimer : ");
         scanf("%d", ISBN);
         suppression_livre(conn, ISBN);
@@ -77,7 +76,7 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
         break;
 
     case 10:
-        verifier_et_valider_restitution(conn, id_emprunt);
+        verifier_et_valider_restitution(conn,id_emprunt);
         break;
 
     default:
