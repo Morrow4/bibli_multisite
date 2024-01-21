@@ -14,9 +14,8 @@ void choix_inscrit_bibliotheque(MYSQL *conn, char *username)
     printf("+--------------------Que souhaitez-vous faire ?--------------------+\n");
     printf("1) Lister les livres et leur disponibilité dans les différents sites\n");
     printf("2) Emprunter un livre\n");
-    printf("3) S'inscrire sur une liste attente pour réserver un livre\n");
-    printf("4) Consulter le délai d attente pour emprunter un livre indisponible\n");
-    printf("5) Déconnexion\n");
+    printf("3) Réserver un livre\n");
+    printf("4) Déconnexion\n");
 
     printf("Veuillez entrer le numéro du choix correspondant : \n");
     scanf("%d", &choix_user);
@@ -32,15 +31,17 @@ void choix_inscrit_bibliotheque(MYSQL *conn, char *username)
         break;
 
     case 3:
-        Inscri_liste_attente_livre();
+        printf("Veuillez saisir l'ISBN du livre que vous voulez réserver : ");
+        scanf("%s", ISBN);
+        reserver_livre(conn, username, ISBN);
         break;
 
-    case 4:
-        Affichage_delai_attente_livre();
+    case 13:
+        deconnexion(conn);
         break;
 
     default:
-        // Fonction de déconnexion ou autre traitement
+        choix_inscrit_bibliotheque(conn, username);
         break;
     }
 }
