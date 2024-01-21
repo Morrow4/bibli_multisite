@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <mysql.h>
 #include "../header/utilitaire.h"
 #include "../header/fonctions_bdd.h"
 #include "../header/fonctions_choix_user.h"
@@ -9,7 +10,7 @@
 void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
 {
     int choix_user;
-    char ISBN[20];
+    char ISBN[13];
     int id_emprunt = -1;
     char login_utilisateur[100];
     char site_restitution[50];
@@ -17,16 +18,18 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
     printf("+-------------------------------MENU-------------------------------+\n");
     printf("+----------------------Administrateur Général----------------------+\n");
     printf("1) Lister les livres et leur disponibilité dans les différents sites\n");
-    printf("2) Réserver un livre\n");
+    printf("2) Réserver un livre pour soi\n");
     printf("3) Réserver un livre pour un utilisateur inscrit\n");
     printf("4) Ajouter un compte utilisateur ou administrateur\n");
     printf("5) Supprimer un compte utilisateur ou administrateur\n");
-    printf("6) Consulter les statistiques\n");
+    printf("6) Consulter les statistiques globales de la bibliothèque\n");
     printf("7) Ajouter un livre\n");
     printf("8) Supprimer un livre\n");
     printf("9) Bloquer un utilisateur temporairement\n");
     printf("10) Valider la restitution d'un livre\n");
-    printf("11) Déconnexion\n");
+    printf("11) Emprunter un livre pour soi\n");
+    printf("12) Emprunter un livre pour un utilisateur inscrit\n");
+    printf("13) Déconnexion\n");
 
     printf("Veuillez entrer le numéro du choix correspondant : \n");
     scanf("%d", &choix_user);
@@ -79,10 +82,20 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
 
     case 10:
         printf("Veuillez saisir le numéro d'identification de l'emprunt à restituer : ");
-        scanf("%d", id_emprunt);
+        scanf("%d", &id_emprunt);
         printf("Veuillez saisir le site sur lequel le livre est restitué : ");
         scanf("%s", site_restitution);
         void enregistrer_restitution(conn, id_emprunt, site_restitution);
+        break;
+
+    case 11:
+        Emprunt_soimeme(conn, username);
+        break;
+
+    case 12:
+        printf("Veuillez saisir le login de l'utilisateur qui veut emprunter un livre : ");
+        scanf("%s", login_utilisateur);
+        Emprunt_soimeme(conn, login_utilisateur);
         break;
 
     default:

@@ -10,23 +10,25 @@
 void choix_admin_site_bibliotheque(MYSQL *conn, char *username)
 {
     int choix_user;
-    char ISBN[20];
+    char ISBN[13];
     int id_emprunt = -1;
+    char login_utilisateur[100];
+    char site_restitution[50];
 
     printf("+-------------------------------MENU-------------------------------+\n");
     printf("+------------------------Administrateur Site-----------------------+\n");
     printf("1) Lister les livres et leur disponibilité dans les différents sites\n");
-    printf("2) Emprunter un livre\n");
-    printf("3) S inscrire sur une liste attente pour réserver un livre\n");
-    printf("4) Consulter le délai d attente pour emprunter un livre indisponible\n");
-    printf("5) Emprunter un livre pour un utilisateur inscrit\n");
-    printf("6) Ajouter un compte utilisateur\n");
-    printf("7) Supprimer un compte utilisateur\n");
-    printf("8) Consulter les statistiques\n");
-    printf("9) Ajouter un livre\n");
-    printf("10) Supprimer un livre\n");
-    printf("11) Bloquer utilisateur temporairement\n");
-    printf("12) Valider la restitution un livre\n");
+    printf("2) Réserver un livre pour soi\n");
+    printf("3) Réserver un livre pour un utilisateur inscrit\n");
+    printf("4) Ajouter un compte utilisateur\n");
+    printf("5) Supprimer un compte utilisateur\n");
+    printf("6) Consulter les statistiques du site\n");
+    printf("7) Ajouter un livre\n");
+    printf("8) Supprimer un livre\n");
+    printf("9) Bloquer un utilisateur temporairement\n");
+    printf("10) Valider la restitution un livre\n");
+    printf("11) Emprunter un livre pour soi\n");
+    printf("12) Emprunter un livre pour un utilisateur inscrit\n");
     printf("13) Déconnexion\n");
 
     printf("Veuillez entrer le numéro du choix correspondant : \n");
@@ -35,51 +37,65 @@ void choix_admin_site_bibliotheque(MYSQL *conn, char *username)
     switch (choix_user)
     {
     case 1:
-        Liste_livres_et_dispo(conn);
+        // Liste_livres_et_dispo();
         break;
 
     case 2:
-        Emprunt_soimeme(conn, username);
+        printf("Veuillez saisir l'ISBN du livre que vous voulez réserver : ");
+        scanf("%s", ISBN);
+        reserver_livre(conn, username, ISBN);
         break;
 
     case 3:
-        Inscri_liste_attente_livre();
+        printf("Veuillez saisir le login de l'utilisateur qui veut réserver un livre : ");
+        scanf("%s", login_utilisateur);
+        printf("Veuillez saisir l'ISBN du livre que vous voulez réserver : ");
+        scanf("%s", ISBN);
+        reserver_livre(conn, login_utilisateur, ISBN);
         break;
 
     case 4:
-        Affichage_delai_attente_livre();
-        break;
-
-    case 5:
-        Emprunt_pour_adherent();
-        break;
-
-    case 6:
         ajout_compte(conn);
         break;
 
-    case 7:
+    case 5:
         suppression_compte(conn);
         break;
 
-    case 8:
-        Consultation_Stat();
+    case 6:
+        // Consultation_Stat();
         break;
 
-    case 9:
+    case 7:
         ajout_livre(conn);
         break;
 
-    case 10:
+    case 8:
+        printf("Veuillez saisir l'ISBN du livre que vous voulez supprimer : ");
+        scanf("%s", ISBN);
         suppression_livre(conn, ISBN);
         break;
 
-    case 11:
+    case 9:
         blocage_compte(conn);
         break;
 
+    case 10:
+        printf("Veuillez saisir le numéro d'identification de l'emprunt à restituer : ");
+        scanf("%d", &id_emprunt);
+        printf("Veuillez saisir le site sur lequel le livre est restitué : ");
+        scanf("%s", site_restitution);
+        void enregistrer_restitution(conn, id_emprunt, site_restitution);
+        break;
+
+    case 11:
+        Emprunt_soimeme(conn, username);
+        break;
+
     case 12:
-        verifier_et_valider_restitution(conn, id_emprunt);
+        printf("Veuillez saisir le login de l'utilisateur qui veut emprunter un livre : ");
+        scanf("%s", login_utilisateur);
+        Emprunt_soimeme(conn, login_utilisateur);
         break;
 
     default:
