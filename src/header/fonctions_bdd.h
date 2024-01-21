@@ -67,8 +67,8 @@ void enregistrer_emprunt(MYSQL *conn, char *email_utilisateur, int id_exemplaire
 // Emprunt_soimeme.c
 int nombreLivresParTitre(const char *titreRecherche);
 void afficherDetailsLivre(const Livre *livre);
-void effectuerEmprunt(MYSQL *conn, char *ISBN, char *username);
-void verifierEtEffectuerEmprunt(MYSQL *conn, char *ISBN, char *username);
+void effectuerEmprunt(MYSQL *conn, const char *ISBN, const char *username);
+void verifierEtEffectuerEmprunt(MYSQL *conn, const char *ISBN, const char *username);
 int trouverRetard(MYSQL *conn, const char *ISBN, double *joursDeRetard);
 void Emprunt_soimeme(MYSQL *conn, char *username);
 
