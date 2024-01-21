@@ -97,7 +97,7 @@ void effectuerEmprunt(MYSQL *conn, const char *ISBN, const char *username)
         fprintf(stderr, "Erreur lors de l'ajout de l'emprunt\n");
         return;
     }
-    free(username_copy);
+    free(username);
 }
 // Fonction pour vérifier et effectuer l'emprunt
 void verifierEtEffectuerEmprunt(MYSQL *conn, const char *ISBN, const char *username)
@@ -174,7 +174,7 @@ void Emprunt_soimeme(MYSQL *conn, char *username)
             strcpy(ISBN_true, Livre[numLivre - 1].ISBN);
 
             // Vérifier et effectuer l'emprunt
-            verifierEtEffectuerEmprunt(conn, ISBN_true);
+            verifierEtEffectuerEmprunt(conn, ISBN_true, username);
         }
         else
         {
