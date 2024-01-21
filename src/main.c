@@ -14,7 +14,11 @@ int main()
 
     // Ouvrir la connexion à la base de données
     connect_database();
-    MYSQL *conn = mysql_init(NULL);
+    if (!(conn = mysql_init(NULL)))
+    {
+    fprintf(stderr, "Impossible d'initialiser la connexion\n");
+    exit(1);
+    }
 
     //****************TEST****************
     char q[255];
