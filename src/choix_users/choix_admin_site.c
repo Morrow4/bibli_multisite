@@ -31,11 +31,11 @@ void choix_admin_site_bibliotheque(MYSQL *conn, char *username)
     switch (choix_user)
     {
     case 1:
-        Liste_livres_et_dispo();
+        Liste_livres_et_dispo(MYSQL *conn);
         break;
 
     case 2:
-        Reservation_soimeme_Livre();
+        Emprunt_soimeme(MYSQL *conn);
         break;
 
     case 3:
