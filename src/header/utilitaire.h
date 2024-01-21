@@ -11,7 +11,7 @@
 #include <mysql/mysql.h>
 
 // utilitaire.c
-int get_user_type(MYSQL *conn);
+int get_user_group(MYSQL *conn);
 bool estEntier(const char *str);
 bool limiteTailleInt(const char *str, int limite);
 bool gestion_int(int valeur);
