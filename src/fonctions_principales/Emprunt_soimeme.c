@@ -163,6 +163,7 @@ void Emprunt_soimeme(MYSQL *conn, char *username)
     if (Livres == NULL)
     {
         fprintf(stderr, "Erreur d'allocation mémoire\n");
+        free(Livres);
         return;
     }
 
@@ -205,7 +206,8 @@ void Emprunt_soimeme(MYSQL *conn, char *username)
     else
     {
         // Sortir du menu
+        free(Livres);
         return;
     }
-    free(Livres);
+        free(Livres);
 }
