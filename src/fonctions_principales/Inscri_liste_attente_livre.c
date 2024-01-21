@@ -3,5 +3,5 @@
 #include <stdlib.h>
 
 void Inscri_liste_attente_livre() {
-    return 0;
+    return;
 }

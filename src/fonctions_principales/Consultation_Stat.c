@@ -3,5 +3,5 @@
 #include <stdlib.h>
 
 void Consultation_Stat() {
-    return 0;
+    return;
 }
