@@ -14,7 +14,11 @@ int main()
 
     // Ouvrir la connexion à la base de données
     connect_database();
-    //MYSQL *conn = mysql_init(NULL);
+    if (!(conn = mysql_init(NULL)))
+    {
+    fprintf(stderr, "Impossible d'initialiser la connexion\n");
+    exit(1);
+    }
 
     // On utilise la fonction getpwuid() pour récupérer les informations sur l'utilisateur
     struct passwd *pwd = getpwuid(user_uid);
