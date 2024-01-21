@@ -5,9 +5,10 @@
 #include "../header/fonctions_bdd.h"
 #include "../header/fonctions_choix_user.h"
 
-void choix_admin_general_bibliotheque(char *username)
+void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
 {
     int choix_user;
+    int ISBN;
 
     printf("+-------------------------------MENU-------------------------------+\n");
     printf("+----------------------Administrateur Général----------------------+\n");
@@ -35,7 +36,9 @@ void choix_admin_general_bibliotheque(char *username)
         break;
 
     case 2:
-        Reservation_soimeme_Livre();
+        printf("Veuillez saisir l'ISBN du livre que vous voulez réserver : ");
+        scanf("%d", ISBN);
+        reserver_livre(conn, username, ISBN);
         break;
 
     case 3:

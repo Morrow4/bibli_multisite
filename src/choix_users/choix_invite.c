@@ -5,7 +5,7 @@
 #include "../header/fonctions_bdd.h"
 #include "../header/fonctions_choix_user.h"
 
-void choix_invite_bibliotheque(int user_groupe)
+void choix_invite_bibliotheque(MYSQL *conn)
 {
     int choix_user;
 

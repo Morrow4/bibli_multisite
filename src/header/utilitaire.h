@@ -10,20 +10,6 @@
 #include <time.h>
 #include <mysql/mysql.h>
 
-/* // Structure pour représenter un utilisateur
-typedef struct
-{
-    int ID_Utilisateur;
-    char Nom[255];
-    char Prenom[255];
-    char Email[255];
-    char MotDePasse[255];
-    char TypeUtilisateur[255];
-    int EstChercheur;
-    int EstBloque;
-    char CommentaireBlocage[255];
-} Utilisateur; */
-
 // utilitaire.c
 int get_user_type(MYSQL *conn, char *username);
 bool estEntier(const char *str);
