@@ -1,11 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <mysql/mysql.h>
+#define _XOPEN_SOURCE
 #include <time.h>
 #include "verif_isbn_bdd.h"
 #include <string.h>
 
-#define _XOPEN_SOURCE
 #define TAILLE_REQUETE 256
 
 typedef struct
