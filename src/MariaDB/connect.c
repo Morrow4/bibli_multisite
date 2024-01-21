@@ -6,7 +6,7 @@
 #include "../header/fonctions_bdd.h"
 #include "../header/fonctions_choix_user.h"
 
-void connect_database()
+MYSQL* connect_database()
 {
    // Variables pour la connexion à la base de données
    const char *user = "DB_USER";
@@ -14,7 +14,7 @@ void connect_database()
    MYSQL *conn;
 
    // Initialise la connexion
-   if (!(conn = mysql_init(NULL)))
+   if (!(conn = mysql_init(0)))
    {
       fprintf(stderr, "Impossible d'initialiser la connexion\n");
       exit(1);
@@ -29,22 +29,25 @@ void connect_database()
    // const char *db_user_password = NULL;
 
    // Connexion à la base de données
-   if (!mysql_real_connect(
-           conn,         // Connexion
-           "localhost",  // Hôte
-           db_user,      // Nom d'utilisateur
-           "",           // db_user_password,      // Mot de passe utilisateur
-           "bibliotech", // Base de donnée par défaut
-           3306,         // Numéro du port
-           NULL,         // Chemin vers le fichier socket
-           0             // Options supplémentaires
-           ))
+   conn = mysql_real_connect(
+         conn,         // Connexion
+         "localhost",  // Hôte
+         db_user,      // Nom d'utilisateur
+         "",           // db_user_password,      // Mot de passe utilisateur
+         "bibliotech", // Base de donnée par défaut
+         3306,         // Numéro du port
+         NULL,         // Chemin vers le fichier socket
+         0             // Options supplémentaires
+         );
+
+   if (!conn)
    {
       // Retourne l'échec de la connexion et ferme le gestionnaire
       fprintf(stderr, "Erreur de connexion au serveur: %s\n", mysql_error(conn));
       mysql_close(conn);
       exit(1);
    }
+   return conn;
 
    //char q[255];
    //sprintf(q, "INSERT INTO Livre (ISBN, Titre, Auteur, Edition, Genre) VALUES ('test', 'test', 'test', 'test', 'test')");
