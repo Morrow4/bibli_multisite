@@ -36,7 +36,7 @@ int get_user_type(MYSQL *conn, char *username)
     MYSQL_ROW row = mysql_fetch_row(result);
     if (row)
     {
-        if (strcmp(row[0], "AdminGeneral") == 0) //mappage chaîne de caractere a valeur numerique
+        if (strcmp(row[0], "AdminGeneral") == 0) // mappage chaîne de caractere a valeur numerique
         {
             user_group = 1;
         }
@@ -144,4 +144,18 @@ void qui(char **username)
     uid_t uid = getuid();
     struct passwd *pwd = getpwuid(uid);
     *username = (pwd != NULL) ? pwd->pw_name : "Inconnu";
+}
+
+// Fonction pour déconnecter l'utilisateur
+void deconnexion(MYSQL *conn)
+{
+    // Fermer la connexion à la base de données si elle est ouverte
+    if (conn != NULL)
+    {
+        mysql_close(conn);
+        printf("Déconnexion de la base de données réussie.\n");
+    }
+
+    // Terminer le programme
+    exit(EXIT_SUCCESS);
 }
