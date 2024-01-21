@@ -46,7 +46,7 @@ int main()
         break;
 
     case 3: // inscrit
-        choix_inscrit_bibliotheque(conn);
+        choix_inscrit_bibliotheque(conn, username);
         break;
 
     case 4: // invite
