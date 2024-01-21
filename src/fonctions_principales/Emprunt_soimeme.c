@@ -128,7 +128,7 @@ void verifierEtEffectuerEmprunt(MYSQL *conn, const char *ISBN, const char *usern
 }
 
 // Fonction pour l'emprunt de livre
-void Emprunt_soimeme(MYSQL *conn)
+void Emprunt_soimeme(MYSQL *conn, char *username)
 {
     int numLivre;
     int tailleTab;

@@ -72,7 +72,7 @@ void verifierEtEffectuerEmprunt(MYSQL *conn, const char *ISBN, const char *usern
 void Emprunt_soimeme(MYSQL *conn);
 
 // Exemplaires.c
-void ajout_exemplaire(MYSQL *conn, const char *username);
+void ajout_exemplaire(MYSQL *conn, char *username);
 void mise_a_jour_exemplaire(MYSQL *conn, int id_exemplaire);
 void suppression_exemplaire(MYSQL *conn, int id_exemplaire);
 void recherche_exemplaire(MYSQL *conn, char *ISBN);
