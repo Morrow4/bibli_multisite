@@ -99,7 +99,7 @@ void ajout_compte(MYSQL *conn, char *username)
             scanf("%100s", email);
             if (mon_compteur_mail == 0)
             {
-                return
+                return;
             }
         } while (!is_valid(email) && (mon_compteur_mail >= 0));
         int mon_compteur_nom = 5;
@@ -110,7 +110,7 @@ void ajout_compte(MYSQL *conn, char *username)
             scanf("%50s", nom);
             if (mon_compteur_nom == 0)
             {
-                return
+                return;
             }
         } while (!is_valid(nom) && (mon_compteur_nom >= 0));
         int mon_compteur_prenom = 5;
@@ -121,7 +121,7 @@ void ajout_compte(MYSQL *conn, char *username)
             scanf("%50s", prenom);
             if (mon_compteur_prenom == 0)
             {
-                return
+                return;
             }
         } while (!is_valid(prenom) && (mon_compteur_prenom >= 0));
         int mon_compteur_cherch = 5;
@@ -132,11 +132,11 @@ void ajout_compte(MYSQL *conn, char *username)
             scanf("%1s", estChercheur);
             if (mon_compteur_cherch == 0)
             {
-                return
+                return;
             }
         } while ((strcmp(estChercheur, "o") != 0 && strcmp(estChercheur, "n") != 0) && (mon_compteur_cherch >= 0));
 
-        printf("Le login est %d, le mot de passe est %d, son groupe est %d, le mail est %d, le nom est %d, le prenom est %d, la personne est chercheur : %d", login, password, type_user, email, nom, prenom, estChercheur);
+        printf("Le login est %s, le mot de passe est %s, son groupe est %s, le mail est %s, le nom est %s, le prenom est %s, la personne est chercheur : %s", login, password, type_user, email, nom, prenom, estChercheur);
         do
         {
             printf("Validez-vous ces informations? o/n");
@@ -151,10 +151,10 @@ void ajout_compte(MYSQL *conn, char *username)
         perror("Erreur lors de l'ouverture du fichier de log");
         exit(1);
     }
-    fprintf(log_file, "Exécuté par: %s, Date et heure: %s\n", username, time_str);
+    fprintf(log_file, "Exécuté par: %s, Date et heure: %ld\n", username, time_str);
 
     //  Ajout de l'utilisateur dans la base de donnée //Modifier pour mail
-    char query[500];
+    char query[1024];
     sprintf(query, "INSERT INTO Utilisateur (ID_Utilisateur, Nom, Prenom, MotDePasse, TypeUtilisateur, EstChercheur) VALUES ('%s','%s', '%s', '%s', '%s', '%s')",
             login, nom, prenom, password, type_user, (strcmp(estChercheur, "o") == 0) ? "1" : "0");
 
@@ -168,7 +168,7 @@ void ajout_compte(MYSQL *conn, char *username)
     }
     fprintf(log_file, "Utilisateur créé dans la base de donnée: %s, Groupe: %s\n", login, type_user); // log ajout bdd
     // Création de l'utilisateur sur le système
-    char username[101], user_password[256];
+    char user_password[256];
     strcpy(username, login);
     strcpy(user_password, password);
 
@@ -186,7 +186,10 @@ void ajout_compte(MYSQL *conn, char *username)
     fprintf(log_file, "Utilisateur créé dans le systeme: %s, Groupe: %s\n", login, type_user); // log ajout sys
     // Ajout du mot de passe utilisateur
     system(command);
-    system("echo \"%s:%s\" | chpasswd", username, user_password);                                    // Cela utilise chpasswd pour définir le mot de passe de l'utilisateur
+
+    char passwd[500];
+    sprintf(passwd, "echo \"%s:%s\" | chpasswd", username, user_password);
+    system(passwd);                                                                                  // Cela utilise chpasswd pour définir le mot de passe de l'utilisateur
     fprintf(log_file, "Mot de passe de l'utilisateur attribué: %s, Groupe: %s\n", login, type_user); // log mp sys
 
     // Fermetures
@@ -247,7 +250,7 @@ void suppression_compte(MYSQL *conn, char *username)
         exit(1);
     }
 
-    char *username, *time_str;
+    char *time_str;
     qui_et_quand(&username, &time_str);
 
     // Écrivez l'en-tête du log
