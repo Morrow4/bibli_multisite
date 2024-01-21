@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <mysql.h>
+#include <mysql/mysql.h>
 #include "../header/utilitaire.h"
 #include "../header/fonctions_bdd.h"
 #include "../header/fonctions_choix_user.h"

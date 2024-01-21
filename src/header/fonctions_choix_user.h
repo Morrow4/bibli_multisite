@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <mysql/mysql.h>
 
 void choix_invite_bibliotheque(MYSQL *conn);
 void choix_inscrit_bibliotheque(MYSQL *conn, char *username);
