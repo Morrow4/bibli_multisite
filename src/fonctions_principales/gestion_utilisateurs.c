@@ -153,8 +153,8 @@ void ajout_compte(MYSQL *conn, char *username)
     }
 
     time_t now;
-    char date_et_heure[50] = ctime(time(&now));
-    fprintf(log_file, "Exécuté par: %s, Date et heure: %s\n", username, date_et_heure);
+    time(&now);
+    fprintf(log_file, "Exécuté par: %s, Date et heure: %s\n", username, ctime(&now));
 
     //  Ajout de l'utilisateur dans la base de donnée //Modifier pour mail
     char query[1024];
@@ -197,7 +197,6 @@ void ajout_compte(MYSQL *conn, char *username)
 
     // Fermetures
     fclose(log_file);
-    free(time_str);
 }
 
 void suppression_compte(MYSQL *conn, char *username)
