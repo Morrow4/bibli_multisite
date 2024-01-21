@@ -20,9 +20,9 @@ void connect_database()
    }
    printf("Connexion initialsée !\n");
 
-   // Définir le délai d'attente de connexion (en secondes)
-   unsigned int timeout = 10; // par exemple, définissez votre propre valeur en secondes
-   mysql_options(conn, MYSQL_OPT_CONNECT_TIMEOUT, &timeout);
+   // Définir le délai d'attente de lecture (net_read_timeout) en secondes
+   unsigned int read_timeout = 60;
+   mysql_options(conn, MYSQL_OPT_READ_TIMEOUT, &read_timeout);
 
    // Mot de passe de l'utilisateur
    // const char *db_user_password = NULL;
