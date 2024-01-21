@@ -24,17 +24,17 @@ int get_user_type(MYSQL *conn, char *username)
         return -1; // Retournez une valeur spéciale pour indiquer une erreur
     }
 
-    MYSQL_RES *r = mysql_store_result(conn);
+    MYSQL_RES *result = mysql_store_result(conn);
 
-    if (!r)
+    if (!result)
     {
         fprintf(stderr, "Aucun résultat retourné par la requête\n");
         return -1; // Retournez une valeur spéciale pour indiquer une erreur
     }
 
     // Récupération du résultat
-    MYSQL_ROW roww = mysql_fetch_row(r);
-    printf("roww 0 : %d", roww[0]);
+    MYSQL_ROW row = mysql_fetch_row(result);
+    printf("row 0 : %s\n", row[0]);
     // **********************************************************************
 
     // Requête SQL pour récupérer le TypeUtilisateur en fonction de l'Email
