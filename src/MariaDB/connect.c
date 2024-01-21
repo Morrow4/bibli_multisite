@@ -44,6 +44,5 @@ MYSQL *connect_database()
       mysql_close(conn);
       exit(1);
    }
-   printf("conn");
    return conn;
 }
