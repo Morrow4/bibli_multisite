@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <mysql/mysql.h>
-#include "utilitaire.h"
-#include "livre.h"
+#include "../header/utilitaire.h"
+#include "../header/fonctions_bdd.h"
+#include "../header/fonctions_choix_user.h"
 
 void connect_database()
 {
