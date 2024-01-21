@@ -54,7 +54,7 @@ void verifier_et_valider_restitution(MYSQL *conn, int id_emprunt)
     }
 }
 
-int valider_restitution(MYSQL *conn, int id_emprunt, const char *site_restitution)
+int valider_restitution(MYSQL *conn, int id_emprunt, const char *site_restitution) ///////
 {
     // Requete SQL pour recuperer le site principal de l exemplaire
     char query[1024];
