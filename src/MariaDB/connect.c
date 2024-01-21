@@ -20,14 +20,14 @@ void connect_database()
    }
 
    // Mot de passe de l'utilisateur
-   const char *db_user_password = NULL;
+   //const char *db_user_password = NULL;
 
    // Connexion à la base de données
    if (!mysql_real_connect(
            conn,                  // Connexion
            "localhost", // Hôte
            db_user,               // Nom d'utilisateur
-           db_user_password,      // Mot de passe utilisateur
+           "",//db_user_password,      // Mot de passe utilisateur
            "bibliotech",          // Base de donnée par défaut
            3306,                  // Numéro du port
            NULL,                  // Chemin vers le fichier socket
