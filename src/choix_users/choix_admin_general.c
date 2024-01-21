@@ -9,7 +9,7 @@
 void choix_admin_general_bibliotheque(MYSQL *conn, char *username){
     int choix_user;
     char ISBN[20];
-    int id_emprunt;
+    int id_emprunt = -1;
     char login_utilisateur[100];
 
     printf("+-------------------------------MENU-------------------------------+\n");

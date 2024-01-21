@@ -17,14 +17,19 @@ typedef struct Livre
     char Genre[100];
 } Livre;
 
+//------Les fonctions à faire-----------
+//---------------------------------------
+//Liste_livres_et_dispo.c
+void Liste_livres_et_dispo(MYSQL *conn);
+//Inscri_liste_attente_livre.c
+void Inscri_liste_attente_livre();
+//--------------------------------
+
 // gestion_livres.c
 void ajout_livre(MYSQL *conn);
 void mise_a_jour_livre(MYSQL *conn, char *ISBN);
 void suppression_livre(MYSQL *conn, char *ISBN);
 void recherche_ISBN(MYSQL *conn, char *titre, char *auteur);
-
-//Liste_livres_et_dispo.c
-void Liste_livres_et_dispo(MYSQL *conn);
 
 // reservation.c
 bool au_moins_un_exemplaire_disponible(MYSQL *conn, char *isbn_livre);
