@@ -25,7 +25,7 @@ void connect_database()
    // Connexion à la base de données
    if (!mysql_real_connect(
            conn,                  // Connexion
-           "mariadb.10.1.144.49", // Hôte
+           "localhost", // Hôte
            db_user,               // Nom d'utilisateur
            db_user_password,      // Mot de passe utilisateur
            "bibliotech",          // Base de donnée par défaut
