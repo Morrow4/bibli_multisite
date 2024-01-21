@@ -19,15 +19,15 @@ typedef struct Livre
 
 //------Les fonctions à faire-----------
 //---------------------------------------
-//Liste_livres_et_dispo.c
+// Liste_livres_et_dispo.c
 void Liste_livres_et_dispo(MYSQL *conn);
-//Inscri_liste_attente_livre.c
+// Inscri_liste_attente_livre.c
 void Inscri_liste_attente_livre();
-//Affichage_delai_attente_livre.c
+// Affichage_delai_attente_livre.c
 void Affichage_delai_attente_livre();
-//Emprunt_pour_adherent.c
+// Emprunt_pour_adherent.c
 void Emprunt_pour_adherent();
-//Consultation_Stat.c
+// Consultation_Stat.c
 void Consultation_Stat();
 //--------------------------------
 
@@ -44,6 +44,7 @@ void mettre_a_jour_disponibilite_exemplaire(MYSQL *conn, int id_exemplaire, bool
 void enregistrer_reservation(MYSQL *conn, char *email_utilisateur, int id_exemplaire);
 
 // gestion_restitution.c
+void enregistrer_restitution(MYSQL *conn, int id_emprunt, const char *site_restitution);
 void verifier_et_valider_restitution(MYSQL *conn, int id_restitution);
 int valider_restitution(MYSQL *conn, int id_emprunt, char *site_restitution);
 void marquer_restitution_en_transit(MYSQL *conn, int id_emprunt, char *site_restitution);
@@ -71,7 +72,6 @@ void effectuerEmprunt(MYSQL *conn, const char *ISBN, const char *username);
 void verifierEtEffectuerEmprunt(MYSQL *conn, const char *ISBN, const char *username);
 int trouverRetard(MYSQL *conn, const char *ISBN, double *joursDeRetard);
 void Emprunt_soimeme(MYSQL *conn, char *username);
-
 
 // Exemplaires.c
 void ajout_exemplaire(MYSQL *conn);

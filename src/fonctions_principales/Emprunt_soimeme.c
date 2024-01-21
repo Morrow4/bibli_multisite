@@ -97,8 +97,9 @@ void effectuerEmprunt(MYSQL *conn, const char *ISBN, const char *username)
         fprintf(stderr, "Erreur lors de l'ajout de l'emprunt\n");
         return;
     }
-    free((char*)username);
+    free((char *)username);
 }
+
 // Fonction pour vérifier et effectuer l'emprunt
 void verifierEtEffectuerEmprunt(MYSQL *conn, const char *ISBN, const char *username)
 {
@@ -156,20 +157,19 @@ void Emprunt_soimeme(MYSQL *conn, char *username)
         printf("Numéro  Titre                          Edition                       ISBN\n");
         printf("---------------------------------------------------------------------------\n");
 
+        // Récupérer les livres
+        Livre *Livres = malloc(tailleTab * sizeof(Livre));
+        if (Livres == NULL)
+        {
+            fprintf(stderr, "Erreur d'allocation mémoire\n");
+            free(Livres);
+            return;
+        }
 
-    // Récupérer les livres
-    Livre *Livres = malloc(tailleTab * sizeof(Livre));
-    if (Livres == NULL)
-    {
-        fprintf(stderr, "Erreur d'allocation mémoire\n");
-        free(Livres);
-        return;
-    }
-
-    for (int i = 0; i < tailleTab; i++)
-    {
-        afficherDetailsLivre(&Livres[i]);
-    }
+        for (int i = 0; i < tailleTab; i++)
+        {
+            afficherDetailsLivre(&Livres[i]);
+        }
 
         // Saisie du numéro du livre
         printf("Quel est le numéro du livre concerné par la demande? (saisissez un chiffre)\n");

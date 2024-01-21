@@ -6,11 +6,13 @@
 #include "../header/fonctions_bdd.h"
 #include "../header/fonctions_choix_user.h"
 
-void choix_admin_general_bibliotheque(MYSQL *conn, char *username){
+void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
+{
     int choix_user;
     char ISBN[20];
     int id_emprunt = -1;
     char login_utilisateur[100];
+    char site_restitution[50];
 
     printf("+-------------------------------MENU-------------------------------+\n");
     printf("+----------------------Administrateur Général----------------------+\n");
@@ -76,7 +78,11 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username){
         break;
 
     case 10:
-        verifier_et_valider_restitution(conn, id_emprunt);
+        printf("Veuillez saisir le numéro d'identification de l'emprunt à restituer : ");
+        scanf("%d", id_emprunt);
+        printf("Veuillez saisir le site sur lequel le livre est restitué : ");
+        scanf("%s", site_restitution);
+        void enregistrer_restitution(conn, id_emprunt, site_restitution);
         break;
 
     default:
