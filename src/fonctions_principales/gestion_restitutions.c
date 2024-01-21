@@ -5,7 +5,7 @@
 #include "../header/fonctions_bdd.h"
 #include "../header/utilitaire.h"
 
-void verifier_et_valider_restitution(MYSQL *conn, int id_restitution)
+void verifier_et_valider_restitution(MYSQL *conn, int id_emprunt)
 {
     // Requete SQL pour recuperer les informations de la restitution
     char query[1024];
