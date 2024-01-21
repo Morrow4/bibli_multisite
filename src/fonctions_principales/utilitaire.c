@@ -48,7 +48,7 @@ int get_user_type(MYSQL *conn, char *username)
 
     // Récupération du résultat
     MYSQL_ROW row = mysql_fetch_row(result);
-    printf("row 0 : %d", row[0]);
+    printf("row 0 : %s\n", row[0]);
     if (row)
     {
         if (strcmp(row[0], "AdminGeneral") == 0) // mappage chaîne de caractere a valeur numerique
