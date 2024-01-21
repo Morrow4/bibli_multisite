@@ -53,7 +53,7 @@ void choix_admin_site_bibliotheque(MYSQL *conn, char *username)
         break;
 
     case 6:
-        Ajout_compte();
+        Ajout_compte(conn);
         break;
 
     case 7:

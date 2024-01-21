@@ -25,6 +25,10 @@ void Liste_livres_et_dispo(MYSQL *conn);
 void Inscri_liste_attente_livre();
 //Affichage_delai_attente_livre.c
 void Affichage_delai_attente_livre();
+//Emprunt_pour_adherent.c
+void Emprunt_pour_adherent();
+//Consultation_Stat.c
+void Consultation_Stat();
 //--------------------------------
 
 // gestion_livres.c

@@ -7,7 +7,7 @@
 #include "../header/fonctions_bdd.h"
 #include "../header/fonctions_choix_user.h"
 
-void choix_inscrit_bibliotheque(MYSQL *conn)
+void choix_inscrit_bibliotheque(MYSQL *conn, char *username)
 {
     int choix_user;
 
@@ -30,7 +30,7 @@ void choix_inscrit_bibliotheque(MYSQL *conn)
         break;
 
     case 2:
-        Emprunt_soimeme(conn);
+        Emprunt_soimeme(conn, username);
         break;
 
     case 3:

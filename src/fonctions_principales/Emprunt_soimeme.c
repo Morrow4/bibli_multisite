@@ -60,6 +60,8 @@ void afficherDetailsLivre(const Livre *livre)
 // Fonction pour effectuer l'emprunt
 void effectuerEmprunt(MYSQL *conn, const char *ISBN, const char *username)
 {
+    char *username_copy = strdup(username);  // Créez une copie modifiable de la chaîne.
+    qui(&username_copy);
 
     char query[255];
     // Réduire le nombre d'exemplaires disponibles
@@ -96,6 +98,7 @@ void effectuerEmprunt(MYSQL *conn, const char *ISBN, const char *username)
         fprintf(stderr, "Erreur lors de l'ajout de l'emprunt\n");
         return;
     }
+    free(username_copy);
 }
 // Fonction pour vérifier et effectuer l'emprunt
 void verifierEtEffectuerEmprunt(MYSQL *conn, const char *ISBN, const char *username)
@@ -129,7 +132,7 @@ void Emprunt_soimeme(MYSQL *conn)
 {
     int numLivre;
     int tailleTab;
-    int user_group = get_user_type(conn,getuid());
+    int user_group = get_user_type(conn,getuid()); //METTEZ ICI LE USERNAME 
 
     if (user_group != 2)
     {
