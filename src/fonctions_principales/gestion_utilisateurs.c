@@ -194,7 +194,7 @@ void ajout_compte(MYSQL *conn)
     free(time_str);
 }
 
-void Suppression_compte(MYSQL *conn)
+void suppression_compte(MYSQL *conn)
 {
 
     int choix_type; // variable pour type d'utilisateur
@@ -313,7 +313,7 @@ void Suppression_compte(MYSQL *conn)
     free(time_str);
 }
 
-void Blocage_compte(MYSQL *conn)
+void blocage_compte(MYSQL *conn)
 {
 
     int choix_type;     // variable pour type d'utilisateur

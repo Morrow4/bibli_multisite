@@ -72,7 +72,7 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username){
         break;
 
     case 9:
-        Blocage_compte(conn);
+        blocage_compte(conn);
         break;
 
     case 10:

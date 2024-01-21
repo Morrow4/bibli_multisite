@@ -53,11 +53,11 @@ void choix_admin_site_bibliotheque(MYSQL *conn, char *username)
         break;
 
     case 6:
-        Ajout_compte(conn);
+        ajout_compte(conn);
         break;
 
     case 7:
-        Suppression_compte(conn);
+        suppression_compte(conn);
         break;
 
     case 8:
@@ -65,19 +65,19 @@ void choix_admin_site_bibliotheque(MYSQL *conn, char *username)
         break;
 
     case 9:
-        Ajout_livre(conn);
+        ajout_livre(conn);
         break;
 
     case 10:
-        Suppression_livre();
+        suppression_livre();
         break;
 
     case 11:
-        Blocage_compte(conn);
+        blocage_compte(conn);
         break;
 
     case 12:
-        validation_restitution();
+        valider_restitution();
         break;
 
     default:

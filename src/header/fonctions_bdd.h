@@ -43,7 +43,7 @@ int obtenir_id_exemplaire_disponible(MYSQL *conn, char *isbn_livre);
 void mettre_a_jour_disponibilite_exemplaire(MYSQL *conn, int id_exemplaire, bool disponibilite);
 void enregistrer_reservation(MYSQL *conn, char *email_utilisateur, int id_exemplaire);
 
-// restitution.c
+// gestion_restitution.c
 void verifier_et_valider_restitution(MYSQL *conn, int id_restitution);
 int valider_restitution(MYSQL *conn, int id_emprunt, const char *site_restitution);
 void marquer_restitution_en_transit(MYSQL *conn, int id_emprunt, const char *site_restitution);
@@ -52,9 +52,9 @@ void mettre_a_jour_date_restitution(MYSQL *conn, int id_restitution);
 
 // gestion_utilisateurs.c
 int is_valid(const char *str);
-void Suppression_compte(MYSQL *conn);
+void suppression_compte(MYSQL *conn);
 void ajout_compte(MYSQL *conn);
-void Blocage_compte(MYSQL *conn);
+void blocage_compte(MYSQL *conn);
 
 // emprunt_reservation.c
 void reserver_livre(MYSQL *conn, char *email_utilisateur, char *isbn_livre);
