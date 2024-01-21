@@ -5,12 +5,11 @@
 #include "../header/fonctions_bdd.h"
 #include "../header/fonctions_choix_user.h"
 
-void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
-{
+void choix_admin_general_bibliotheque(MYSQL *conn, char *username){
     int choix_user;
     int ISBN;
     int id_emprunt;
-    char *login_utilisateur == NULL;
+    char *login_utilisateur = NULL;
 
     printf("+-------------------------------MENU-------------------------------+\n");
     printf("+----------------------Administrateur Général----------------------+\n");
