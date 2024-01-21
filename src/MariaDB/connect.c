@@ -45,16 +45,4 @@ void connect_database()
       mysql_close(conn);
       exit(1);
    }
-
-   //char q[255];
-   //sprintf(q, "INSERT INTO Livre (ISBN, Titre, Auteur, Edition, Genre) VALUES ('test', 'test', 'test', 'test', 'test')");
-
-   // Exécuter la requête SQL
-   //if (mysql_query(conn, q))
-   //{
-   //   fprintf(stderr, "Erreur lors de l ajout du livre : %s\n", mysql_error(conn));
-   //   return;
-   //}
-
-   //printf("Succes de l ajout du livre (connect) !\n");
 }
