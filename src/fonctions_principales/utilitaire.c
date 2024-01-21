@@ -8,18 +8,36 @@
 #include <mysql/mysql.h>
 #include "../header/utilitaire.h"
 
-int get_user_type(MYSQL *conn, char *username)
+char *qui()
 {
+    // Obtenir le nom de l'utilisateur à l'origine de l'exécution
+    uid_t uid = getuid();
+    struct passwd *pwd = getpwuid(uid);
+    return (pwd != NULL) ? strdup(pwd->pw_name) : NULL;
+}
+
+int get_user_group(MYSQL *conn)
+{
+    char *username = qui();
+
+    if (username == NULL)
+    {
+        fprintf(stderr, "Erreur lors de la récupération du nom d'utilisateur.\n");
+        return -1; // Une valeur spéciale pour indiquer une erreur
+    }
+
     int user_group = 0;
 
     // Requête SQL pour récupérer le TypeUtilisateur en fonction de l'Email
     char query[255];
-    sprintf(query, "SELECT TypeUtilisateur FROM Utilisateur WHERE Email = '%s'", username);
+    snprintf(query, sizeof(query), "SELECT TypeUtilisateur FROM Utilisateur WHERE Email = '%s'", username);
+
+    free(username); // Assurez-vous de libérer la mémoire allouée par strdup
 
     if (mysql_query(conn, query))
     {
         fprintf(stderr, "Erreur lors de l'exécution de la requête : %s\n", mysql_error(conn));
-        return -1; // Retournez une valeur spéciale pour indiquer une erreur
+        return -1; // Une valeur spéciale pour indiquer une erreur
     }
 
     MYSQL_RES *result = mysql_store_result(conn);
@@ -27,15 +45,14 @@ int get_user_type(MYSQL *conn, char *username)
     if (!result)
     {
         fprintf(stderr, "Aucun résultat retourné par la requête\n");
-        return -1; // Retournez une valeur spéciale pour indiquer une erreur
+        return -1; // Une valeur spéciale pour indiquer une erreur
     }
 
     // Récupération du résultat
     MYSQL_ROW row = mysql_fetch_row(result);
-    printf("row 0 : %s\n", row[0]);
     if (row)
     {
-        if (strcmp(row[0], "AdminGeneral") == 0) // mappage chaîne de caractere a valeur numerique
+        if (strcmp(row[0], "AdminGeneral") == 0)
         {
             user_group = 1;
         }
@@ -53,7 +70,7 @@ int get_user_type(MYSQL *conn, char *username)
         }
         else
         {
-            printf("non trouvé");
+            printf("Non trouvé\n");
         }
         printf("Le type d'utilisateur pour %s est : %s\n", username, row[0]);
     }
@@ -63,9 +80,6 @@ int get_user_type(MYSQL *conn, char *username)
     }
 
     mysql_free_result(result);
-
-    // Ne fermez pas la connexion ici, laissez le programme principal gérer la fermeture
-    // mysql_close(conn);
 
     return user_group;
 }
@@ -125,14 +139,6 @@ bool gestion_int(int valeur)
     }
 
     return true;
-}
-
-void qui(char *username)
-{
-    // Obtenir le nom de l'utilisateur à l'origine de l'exécution
-    uid_t uid = getuid();
-    struct passwd *pwd = getpwuid(uid);
-    username = (pwd != NULL) ? pwd->pw_name : "Inconnu";
 }
 
 void qui_et_quand(char **username, char **time_str)
