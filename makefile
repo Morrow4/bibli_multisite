@@ -4,7 +4,7 @@
 CC = gcc
 
 # Options de compilation
-CFLAGS = -Wall -Wextra -g -std=c11
+CFLAGS = -Wall -Wextra -g -std=c11 -D_POSIX_C_SOURCE=200809L
 
 # Nom de l'executable
 TARGET = $(BUILD)/bibliotech.exe
