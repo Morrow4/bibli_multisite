@@ -9,8 +9,8 @@ void choix_inscrit_bibliotheque(char *username)
 {
     int choix_user;
 
-    printf("+-------------Bienvenue!!-------------+\n\n");
-    printf("+---------Que souhaitez vous faire?----------+\n");
+    printf("+---------------------------Bienvenue !--------------------------+\n\n");
+    printf("+--------------------Que souhaitez-vous faire ?--------------------+\n");
     printf("1) Lister les livres et leur disponibilité dans les différents sites\n");
     printf("2) Réserver un livre\n");
     printf("3) S'inscrire sur une liste attente pour réserver un livre\n");

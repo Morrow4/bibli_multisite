@@ -9,8 +9,8 @@ void choix_admin_site_bibliotheque(char *username)
 {
     int choix_user;
 
-    printf("+------------------MENU-------------------+\n");
-    printf("+-----------Administrateur_Site-----------+\n");
+    printf("+-------------------------------MENU-------------------------------+\n");
+    printf("+------------------------Administrateur Site-----------------------+\n");
     printf("1) Lister les livres et leur disponibilité dans les différents sites\n");
     printf("2) Réserver un livre\n");
     printf("3) S inscrire sur une liste attente pour réserver un livre\n");

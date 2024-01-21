@@ -9,9 +9,9 @@ void choix_invite_bibliotheque(int user_groupe)
 {
     int choix_user;
 
-    printf("+-------------Bienvenue!!-------------+\n\n");
-    printf("Que voulez-vous faire?\n");
-    printf("1) Afficher la liste des livres et leur disponibilité\n");
+    printf("+---------------------------Bienvenue !--------------------------+\n\n");
+    printf("+--------------------Que souhaitez-vous faire ?--------------------+\n");
+    printf("1) Lister les livres et leur disponibilité dans les différents sites\n");
     printf("2) Déconnexion\n");
 
     printf("Veuillez entrer le numéro du choix correspondant : \n");
