@@ -18,4 +18,7 @@ bool gestion_int(int valeur);
 void qui_et_quand(char **username, char **time_str);
 void qui(char **username);
 
+//MariaDB - connect.c
+void connect_database();
+
 #endif
