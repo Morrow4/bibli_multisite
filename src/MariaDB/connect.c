@@ -29,20 +29,17 @@ MYSQL *connect_database()
    // const char *db_user_password = NULL;
 
    // Connexion à la base de données
-   conn = mysql_real_connect(
-       conn,         // Connexion
-       "localhost",  // Hôte
-       db_user,      // Nom d'utilisateur
-       "",           // db_user_password,      // Mot de passe utilisateur
-       "bibliotech", // Base de donnée par défaut
-       3306,         // Numéro du port
-       NULL,         // Chemin vers le fichier socket
-       0             // Options supplémentaires
-   );
-
-   if (!conn)
+   if (!mysql_real_connect(
+           conn,
+           "localhost",
+           db_user,
+           "",
+           "bibliotech",
+           3306,
+           NULL,
+           0))
    {
-      // Retourne l'échec de la connexion et ferme le gestionnaire
+      // Retourne l'échec de la connexion
       fprintf(stderr, "Erreur de connexion au serveur: %s\n", mysql_error(conn));
       mysql_close(conn);
       exit(1);
