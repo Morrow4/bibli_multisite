@@ -6,7 +6,7 @@
 #include "../header/fonctions_bdd.h"
 #include "../header/fonctions_choix_user.h"
 
-MYSQL* connect_database()
+MYSQL *connect_database()
 {
    // Variables pour la connexion à la base de données
    const char *user = "DB_USER";
@@ -30,15 +30,15 @@ MYSQL* connect_database()
 
    // Connexion à la base de données
    conn = mysql_real_connect(
-         conn,         // Connexion
-         "localhost",  // Hôte
-         db_user,      // Nom d'utilisateur
-         "",           // db_user_password,      // Mot de passe utilisateur
-         "bibliotech", // Base de donnée par défaut
-         3306,         // Numéro du port
-         NULL,         // Chemin vers le fichier socket
-         0             // Options supplémentaires
-         );
+       conn,         // Connexion
+       "localhost",  // Hôte
+       db_user,      // Nom d'utilisateur
+       "",           // db_user_password,      // Mot de passe utilisateur
+       "bibliotech", // Base de donnée par défaut
+       3306,         // Numéro du port
+       NULL,         // Chemin vers le fichier socket
+       0             // Options supplémentaires
+   );
 
    if (!conn)
    {
@@ -47,20 +47,6 @@ MYSQL* connect_database()
       mysql_close(conn);
       exit(1);
    }
-<<<<<<< HEAD
-=======
+
    return conn;
-
-   //char q[255];
-   //sprintf(q, "INSERT INTO Livre (ISBN, Titre, Auteur, Edition, Genre) VALUES ('test', 'test', 'test', 'test', 'test')");
-
-   // Exécuter la requête SQL
-   //if (mysql_query(conn, q))
-   //{
-   //   fprintf(stderr, "Erreur lors de l ajout du livre : %s\n", mysql_error(conn));
-   //   return;
-   //}
-
-   //printf("Succes de l ajout du livre (connect) !\n");
->>>>>>> ffdac5be1a6a55bb5793b11d7ac306ad04e73664
 }
