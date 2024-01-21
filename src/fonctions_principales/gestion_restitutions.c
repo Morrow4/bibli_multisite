@@ -74,7 +74,7 @@ void verifier_et_valider_restitution(MYSQL *conn, int id_restitution)
     }
 }
 
-int valider_restitution(MYSQL *conn, int id_emprunt, const char *site_restitution)
+int valider_restitution(MYSQL *conn, int id_emprunt, char *site_restitution)
 {
     // Requete SQL pour recuperer le site principal de l exemplaire
     char query[1024];
@@ -125,7 +125,7 @@ int valider_restitution(MYSQL *conn, int id_emprunt, const char *site_restitutio
     }
 }
 
-void marquer_restitution_en_transit(MYSQL *conn, int id_emprunt, const char *site_restitution)
+void marquer_restitution_en_transit(MYSQL *conn, int id_emprunt, char *site_restitution)
 {
     // Requete SQL pour marquer la restitution comme "en transit"
     char query[1024];

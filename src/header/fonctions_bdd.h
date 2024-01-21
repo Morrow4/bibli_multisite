@@ -46,8 +46,8 @@ void enregistrer_reservation(MYSQL *conn, char *email_utilisateur, int id_exempl
 // gestion_restitution.c
 void enregistrer_restitution(MYSQL *conn, int id_emprunt, const char *site_restitution);
 void verifier_et_valider_restitution(MYSQL *conn, int id_restitution);
-int valider_restitution(MYSQL *conn, int id_emprunt, const char *site_restitution);
-void marquer_restitution_en_transit(MYSQL *conn, int id_emprunt, const char *site_restitution);
+int valider_restitution(MYSQL *conn, int id_emprunt, char *site_restitution);
+void marquer_restitution_en_transit(MYSQL *conn, int id_emprunt, char *site_restitution);
 void marquer_exemplaire_disponible(MYSQL *conn, int id_emprunt);
 void mettre_a_jour_date_restitution(MYSQL *conn, int id_restitution);
 
