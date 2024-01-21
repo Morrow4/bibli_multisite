@@ -11,15 +11,15 @@
 #include <mysql/mysql.h>
 
 // utilitaire.c
-int get_user_type(MYSQL *conn, char *username);
+int get_user_type(MYSQL *conn);
 bool estEntier(const char *str);
 bool limiteTailleInt(const char *str, int limite);
 bool gestion_int(int valeur);
 void qui_et_quand(char **username, char **time_str);
-void qui(char *username);
+char *qui();
 void deconnexion(MYSQL *conn);
 
 // MariaDB - connect.c
-MYSQL* connect_database();
+MYSQL *connect_database();
 
 #endif
