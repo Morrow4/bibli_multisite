@@ -56,5 +56,5 @@ void connect_database()
       return;
    }
 
-   printf("Succes de l ajout du livre !\n");
+   printf("Succes de l ajout du livre (connect) !\n");
 }
