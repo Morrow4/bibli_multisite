@@ -32,8 +32,6 @@ int get_user_group(MYSQL *conn)
     char query[255];
     snprintf(query, sizeof(query), "SELECT TypeUtilisateur FROM Utilisateur WHERE Email = '%s'", username);
 
-    free(username); // Assurez-vous de libérer la mémoire allouée par strdup
-
     if (mysql_query(conn, query))
     {
         fprintf(stderr, "Erreur lors de l'exécution de la requête : %s\n", mysql_error(conn));
@@ -80,6 +78,7 @@ int get_user_group(MYSQL *conn)
     }
 
     mysql_free_result(result);
+    free(username); // Assurez-vous de libérer la mémoire allouée par strdup
 
     return user_group;
 }
