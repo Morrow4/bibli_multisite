@@ -30,10 +30,10 @@ int main()
     // Récupérez le nom d'utilisateur (login) à partir de la structure passwd
     char *username = pwd->pw_name;
 
-    printf("username : %s\n", username;)
+    printf("username : %s\n", username);
 
-        // Recupération du groupe
-        int user_group = get_user_type(conn, username);
+    // Recupération du groupe
+    int user_group = get_user_type(conn, username);
 
     printf("user group : %d\n", user_group);
 
