@@ -6,16 +6,6 @@
 #include "../header/fonctions_bdd.h"
 #include "../header/utilitaire.h"
 
-// Structure pour stocker les informations d'un livre
-typedef struct
-{
-    char ISBN[14];
-    char Titre[255];
-    char Auteur[100];
-    char Edition[100];
-    char Genre[100];
-} Livre;
-
 // Déclaration de variables globales
 MYSQL_RES *result;
 MYSQL_ROW row;
@@ -64,7 +54,8 @@ int nombreLivresParTitre(const char *titreRecherche)
 // Fonction pour afficher les détails du livre
 void afficherDetailsLivre(const Livre *livre)
 {
-    printf("%-7d%-30s%-30s%-15s\n", i + 1, livre->Titre, livre->Edition, livre->ISBN);
+    int i;
+    printf("%-30s%-30s%-15s\n", livre->Titre, livre->Edition, livre->ISBN);
 }
 
 // Fonction pour effectuer l'emprunt
