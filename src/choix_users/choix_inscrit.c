@@ -1,4 +1,3 @@
-// Inclusion des en-têtes nécessaires
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -12,8 +11,7 @@ void choix_inscrit_bibliotheque(MYSQL *conn, char *username)
     int choix_user;
 
     printf("+---------------------------Bienvenue !--------------------------+\n\n");
-    printf(
-    "+--------------------Que souhaitez-vous faire ?--------------------+\n");
+    printf("+--------------------Que souhaitez-vous faire ?--------------------+\n");
     printf("1) Lister les livres et leur disponibilité dans les différents sites\n");
     printf("2) Emprunter un livre\n");
     printf("3) S'inscrire sur une liste attente pour réserver un livre\n");

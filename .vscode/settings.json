@@ -7,6 +7,7 @@
     "utilitaire.h": "c",
     "prototype_admin_site.h": "c",
     "fonctions_bdd.h": "c",
-    "fonctions_choix_user.h": "c"
+    "fonctions_choix_user.h": "c",
+    "string.h": "c"
   }
 }
