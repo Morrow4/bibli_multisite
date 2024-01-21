@@ -138,7 +138,7 @@ void qui_et_quand(char **username, char **time_str)
     strftime(*time_str, 64, "%Y-%m-%d %H:%M:%S", local_time);
 }
 
-void qui(char **username)
+void qui(char *username)
 {
     // Obtenir le nom de l'utilisateur à l'origine de l'exécution
     uid_t uid = getuid();
