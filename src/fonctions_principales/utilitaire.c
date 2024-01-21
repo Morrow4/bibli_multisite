@@ -18,11 +18,11 @@ int get_user_type(MYSQL *conn, char *username)
     char query[255];
     sprintf(query, "SELECT TypeUtilisateur FROM Utilisateur WHERE Email = '%s'", username);
 
-    if (mysql_query(conn, query))
-    {
-        fprintf(stderr, "Erreur lors de l'exécution de la requête : %s\n", mysql_error(conn));
-        return -1; // Retournez une valeur spéciale pour indiquer une erreur
-    }
+    //if (mysql_query(conn, query))
+    //{
+    //    fprintf(stderr, "Erreur lors de l'exécution de la requête : %s\n", mysql_error(conn));
+    //    return -1; // Retournez une valeur spéciale pour indiquer une erreur
+    //}
 
     MYSQL_RES *result = mysql_store_result(conn);
 
