@@ -238,8 +238,7 @@ void suppression_compte(MYSQL *conn)
         strcpy(type_user, "AdminGeneral");
         break;
     }
-    char *username, *time_str;
-    qui_et_quand(&username, &time_str);
+
     // Ouvrez le fichier de log
     FILE *log_file = fopen("/var/log/user_bibliotech", "a");
     if (log_file == NULL)
@@ -247,6 +246,9 @@ void suppression_compte(MYSQL *conn)
         perror("Erreur lors de l'ouverture du fichier de log");
         exit(1);
     }
+
+    char *username, *time_str;
+    qui_et_quand(&username, &time_str);
 
     // Écrivez l'en-tête du log
     fprintf(log_file, "Tentative de suppression par l'utilisateur: %s, Date et heure: %s\n", username, time_str);
@@ -357,8 +359,7 @@ void blocage_compte(MYSQL *conn)
         strcpy(type_user, "AdminGeneral");
         break;
     }
-    char *username, *time_str;
-    qui_et_quand(&username, &time_str);
+
     // Ouvrez le fichier de log
     FILE *log_file = fopen("/var/log/user_bibliotech", "a");
     if (log_file == NULL)
@@ -366,6 +367,9 @@ void blocage_compte(MYSQL *conn)
         perror("Erreur lors de l'ouverture du fichier de log");
         exit(1);
     }
+
+    char *username, *time_str;
+    qui_et_quand(&username, &time_str);
 
     // Écrivez l'en-tête du log
     fprintf(log_file, "Tentative de blocage par l'utilisateur: %s, Date et heure: %s\n", username, time_str);
