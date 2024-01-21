@@ -8,6 +8,7 @@
 #include "header/fonctions_choix_user.h"
 #include "header/fonctions_bdd.h"
 
+
 int main()
 {
     uid_t user_uid = getuid();
