@@ -5,7 +5,27 @@
 #include "../header/fonctions_bdd.h"
 #include "../header/utilitaire.h"
 
-void verifier_et_valider_restitution(MYSQL *conn, int id_emprunt)
+// Fonction pour enregistrer une nouvelle restitution dans la base de données
+void enregistrer_restitution(MYSQL *conn, int id_emprunt, const char *site_restitution)
+{
+    // Requête SQL pour insérer une nouvelle restitution
+    char query[1024];
+    sprintf(query, "INSERT INTO Restitution (ID_Emprunt, SiteDeRestitution) VALUES (%d, '%s')", id_emprunt, site_restitution);
+
+    // Exécuter la requête SQL
+    if (mysql_query(conn, query))
+    {
+        fprintf(stderr, "Erreur lors de l'enregistrement de la restitution : %s\n", mysql_error(conn));
+        return -1; // Retourner -1 en cas d'erreur
+    }
+
+    // Récupérer l'ID de la restitution nouvellement créée
+    int id_restitution = mysql_insert_id(conn);
+
+    verifier_et_valider_restitution(conn, id_restitution);
+}
+
+void verifier_et_valider_restitution(MYSQL *conn, int id_restitution)
 {
     // Requete SQL pour recuperer les informations de la restitution
     char query[1024];
