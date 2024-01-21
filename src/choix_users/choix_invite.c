@@ -26,7 +26,7 @@ void choix_invite_bibliotheque(MYSQL *conn)
         break;
 
     default:
-        // Fonction de déconnexion ou autre traitement
+        choix_invite_bibliotheque(conn);
         break;
     }
 }

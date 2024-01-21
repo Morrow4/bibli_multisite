@@ -97,8 +97,12 @@ void choix_admin_site_bibliotheque(MYSQL *conn, char *username)
         Emprunt_soimeme(conn, login_utilisateur);
         break;
 
+    case 13:
+        deconnexion(conn);
+        break;
+
     default:
-        // Fonction de déconnexion ou autre traitement
+        choix_admin_site_bibliotheque(conn, username);
         break;
     }
 }
