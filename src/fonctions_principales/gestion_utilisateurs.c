@@ -21,7 +21,7 @@ int is_valid(const char *str)
     return 1; // tous les caractères sont valides = is valide
 }
 
-void ajout_compte()
+void ajout_compte(MYSQL *conn)
 {
     int choix_type;     // variable pour type d'utilisateur
     char type_user[15]; // nom du type utilisateur choisi
@@ -194,7 +194,7 @@ void ajout_compte()
     free(time_str);
 }
 
-void Suppression_compte()
+void Suppression_compte(MYSQL *conn)
 {
 
     int choix_type; // variable pour type d'utilisateur
@@ -313,7 +313,7 @@ void Suppression_compte()
     free(time_str);
 }
 
-void Blocage_compte()
+void Blocage_compte(MYSQL *conn)
 {
 
     int choix_type;     // variable pour type d'utilisateur
