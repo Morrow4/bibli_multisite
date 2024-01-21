@@ -16,7 +16,7 @@ void enregistrer_restitution(MYSQL *conn, int id_emprunt, const char *site_resti
     if (mysql_query(conn, query))
     {
         fprintf(stderr, "Erreur lors de l'enregistrement de la restitution : %s\n", mysql_error(conn));
-        return -1; // Retourner -1 en cas d'erreur
+        return;
     }
 
     // Récupérer l'ID de la restitution nouvellement créée

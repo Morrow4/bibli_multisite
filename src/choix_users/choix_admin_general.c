@@ -54,11 +54,11 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
         break;
 
     case 4:
-        ajout_compte(conn);
+        ajout_compte(conn, username);
         break;
 
     case 5:
-        suppression_compte(conn);
+        suppression_compte(conn, username);
         break;
 
     case 6:
@@ -76,7 +76,7 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
         break;
 
     case 9:
-        blocage_compte(conn);
+        blocage_compte(conn, username);
         break;
 
     case 10:

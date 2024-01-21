@@ -21,12 +21,12 @@ int is_valid(const char *str)
     return 1; // tous les caractères sont valides = is valide
 }
 
-void ajout_compte(MYSQL *conn)
+void ajout_compte(MYSQL *conn, char *username)
 {
     int choix_type;     // variable pour type d'utilisateur
     char type_user[15]; // nom du type utilisateur choisi
 
-    int user_group = get_user_type(getuid()); // groupe de l'utilisateur executant la commande
+    int user_group = get_user_type(conn, username); // groupe de l'utilisateur executant la commande
 
     switch (user_group) // pour faire un switch il faut apparemment une variable de type int, donc j'ai modifié tout ça en conséquent
     {
@@ -88,7 +88,7 @@ void ajout_compte(MYSQL *conn)
             scanf("%255s", password);
             if (mon_compteur_mp == 0)
             {
-                return
+                return;
             }
         } while (!is_valid(password) && (mon_compteur_mp >= 0));
         int mon_compteur_mail = 5;
@@ -194,14 +194,14 @@ void ajout_compte(MYSQL *conn)
     free(time_str);
 }
 
-void suppression_compte(MYSQL *conn)
+void suppression_compte(MYSQL *conn, char *username)
 {
 
     int choix_type; // variable pour type d'utilisateur
     char login[101];
     char type_user[15]; // nom du type d'utilisateur
 
-    int user_group = get_user_type(getuid()); // groupe de l'utilisateur executant la commande
+    int user_group = get_user_type(conn, username); // groupe de l'utilisateur executant la commande
 
     switch (user_group) // pour faire un switch il faut apparemment une variable de type int, donc j'ai modifié tout ça en conséquent
     {
@@ -257,7 +257,7 @@ void suppression_compte(MYSQL *conn)
     {
         mon_compteur_log--;
         printf("Veuillez saisir l'adresse mail complet de l'utilisateur que vous souhaitez supprimer : \n");
-            scanf("%100s", login);
+        scanf("%100s", login);
         if (mon_compteur_log == 0)
         {
             fclose(log_file); // fin de compteur = fermeture du fichier
@@ -315,14 +315,14 @@ void suppression_compte(MYSQL *conn)
     free(time_str);
 }
 
-void blocage_compte(MYSQL *conn)
+void blocage_compte(MYSQL *conn, char *username)
 {
 
     int choix_type;     // variable pour type d'utilisateur
     char type_user[15]; // nom du type utilisateur choisi
     char login[100], raison[101];
 
-    int user_group = get_user_type(getpwuid()); // groupe de l'utilisateur executant la commande
+    int user_group = get_user_type(conn, username); // groupe de l'utilisateur executant la commande
 
     switch (user_group) // pour faire un switch il faut apparemment une variable de type int, donc j'ai modifié tout ça en conséquent
     {
