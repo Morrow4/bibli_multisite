@@ -7,7 +7,7 @@
 #include <unistd.h>
 
 void choix_invite_bibliotheque(MYSQL *conn);
-void choix_inscrit_bibliotheque(MYSQL *conn);
+void choix_inscrit_bibliotheque(MYSQL *conn, char *username);
 void choix_admin_site_bibliotheque(MYSQL *conn, char *username);
 void choix_admin_general_bibliotheque(MYSQL *conn, char *username);
 
