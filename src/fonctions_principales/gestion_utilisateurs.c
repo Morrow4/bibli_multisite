@@ -347,13 +347,13 @@ void blocage_compte(MYSQL *conn)
     switch (choix_type)
     {
     case 1: // inscrit
-        type_user = "Inscrit";
+        strcpy(type_user, "Inscrit");
         break;
     case 2: // adminsite
-        type_user = "AdminSite";
+        strcpy(type_user, "AdminSite");
         break;
     case 3: // admingeneral
-        type_user = "AdminGeneral";
+        strcpy(type_user, "AdminGeneral");
         break;
     }
     char *username, *time_str;
