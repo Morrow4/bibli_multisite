@@ -30,7 +30,6 @@ void choix_inscrit_bibliotheque(MYSQL *conn, char *username)
         break;
 
     case 2:
-        MYSQL *conn;
         Emprunt_soimeme(conn);
         break;
 
