@@ -41,15 +41,15 @@ int main()
         break;
 
     case 2: // adminsite
-        choix_admin_site(username);
+        choix_admin_site(conn, username);
         break;
 
     case 3: // inscrit
-        choix_inscrit(username);
+        choix_inscrit(conn, username);
         break;
 
     case 4: // invite
-        choix_invite();
+        choix_invite(conn);
         break;
 
     default:
