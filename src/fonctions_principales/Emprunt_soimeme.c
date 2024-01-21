@@ -88,7 +88,7 @@ void effectuerEmprunt(MYSQL *conn, const char *ISBN, const char *username)
     }
 
     // récupération de l'ID_Utilisateur = Email
-    qui(username);
+    qui(&username);
 
     sprintf(query, "INSERT INTO Emprunt (ID_Exemplaire, ID_Utilisateur, DateEmprunt) VALUES ('%d', '%s', 'NOW()')", Var_IdExemplaire, username);
     if (mysql_query(conn, query) != 0)
@@ -129,7 +129,7 @@ void Emprunt_soimeme(MYSQL *conn)
 {
     int numLivre;
     int tailleTab;
-    int user_group = get_user_type(getuid());
+    int user_group = get_user_type(conn,getuid());
 
     if (user_group != 2)
     {
@@ -187,6 +187,7 @@ void Emprunt_soimeme(MYSQL *conn)
         scanf(" %s", ISBN_test);
 
         // Vérifier et effectuer l'emprunt
+        struct passwd *pwd = getpwuid(getuid());
         char *username = pwd->pw_name;
         verifierEtEffectuerEmprunt(conn, ISBN_test, username);
     }
