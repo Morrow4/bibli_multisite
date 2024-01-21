@@ -8,23 +8,20 @@
 void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
 {
     int choix_user;
-    int ISBN;
 
     printf("+-------------------------------MENU-------------------------------+\n");
     printf("+----------------------Administrateur Général----------------------+\n");
     printf("1) Lister les livres et leur disponibilité dans les différents sites\n");
     printf("2) Réserver un livre\n");
-    printf("3) S inscrire sur une liste attente pour réserver un livre\n");
-    printf("4) Consulter le délai d attente pour emprunter un livre indisponible\n");
-    printf("5) Réserver un livre pour un utilisateur inscrit\n");
-    printf("6) Ajouter un compte utilisateur ou administrateur\n");
-    printf("7) Supprimer un compte utilisateur ou administrateur\n");
-    printf("8) Consulter les statistiques\n");
-    printf("9) Ajouter un livre\n");
-    printf("10) Supprimer un livre\n");
-    printf("11) Bloquer utilisateur temporairement\n");
-    printf("12) Valider la restitution un livre\n");
-    printf("13) Déconnexion\n");
+    printf("3) Réserver un livre pour un utilisateur inscrit\n");
+    printf("4) Ajouter un compte utilisateur ou administrateur\n");
+    printf("5) Supprimer un compte utilisateur ou administrateur\n");
+    printf("6) Consulter les statistiques\n");
+    printf("7) Ajouter un livre\n");
+    printf("8) Supprimer un livre\n");
+    printf("9) Bloquer un utilisateur temporairement\n");
+    printf("10) Valider la restitution d'un livre\n");
+    printf("11) Déconnexion\n");
 
     printf("Veuillez entrer le numéro du choix correspondant : \n");
     scanf("%d", choix_user);
@@ -32,53 +29,55 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
     switch (choix_user)
     {
     case 1:
-        Liste_livres_et_dispo();
+        // Liste_livres_et_dispo();
         break;
 
     case 2:
+        int ISBN;
         printf("Veuillez saisir l'ISBN du livre que vous voulez réserver : ");
         scanf("%d", ISBN);
         reserver_livre(conn, username, ISBN);
         break;
 
     case 3:
-        Inscri_liste_attente_livre();
+        char *login_utilisateur;
+        int ISBN;
+        printf("Veuillez saisir le login de l'utilisateur qui veut réserver un livre : ");
+        scanf("%d", login_utilisateur);
+        printf("Veuillez saisir l'ISBN du livre que vous voulez réserver : ");
+        scanf("%d", ISBN);
+        reserver_livre(conn, login_utilisateur, ISBN);
         break;
 
     case 4:
-        Affichage_delai_attente_livre();
+        ajout_compte(conn);
         break;
 
     case 5:
-        Emprunt_pour_adherent();
+        Suppression_compte(conn);
         break;
 
     case 6:
-        Ajout_compte();
+        // Consultation_Stat();
         break;
 
     case 7:
-        Suppression_compte();
+        ajout_livre(conn);
         break;
 
     case 8:
-        Consultation_Stat();
+        int ISBN;
+        printf("Veuillez saisir l'ISBN du livre que vous voulez supprimer : ");
+        scanf("%d", ISBN);
+        suppression_livre(conn, ISBN);
         break;
 
     case 9:
-        Ajout_livre();
+        Blocage_compte(conn);
         break;
 
     case 10:
-        Suppression_livre();
-        break;
-
-    case 11:
-        Fonction_blocage_utilisateur();
-        break;
-
-    case 12:
-        validation_restitution();
+        verifier_et_valider_restitution(conn, id_emprunt);
         break;
 
     default:
