@@ -17,8 +17,9 @@ bool limiteTailleInt(const char *str, int limite);
 bool gestion_int(int valeur);
 void qui_et_quand(char **username, char **time_str);
 void qui(const char **username);
+void deconnexion(MYSQL *conn);
 
-//MariaDB - connect.c
+// MariaDB - connect.c
 void connect_database();
 
 #endif
