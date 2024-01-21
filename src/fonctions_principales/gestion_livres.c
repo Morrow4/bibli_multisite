@@ -135,8 +135,7 @@ void recherche_ISBN(MYSQL *conn, char *titre, char *auteur)
 void afficher_tous_les_livres(MYSQL *conn)
 {
     // Requête SQL pour récupérer les livres avec leur disponibilité
-    const char *query = "SELECT Livre.ISBN, Livre.Titre, Livre.Auteur, Livre.Edition, Livre.Genre, CASE WHEN EXISTS (
-        SELECT 1 FROM Exemplaire WHERE Exemplaire.ISBN = Livre.ISBN AND Exemplaire.Disponibilite = true) THEN 'Disponible' ELSE 'Indisponible' END AS Disponibilite FROM Livre";
+    const char *query = "SELECT Livre.ISBN, Livre.Titre, Livre.Auteur, Livre.Edition, Livre.Genre, CASE WHEN EXISTS (SELECT 1 FROM Exemplaire WHERE Exemplaire.ISBN = Livre.ISBN AND Exemplaire.Disponibilite = true) THEN 'Disponible' ELSE 'Indisponible' END AS Disponibilite FROM Livre";
 
     // Exécuter la requête SQL
     if (mysql_query(conn, query))
