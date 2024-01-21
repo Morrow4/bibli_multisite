@@ -10,8 +10,10 @@
 void choix_admin_site_bibliotheque(MYSQL *conn, char *username)
 {
     int choix_user;
-    char ISBN[20];
+    char ISBN[13];
     int id_emprunt = -1;
+    char login_utilisateur[100];
+    char site_restitution[50];
 
     printf("+-------------------------------MENU-------------------------------+\n");
     printf("+------------------------Administrateur Site-----------------------+\n");
@@ -35,7 +37,7 @@ void choix_admin_site_bibliotheque(MYSQL *conn, char *username)
     switch (choix_user)
     {
     case 1:
-        Liste_livres_et_dispo(conn);
+        // Liste_livres_et_dispo(conn);
         break;
 
     case 2:
