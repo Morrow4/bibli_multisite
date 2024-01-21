@@ -7,9 +7,9 @@
 
 void choix_admin_general_bibliotheque(MYSQL *conn, char *username){
     int choix_user;
-    int ISBN;
+    char ISBN[20];
     int id_emprunt;
-    char *login_utilisateur = NULL;
+    char login_utilisateur[100];
 
     printf("+-------------------------------MENU-------------------------------+\n");
     printf("+----------------------Administrateur Général----------------------+\n");
@@ -36,15 +36,15 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username){
 
     case 2:
         printf("Veuillez saisir l'ISBN du livre que vous voulez réserver : ");
-        scanf("%d", &ISBN);
+        scanf("%s", ISBN);
         reserver_livre(conn, username, ISBN);
         break;
 
     case 3:
         printf("Veuillez saisir le login de l'utilisateur qui veut réserver un livre : ");
-        scanf("%s", &login_utilisateur);
+        scanf("%s", login_utilisateur);
         printf("Veuillez saisir l'ISBN du livre que vous voulez réserver : ");
-        scanf("%d", &ISBN);
+        scanf("%s", ISBN);
         reserver_livre(conn, login_utilisateur, ISBN);
         break;
 
