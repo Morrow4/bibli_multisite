@@ -15,7 +15,7 @@ void choix_invite_bibliotheque(MYSQL *conn)
     printf("2) Déconnexion\n");
 
     printf("Veuillez entrer le numéro du choix correspondant : \n");
-    scanf("%d", choix_user);
+    scanf("%d", &choix_user);
 
     switch (choix_user)
     {
