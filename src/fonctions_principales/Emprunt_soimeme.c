@@ -60,8 +60,7 @@ void afficherDetailsLivre(const Livre *livre)
 // Fonction pour effectuer l'emprunt
 void effectuerEmprunt(MYSQL *conn, const char *ISBN, const char *username)
 {
-    char *username_copy = strdup(username);  // Créez une copie modifiable de la chaîne.
-    qui(&username_copy);
+    qui(&username);
 
     char query[255];
     // Réduire le nombre d'exemplaires disponibles
