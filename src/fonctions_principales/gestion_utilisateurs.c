@@ -151,7 +151,9 @@ void ajout_compte(MYSQL *conn, char *username)
         perror("Erreur lors de l'ouverture du fichier de log");
         exit(1);
     }
-    fprintf(log_file, "Exécuté par: %s, Date et heure: %ld\n", username, time_str);
+
+    char date_et_heure[50] = ctime(time_str);
+    fprintf(log_file, "Exécuté par: %s, Date et heure: %s\n", username, date_et_heure);
 
     //  Ajout de l'utilisateur dans la base de donnée //Modifier pour mail
     char query[1024];
@@ -371,7 +373,7 @@ void blocage_compte(MYSQL *conn, char *username)
         exit(1);
     }
 
-    char *username, *time_str;
+    char *time_str;
     qui_et_quand(&username, &time_str);
 
     // Écrivez l'en-tête du log
