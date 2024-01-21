@@ -53,13 +53,13 @@ void ajout_compte(MYSQL *conn)
     switch (choix_type)
     {
     case 1: // inscrit
-        type_user = "Inscrit";
+        strcpy(type_user, "Inscrit");
         break;
     case 2: // adminsite
-        type_user = "AdminSite";
+        strcpy(type_user, "AdminSite");
         break;
     case 3: // admingeneral
-        type_user = "AdminGeneral";
+        strcpy(type_user, "AdminGeneral");
         break;
     }
     char login[101], password[256], nom[51], prenom[51], email[101], estChercheur[2], info_valid[2];
@@ -229,13 +229,13 @@ void suppression_compte(MYSQL *conn)
     switch (choix_type)
     {
     case 1: // inscrit
-        type_user = "Inscrit";
+        strcpy(type_user, "Inscrit");
         break;
     case 2: // adminsite
-        type_user = "AdminSite";
+        strcpy(type_user, "AdminSite");
         break;
     case 3: // admingeneral
-        type_user = "AdminGeneral";
+        strcpy(type_user, "AdminGeneral");
         break;
     }
     char *username, *time_str;
