@@ -54,7 +54,6 @@ int nombreLivresParTitre(const char *titreRecherche)
 // Fonction pour afficher les détails du livre
 void afficherDetailsLivre(const Livre *livre)
 {
-    int i;
     printf("%-30s%-30s%-15s\n", livre->Titre, livre->Edition, livre->ISBN);
 }
 
@@ -81,7 +80,7 @@ void effectuerEmprunt(MYSQL *conn, const char *ISBN, const char *username)
     }
 
     // Maj table exemplaire
-    sprintf(query, "UPDATE Exemplaire SET Disponibilite = false WHERE ID_Exemplaire = '%s' AND Disponibilite = true LIMIT 1", Var_IdExemplaire);
+    sprintf(query, "UPDATE Exemplaire SET Disponibilite = false WHERE ID_Exemplaire = '%d' AND Disponibilite = true LIMIT 1", Var_IdExemplaire);
     if (mysql_query(conn, query) != 0)
     {
         fprintf(stderr, "Erreur lors de la mise à jour du nombre d'exemplaires\n");
@@ -91,7 +90,7 @@ void effectuerEmprunt(MYSQL *conn, const char *ISBN, const char *username)
     // récupération de l'ID_Utilisateur = Email
     qui(username);
 
-    sprintf(query, "INSERT INTO Emprunt (ID_Exemplaire, ID_Utilisateur, DateEmprunt) VALUES ('%s', '%s', 'NOW()')", Var_IdExemplaire, username);
+    sprintf(query, "INSERT INTO Emprunt (ID_Exemplaire, ID_Utilisateur, DateEmprunt) VALUES ('%d', '%s', 'NOW()')", Var_IdExemplaire, username);
     if (mysql_query(conn, query) != 0)
     {
         fprintf(stderr, "Erreur lors de l'ajout de l'emprunt\n");
