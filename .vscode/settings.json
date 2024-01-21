@@ -8,6 +8,7 @@
     "prototype_admin_site.h": "c",
     "fonctions_bdd.h": "c",
     "fonctions_choix_user.h": "c",
-    "string.h": "c"
+    "string.h": "c",
+    "verif_isbn_bdd.h": "c"
   }
 }
