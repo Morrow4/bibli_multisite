@@ -29,7 +29,7 @@ MYSQL *connect_database()
    // const char *db_user_password = NULL;
 
    // Connexion à la base de données
-   if (!conn = mysql_real_connect(
+   if (!(conn = mysql_real_connect(
            conn,
            "localhost",
            db_user,
@@ -37,7 +37,7 @@ MYSQL *connect_database()
            "bibliotech",
            3306,
            NULL,
-           0))
+           0)))
    {
       // Retourne l'échec de la connexion
       fprintf(stderr, "Erreur de connexion au serveur: %s\n", mysql_error(conn));
