@@ -18,20 +18,21 @@ void connect_database()
       fprintf(stderr, "Impossible d'initialiser la connexion\n");
       exit(1);
    }
+   printf("connexion initialsée");
 
    // Mot de passe de l'utilisateur
-   //const char *db_user_password = NULL;
+   // const char *db_user_password = NULL;
 
    // Connexion à la base de données
    if (!mysql_real_connect(
-           conn,                  // Connexion
-           "localhost", // Hôte
-           db_user,               // Nom d'utilisateur
-           "",//db_user_password,      // Mot de passe utilisateur
-           "bibliotech",          // Base de donnée par défaut
-           3306,                  // Numéro du port
-           NULL,                  // Chemin vers le fichier socket
-           0                      // Options supplémentaires
+           conn,         // Connexion
+           "localhost",  // Hôte
+           db_user,      // Nom d'utilisateur
+           "",           // db_user_password,      // Mot de passe utilisateur
+           "bibliotech", // Base de donnée par défaut
+           3306,         // Numéro du port
+           NULL,         // Chemin vers le fichier socket
+           0             // Options supplémentaires
            ))
    {
       // Retourne l'échec de la connexion et ferme le gestionnaire
