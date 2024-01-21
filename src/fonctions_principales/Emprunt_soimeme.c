@@ -207,4 +207,5 @@ void Emprunt_soimeme(MYSQL *conn, char *username)
         // Sortir du menu
         return;
     }
+    free(Livres);
 }
