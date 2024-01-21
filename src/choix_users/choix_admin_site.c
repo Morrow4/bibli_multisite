@@ -57,7 +57,7 @@ void choix_admin_site_bibliotheque(MYSQL *conn, char *username)
         break;
 
     case 7:
-        Suppression_compte();
+        Suppression_compte(conn);
         break;
 
     case 8:
@@ -73,7 +73,7 @@ void choix_admin_site_bibliotheque(MYSQL *conn, char *username)
         break;
 
     case 11:
-        Blocage_utilisateur();
+        Blocage_utilisateur(conn);
         break;
 
     case 12:
