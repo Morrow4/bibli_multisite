@@ -37,7 +37,7 @@ int main()
     switch (user_group) // pour faire un switch il faut apparemment une variable de type int, donc j'ai modifié tout ça en conséquent
     {
     case 1: // admingeneral
-        choix_admin_general(username);
+        choix_admin_general(conn, username);
         break;
 
     case 2: // adminsite
