@@ -58,7 +58,7 @@ void afficherDetailsLivre(const Livre *livre)
 }
 
 // Fonction pour effectuer l'emprunt
-void effectuerEmprunt(MYSQL *conn, const char *ISBN, const char *username)
+void effectuerEmprunt(MYSQL *conn, char *ISBN, char *username)
 {
     qui(&username);
 
@@ -100,7 +100,7 @@ void effectuerEmprunt(MYSQL *conn, const char *ISBN, const char *username)
     free((char*)username);
 }
 // Fonction pour vérifier et effectuer l'emprunt
-void verifierEtEffectuerEmprunt(MYSQL *conn, const char *ISBN, const char *username)
+void verifierEtEffectuerEmprunt(MYSQL *conn, char *ISBN, char *username)
 {
     double joursDeRetard;
     int livreTrouve = trouverRetard(conn, ISBN, &joursDeRetard);
