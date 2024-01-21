@@ -13,8 +13,8 @@ int main()
     uid_t user_uid = getuid();
 
     // Ouvrir la connexion à la base de données
-    connect_database();
-    MYSQL *conn = mysql_init(NULL);
+
+    MYSQL *conn = connect_database();
 
     if (!(conn = mysql_init(NULL)))
     {
@@ -28,7 +28,7 @@ int main()
 
     // Exécuter la requête SQL if (mysql_query(conn, q))
     {
-        fprintf(stderr, "Erreur lors de l ajout du livre : %s\n", mysql_error(conn));
+        fprintf(stderr, "Erreur lors de l ajout du livre (main): %s\n", mysql_error(conn));
         return;
     }
     printf("Succes de l ajout du livre (main) !\n");
