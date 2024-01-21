@@ -12,8 +12,7 @@ int get_user_type(MYSQL *conn, char *username)
 {
     int user_group = 0;
 
-    printf("fff\n");
-    printf("username : %s", username);
+    printf("username : %s", &username);
 
     // Requête SQL pour récupérer le TypeUtilisateur en fonction de l'Email
     char query[255];
