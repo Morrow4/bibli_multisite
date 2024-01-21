@@ -131,7 +131,9 @@ void Emprunt_soimeme(MYSQL *conn, char *username)
 {
     int numLivre;
     int tailleTab;
-    int user_group = get_user_type(conn,getuid()); //METTEZ ICI LE USERNAME 
+    char username[20];
+    sprintf(username, "%d", getuid());
+    int user_group = get_user_type(conn, username);
 
     if (user_group != 2)
     {
