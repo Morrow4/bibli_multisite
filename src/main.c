@@ -13,10 +13,7 @@ int main()
     uid_t user_uid = getuid();
 
     // Ouvrir la connexion à la base de données
-    if (connect_database())
-    {
-        printf("Connexion réussie !");
-    }
+    connect_database();
     MYSQL *conn = mysql_init(NULL);
 
     // On utilise la fonction getpwuid() pour récupérer les informations sur l'utilisateur
