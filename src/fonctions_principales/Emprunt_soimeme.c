@@ -97,7 +97,7 @@ void effectuerEmprunt(MYSQL *conn, const char *ISBN, const char *username)
         fprintf(stderr, "Erreur lors de l'ajout de l'emprunt\n");
         return;
     }
-    free(username);
+    free((char*)username);
 }
 // Fonction pour vérifier et effectuer l'emprunt
 void verifierEtEffectuerEmprunt(MYSQL *conn, const char *ISBN, const char *username)
