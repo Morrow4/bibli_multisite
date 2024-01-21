@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <mysql/mysql.h>
+#include <time.h>
 #include "verif_isbn_bdd.h"
 
 #define TAILLE_REQUETE 256
