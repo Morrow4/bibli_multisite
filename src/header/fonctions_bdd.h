@@ -23,6 +23,8 @@ typedef struct Livre
 void Liste_livres_et_dispo(MYSQL *conn);
 //Inscri_liste_attente_livre.c
 void Inscri_liste_attente_livre();
+//Affichage_delai_attente_livre.c
+void Affichage_delai_attente_livre();
 //--------------------------------
 
 // gestion_livres.c
