@@ -29,7 +29,7 @@ MYSQL *connect_database()
    // const char *db_user_password = NULL;
 
    // Connexion à la base de données
-   if (!mysql_real_connect(
+   if (!conn = mysql_real_connect(
            conn,
            "localhost",
            db_user,
