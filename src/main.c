@@ -37,7 +37,7 @@ int main()
     printf("username : %s\n", username);
 
     // Recupération du groupe
-    int user_group = get_user_type(conn);
+    int user_group = get_user_group(conn);
 
     printf("user group : %d\n", user_group);
 
