@@ -58,7 +58,10 @@ int main()
         break;
     }
     // Fermer la connexion à la base de données lorsque vous avez fini de l'utiliser
-    mysql_close(conn);
+    if (mysql_close(conn))
+    {
+        printf("close mysql erreur ici ?");
+    }
 
     return 0;
 }
