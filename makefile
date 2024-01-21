@@ -34,7 +34,7 @@ $(OBJ_DIR):
 
 # Règle générique pour la compilation des fichiers objets
 $(OBJ_DIR)/%.o: $(OBJ_DIR) $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.h))
-	$(CC) $(CFLAGS) $(INC_FLAGS) -c $(filter %$*.c,$(SRCS)) -o $@
+	$(CC) $(CFLAGS) $(INC_FLAGS) -c $(filter %$*.c,$(SRCS)) -o $@ 
 
 # Créer le dossier build s'il n'existe pas
 $(BUILD):
@@ -42,7 +42,7 @@ $(BUILD):
 
 # Règle pour compiler l'exécutable
 $(TARGET): $(BUILD) $(OBJECTS)
-	$(CC) $(CFLAGS) $(OBJECTS) -o $@
+	$(CC) $(CFLAGS) $(OBJECTS) -o $@ -lmysqlclient
 
 # Règle de lancement
 launch: $(TARGET)
