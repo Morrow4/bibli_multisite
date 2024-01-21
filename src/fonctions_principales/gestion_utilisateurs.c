@@ -64,7 +64,7 @@ void ajout_compte(MYSQL *conn)
     }
     char login[101], password[256], nom[51], prenom[51], email[101], estChercheur[2], info_valid[2];
     // Alerte utilisateur
-    printf("\\nles caractères speciaux ne pourront pas être utilisé\\n");
+    printf("\nles caractères speciaux ne pourront pas être utilisé\n");
     printf("En cas d'erreur de saisi, veuillez remplir le formulaire dans son integralité, une validation sera demandée en fin de saisie\\n");
     do
     {
@@ -77,7 +77,7 @@ void ajout_compte(MYSQL *conn)
             scanf("%100s", login);
             if (mon_compteur_login == 0)
             {
-                return
+                return;
             }
         } while (!is_valid(login) && (mon_compteur_login >= 0));
         int mon_compteur_mp = 5;
@@ -238,8 +238,7 @@ void suppression_compte(MYSQL *conn)
         strcpy(type_user, "AdminGeneral");
         break;
     }
-    char *username, *time_str;
-    qui_et_quand(&username, &time_str);
+
     // Ouvrez le fichier de log
     FILE *log_file = fopen("/var/log/user_bibliotech", "a");
     if (log_file == NULL)
@@ -248,6 +247,9 @@ void suppression_compte(MYSQL *conn)
         exit(1);
     }
 
+    char *username, *time_str;
+    qui_et_quand(&username, &time_str);
+
     // Écrivez l'en-tête du log
     fprintf(log_file, "Tentative de suppression par l'utilisateur: %s, Date et heure: %s\n", username, time_str);
     int mon_compteur_log = 5;
@@ -255,7 +257,7 @@ void suppression_compte(MYSQL *conn)
     {
         mon_compteur_log--;
         printf("Veuillez saisir l'adresse mail complet de l'utilisateur que vous souhaitez supprimer : \n");
-            scanf("%100s", log);
+            scanf("%100s", login);
         if (mon_compteur_log == 0)
         {
             fclose(log_file); // fin de compteur = fermeture du fichier
@@ -357,8 +359,7 @@ void blocage_compte(MYSQL *conn)
         strcpy(type_user, "AdminGeneral");
         break;
     }
-    char *username, *time_str;
-    qui_et_quand(&username, &time_str);
+
     // Ouvrez le fichier de log
     FILE *log_file = fopen("/var/log/user_bibliotech", "a");
     if (log_file == NULL)
@@ -366,6 +367,9 @@ void blocage_compte(MYSQL *conn)
         perror("Erreur lors de l'ouverture du fichier de log");
         exit(1);
     }
+
+    char *username, *time_str;
+    qui_et_quand(&username, &time_str);
 
     // Écrivez l'en-tête du log
     fprintf(log_file, "Tentative de blocage par l'utilisateur: %s, Date et heure: %s\n", username, time_str);
