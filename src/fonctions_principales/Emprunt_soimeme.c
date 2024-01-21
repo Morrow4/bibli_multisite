@@ -157,11 +157,19 @@ void Emprunt_soimeme(MYSQL *conn, char *username)
         printf("Numéro  Titre                          Edition                       ISBN\n");
         printf("---------------------------------------------------------------------------\n");
 
-        // Récupérer les livres
-        for (int i = 0; i < tailleTab; i++)
-        {
-            afficherDetailsLivre(&Livre[i]);
-        }
+
+    // Récupérer les livres
+    Livre *Livres = malloc(tailleTab * sizeof(Livre));
+    if (Livres == NULL)
+    {
+        fprintf(stderr, "Erreur d'allocation mémoire\n");
+        return;
+    }
+
+    for (int i = 0; i < tailleTab; i++)
+    {
+        afficherDetailsLivre(&Livres[i]);
+    }
 
         // Saisie du numéro du livre
         printf("Quel est le numéro du livre concerné par la demande? (saisissez un chiffre)\n");
