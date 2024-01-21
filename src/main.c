@@ -30,8 +30,12 @@ int main()
     // Récupérez le nom d'utilisateur (login) à partir de la structure passwd
     char *username = pwd->pw_name;
 
-    // Recupération du groupe
-    int user_group = get_user_type(conn, username);
+    printf("username : %s\n", username;)
+
+        // Recupération du groupe
+        int user_group = get_user_type(conn, username);
+
+    printf("user group : %d\n", user_group);
 
     // Renvoyer vers les fonctions par utilisateur
     switch (user_group) // pour faire un switch il faut apparemment une variable de type int, donc j'ai modifié tout ça en conséquent
@@ -60,7 +64,7 @@ int main()
     // Fermer la connexion à la base de données lorsque vous avez fini de l'utiliser
     if (mysql_close(conn))
     {
-        printf("close mysql erreur ici ?");
+        printf("close mysql erreur ici ?\n");
     }
 
     return 0;
