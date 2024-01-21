@@ -163,7 +163,7 @@ void qui(char *username)
 void qui_et_quand(char **username, char **time_str)
 {
     // Obtenir le nom de l'utilisateur à l'origine de l'exécution
-    qui(username);
+    qui(*username);
 
     // Obtenir la date et l'heure actuelles
     time_t now = time(NULL);
