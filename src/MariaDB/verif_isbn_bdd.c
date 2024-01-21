@@ -38,11 +38,12 @@ int trouverRetard(MYSQL *conn, const char *isbn, double *joursDeRetard) {
     *joursDeRetard = 0;
 
     // Parcourir les résultats pour obtenir la date d'emprunt la plus récente
-    while ((row = mysql_fetch_row(res)) != NULL) {
+    if (mysql_num_rows(res) > 0) {
         livreTrouve = 1;
-        sscanf(row[0], "%s", dernierEmprunt.isbn);
-        sscanf(row[1], "%s", dernierEmprunt.dateEmprunt);
-        sscanf(row[2], "%s", dernierEmprunt.siteDeRestitution);
+        row = mysql_fetch_row(res);
+        strcpy(dernierEmprunt.isbn, row[0]);
+        strcpy(dernierEmprunt.dateEmprunt, row[1]);
+        strcpy(dernierEmprunt.siteDeRestitution, row[2]);
 
         // Calculer le retard en jours
         // Le format de la date d'emprunt est par defaut dans la db : "YYYY-MM-DD HH:MM:SS"
