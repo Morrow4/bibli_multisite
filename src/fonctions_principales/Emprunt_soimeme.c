@@ -147,7 +147,6 @@ void Emprunt_soimeme(MYSQL *conn, char *username)
     {
         printf("Saisissez le titre du livre : ");
         char titreSaisi[255];
-        char *pointeurTitreSaisi = titreSaisi;
         scanf(" %[^\n]", titreSaisi);
 
         // Appel de la fonction compter le nombre de livres par titre
@@ -205,9 +204,6 @@ void Emprunt_soimeme(MYSQL *conn, char *username)
     }
     else
     {
-        // Sortir du menu
-        free(Livres);
         return;
     }
-        free(Livres);
 }
