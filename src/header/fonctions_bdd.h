@@ -69,7 +69,7 @@ int nombreLivresParTitre(const char *titreRecherche);
 void afficherDetailsLivre(const Livre *livre);
 void effectuerEmprunt(MYSQL *conn, const char *ISBN, const char *username);
 void verifierEtEffectuerEmprunt(MYSQL *conn, const char *ISBN, const char *username);
-void Emprunt_soimeme(MYSQL *conn);
+void Emprunt_soimeme(MYSQL *conn, char *username);
 
 // Exemplaires.c
 void ajout_exemplaire(MYSQL *conn, char *username);
