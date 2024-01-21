@@ -199,7 +199,7 @@ void suppression_compte(MYSQL *conn)
 
     int choix_type; // variable pour type d'utilisateur
     char login[101];
-    char type_user; // nom du type d'utilisateur
+    char type_user[15]; // nom du type d'utilisateur
 
     int user_group = get_user_type(getuid()); // groupe de l'utilisateur executant la commande
 
