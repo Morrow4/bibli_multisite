@@ -16,7 +16,7 @@ bool estEntier(const char *str);
 bool limiteTailleInt(const char *str, int limite);
 bool gestion_int(int valeur);
 void qui_et_quand(char **username, char **time_str);
-void qui(char *username, size_t size);
+void qui(char *username);
 void deconnexion(MYSQL *conn);
 
 // MariaDB - connect.c

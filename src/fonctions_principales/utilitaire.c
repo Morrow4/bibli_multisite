@@ -12,8 +12,6 @@ int get_user_type(MYSQL *conn, char *username)
 {
     int user_group = 0;
 
-    printf("username : %s\n", username);
-
     // Requête SQL pour récupérer le TypeUtilisateur en fonction de l'Email
     char query[255];
     sprintf(query, "SELECT TypeUtilisateur FROM Utilisateur WHERE Email = '%s'", username);
@@ -21,7 +19,8 @@ int get_user_type(MYSQL *conn, char *username)
     if (mysql_query(conn, query))
     {
         fprintf(stderr, "Erreur lors de l'exécution de la requête : %s\n", mysql_error(conn));
-        return -1; // Retournez une valeur spéciale pour indiquer une erreur
+        mysql_close(conn);
+        exit(1);
     }
 
     MYSQL_RES *result = mysql_store_result(conn);
@@ -29,12 +28,12 @@ int get_user_type(MYSQL *conn, char *username)
     if (!result)
     {
         fprintf(stderr, "Aucun résultat retourné par la requête\n");
-        return -1; // Retournez une valeur spéciale pour indiquer une erreur
+        mysql_close(conn);
+        exit(1);
     }
 
     // Récupération du résultat
     MYSQL_ROW row = mysql_fetch_row(result);
-    printf("row 0 : %s\n", row[0]);
     if (row)
     {
         if (strcmp(row[0], "AdminGeneral") == 0) // mappage chaîne de caractere a valeur numerique
@@ -55,7 +54,7 @@ int get_user_type(MYSQL *conn, char *username)
         }
         else
         {
-            printf("non trouvé");
+            printf("non trouve");
         }
         printf("Le type d'utilisateur pour %s est : %s\n", username, row[0]);
     }
@@ -65,11 +64,9 @@ int get_user_type(MYSQL *conn, char *username)
     }
 
     mysql_free_result(result);
+    mysql_close(conn);
 
-    // Ne fermez pas la connexion ici, laissez le programme principal gérer la fermeture
-    // mysql_close(conn);
-
-    return user_group;
+    return (user_group);
 }
 
 bool estEntier(const char *str)
@@ -129,18 +126,18 @@ bool gestion_int(int valeur)
     return true;
 }
 
-void qui(char *username, size_t size)
+void qui(char *username)
 {
     // Obtenir le nom de l'utilisateur à l'origine de l'exécution
     uid_t uid = getuid();
     struct passwd *pwd = getpwuid(uid);
-    snprintf(username, size, "%s", (pwd != NULL) ? pwd->pw_name : "Inconnu");
+    username = (pwd != NULL) ? pwd->pw_name : "Inconnu";
 }
 
 void qui_et_quand(char **username, char **time_str)
 {
     // Obtenir le nom de l'utilisateur à l'origine de l'exécution
-    qui(username, sizeof(username));
+    qui(username);
 
     // Obtenir la date et l'heure actuelles
     time_t now = time(NULL);
@@ -148,6 +145,8 @@ void qui_et_quand(char **username, char **time_str)
     *time_str = malloc(64);
     strftime(*time_str, 64, "%Y-%m-%d %H:%M:%S", local_time);
 }
+
+
 
 // Fonction pour déconnecter l'utilisateur
 void deconnexion(MYSQL *conn)
