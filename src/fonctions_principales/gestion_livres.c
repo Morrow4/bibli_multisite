@@ -161,7 +161,7 @@ void afficher_tous_les_livres(MYSQL *conn)
 
     // Afficher les en-têtes
     printf("%-15s %-70s %-40s %-15s\n", "ISBN", "Titre", "Auteur", "Disponibilité");
-    printf("-------------------------------------------------------------------------------------------------------------------------\n");
+    printf("-----------------------------------------------------------------------------------------------------------------------------------------------\n");
 
     // Afficher chaque livre avec sa disponibilité
     MYSQL_ROW row;
