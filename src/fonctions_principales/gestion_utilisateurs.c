@@ -76,6 +76,7 @@ void ajout_compte(MYSQL *conn, char *username)
             printf("Entrez le login : ");
             fgets(login, sizeof(login), stdin);
             login[strcspn(login, "\n")] = '\0';
+            printf("login debut : %s\n", login);
             if (mon_compteur_login == 0)
             {
                 return;
@@ -83,7 +84,9 @@ void ajout_compte(MYSQL *conn, char *username)
             int c;
             while ((c = getchar()) != '\n' && c != EOF);
         } while (!is_valid(login) && (mon_compteur_login >= 0));
-        printf("login : %s", login);
+
+        printf("login fin : %s\n", login);
+
         int mon_compteur_mp = 5;
         do
         {
