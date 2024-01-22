@@ -120,7 +120,7 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
         case 16:
             printf("Veuillez saisir le numéro d'identification de l'exemplaire que vous voulez supprimer : ");
             scanf("%s", id_exemplaire);
-            suppression_livre(conn, id_exemplaire);
+            suppression_exemplaire(conn, id_exemplaire);
             break;
 
         case 17:
