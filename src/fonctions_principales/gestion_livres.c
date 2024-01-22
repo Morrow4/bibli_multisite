@@ -156,23 +156,23 @@ void mise_a_jour_livre(MYSQL *conn)
     // Lier les variables d'entrée à la requête préparée
     bind[0].buffer_type = MYSQL_TYPE_STRING;
     bind[0].buffer = titre;
-    bind[0].buffer_length = strlen(titre) + 1;
+    bind[0].buffer_length = strlen(titre);
 
     bind[1].buffer_type = MYSQL_TYPE_STRING;
     bind[1].buffer = auteur;
-    bind[1].buffer_length = strlen(auteur) + 1;
+    bind[1].buffer_length = strlen(auteur);
 
     bind[2].buffer_type = MYSQL_TYPE_STRING;
     bind[2].buffer = edition;
-    bind[2].buffer_length = strlen(edition) + 1;
+    bind[2].buffer_length = strlen(edition);
 
     bind[3].buffer_type = MYSQL_TYPE_STRING;
     bind[3].buffer = genre;
-    bind[3].buffer_length = strlen(genre) + 1;
+    bind[3].buffer_length = strlen(genre);
 
     bind[4].buffer_type = MYSQL_TYPE_STRING;
     bind[4].buffer = ISBN;
-    bind[4].buffer_length = strlen(ISBN) + 1;
+    bind[4].buffer_length = strlen(ISBN);
 
     if (mysql_stmt_bind_param(stmt, bind))
     {
@@ -233,7 +233,7 @@ void suppression_livre(MYSQL *conn)
     // Lier la variable d'entrée à la requête préparée
     bind[0].buffer_type = MYSQL_TYPE_STRING;
     bind[0].buffer = ISBN;
-    bind[0].buffer_length = strlen(ISBN) + 1;
+    bind[0].buffer_length = strlen(ISBN);
 
     if (mysql_stmt_bind_param(stmt, bind))
     {
