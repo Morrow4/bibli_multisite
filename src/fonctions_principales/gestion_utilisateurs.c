@@ -80,6 +80,8 @@ void ajout_compte(MYSQL *conn, char *username)
             {
                 return;
             }
+            int c;
+            while ((c = getchar()) != '\n' && c != EOF);
         } while (!is_valid(login) && (mon_compteur_login >= 0));
         printf("login : %s", login);
         int mon_compteur_mp = 5;
