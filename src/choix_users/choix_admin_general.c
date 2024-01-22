@@ -43,7 +43,7 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
         switch (choix_user)
         {
         case 1:
-            // Liste_livres_et_dispo();
+            afficher_tous_les_livres(conn);
             break;
 
         case 2:
