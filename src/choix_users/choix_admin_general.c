@@ -37,7 +37,7 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
         printf("16) Supprimer un exemplaire\n");
         printf("17) Déconnexion\n");
 
-        printf("\nVeuillez entrer le numéro du choix correspondant : ");
+        printf("\nVeuillez entrer le numéro du choix correspondant à ce que vous voulez faire : ");
         scanf("%d", &choix_user);
         printf("\n\n");
 
