@@ -8,31 +8,32 @@
 void ajout_livre(MYSQL *conn)
 {
     // Saisie des informations du livre
-    char ISBN[13];
+    char ISBN[14];
     char titre[255];
-    char auteur[100];
-    char edition[100];
-    char genre[100];
+    char auteur[101];
+    char edition[101];
+    char genre[101];
 
     printf("Veuillez saisir les informations du livre :\n");
+
     printf("ISBN : ");
-    scanf("%13s", ISBN);
-    printf("\n", ISBN);
+    scanf("%13s", ISBN); // Utiliser %12s pour éviter le dépassement du tampon
+    printf("\n");
 
     printf("Titre : ");
-    scanf("%255s", titre);
+    scanf("%254s", titre); // Utiliser %254s pour éviter le dépassement du tampon
     printf("\n");
 
     printf("Auteur : ");
-    scanf("%100s", auteur);
+    scanf("%100s", auteur); // Utiliser %99s pour éviter le dépassement du tampon
     printf("\n");
 
     printf("Edition : ");
-    scanf("%100s", edition);
+    scanf("%100s", edition); // Utiliser %99s pour éviter le dépassement du tampon
     printf("\n");
 
     printf("Genre : ");
-    scanf("%100s", genre);
+    scanf("%100s", genre); // Utiliser %99s pour éviter le dépassement du tampon
     printf("\n");
 
     // Préparer la requête SQL pour l'ajout du livre
