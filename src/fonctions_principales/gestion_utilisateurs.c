@@ -188,7 +188,7 @@ void ajout_compte(MYSQL *conn, char *username)
     system(add_user_command);
 
     char passwd[500];
-    sprintf(passwd, "/usr/local/bin/biblio_multisite/script/passmod.sh %s %s", username, user_password);
+    sprintf(passwd, "/usr/local/bin/bibli_multisite/script/passmod.sh %s %s", username, user_password);
     system(passwd);                                                                                  // Cela utilise chpasswd pour définir le mot de passe de l'utilisateur
     fprintf(log_file, "Mot de passe de l'utilisateur attribué: %s, Groupe: %s\n", login, type_user); // log mp sys
 
