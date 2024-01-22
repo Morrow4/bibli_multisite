@@ -77,7 +77,8 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
     case 8:
         printf("Veuillez saisir l'ISBN du livre que vous voulez mettre à jour : ");
         scanf("%s", ISBN);
-        mise_a_jour_livre(conn, ISBN) break;
+        mise_a_jour_livre(conn, ISBN);
+        break;
 
     case 9:
         printf("Veuillez saisir l'ISBN du livre que vous voulez supprimer : ");
@@ -114,7 +115,8 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
     case 15:
         printf("Veuillez saisir le numéro d'identification de l'exemplaire que vous voulez mettre à jour : ");
         scanf("%s", id_exemplaire);
-        mise_a_jour_exemplaire(conn, id_exemplaire) break;
+        mise_a_jour_exemplaire(conn, id_exemplaire);
+        break;
 
     case 16:
         printf("Veuillez saisir le numéro d'identification de l'exemplaire que vous voulez supprimer : ");
