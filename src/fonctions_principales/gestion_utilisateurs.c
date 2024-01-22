@@ -74,12 +74,14 @@ void ajout_compte(MYSQL *conn, char *username)
         {
             mon_compteur_login--;
             printf("Entrez le login : ");
-            scanf("%100s", login);
+            fgets(login, sizeof(login), stdin);
+            login[strcspn(login, "\n")] = '\0';
             if (mon_compteur_login == 0)
             {
                 return;
             }
         } while (!is_valid(login) && (mon_compteur_login >= 0));
+        printf("login : %s", login);
         int mon_compteur_mp = 5;
         do
         {
@@ -141,8 +143,13 @@ void ajout_compte(MYSQL *conn, char *username)
         {
             printf("Validez-vous ces informations? o/n");
             scanf("%1s", info_valid);
-        } while (strcmp(info_valid, "o") != 0 && strcmp(info_valid, "n") != 0);
-    } while (strcmp(info_valid, "n"));
+            if (strcmp(info_valid, "n") == 0)
+            {
+                break;
+            }
+        } while (strcmp(info_valid, "o") != 0);
+
+    } while (strcmp(info_valid, "n") == 0);
 
     // Ouverture du fichier de log
     FILE *log_file = fopen("/var/log/user_bibliotech", "r");
