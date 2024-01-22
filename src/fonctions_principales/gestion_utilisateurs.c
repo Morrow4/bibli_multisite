@@ -155,6 +155,11 @@ void ajout_compte(MYSQL *conn, char *username)
     time(&now);
     fprintf(log_file, "Exécuté par: %s, Date et heure: %s\n", username, ctime(&now));
 
+    //copie des infos pour le systeme
+    char user_password[256];
+    strcpy(username, login);
+    strcpy(user_password, password);
+
     //  Ajout de l'utilisateur dans la base de donnée //Modifier pour mail
     char query[1024];
     sprintf(query, "INSERT INTO Utilisateur (Email, Nom, Prenom, MotDePasse, TypeUtilisateur, EstChercheur) VALUES ('%s','%s', '%s', '%s', '%s', '%s')",
@@ -170,13 +175,9 @@ void ajout_compte(MYSQL *conn, char *username)
     }
     fprintf(log_file, "Utilisateur créé dans la base de donnée: %s, Groupe: %s\n", login, type_user); // log ajout bdd
     // Création de l'utilisateur sur le système
-    char user_password[256];
-    strcpy(username, login);
-    strcpy(user_password, password);
-
     // Exécutez la commande pour ajouter l'utilisateur
     char add_user_command[500];
-    sprintf(add_user_command, "/usr/local/bin/bibli_multisite/script/add_user.sh %s %s %s", type_user, username, login);
+    sprintf(add_user_command, "/usr/local/bin/bibli_multisite/script/add_user.sh %s %s", type_user, username);
     if (system(add_user_command) != 0)
     {
         fprintf(stderr, "Erreur lors de l'exécution du script d'ajout d'utilisateur.\n");
