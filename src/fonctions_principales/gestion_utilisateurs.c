@@ -6,7 +6,7 @@
 #include "../header/fonctions_bdd.h"
 #include "../header/utilitaire.h"
 
-#define ALLOWED_CHARS_FORMAT "[0-9a-zA-Z.@]" // format authorisé
+#define ALLOWED_CHARS_FORMAT "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.@" // format authorisé
 
 int is_valid(const char *str)
 {
@@ -14,6 +14,7 @@ int is_valid(const char *str)
     {
         if (!strchr(ALLOWED_CHARS_FORMAT, *str))
         {
+            printf("caractere non autorisé\n");
             return 0; // caractère non autorisé trouvé = is not valid
         }
         str++;
@@ -73,17 +74,14 @@ void ajout_compte(MYSQL *conn, char *username)
         do
         {
             mon_compteur_login--;
-            printf("Entrez le login : ");
-            fgets(login, sizeof(login), stdin);
-            login[strcspn(login, "\n")] = '\0';
+            printf("Entrez l'adresse (qui fera office de login): ");
+            scanf("%100s", login);
             printf("login debut : %s\n", login);
             if (mon_compteur_login == 0)
             {
                 return;
             }
-            int c;
-            while ((c = getchar()) != '\n' && c != EOF);
-        } while (!is_valid(login) && (mon_compteur_login >= 0));
+        } while ((is_valid(login)==0) && (mon_compteur_login >= 0));
 
         printf("login : %s\n", login);
 
@@ -98,17 +96,6 @@ void ajout_compte(MYSQL *conn, char *username)
                 return;
             }
         } while (!is_valid(password) && (mon_compteur_mp >= 0));
-        int mon_compteur_mail = 5;
-        do
-        {
-            mon_compteur_mail--;
-            printf("Entrez le mail : ");
-            scanf("%100s", email);
-            if (mon_compteur_mail == 0)
-            {
-                return;
-            }
-        } while (!is_valid(email) && (mon_compteur_mail >= 0));
         int mon_compteur_nom = 5;
         do
         {
@@ -143,7 +130,7 @@ void ajout_compte(MYSQL *conn, char *username)
             }
         } while ((strcmp(estChercheur, "o") != 0 && strcmp(estChercheur, "n") != 0) && (mon_compteur_cherch >= 0));
 
-        printf("Le login est %s, le mot de passe est %s, son groupe est %s, le mail est %s, le nom est %s, le prenom est %s, la personne est chercheur : %s", login, password, type_user, email, nom, prenom, estChercheur);
+        printf("Le login est %s, le mot de passe est %s, son groupe est %s, le nom est %s, le prenom est %s, la personne est chercheur : %s", login, password, type_user, nom, prenom, estChercheur);
         do
         {
             printf("Validez-vous ces informations? o/n");
