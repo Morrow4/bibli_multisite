@@ -8,32 +8,37 @@
 void ajout_livre(MYSQL *conn)
 {
     // Saisie des informations du livre
-    char ISBN[13];
+    char ISBN[14];
     char titre[255];
-    char auteur[100];
-    char edition[100];
-    char genre[100];
+    char auteur[101];
+    char edition[101];
+    char genre[101];
 
     printf("Veuillez saisir les informations du livre :\n");
+
     printf("ISBN : ");
-    scanf("%12s", ISBN);
+    scanf("%13s", ISBN); // Utiliser %12s pour éviter le dépassement du tampon
+    printf("\n");
 
     printf("Titre : ");
-    scanf("%254s", titre);
+    scanf("%254s", titre); // Utiliser %254s pour éviter le dépassement du tampon
+    printf("\n");
 
     printf("Auteur : ");
-    scanf("%99s", auteur);
+    scanf("%100s", auteur); // Utiliser %99s pour éviter le dépassement du tampon
+    printf("\n");
 
     printf("Edition : ");
-    scanf("%99s", edition);
+    scanf("%100s", edition); // Utiliser %99s pour éviter le dépassement du tampon
+    printf("\n");
 
     printf("Genre : ");
-    scanf("%99s", genre);
+    scanf("%100s", genre); // Utiliser %99s pour éviter le dépassement du tampon
+    printf("\n");
 
     // Préparer la requête SQL pour l'ajout du livre
     char query[1024];
-    sprintf(query, "INSERT INTO Livre (ISBN, Titre, Auteur, Edition, Genre) VALUES ('%s', '%s', '%s', '%s', '%s')",
-            ISBN, titre, auteur, edition, genre);
+    sprintf(query, "INSERT INTO Livre (ISBN, Titre, Auteur, Edition, Genre) VALUES ('%s', '%s', '%s', '%s', '%s')", ISBN, titre, auteur, edition, genre);
 
     // Exécuter la requête SQL
     if (mysql_query(conn, query))
@@ -49,9 +54,9 @@ void mise_a_jour_livre(MYSQL *conn, char *ISBN)
 {
     // Saisie des nouvelles informations du livre
     char titre[255];
-    char auteur[100];
-    char edition[100];
-    char genre[100];
+    char auteur[101];
+    char edition[101];
+    char genre[101];
 
     printf("Veuillez saisir les nouvelles informations du livre :\n");
 
@@ -59,13 +64,13 @@ void mise_a_jour_livre(MYSQL *conn, char *ISBN)
     scanf("%254s", titre);
 
     printf("Nouvel Auteur : ");
-    scanf("%99s", auteur);
+    scanf("%100s", auteur);
 
     printf("Nouvelle Edition : ");
-    scanf("%99s", edition);
+    scanf("%100s", edition);
 
     printf("Nouveau Genre : ");
-    scanf("%99s", genre);
+    scanf("%100s", genre);
 
     // Préparer la requête SQL pour la mise à jour du livre
     char query[1024];
