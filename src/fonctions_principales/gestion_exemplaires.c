@@ -27,8 +27,7 @@ void ajout_exemplaire(MYSQL *conn)
 
     // Preparer la requete SQL pour l'ajout de l exemplaire
     char query[1024];
-    sprintf(query, "INSERT INTO Exemplaire (ISBN, SitePrincipal, EstLivrePourChercheur) VALUES ('%s', '%s', '%d')",
-            ISBN, site_principal, chercheur);
+    sprintf(query, "INSERT INTO Exemplaire (ISBN, SitePrincipal, EstLivrePourChercheur) VALUES ('%s', '%s', '%d')", ISBN, site_principal, chercheur);
 
     // Executer la requête SQL
     if (mysql_query(conn, query))
@@ -64,8 +63,7 @@ void mise_a_jour_exemplaire(MYSQL *conn, int id_exemplaire)
 
     // Preparer la requete SQL pour la mise a jour de l exemplaire
     char query[1024];
-    sprintf(query, "UPDATE Exemplaire SET SitePrincipal='%s', Disponibilite=%d, EstLivrePourChercheur=%d WHERE ID_Exemplaire=%d",
-            site_principal, disponibilite, est_chercheur, id_exemplaire);
+    sprintf(query, "UPDATE Exemplaire SET SitePrincipal='%s', Disponibilite=%d, EstLivrePourChercheur=%d WHERE ID_Exemplaire=%d", site_principal, disponibilite, est_chercheur, id_exemplaire);
 
     // Executer la requete SQL
     if (mysql_query(conn, query))
