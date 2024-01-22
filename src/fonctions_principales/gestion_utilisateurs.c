@@ -6,7 +6,7 @@
 #include "../header/fonctions_bdd.h"
 #include "../header/utilitaire.h"
 
-#define ALLOWED_CHARS_FORMAT "[0-9a-zA-Z.@]" // format authorisé
+#define ALLOWED_CHARS_FORMAT "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.@" // format authorisé
 
 int is_valid(const char *str)
 {
