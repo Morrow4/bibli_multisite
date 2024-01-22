@@ -177,7 +177,7 @@ void ajout_compte(MYSQL *conn, char *username)
     // Création de l'utilisateur sur le système
     // Exécutez la commande pour ajouter l'utilisateur
     char add_user_command[500];
-    sprintf(add_user_command, "/usr/local/bin/bibli_multisite/script/add_user.sh %s %s", type_user, username);
+    sprintf(add_user_command, "sudo useradd -s \"/home/bibliotech/%s/demarrage_app.sh\" -G \"%s\" \"%s\" 2>/dev/null", type_user, type_user, username);
     if (system(add_user_command) != 0)
     {
         fprintf(stderr, "Erreur lors de l'exécution du script d'ajout d'utilisateur.\n");
