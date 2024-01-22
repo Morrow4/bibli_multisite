@@ -13,7 +13,7 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
     int id_emprunt = -1;
     char login_utilisateur[100];
     char site_restitution[50];
-    char id_exemplaire[100];
+    int id_exemplaire;
 
     while (choix_user != 17) // L'option de déconnexion est le choix 17
     {
@@ -78,15 +78,11 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
             break;
 
         case 8:
-            printf("Veuillez saisir l'ISBN du livre que vous voulez mettre à jour : ");
-            scanf("%s", ISBN);
-            mise_a_jour_livre(conn, ISBN);
+            mise_a_jour_livre(conn);
             break;
 
         case 9:
-            printf("Veuillez saisir l'ISBN du livre que vous voulez supprimer : ");
-            scanf("%s", ISBN);
-            suppression_livre(conn, ISBN);
+            suppression_livre(conn);
             break;
 
         case 10:
@@ -117,14 +113,14 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
 
         case 15:
             printf("Veuillez saisir le numéro d'identification de l'exemplaire que vous voulez mettre à jour : ");
-            scanf("%s", id_exemplaire);
+            scanf("%d", &id_exemplaire);
             mise_a_jour_exemplaire(conn, id_exemplaire);
             break;
 
         case 16:
             printf("Veuillez saisir le numéro d'identification de l'exemplaire que vous voulez supprimer : ");
-            scanf("%s", id_exemplaire);
-            suppression_livre(conn, id_exemplaire);
+            scanf("%d", &id_exemplaire);
+            suppression_exemplaire(conn, id_exemplaire);
             break;
 
         case 17:
@@ -132,9 +128,9 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
             break;
 
         default:
-            printf("\n/===================================/\n");
-            printf("/Choix invalide. Veuillez réessayer./\n");
-            printf("/===================================/\n\n");
+            printf("\n+-----------------------------------+\n");
+            printf("+Choix invalide. Veuillez réessayer.+\n");
+            printf("+-----------------------------------+\n\n");
             break;
         }
     }

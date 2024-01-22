@@ -33,8 +33,8 @@ void Consultation_Stat();
 
 // gestion_livres.c
 void ajout_livre(MYSQL *conn);
-void mise_a_jour_livre(MYSQL *conn, char *ISBN);
-void suppression_livre(MYSQL *conn, char *ISBN);
+void mise_a_jour_livre(MYSQL *conn);
+void suppression_livre(MYSQL *conn);
 void recherche_ISBN(MYSQL *conn, char *titre, char *auteur);
 void afficher_tous_les_livres(MYSQL *conn);
 
