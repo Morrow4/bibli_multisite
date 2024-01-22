@@ -291,6 +291,10 @@ void suppression_compte(MYSQL *conn, char *username)
         return;
     }
 
+    //copie du nom pour la variable system
+    char system_login[101];
+    strcpy(system_login, login);
+
     // Suppression de l'utilisateur de la base de données
     char query[500];
     sprintf(query, "DELETE FROM Utilisateur WHERE Email = '%s'", login);
@@ -306,7 +310,7 @@ void suppression_compte(MYSQL *conn, char *username)
 
     // Suppression de l'utilisateur du système Ubuntu
     char command[500];
-    sprintf(command, "userdel -r %s", login);
+    sprintf(command, "userdel -r %s", system_login);
     if (system(command) != 0)
     {
         fprintf(log_file, "Erreur lors de la suppression de l'utilisateur dans le système.\n");
@@ -315,7 +319,6 @@ void suppression_compte(MYSQL *conn, char *username)
     {
         printf("Utilisateur supprimé avec succès du système.\n");
     }
-    fclose(log_file);
     fclose(log_file);
     free(time_str);
 }
@@ -388,7 +391,7 @@ void blocage_compte(MYSQL *conn, char *username)
         {
             return;
         }
-    } while (!is_valid(login) && (mon_compteur_log >= 0));
+    } while ((is_valid(login)==0) && (mon_compteur_log >= 0));
     int mon_compteur_raison = 5;
     do
     {
@@ -399,7 +402,7 @@ void blocage_compte(MYSQL *conn, char *username)
         {
             return;
         }
-    } while (!is_valid(login) && (mon_compteur_log >= 0));
+    } while ((is_valid(login)==0) && (mon_compteur_log >= 0));
 
     // Vérifiez si l'utilisateur existe
     char query_select[500];
