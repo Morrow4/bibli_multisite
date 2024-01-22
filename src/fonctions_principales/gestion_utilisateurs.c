@@ -272,7 +272,7 @@ void suppression_compte(MYSQL *conn, char *username)
 
     // Vérifiez si l'utilisateur existe
     char query_select[500];
-    sprintf(query_select, "SELECT * FROM Utilisateur WHERE ID_Utilisateur = '%s'", login);
+    sprintf(query_select, "SELECT * FROM Utilisateur WHERE Email = '%s'", login);
     if (mysql_query(conn, query_select))
     {
         fprintf(log_file, "Erreur lors de la vérification de l'utilisateur dans la base de données: %s\n", mysql_error(conn));
@@ -293,7 +293,7 @@ void suppression_compte(MYSQL *conn, char *username)
 
     // Suppression de l'utilisateur de la base de données
     char query[500];
-    sprintf(query, "DELETE FROM Utilisateur WHERE ID_Utilisateur = '%s'", login);
+    sprintf(query, "DELETE FROM Utilisateur WHERE Email = '%s'", login);
     if (mysql_query(conn, query))
     {
         perror("Erreur de suppression dans la base de données\n");
@@ -331,7 +331,7 @@ void blocage_compte(MYSQL *conn, char *username)
 
     switch (user_group) // pour faire un switch il faut apparemment une variable de type int, donc j'ai modifié tout ça en conséquent
     {
-    case 0: // admingeneral
+    case 1: // admingeneral
         printf("Quel type d'utilisateur souhaitez-vous bloquer? [1]adherent/[2]adminsite/[3]admingeneral: ");
         do
         {
@@ -343,7 +343,7 @@ void blocage_compte(MYSQL *conn, char *username)
             } while (!gestion_int(choix_type));     // verification que c'est bien un entier et pas trop grand pour le buffer
         } while (choix_type < 1 || choix_type > 3); // verification de la valeur comprise
         break;
-    case 1: // adminsite
+    case 2: // adminsite
         choix_type = 1;
         break;
     default:
