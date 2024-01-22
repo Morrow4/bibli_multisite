@@ -58,7 +58,7 @@ void mise_a_jour_livre(MYSQL *conn, char *ISBN)
     char edition[101];
     char genre[101];
 
-    printf("Veuillez saisir les nouvelles informations du livre :\n");
+    printf("Veuillez saisir les nouvelles informations du livre (sans espace) :\n");
 
     printf("Nouveau Titre : ");
     scanf("%254s", titre);

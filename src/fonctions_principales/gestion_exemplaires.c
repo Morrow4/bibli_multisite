@@ -8,19 +8,19 @@
 void ajout_exemplaire(MYSQL *conn)
 {
     // Saisie des nouvelles informations de l exemplaire
-    char ISBN[13];
-    char site_principal[50];
-    char chercheur_str[5];
+    char ISBN[14];
+    char site_principal[51];
+    char chercheur_str[6];
 
     printf("Veuillez saisir les informations de l exemplaire :\n");
     printf("ISBN : ");
-    scanf("%12s", ISBN);
+    scanf("%13s", ISBN);
 
     printf("site_principal : ");
-    scanf("%49s", site_principal);
+    scanf("%50s", site_principal);
 
     printf("Ce livre est pour chercheur (vrai/faux) : ");
-    scanf("%4s", chercheur_str);
+    scanf("%5s", chercheur_str);
 
     // Convertir les chaines en valeurs booleennes
     int chercheur = (strcmp(chercheur_str, "vrai") == 0) ? 1 : 0;
@@ -43,20 +43,20 @@ void ajout_exemplaire(MYSQL *conn)
 void mise_a_jour_exemplaire(MYSQL *conn, int id_exemplaire)
 {
     // Saisie des nouvelles informations de l exemplaire
-    char site_principal[50];
-    char disponibilite_str[5];
-    char chercheur_str[5];
+    char site_principal[51];
+    char disponibilite_str[6];
+    char chercheur_str[6];
 
-    printf("Veuillez saisir les nouvelles informations de l exemplaire :\n");
+    printf("Veuillez saisir les nouvelles informations de l exemplaire (sans espace) :\n");
 
     printf("Nouveau Site principal : ");
-    scanf("%49s", site_principal);
+    scanf("%50s", site_principal);
 
     printf("Nouvelle Disponibilite (vrai/faux) : ");
-    scanf("%4s", disponibilite_str);
+    scanf("%5s", disponibilite_str);
 
     printf("Est un livre pour chercheur (vrai/faux) : ");
-    scanf("%4s", chercheur_str);
+    scanf("%5s", chercheur_str);
 
     // Convertir les chaines en valeurs booleennes
     int disponibilite = (strcmp(disponibilite_str, "vrai") == 0) ? 1 : 0;
