@@ -37,7 +37,7 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
         printf("16) Supprimer un exemplaire\n");
         printf("17) Déconnexion\n");
 
-        printf("Veuillez entrer le numéro du choix correspondant : \n");
+        printf("\nVeuillez entrer le numéro du choix correspondant : \n\n");
         scanf("%d", &choix_user);
 
         switch (choix_user)
@@ -131,7 +131,9 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
             break;
 
         default:
-            printf("Choix invalide. Veuillez réessayer.\n");
+            printf("\n/***********************************/\n");
+            printf("/Choix invalide. Veuillez réessayer./\n");
+            printf("/***********************************/\n\n");
             break;
         }
     }
