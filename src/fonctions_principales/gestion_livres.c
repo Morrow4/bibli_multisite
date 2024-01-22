@@ -160,7 +160,7 @@ void afficher_tous_les_livres(MYSQL *conn)
     }
 
     // Afficher les en-têtes
-    printf("%-15s %-50s %-30s %-15s\n", "ISBN", "Titre", "Auteur", "Disponibilité");
+    printf("%-15s %-70s %-40s %-15s\n", "ISBN", "Titre", "Auteur", "Disponibilité");
     printf("-------------------------------------------------------------------------------------------------------------------------\n");
 
     // Afficher chaque livre avec sa disponibilité
@@ -168,7 +168,7 @@ void afficher_tous_les_livres(MYSQL *conn)
     while ((row = mysql_fetch_row(result)))
     {
         // Afficher les détails du livre
-        printf("%-15s %-50s %-30s %-15s\n", row[0], row[1], row[2], (row[3] && atoi(row[3]) ? "Disponible" : "Indisponible"));
+        printf("%-15s %-70s %-40s %-15s\n", row[0], row[1], row[2], (row[3] && atoi(row[3]) ? "Disponible" : "Indisponible"));
     }
 
     // Libérer la mémoire du résultat
