@@ -63,7 +63,7 @@ void ajout_compte(MYSQL *conn, char *username)
         strcpy(type_user, "AdminGeneral");
         break;
     }
-    char login[101], password[256], nom[51], prenom[51], email[101], estChercheur[2], info_valid[2];
+    char login[101], password[256], nom[51], prenom[51], estChercheur[2], info_valid[2];
     // Alerte utilisateur
     printf("\nles caractères speciaux ne pourront pas être utilisé\n");
     printf("En cas d'erreur de saisi, veuillez remplir le formulaire dans son integralité, une validation sera demandée en fin de saisie\n");
