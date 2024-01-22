@@ -7,7 +7,8 @@
 
 void ajout_livre(MYSQL *conn)
 {
-    // Saisie des informations du livre
+    MYSQL_STMT *stmt;
+    MYSQL_BIND bind[5];
     char ISBN[14];
     char titre[255];
     char auteur[101];
@@ -27,29 +28,76 @@ void ajout_livre(MYSQL *conn)
     } while (strlen(ISBN) != 13);
 
     printf("Titre : ");
-    scanf(" %254s%[^\n]", titre);
+    scanf(" %254[^\n]", titre);
 
     printf("Auteur : ");
-    scanf(" %100s%[^\n]", auteur);
+    scanf(" %100[^\n]", auteur);
 
     printf("Edition : ");
-    scanf(" %100s%[^\n]", edition);
+    scanf(" %100[^\n]", edition);
 
     printf("Genre : ");
-    scanf(" %100s%[^\n]", genre);
+    scanf(" %100[^\n]", genre);
 
     // Préparer la requête SQL pour l'ajout du livre
-    char query[1024];
-    sprintf(query, "INSERT INTO Livre (ISBN, Titre, Auteur, Edition, Genre) VALUES ('%s', '%s', '%s', '%s', '%s')", ISBN, titre, auteur, edition, genre);
+    const char *query = "INSERT INTO Livre (ISBN, Titre, Auteur, Edition, Genre) VALUES (?, ?, ?, ?, ?)";
+    stmt = mysql_stmt_init(conn);
 
-    // Exécuter la requête SQL
-    if (mysql_query(conn, query))
+    if (!stmt)
     {
-        fprintf(stderr, "Erreur lors de l ajout du livre : %s\n", mysql_error(conn));
+        fprintf(stderr, "Échec de l'initialisation de la requête préparée : %s\n", mysql_error(conn));
         return;
     }
 
-    printf("Succes de l ajout du livre !\n");
+    if (mysql_stmt_prepare(stmt, query, strlen(query)))
+    {
+        fprintf(stderr, "Échec de la préparation de la requête : %s\n", mysql_stmt_error(stmt));
+        mysql_stmt_close(stmt);
+        return;
+    }
+
+    memset(bind, 0, sizeof(bind));
+
+    // Lier les variables d'entrée à la requête préparée
+    bind[0].buffer_type = MYSQL_TYPE_STRING;
+    bind[0].buffer = ISBN;
+    bind[0].buffer_length = strlen(ISBN);
+
+    bind[1].buffer_type = MYSQL_TYPE_STRING;
+    bind[1].buffer = titre;
+    bind[1].buffer_length = strlen(titre);
+
+    bind[2].buffer_type = MYSQL_TYPE_STRING;
+    bind[2].buffer = auteur;
+    bind[2].buffer_length = strlen(auteur);
+
+    bind[3].buffer_type = MYSQL_TYPE_STRING;
+    bind[3].buffer = edition;
+    bind[3].buffer_length = strlen(edition);
+
+    bind[4].buffer_type = MYSQL_TYPE_STRING;
+    bind[4].buffer = genre;
+    bind[4].buffer_length = strlen(genre);
+
+    if (mysql_stmt_bind_param(stmt, bind))
+    {
+        fprintf(stderr, "Échec de la liaison des paramètres : %s\n", mysql_stmt_error(stmt));
+        mysql_stmt_close(stmt);
+        return;
+    }
+
+    // Exécuter la requête préparée
+    if (mysql_stmt_execute(stmt))
+    {
+        fprintf(stderr, "Erreur lors de l'exécution de la requête : %s\n", mysql_stmt_error(stmt));
+        mysql_stmt_close(stmt);
+        return;
+    }
+
+    printf("Succès de l'ajout du livre !\n");
+
+    // Fermer la requête préparée
+    mysql_stmt_close(stmt);
 }
 
 void mise_a_jour_livre(MYSQL *conn, char *ISBN)
