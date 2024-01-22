@@ -131,9 +131,9 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
             break;
 
         default:
-            printf("\n/***********************************/\n");
+            printf("\n/===================================/\n");
             printf("/Choix invalide. Veuillez réessayer./\n");
-            printf("/***********************************/\n\n");
+            printf("/===================================/\n\n");
             break;
         }
     }
