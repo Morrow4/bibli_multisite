@@ -54,9 +54,9 @@ void mise_a_jour_livre(MYSQL *conn, char *ISBN)
 {
     // Saisie des nouvelles informations du livre
     char titre[255];
-    char auteur[100];
-    char edition[100];
-    char genre[100];
+    char auteur[101];
+    char edition[101];
+    char genre[101];
 
     printf("Veuillez saisir les nouvelles informations du livre :\n");
 
@@ -64,13 +64,13 @@ void mise_a_jour_livre(MYSQL *conn, char *ISBN)
     scanf("%254s", titre);
 
     printf("Nouvel Auteur : ");
-    scanf("%99s", auteur);
+    scanf("%100s", auteur);
 
     printf("Nouvelle Edition : ");
-    scanf("%99s", edition);
+    scanf("%100s", edition);
 
     printf("Nouveau Genre : ");
-    scanf("%99s", genre);
+    scanf("%100s", genre);
 
     // Préparer la requête SQL pour la mise à jour du livre
     char query[1024];
