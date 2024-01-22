@@ -14,6 +14,7 @@ int is_valid(const char *str)
     {
         if (!strchr(ALLOWED_CHARS_FORMAT, *str))
         {
+            printf("caractere non autorisé");
             return 0; // caractère non autorisé trouvé = is not valid
         }
         str++;
