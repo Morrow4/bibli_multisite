@@ -26,11 +26,11 @@ void ajout_compte(MYSQL *conn, char *username)
     int choix_type;     // variable pour type d'utilisateur
     char type_user[15]; // nom du type utilisateur choisi
 
-    int user_group = get_user_group(conn); // groupe de l'utilisateur executant la commande
+    int user_group = get_user_group(conn);
 
     switch (user_group) // pour faire un switch il faut apparemment une variable de type int, donc j'ai modifié tout ça en conséquent
     {
-    case 0: // admingeneral
+    case 1: // admingeneral
         printf("Quel type d'utilisateur souhaitez-vous ajouter? [1]adherent/[2]adminsite/[3]admingeneral: ");
         do
         {
@@ -42,7 +42,7 @@ void ajout_compte(MYSQL *conn, char *username)
             } while (!gestion_int(choix_type));     // verification que c'est bien un entier et pas trop grand pour le buffer
         } while (choix_type < 1 || choix_type > 3); // verification de la valeur comprise
         break;
-    case 1: // adminsite
+    case 2: // adminsite
         choix_type = 1;
         break;
     default:
@@ -65,7 +65,7 @@ void ajout_compte(MYSQL *conn, char *username)
     char login[101], password[256], nom[51], prenom[51], email[101], estChercheur[2], info_valid[2];
     // Alerte utilisateur
     printf("\nles caractères speciaux ne pourront pas être utilisé\n");
-    printf("En cas d'erreur de saisi, veuillez remplir le formulaire dans son integralité, une validation sera demandée en fin de saisie\\n");
+    printf("En cas d'erreur de saisi, veuillez remplir le formulaire dans son integralité, une validation sera demandée en fin de saisie\n");
     do
     {
         // Saisie formulaire utilisateur
