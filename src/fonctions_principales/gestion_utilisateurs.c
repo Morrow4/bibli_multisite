@@ -209,7 +209,7 @@ void suppression_compte(MYSQL *conn, char *username)
 
     switch (user_group) // pour faire un switch il faut apparemment une variable de type int, donc j'ai modifié tout ça en conséquent
     {
-    case 0: // admingeneral
+    case 1: // admingeneral
         printf("Quel type d'utilisateur souhaitez-vous supprimer? [1]adherent/[2]adminsite/[3]admingeneral: ");
         do
         {
@@ -221,7 +221,7 @@ void suppression_compte(MYSQL *conn, char *username)
             } while (!gestion_int(choix_type));     // verification que c'est bien un entier et pas trop grand pour le buffer
         } while (choix_type < 1 || choix_type > 3); // verification de la valeur comprise
         break;
-    case 1: // adminsite
+    case 2: // adminsite
         choix_type = 1;
         break;
     default:
@@ -268,7 +268,7 @@ void suppression_compte(MYSQL *conn, char *username)
             free(time_str);
             return;
         }
-    } while (!is_valid(login) && (mon_compteur_log >= 0));
+    } while ((is_valid(login)==0) && (mon_compteur_log >= 0));
 
     // Vérifiez si l'utilisateur existe
     char query_select[500];
@@ -276,6 +276,7 @@ void suppression_compte(MYSQL *conn, char *username)
     if (mysql_query(conn, query_select))
     {
         fprintf(log_file, "Erreur lors de la vérification de l'utilisateur dans la base de données: %s\n", mysql_error(conn));
+        printf("Erreur d'identification de l'utilisateur dans la base de donnée\n");
         fclose(log_file);
         free(time_str);
         return;
@@ -295,7 +296,7 @@ void suppression_compte(MYSQL *conn, char *username)
     sprintf(query, "DELETE FROM Utilisateur WHERE ID_Utilisateur = '%s'", login);
     if (mysql_query(conn, query))
     {
-        perror("Erreur de suppression dans la base de données");
+        perror("Erreur de suppression dans la base de données\n");
         fprintf(log_file, "Erreur de suppression dans la base de données: %s\n", mysql_error(conn));
     }
     else
