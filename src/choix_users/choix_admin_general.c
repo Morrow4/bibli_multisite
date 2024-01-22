@@ -13,7 +13,7 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
     int id_emprunt = -1;
     char login_utilisateur[100];
     char site_restitution[50];
-    char id_exemplaire[100];
+    int id_exemplaire;
 
     while (choix_user != 17) // L'option de déconnexion est le choix 17
     {
