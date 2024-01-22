@@ -175,14 +175,11 @@ void ajout_compte(MYSQL *conn, char *username)
     strcpy(user_password, password);
 
     // Exécutez la commande pour ajouter l'utilisateur
-    char command[500];
-    sprintf(command, "useradd -m -d /home/bibliotech/%s/ -s /home/bibliotech/%s/demarrage_app.sh -G %s %s", type_user, type_user, type_user, username);
-
-    // Vérification du succès de l'exécution de la commande
-    if (system(command) != 0)
+    char add_user_command[500];
+    sprintf(add_user_command, "/usr/local/bin/bibli_multisite/script/add_user.sh %s %s %s", type_user, username, login);
+    if (system(add_user_command) != 0)
     {
-        fprintf(stderr, "Erreur lors de l'ajout de l'utilisateur sur le système.\n");
-        fprintf(log_file, "Erreur lors de l'ajout de l'utilisateur sur le système.\n"); // log erreur sys
+        fprintf(stderr, "Erreur lors de l'exécution du script d'ajout d'utilisateur.\n");
         exit(1);
     }
     fprintf(log_file, "Utilisateur créé dans le systeme: %s, Groupe: %s\n", login, type_user); // log ajout sys
@@ -309,16 +306,13 @@ void suppression_compte(MYSQL *conn, char *username)
     }
 
     // Suppression de l'utilisateur du système Ubuntu
-    char command[500];
-    sprintf(command, "userdel -r %s", system_login);
-    if (system(command) != 0)
+    char remove_user_command[500];
+    sprintf(remove_user_command, "/usr/local/bin/bibli_multisite/script/remove_user.sh %s", system_login);
+    if (system(remove_user_command) != 0)
     {
-        fprintf(log_file, "Erreur lors de la suppression de l'utilisateur dans le système.\n");
+        fprintf(stderr, "Erreur lors de l'exécution du script de suppression d'utilisateur.\n");
     }
-    else
-    {
-        printf("Utilisateur supprimé avec succès du système.\n");
-    }
+    printf("utilisateur supprimé\n");
     fclose(log_file);
     free(time_str);
 }
@@ -353,7 +347,7 @@ void blocage_compte(MYSQL *conn, char *username)
         return;
         break;
     }
-    // l'administrateur a choisi quel type d'utilisateur il souhaite supprimer
+    // l'administrateur a choisi quel type d'utilisateur il souhaite bloquer
 
     switch (choix_type)
     {
@@ -437,11 +431,11 @@ void blocage_compte(MYSQL *conn, char *username)
     }
 
     // Suppression de l'utilisateur du système Ubuntu
-    char command[500];
-    sprintf(command, "sudo usermod -L %s", login);
-    if (system(command) != 0)
+    char lock_user_command[500];
+    sprintf(lock_user_command, "/usr/local/bin/bibli_multisite/script/lock_user.sh %s", login);
+    if (system(lock_user_command) != 0)
     {
-        fprintf(log_file, "Erreur lors de la suppression de l'utilisateur dans le système.\n");
+        fprintf(stderr, "Erreur lors de l'exécution du script de blocage d'utilisateur.\n");
     }
     else
     {
