@@ -113,7 +113,7 @@ void mise_a_jour_livre(MYSQL *conn)
     do
     {
         printf("Veuillez saisir l'ISBN du livre que vous souhaitez mettre à jour (13 caractères) : ");
-        scanf(" %13s", ISBN);
+        scanf("%13s", ISBN);
         if (strlen(ISBN) != 13)
         {
             printf("L'ISBN doit avoir précisément 13 caractères. Veuillez réessayer.\n");
@@ -195,20 +195,65 @@ void mise_a_jour_livre(MYSQL *conn)
     mysql_stmt_close(stmt);
 }
 
-void suppression_livre(MYSQL *conn, char *ISBN)
+void suppression_livre(MYSQL *conn)
 {
-    // Préparer la requête SQL pour la suppression du livre
-    char query[1024];
-    sprintf(query, "DELETE FROM Livre WHERE ISBN='%s'", ISBN);
+    MYSQL_STMT *stmt;
+    MYSQL_BIND bind[1];
+    char ISBN[14];
 
-    // Exécuter la requête SQL
-    if (mysql_query(conn, query))
+    do
     {
-        fprintf(stderr, "Erreur lors de la suppression du livre : %s\n", mysql_error(conn));
+        printf("Veuillez saisir l'ISBN du livre que vous souhaitez supprimer (13 caractères) : ");
+        scanf("%13s", ISBN);
+        if (strlen(ISBN) != 13)
+        {
+            printf("L'ISBN doit avoir précisément 13 caractères. Veuillez réessayer.\n");
+        }
+    } while (strlen(ISBN) != 13);
+
+    // Préparer la requête SQL pour la suppression du livre
+    const char *query = "DELETE FROM Livre WHERE ISBN=?";
+    stmt = mysql_stmt_init(conn);
+
+    if (!stmt)
+    {
+        fprintf(stderr, "\nÉchec de l'initialisation de la requête préparée : %s\n", mysql_error(conn));
         return;
     }
 
-    printf("Succes de la suppression du livre !\n");
+    if (mysql_stmt_prepare(stmt, query, strlen(query)))
+    {
+        fprintf(stderr, "\nÉchec de la préparation de la requête : %s\n", mysql_stmt_error(stmt));
+        mysql_stmt_close(stmt);
+        return;
+    }
+
+    memset(bind, 0, sizeof(bind));
+
+    // Lier la variable d'entrée à la requête préparée
+    bind[0].buffer_type = MYSQL_TYPE_STRING;
+    bind[0].buffer = ISBN;
+    bind[0].buffer_length = strlen(ISBN);
+
+    if (mysql_stmt_bind_param(stmt, bind))
+    {
+        fprintf(stderr, "\nÉchec de la liaison des paramètres : %s\n", mysql_stmt_error(stmt));
+        mysql_stmt_close(stmt);
+        return;
+    }
+
+    // Exécuter la requête préparée
+    if (mysql_stmt_execute(stmt))
+    {
+        fprintf(stderr, "\nErreur lors de l'exécution de la requête : %s\n", mysql_stmt_error(stmt));
+        mysql_stmt_close(stmt);
+        return;
+    }
+
+    printf("\nSuccès de la suppression du livre !\n");
+
+    // Fermer la requête préparée
+    mysql_stmt_close(stmt);
 }
 
 void recherche_ISBN(MYSQL *conn, char *titre, char *auteur)
