@@ -184,7 +184,8 @@ void ajout_compte(MYSQL *conn, char *username)
     }
     fprintf(log_file, "Utilisateur créé dans le systeme: %s, Groupe: %s\n", login, type_user); // log ajout sys
     // Ajout du mot de passe utilisateur
-    system(command);
+    // Ajout du mot de passe utilisateur
+    system(add_user_command);
 
     char passwd[500];
     sprintf(passwd, "echo \"%s:%s\" | chpasswd", username, user_password);
