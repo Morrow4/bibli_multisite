@@ -8,9 +8,9 @@
 void ajout_exemplaire(MYSQL *conn)
 {
     // Saisie des nouvelles informations de l exemplaire
-    char ISBN[13];
-    char site_principal[50];
-    char chercheur_str[5];
+    char ISBN[14];
+    char site_principal[51];
+    char chercheur_str[6];
 
     printf("Veuillez saisir les informations de l exemplaire :\n");
     printf("ISBN : ");
@@ -43,9 +43,9 @@ void ajout_exemplaire(MYSQL *conn)
 void mise_a_jour_exemplaire(MYSQL *conn, int id_exemplaire)
 {
     // Saisie des nouvelles informations de l exemplaire
-    char site_principal[50];
-    char disponibilite_str[5];
-    char chercheur_str[5];
+    char site_principal[51];
+    char disponibilite_str[6];
+    char chercheur_str[6];
 
     printf("Veuillez saisir les nouvelles informations de l exemplaire (sans espace) :\n");
 
