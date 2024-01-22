@@ -122,7 +122,7 @@ void ajout_compte(MYSQL *conn, char *username)
         do
         {
             mon_compteur_cherch--;
-            printf("Est-ce un chercheur ? (oui/non) : ");
+            printf("Est-ce un chercheur ? (o/n) : ");
             scanf("%1s", estChercheur);
             if (mon_compteur_cherch == 0)
             {
@@ -130,10 +130,10 @@ void ajout_compte(MYSQL *conn, char *username)
             }
         } while ((strcmp(estChercheur, "o") != 0 && strcmp(estChercheur, "n") != 0) && (mon_compteur_cherch >= 0));
 
-        printf("Le login est %s, le mot de passe est %s, son groupe est %s, le nom est %s, le prenom est %s, la personne est chercheur : %s", login, password, type_user, nom, prenom, estChercheur);
+        printf("Le login est %s, le mot de passe est %s, son groupe est %s, le nom est %s, le prenom est %s, la personne est chercheur : %s\n", login, password, type_user, nom, prenom, estChercheur);
         do
         {
-            printf("Validez-vous ces informations? o/n");
+            printf("Validez-vous ces informations? o/n : ");
             scanf("%1s", info_valid);
             if (strcmp(info_valid, "n") == 0)
             {
@@ -157,7 +157,7 @@ void ajout_compte(MYSQL *conn, char *username)
 
     //  Ajout de l'utilisateur dans la base de donnée //Modifier pour mail
     char query[1024];
-    sprintf(query, "INSERT INTO Utilisateur (ID_Utilisateur, Nom, Prenom, MotDePasse, TypeUtilisateur, EstChercheur) VALUES ('%s','%s', '%s', '%s', '%s', '%s')",
+    sprintf(query, "INSERT INTO Utilisateur (Email, Nom, Prenom, MotDePasse, TypeUtilisateur, EstChercheur) VALUES ('%s','%s', '%s', '%s', '%s', '%s')",
             login, nom, prenom, password, type_user, (strcmp(estChercheur, "o") == 0) ? "1" : "0");
 
     if (mysql_query(conn, query))
