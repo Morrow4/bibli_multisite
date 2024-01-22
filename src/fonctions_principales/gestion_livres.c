@@ -61,23 +61,23 @@ void ajout_livre(MYSQL *conn)
     // Lier les variables d'entrée à la requête préparée
     bind[0].buffer_type = MYSQL_TYPE_STRING;
     bind[0].buffer = ISBN;
-    bind[0].buffer_length = strlen(ISBN) + 1;
+    bind[0].buffer_length = strlen(ISBN);
 
     bind[1].buffer_type = MYSQL_TYPE_STRING;
     bind[1].buffer = titre;
-    bind[1].buffer_length = strlen(titre) + 1;
+    bind[1].buffer_length = strlen(titre);
 
     bind[2].buffer_type = MYSQL_TYPE_STRING;
     bind[2].buffer = auteur;
-    bind[2].buffer_length = strlen(auteur) + 1;
+    bind[2].buffer_length = strlen(auteur);
 
     bind[3].buffer_type = MYSQL_TYPE_STRING;
     bind[3].buffer = edition;
-    bind[3].buffer_length = strlen(edition) + 1;
+    bind[3].buffer_length = strlen(edition);
 
     bind[4].buffer_type = MYSQL_TYPE_STRING;
     bind[4].buffer = genre;
-    bind[4].buffer_length = strlen(genre) + 1;
+    bind[4].buffer_length = strlen(genre);
 
     if (mysql_stmt_bind_param(stmt, bind))
     {
