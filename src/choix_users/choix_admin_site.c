@@ -72,7 +72,7 @@ void choix_admin_site_bibliotheque(MYSQL *conn, char *username)
     case 8:
         printf("Veuillez saisir l'ISBN du livre que vous voulez supprimer : ");
         scanf("%s", ISBN);
-        suppression_livre(conn, ISBN);
+        suppression_livre(conn);
         break;
 
     case 9:
