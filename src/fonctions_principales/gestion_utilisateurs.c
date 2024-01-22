@@ -17,11 +17,7 @@ int is_valid(const char *str)
             return 0; // caractère non autorisé trouvé = is not valid
         }
         str++;
-        // Suppression du caractère de nouvelle ligne si présent
-        size_t len = strlen(str);
-        if (len > 0 && str[len - 1] == '\n') {
-            str[len - 1] = '\0';
-        }
+    }
     return 1; // tous les caractères sont valides = is valide
 }
 
@@ -78,21 +74,18 @@ void ajout_compte(MYSQL *conn, char *username)
         {
             mon_compteur_login--;
             printf("Entrez le login : ");
-            if (fgets(login, sizeof(login), stdin) == NULL) {
-                return 1; // Gestion de l'erreur de saisie
-            }
+            fgets(login, sizeof(login), stdin);
             login[strcspn(login, "\n")] = '\0';
             printf("login debut : %s\n", login);
-
-            if (mon_compteur_login == 0) {
-                return 1; // Gestion de l'erreur du nombre maximal de tentatives
+            if (mon_compteur_login == 0)
+            {
+                return;
             }
-
             int c;
             while ((c = getchar()) != '\n' && c != EOF);
-        } while (!is_valid(login));
+        } while (!is_valid(login) && (mon_compteur_login >= 0));
 
-        printf("login fin : %s\n", login);
+        printf("login : %s\n", login);
 
         int mon_compteur_mp = 5;
         do
