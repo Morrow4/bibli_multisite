@@ -74,7 +74,7 @@ void ajout_compte(MYSQL *conn, char *username)
         do
         {
             mon_compteur_login--;
-            printf("Entrez le login : ");
+            printf("Entrez l'adresse (qui fera office de login): ");
             scanf("%100s", login);
             printf("login debut : %s\n", login);
             if (mon_compteur_login == 0)
@@ -96,17 +96,6 @@ void ajout_compte(MYSQL *conn, char *username)
                 return;
             }
         } while (!is_valid(password) && (mon_compteur_mp >= 0));
-        int mon_compteur_mail = 5;
-        do
-        {
-            mon_compteur_mail--;
-            printf("Entrez le mail : ");
-            scanf("%100s", email);
-            if (mon_compteur_mail == 0)
-            {
-                return;
-            }
-        } while (!is_valid(email) && (mon_compteur_mail >= 0));
         int mon_compteur_nom = 5;
         do
         {
@@ -141,7 +130,7 @@ void ajout_compte(MYSQL *conn, char *username)
             }
         } while ((strcmp(estChercheur, "o") != 0 && strcmp(estChercheur, "n") != 0) && (mon_compteur_cherch >= 0));
 
-        printf("Le login est %s, le mot de passe est %s, son groupe est %s, le mail est %s, le nom est %s, le prenom est %s, la personne est chercheur : %s", login, password, type_user, email, nom, prenom, estChercheur);
+        printf("Le login est %s, le mot de passe est %s, son groupe est %s, le nom est %s, le prenom est %s, la personne est chercheur : %s", login, password, type_user, nom, prenom, estChercheur);
         do
         {
             printf("Validez-vous ces informations? o/n");
