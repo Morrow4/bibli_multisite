@@ -14,7 +14,7 @@ void ajout_livre(MYSQL *conn)
     char edition[101];
     char genre[101];
 
-    printf("Veuillez saisir les informations du livre :\n");
+    printf("Veuillez saisir les informations du livre :\n\n");
 
     do
     {
@@ -27,20 +27,16 @@ void ajout_livre(MYSQL *conn)
     } while (strlen(ISBN) != 13);
 
     printf("Titre : ");
-    scanf(" %254[^\n]", titre);
-    printf("\n");
+    scanf(" %254s%[^\n]", titre);
 
     printf("Auteur : ");
-    scanf(" %100[^\n]", auteur);
-    printf("\n");
+    scanf(" %100s%[^\n]", auteur);
 
     printf("Edition : ");
-    scanf(" %100[^\n]", edition);
-    printf("\n");
+    scanf(" %100s%[^\n]", edition);
 
     printf("Genre : ");
-    scanf(" %100[^\n]", genre);
-    printf("\n");
+    scanf(" %100s%[^\n]", genre);
 
     // Préparer la requête SQL pour l'ajout du livre
     char query[1024];
