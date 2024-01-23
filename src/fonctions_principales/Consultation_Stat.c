@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <utilitaire.h>
+#include "../header/utilitaire.h"
 #include <mysql/mysql.h>
 
 void consultation_stat_site(MYSQL *conn) {
