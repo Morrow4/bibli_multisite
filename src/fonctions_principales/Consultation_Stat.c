@@ -142,27 +142,28 @@ void consultation_stat_3site(MYSQL* conn) {
 }
 
 void consultation_stat(MYSQL *conn, int user_type) {
-    switch (user_type) {
-    case 1: // admin general
-        printf("Veuillez choisir de consulter les statistiques pour les 3 sites ou par site : 1 | 2 : \n");
-        int choix;
-        scanf("%d", &choix);
-        switch (choix) 
-        {
-            case 1: // consultation stat pour les 3 sites
-                consultation_stat_3site(conn);
-            case 2: // consultation stat par site
-                consultation_stat_site(conn, user_type);
-            default: // choix invalide
-                consultation_stat(conn, user_type);
-                printf("Entrée erronée");
-                break;
-        }
-    case 2: // adminsite
-        consultation_stat_site(conn, user_type);
-    default: // autre
-        consultation_stat(conn, user_type);
-        printf("Entrée erronée");
-        break;
+    switch (user_type) 
+    {
+        case 1: // admin general
+            printf("Veuillez choisir de consulter les statistiques pour les 3 sites ou par site : 1 | 2 : \n");
+            int choix;
+            scanf("%d", &choix);
+            switch (choix) 
+            {
+                case 1: // consultation stat pour les 3 sites
+                    consultation_stat_3site(conn);
+                case 2: // consultation stat par site
+                    consultation_stat_site(conn, user_type);
+                default: // choix invalide
+                    consultation_stat(conn, user_type);
+                    printf("Entrée erronée");
+                    break;
+            }
+        case 2: // adminsite
+            consultation_stat_site(conn, user_type);
+        default: // autre
+            consultation_stat(conn, user_type);
+            printf("Entrée erronée");
+            break;
     }
 }
