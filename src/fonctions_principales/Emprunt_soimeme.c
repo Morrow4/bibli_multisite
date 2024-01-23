@@ -28,7 +28,7 @@ int nombreLivresParTitre(const char *titreRecherche)
         return nombreLivres;
     }
 
-    const char *query = "SELECT COUNT(*) FROM Livre WHERE Titre = ?";
+    const char *query = ("SELECT COUNT(*) FROM Livre WHERE Titre = %s", &titreRecherche);
     if (mysql_stmt_prepare(stmt, query, strlen(query)) != 0)
     {
         fprintf(stderr, "Erreur lors de la préparation de la requête préparée : %s\n", mysql_stmt_error(stmt));
