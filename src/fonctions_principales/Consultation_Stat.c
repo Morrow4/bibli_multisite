@@ -4,31 +4,6 @@
 #include <string.h>
 #include <mysql/mysql.h>
 
-void consultation_stat(MYSQL *conn) {
-    switch (user_type)
-    {
-    case 1: // admingeneral
-        printf("Veuillez choisir de consulter les statistiques par site ou les 3 sites : 1 / 2");
-        int choix;
-        scanf("%s", choix);
-        switch (choix) 
-        {
-            case 1: // consultation stat pour les 3 sites
-                consultation_stat_3site(conn);
-            case 2: // consultation stat par site
-                consultation_stat_site(conn);
-            default: // choix invalide
-        }
-    case 2: // adminsite
-        consultation_stat_site(conn);
-    default: // autre
-        printf("Déconnexion\n");
-        break;
-    }
-    // Fermer la connexion à la base de données lorsque vous avez fini de l'utiliser
-    mysql_close(conn);
-}
-
 void consultation_stat_site(MYSQL *conn) {
     // Saisie utilisateur pour choisir un site
     char site[20];
@@ -129,4 +104,29 @@ void consultation_stat_3site(MYSQL* conn) {
 
     // Libération de la mémoire du résultat
     mysql_free_result(result);
+}
+
+void consultation_stat(MYSQL *conn) {
+    switch (user_type)
+    {
+    case 1: // admingeneral
+        printf("Veuillez choisir de consulter les statistiques par site ou les 3 sites : 1 / 2");
+        int choix;
+        scanf("%s", choix);
+        switch (choix) 
+        {
+            case 1: // consultation stat pour les 3 sites
+                consultation_stat_3site(conn);
+            case 2: // consultation stat par site
+                consultation_stat_site(conn);
+            default: // choix invalide
+        }
+    case 2: // adminsite
+        consultation_stat_site(conn);
+    default: // autre
+        printf("Déconnexion\n");
+        break;
+    }
+    // Fermer la connexion à la base de données lorsque vous avez fini de l'utiliser
+    mysql_close(conn);
 }
