@@ -8,6 +8,7 @@
 
 void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
 {
+    system("clear");
     int choix_user;
     char ISBN[13];
     int id_emprunt = -1;
@@ -16,7 +17,6 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
 
     while (choix_user != 17) // L'option de déconnexion est le choix 17
     {
-        system("clear");
         printf("\n+----------------------------------------------------------------+\n");
         printf("|                           MENU PRINCIPAL                       |\n");
         printf("|                                                                |\n");
@@ -51,12 +51,14 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
             break;
 
         case 2:
+            system("clear");
             printf("Veuillez saisir l'ISBN du livre que vous voulez réserver : ");
             scanf("%s", ISBN);
             reserver_livre(conn, username, ISBN);
             break;
 
         case 3:
+            system("clear");
             printf("Veuillez saisir le login de l'utilisateur qui veut réserver un livre : ");
             scanf("%s", login_utilisateur);
             printf("Veuillez saisir l'ISBN du livre que vous voulez réserver : ");
@@ -66,30 +68,37 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
 
         case 4:
             ajout_compte(conn, username);
+            system("clear");
             break;
 
         case 5:
             suppression_compte(conn, username);
+            system("clear");
             break;
 
         case 6:
             consultation_stat(conn);
+            system("clear");
             break;
 
         case 7:
             ajout_livre(conn);
+            system("clear");
             break;
 
         case 8:
             mise_a_jour_livre(conn);
+            system("clear");
             break;
 
         case 9:
             suppression_livre(conn);
+            system("clear");
             break;
 
         case 10:
             blocage_compte(conn, username);
+            system("clear");
             break;
 
         case 11:
@@ -98,38 +107,46 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
             printf("Veuillez saisir le site sur lequel le livre est restitué : ");
             scanf("%s", site_restitution);
             enregistrer_restitution(conn, id_emprunt, site_restitution);
+            system("clear");
             break;
 
         case 12:
             Emprunt_soimeme(conn, username);
+            system("clear");
             break;
 
         case 13:
             printf("Veuillez saisir le login de l'utilisateur qui veut emprunter un livre : ");
             scanf("%s", login_utilisateur);
             Emprunt_soimeme(conn, login_utilisateur);
+            system("clear");
             break;
 
         case 14:
             ajout_exemplaire(conn);
+            system("clear");
             break;
 
         case 15:
             mise_a_jour_exemplaire(conn);
+            system("clear");
             break;
 
         case 16:
             suppression_exemplaire(conn);
+            system("clear");
             break;
 
         case 17:
             deconnexion(conn);
+            system("clear");
             break;
 
         default:
             printf("\n+-----------------------------------+\n");
             printf("+Choix invalide. Veuillez réessayer.+\n");
             printf("+-----------------------------------+\n\n");
+            system("clear");
             break;
         }
     }
