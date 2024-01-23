@@ -138,7 +138,7 @@ void mise_a_jour_exemplaire(MYSQL *conn)
         printf("\nVeuillez entrer le numéro du choix correspondant à ce que vous voulez faire : ");
         scanf("%d", &choix_recherche);
 
-        switch (choix_user)
+        switch (choix_recherche)
         {
         case 1:
             rechercherLivreParTitre(conn);
@@ -291,7 +291,7 @@ void suppression_exemplaire(MYSQL *conn)
         printf("\nVeuillez entrer le numéro du choix correspondant à ce que vous voulez faire : ");
         scanf("%d", &choix_recherche);
 
-        switch (choix_user)
+        switch (choix_recherche)
         {
         case 1:
             rechercherLivreParTitre(conn);
