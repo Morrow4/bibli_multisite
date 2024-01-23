@@ -17,9 +17,9 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
     while (choix_user != 17) // L'option de déconnexion est le choix 17
     {
         printf("\n+----------------------------------------------------------------+\n");
-        printf("|                           MENU PRINCIPAL                       |\n");
+        printf("|                         MENU PRINCIPAL                         |\n");
         printf("|                                                                |\n");
-        printf("|---------------------- Administrateur Général ------------------|\n");
+        printf("|-------------------- Administrateur Général --------------------|\n");
         printf("|----------------------------------------------------------------|\n");
         printf("| 1)  Lister les livres et leur disponibilité dans les sites     |\n");
         printf("| 2)  Réserver un livre pour soi                                 |\n"); // a retirer
