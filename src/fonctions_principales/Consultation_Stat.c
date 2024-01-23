@@ -22,7 +22,7 @@ void consultation_stat_site(MYSQL *conn) {
     unite[strcspn(unite, "\n")] = '\0'; // Supprimer le caractère de nouvelle ligne de la saisie
 
     // Construction de la requête SQL pour récupérer le nombre d'emprunts et de réservations par site
-    char query[256];
+    char query[1000];
     snprintf(query, sizeof(query),
              "SELECT Exemplaire.SitePrincipal, "
              "COUNT(DISTINCT Emprunt.ID_Emprunt) AS nb_emprunts, "
