@@ -28,7 +28,7 @@ int trouverRetard(MYSQL *conn, const char *isbn, double *joursDeRetard)
     // Exécuter la requête SQL
     if (mysql_query(conn, query) != 0)
     {
-        fprintf(stderr, "Erreur lors de l'exécution de la requête SQL : %s\n", mysql_error(conn));
+        fprintf(stderr, "\nErreur lors de l'exécution de la requête d'information sur les emprunts : %s\n", mysql_error(conn));
         return -1; // Erreur
     }
     // Récupérer le résultat de la requête
