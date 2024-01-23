@@ -156,27 +156,28 @@ void verifierEtEffectuerEmprunt(MYSQL *conn, const char *ISBN, const char *usern
     double joursDeRetard;
     int livreTrouve = trouverRetard(conn, ISBN, &joursDeRetard);
 
-    if (livreTrouve)
+    if (livreTrouve == 0)
     {
-        if (joursDeRetard > 14)
-        {
-            double joursRestants = 14 - joursDeRetard;
-            printf("Le livre a %.2f jours de retard.\n", joursRestants);
-        }
-        else
-        {
-            printf("Livre trouvé, pas de retard.\n");
-        }
-
+        printf("Livre non emprunté auparavant.\n");
         // Continuer le processus d'emprunt
         effectuerEmprunt(conn, ISBN, username);
+        return;
+    }
+
+    if (joursDeRetard > 14)
+    {
+        double joursRestants = 14 - joursDeRetard;
+        printf("Le livre a %.2f jours de retard.\n", joursRestants);
     }
     else
     {
-        printf("Livre non trouvé, veuillez contacter un administrateur.\n");
-        return;
+        printf("Livre trouvé, pas de retard.\n");
     }
+
+    // Continuer le processus d'emprunt
+    effectuerEmprunt(conn, ISBN, username);
 }
+
 
 // Fonction pour l'emprunt de livre
 void Emprunt_soimeme(MYSQL *conn, char *username)
