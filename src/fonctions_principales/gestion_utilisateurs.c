@@ -27,7 +27,7 @@ void ajout_compte(MYSQL *conn, char *username)
     system("clear");
     int choix_type;     // variable pour type d'utilisateur
     char type_user[15]; // nom du type utilisateur choisi
-    char site; //Site pour adminsite
+    char site[10]; //Site pour adminsite
     int user_group = get_user_group(conn);
 
     switch (user_group) // pour faire un switch il faut apparemment une variable de type int, donc j'ai modifié tout ça en conséquent
@@ -63,9 +63,9 @@ void ajout_compte(MYSQL *conn, char *username)
         strcpy(type_user, "AdminSite");
         printf("\nQUel est le site de l'utilisateur?\nSite [A / B / C]?");
         scanf("%s", site);
-        if(site=="A"){site = "Site A";};
-        if(site=="B"){site = "Site B";};
-        if(site=="C"){site = "Site C";};
+        if (strcmp(site, "A") == 0) { strcpy(site, "Site A"); };
+        if (strcmp(site, "B") == 0) { strcpy(site, "Site B"); };
+        if (strcmp(site, "C") == 0) { strcpy(site, "Site C"); };
         break;
     case 3: // admingeneral
         strcpy(type_user, "AdminGeneral");
@@ -170,7 +170,7 @@ void ajout_compte(MYSQL *conn, char *username)
 
     //  Ajout de l'utilisateur dans la base de donnée //Modifier pour mail
     char query[1024];
-    if(site=="Site A" ||site=="Site B"||site=="Site C"){
+    if ((strcmp(site, "Site A") == 0) || (strcmp(site, "Site B") == 0)||(strcmp(site, "Site C") == 0) ){
     sprintf(query, "INSERT INTO Utilisateur (Email, Nom, Prenom, MotDePasse, TypeUtilisateur, EstChercheur, Site) VALUES ('%s','%s', '%s', '%s', '%s', '%s', '%s')",
             login, nom, prenom, password, type_user, (strcmp(estChercheur, "o") == 0) ? "1" : "0", site);
     }else{
