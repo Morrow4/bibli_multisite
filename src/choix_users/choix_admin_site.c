@@ -64,6 +64,9 @@ void choix_admin_site_bibliotheque(MYSQL *conn, char *username)
 
     case 6:
         consultation_stat(conn);
+        int user_type = 0;
+        system("clear");
+        return user_type;
         break;
 
     case 7:
