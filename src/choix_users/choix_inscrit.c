@@ -35,9 +35,7 @@ void choix_inscrit_bibliotheque(MYSQL *conn, char *username)
         break;
 
     case 3:
-        printf("Veuillez saisir l'ISBN du livre que vous voulez réserver : ");
-        scanf("%s", ISBN);
-        reserver_livre(conn, username, ISBN);
+        reserver_livre(conn, username);
         break;
 
     case 13:
