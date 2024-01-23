@@ -76,7 +76,7 @@ void reserver_livre(MYSQL *conn, char *email_utilisateur)
 }
 
 // Fonction pour vérifier si au moins un exemplaire est disponible
-bool au_moins_un_exemplaire_disponible(MYSQL *conn, char *isbn_livre)
+bool au_moins_un_exemplaire_disponible(MYSQL *conn, const char *isbn_livre)
 {
     MYSQL_STMT *stmt;
     MYSQL_BIND bind[2];
