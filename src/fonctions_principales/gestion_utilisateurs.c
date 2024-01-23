@@ -474,7 +474,8 @@ void blocage_compte(MYSQL *conn, char *username)
     }
     else
     {
-        printf("Utilisateur bloqué avec succès dans le système.\n");
+        system("clear");
+        printf("\nUtilisateur bloqué avec succès dans le système.\n");
         fprintf(log_file, "Utilisateur %s bloqué avec succès\n", login);
     }
 

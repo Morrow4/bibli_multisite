@@ -8,7 +8,6 @@
 
 void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
 {
-    system("clear");
     int choix_user;
     char ISBN[13];
     int id_emprunt = -1;
@@ -17,6 +16,7 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
 
     while (choix_user != 17) // L'option de déconnexion est le choix 17
     {
+        system("clear");
         printf("\n+----------------------------------------------------------------+\n");
         printf("|                           MENU PRINCIPAL                       |\n");
         printf("|                                                                |\n");
