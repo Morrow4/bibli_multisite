@@ -13,6 +13,8 @@ void choix_admin_site_bibliotheque(MYSQL *conn, char *username)
     int id_emprunt = -1;
     char login_utilisateur[100];
     char site_restitution[50];
+    int user_type;
+
     printf("\n+--------------------------------------------------------------+\n");
     printf("|                     MENU Administrateur Site                   |\n");
     printf("|--------------------------------------------------------------  |\n");
@@ -61,7 +63,7 @@ void choix_admin_site_bibliotheque(MYSQL *conn, char *username)
         break;
 
     case 6:
-        consultation_stat(conn);
+        consultation_stat(conn, user_type);
         break;
 
     case 7:
