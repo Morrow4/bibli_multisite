@@ -9,6 +9,7 @@
 void consultation_stat_site(MYSQL *conn, int user_type) {
     MYSQL_RES *res;
     MYSQL_ROW row;
+    user_type = get_user_group(conn);
     // Saisie utilisateur pour choisir un site
     char site[20];
     switch (user_type)
