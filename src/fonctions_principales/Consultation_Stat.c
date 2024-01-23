@@ -69,7 +69,7 @@ void consultation_stat_site(MYSQL *conn, int user_type) {
              "LEFT JOIN Reservation ON Exemplaire.ID_Exemplaire = Reservation.ID_Exemplaire "
              "WHERE DATE_FORMAT(Emprunt.DateEmprunt, '%%Y-%%m-%%d') = DATE_FORMAT(NOW(), '%%Y-%%m-%%d') "
              "AND DATE_FORMAT(Reservation.DateReservation, '%%Y-%%m-%%d') = DATE_FORMAT(NOW(), '%%Y-%%m-%%d') "
-             "AND Exemplaire.SitePrincipal = '%s' "
+             "AND Exemplaire.SitePrincipal = '%p' "
              "GROUP BY Exemplaire.SitePrincipal;", res);
     mysql_free_result(res);
 
@@ -89,7 +89,7 @@ void consultation_stat_site(MYSQL *conn, int user_type) {
     printf("--------------------------------------------\n");
 
     // Parcours des lignes du résultat
-    MYSQL_ROW row;
+    //MYSQL_ROW row;
     while ((row = mysql_fetch_row(result)) != NULL) {
         printf("%-20s%-15s%-15s\n", row[0], row[1], row[2]);
     }
