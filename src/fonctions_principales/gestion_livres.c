@@ -320,7 +320,7 @@ void rechercherLivreParTitre(MYSQL *conn)
     // Construction de la requête SQL avec une requête préparée
     MYSQL_STMT *stmt;
     MYSQL_BIND bind[1];
-    const char *query = "SELECT Livre.ISBN, Livre.Titre, Livre.Auteur, Exemplaire.ID_Exemplaire FROM Livre JOIN Exemplaire ON Livre.ISBN = Exemplaire.ISBN WHERE Livre.Titre LIKE '?'";
+    const char *query = "SELECT Livre.ISBN, Livre.Titre, Livre.Auteur, Exemplaire.ID_Exemplaire FROM Livre JOIN Exemplaire ON Livre.ISBN = Exemplaire.ISBN WHERE Livre.Titre LIKE ?";
 
     stmt = mysql_stmt_init(conn);
     if (!stmt)
@@ -355,6 +355,12 @@ void rechercherLivreParTitre(MYSQL *conn)
     }
 
     // Récupération du résultat de la requête
+    if (mysql_stmt_store_result(stmt))
+    {
+        fprintf(stderr, "mysql_stmt_store_result() a échoué\n");
+        exit(1);
+    }
+
     result = mysql_stmt_result_metadata(stmt);
 
     // Vérification s'il y a des résultats
