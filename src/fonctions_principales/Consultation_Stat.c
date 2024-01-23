@@ -146,10 +146,8 @@ void consultation_stat_3site(MYSQL* conn) {
     mysql_free_result(result);
 }
 
-void consultation_stat(MYSQL *conn, int user_type){
-    user_type = get_user_group(conn);
-    switch (user_type)
-    {
+void consultation_stat(MYSQL *conn, int user_type) {
+    switch (user_type) {
     case 1: // admin general
         printf("Veuillez choisir de consulter les statistiques par site ou les 3 sites : 1 | 2 : \n");
         int choix;
@@ -163,7 +161,7 @@ void consultation_stat(MYSQL *conn, int user_type){
                 consultation_stat_site(conn, user_type);
                 break;
             default: // choix invalide
-                consultation_stat(conn);
+                consultation_stat(conn, user_type);
                 printf("Entrée erronée");
                 break;
         }
@@ -172,7 +170,7 @@ void consultation_stat(MYSQL *conn, int user_type){
         consultation_stat_site(conn, user_type);
         break;
     default: // autre
-        consultation_stat(conn);
+        consultation_stat(conn, user_type);
         printf("Entrée erronée");
         break;
     }
