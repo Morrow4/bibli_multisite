@@ -94,7 +94,7 @@ void effectuerEmprunt(MYSQL *conn, const char *ISBN, const char *username)
     // récupération de l'ID_Utilisateur = Email
     qui(username);
     printf("recuperation de l'id user\n");
-    sprintf(query, "INSERT INTO Emprunt (ID_Exemplaire, ID_Utilisateur, DateEmprunt) VALUES ('%d', '%s', NOW())", Var_IdExemplaire, username);
+    sprintf(query, "INSERT INTO Emprunt (ID_Exemplaire, ID_Utilisateur) VALUES ('%d', '%s')", Var_IdExemplaire, username);
     if (mysql_query(conn, query) != 0)
     {
         fprintf(stderr, "Erreur lors de l'ajout de l'emprunt\n");
