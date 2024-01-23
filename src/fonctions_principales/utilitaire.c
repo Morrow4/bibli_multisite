@@ -85,7 +85,7 @@ int get_user_group(MYSQL *conn)
 
 bool estEntier(const char *str)
 {
-    char *c;
+    const char *c;
 
     if (!str || *str == '\0')
     {
