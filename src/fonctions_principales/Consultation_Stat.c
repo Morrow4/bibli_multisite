@@ -111,7 +111,7 @@ void consultation_stat(MYSQL *conn) {
     int user_type = get_user_group(conn);
     switch (user_type)
     {
-    case 1: // admingeneral
+    case 1: // admin general
         printf("Veuillez choisir de consulter les statistiques par site ou les 3 sites : 1 / 2");
         int choix;
         scanf("%d", &choix);
