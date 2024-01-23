@@ -1,4 +1,4 @@
-// Inclusion des en-têtes nécessaires
+// Inclusion des en-têtes nécessaires_t
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -145,7 +145,7 @@ void consultation_stat_3site(MYSQL* conn) {
     mysql_free_result(result);
 }
 
-void consultation_stat(MYSQL *conn) {
+void consultation_stat(MYSQL *conn, int user_type) {
     int user_type = get_user_group(conn);
     switch (user_type)
     {
