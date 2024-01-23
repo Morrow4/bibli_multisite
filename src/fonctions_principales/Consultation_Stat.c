@@ -8,7 +8,7 @@
 void consultation_stat_site(MYSQL *conn) {
     // Saisie utilisateur pour choisir un site
     char site[20];
-    while (strcmp(site, "jour") != 0 && strcmp(site, "mois") != 0 && strcmp(site, "année") != 0) {
+    while (strcmp(site, "Site A") != 0 && strcmp(site, "Site B") != 0 && strcmp(site, "Site C") != 0) {
         printf("Choisissez un site (Site A, Site B, Site C) : ");
         fgets(site, sizeof(site), stdin);
         site[strcspn(site, "\n")] = '\0'; // Supprimer le caractère de nouvelle ligne de la saisie
@@ -119,14 +119,19 @@ void consultation_stat(MYSQL *conn) {
         {
             case 1: // consultation stat pour les 3 sites
                 consultation_stat_3site(conn);
+                break;
             case 2: // consultation stat par site
                 consultation_stat_site(conn);
+                break;
             default: // choix invalide
                 consultation_stat(conn);
+                break;
         }
     case 2: // adminsite
         consultation_stat_site(conn);
+        break;
     default: // autre
         consultation_stat(conn);
+        break;
     }
 }
