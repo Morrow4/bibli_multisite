@@ -171,9 +171,19 @@ void ajout_compte(MYSQL *conn, char *username)
     }
     else
     {
-        printf("Utilisateur ajouté avec succès à la base de données.\n");
+        printf("Utilisateur ajouté à la bibliothèque.\n");
     }
-    fprintf(log_file, "Utilisateur créé dans la base de donnée: %s, Groupe: %s\n", login, type_user); // log ajout bdd
+    fprintf(log_file, "Utilisateur créé dans la base de donnée bibliotèque: %s, Groupe: %s\n", login, type_user); // log ajout bdd
+
+    // Ajout de l'utilisateur dans le serveur 
+    char createMaria[1024], grantMaria[1024], flushMaria[30];
+    sprintf(createMaria, "CREATE USER '%s'@'localhost';",login);
+    sprintf(grantMaria, "GRANT ALL PRIVILEGES ON *.* TO '%s'@'localhost' WITH GRANT OPTION", login);
+    sprintf(flushMaria, "FLUSH PRIVILEGES");
+
+    fprintf(log_file, "Utilisateur créé dans Mariadb: %s, Groupe: %s\n", login, type_user); // log ajout bdd    
+
+
     // Création de l'utilisateur sur le système
     // Exécutez la commande pour ajouter l'utilisateur
     char add_user_command[500];
