@@ -67,6 +67,9 @@ void reserver_livre(MYSQL *conn, char *email_utilisateur)
         // Enregistrer la réservation dans la table Reservation
         enregistrer_reservation(conn, email_utilisateur, id_exemplaire);
 
+        char envoi_mail[500];
+        sprintf(envoi_mail, "(echo 'Bonjour\n nous vous confirmons la réservation du livre à l'ISBN' '%s' | mail -s 'Confirmation de réservation' '%s')", ISBN, email_utilisateur);
+
         printf("Réservation effectuée avec succès !\n");
     }
     else
@@ -202,9 +205,6 @@ void enregistrer_reservation(MYSQL *conn, char *email_utilisateur, int id_exempl
     {
         fprintf(stderr, "Erreur lors de l'enregistrement de la réservation : %s\n", mysql_error(conn));
     }
-
-    char envoi_mail[500];
-    sprintf(envoi_mail, "(echo 'Bonjour\n nous vous confirmons la réservation du livre à l'ISBN' '%s' | mail -s 'Confirmation de réservation' '%s')", id_exemplaire, email_utilisateur);
 }
 
 // fonction permettant de voir ses réservations
