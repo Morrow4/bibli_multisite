@@ -101,6 +101,7 @@ void effectuerEmprunt(MYSQL *conn, const char *ISBN, const char *username)
         fprintf(stderr, "Erreur lors de l'ajout de l'emprunt : %s\n", mysql_error(conn));
         return;
     }
+    printf("Exemplaire emprunté!\n");
     free((char *)username);
 }
 
