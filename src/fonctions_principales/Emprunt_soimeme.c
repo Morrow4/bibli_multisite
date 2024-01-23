@@ -105,51 +105,6 @@ void effectuerEmprunt(MYSQL *conn, const char *ISBN, const char *username)
     free((char *)username);
 }
 
-//Fonction pour trouver le nombre de jour de retard
-// Fonction pour trouver le retard pour un ISBN donné
-/*
-int trouverRetard(MYSQL *conn, const char *ISBN, double *joursDeRetard)
-{
-    // Requête pour récupérer la date la plus ancienne d'emprunt
-    char query[255];
-    sprintf(query, "SELECT MIN(DateEmprunt) FROM Emprunt WHERE ID_Exemplaire IN (SELECT ID_Exemplaire FROM Exemplaire WHERE ISBN = '%s')", ISBN);
-
-    if (mysql_query(conn, query) != 0)
-    {
-        fprintf(stderr, "Erreur lors de la récupération de la date la plus ancienne : %s\n", mysql_error(conn));
-        return 0;  // Retourne 0 en cas d'erreur
-    }
-
-    MYSQL_RES *result = mysql_store_result(conn);
-    if (!result)
-    {
-        fprintf(stderr, "Erreur lors de la récupération du résultat : %s\n", mysql_error(conn));
-        return 0;  // Retourne 0 en cas d'erreur
-    }
-
-    MYSQL_ROW row;
-    if ((row = mysql_fetch_row(result)) != NULL)
-    {
-        // Convertir la date récupérée en temps Unix
-        time_t dateEmprunt = strtotime(row[0]);
-        time_t dateDuJour = time(NULL);
-
-        // Calculer la différence en jours
-        double differenceEnSecondes = difftime(dateDuJour, dateEmprunt);
-        *joursDeRetard = differenceEnSecondes / (24 * 3600);
-
-        // Libérer le résultat après utilisation
-        mysql_free_result(result);
-
-        return 1;  // Retourne 1 si tout est OK
-    }
-    else
-    {
-        fprintf(stderr, "Aucun résultat retourné par la requête\n");
-        return 0;  // Retourne 0 si aucun résultat trouvé
-    }
-}
-*/
 // Fonction pour vérifier et effectuer l'emprunt
 void verifierEtEffectuerEmprunt(MYSQL *conn, const char *ISBN, const char *username)
 {
@@ -179,7 +134,6 @@ void verifierEtEffectuerEmprunt(MYSQL *conn, const char *ISBN, const char *usern
     effectuerEmprunt(conn, ISBN, username);
 }
 
-
 // Fonction pour l'emprunt de livre
 void Emprunt_soimeme(MYSQL *conn, char *username)
 {
@@ -203,7 +157,7 @@ void Emprunt_soimeme(MYSQL *conn, char *username)
         return;
         break;
     }
-
+    system("clear");
     printf("Avez-vous son ISBN? (o/n) Appuyez sur tout autre touche pour sortir du menu : ");
     char reponse;
     scanf(" %c", &reponse);
