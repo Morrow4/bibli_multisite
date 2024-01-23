@@ -383,10 +383,11 @@ void rechercherLivreParTitre(MYSQL *conn)
     scanf(" %254[^\n]", titre);
     getchar();
 
+    // Échapper les caractères spéciaux dans le titre
     char escaped_titre[2 * strlen(titre) + 1];
     escapeString(conn, titre, escaped_titre, sizeof(escaped_titre));
 
-    // Construction de la requête SQL
+    // Construction de la requête SQL avec la chaîne échappée
     char query[512];
     snprintf(query, sizeof(query), "SELECT Livre.ISBN, Livre.Titre, Livre.Auteur, Exemplaire.ID_Exemplaire FROM Livre JOIN Exemplaire ON Livre.ISBN = Exemplaire.ISBN WHERE Livre.Titre LIKE '%%%s%%'", escaped_titre);
 
@@ -427,14 +428,15 @@ void rechercherLivreParAuteur(MYSQL *conn)
     char auteur[101];
 
     // Saisie du titre
-    printf("Entrez le titre de l'auteur : ");
+    printf("Entrez le nom de l'auteur : ");
     scanf(" %100[^\n]", auteur);
     getchar();
 
+    // Échapper les caractères spéciaux dans l'auteur
     char escaped_auteur[2 * strlen(auteur) + 1];
     escapeString(conn, auteur, escaped_auteur, sizeof(escaped_auteur));
 
-    // Construction de la requête SQL
+    // Construction de la requête SQL avec la chaîne échappée
     char query[512];
     snprintf(query, sizeof(query), "SELECT Livre.ISBN, Livre.Titre, Livre.Auteur, Exemplaire.ID_Exemplaire FROM Livre JOIN Exemplaire ON Livre.ISBN = Exemplaire.ISBN WHERE Livre.Auteur LIKE '%%%s%%'", escaped_auteur);
 
