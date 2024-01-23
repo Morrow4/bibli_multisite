@@ -77,9 +77,11 @@ void Emprunt_soimeme(MYSQL *conn, char *username);
 void ajout_exemplaire(MYSQL *conn);
 void mise_a_jour_exemplaire(MYSQL *conn);
 void suppression_exemplaire(MYSQL *conn);
+void recherche_exemplaire(MYSQL *conn, char *ISBN);
 
 // Consultation_Stat.c
 void consultation_stat();
 void consultation_stat_site(MYSQL *conn);
+void consultation_stat_3site(MYSQL* conn);
 
 #endif
