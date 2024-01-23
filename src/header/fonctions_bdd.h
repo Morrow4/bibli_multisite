@@ -76,8 +76,8 @@ void Emprunt_soimeme(MYSQL *conn, char *username);
 
 // gestion_exemplaires.c
 void ajout_exemplaire(MYSQL *conn);
-void mise_a_jour_exemplaire(MYSQL *conn, int id_exemplaire);
-void suppression_exemplaire(MYSQL *conn, int id_exemplaire);
+void mise_a_jour_exemplaire(MYSQL *conn);
+void suppression_exemplaire(MYSQL *conn);
 void recherche_exemplaire(MYSQL *conn, char *ISBN);
 
 #endif

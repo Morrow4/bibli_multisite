@@ -13,8 +13,6 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
     char ISBN[13];
     int id_emprunt = -1;
     char login_utilisateur[100];
-    char site_restitution[50];
-    int id_exemplaire;
 
     while (choix_user != 17) // L'option de déconnexion est le choix 17
     {
@@ -116,15 +114,11 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
             break;
 
         case 15:
-            printf("Veuillez saisir le numéro d'identification de l'exemplaire que vous voulez mettre à jour : ");
-            scanf("%d", &id_exemplaire);
-            mise_a_jour_exemplaire(conn, id_exemplaire);
+            mise_a_jour_exemplaire(conn);
             break;
 
         case 16:
-            printf("Veuillez saisir le numéro d'identification de l'exemplaire que vous voulez supprimer : ");
-            scanf("%d", &id_exemplaire);
-            suppression_exemplaire(conn, id_exemplaire);
+            suppression_exemplaire(conn);
             break;
 
         case 17:
