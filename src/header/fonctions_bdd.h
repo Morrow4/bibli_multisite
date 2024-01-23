@@ -34,6 +34,7 @@ void ajout_livre(MYSQL *conn);
 void mise_a_jour_livre(MYSQL *conn);
 void suppression_livre(MYSQL *conn);
 void afficher_tous_les_livres(MYSQL *conn);
+void escapeString(MYSQL *conn, const char *source, char *destination, size_t dest_size);
 void rechercherLivreParTitre(MYSQL *conn);
 void rechercherLivreParAuteur(MYSQL *conn);
 
@@ -82,6 +83,6 @@ void recherche_exemplaire(MYSQL *conn, char *ISBN);
 // Consultation_Stat.c
 void consultation_stat(MYSQL *conn);
 void consultation_stat_site(MYSQL *conn, int user_type);
-void consultation_stat_3site(MYSQL* conn);
+void consultation_stat_3site(MYSQL *conn);
 
 #endif
