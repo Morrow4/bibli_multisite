@@ -56,10 +56,10 @@ void reserver_livre(MYSQL *conn, char *email_utilisateur)
     } while (strlen(ISBN) != 13);
 
     // Vérifier si au moins un exemplaire est disponible
-    if (au_moins_un_exemplaire_disponible(conn, isbn_livre))
+    if (au_moins_un_exemplaire_disponible(conn, ISBN))
     {
         // Récupérer l'ID de l'exemplaire disponible
-        int id_exemplaire = obtenir_id_exemplaire_disponible(conn, isbn_livre);
+        int id_exemplaire = obtenir_id_exemplaire_disponible(conn, ISBN);
 
         // Mettre à jour le champ EstDisponible de l'exemplaire
         mettre_a_jour_disponibilite_exemplaire(conn, id_exemplaire, false);
