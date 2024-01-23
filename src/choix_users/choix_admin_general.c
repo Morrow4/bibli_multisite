@@ -23,8 +23,8 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
         printf("|---------------------- Administrateur Général ------------------|\n");
         printf("|----------------------------------------------------------------|\n");
         printf("| 1)  Lister les livres et leur disponibilité dans les sites     |\n");
-        printf("| 2)  Réserver un livre pour soi                                 |\n");
-        printf("| 3)  Réserver un livre pour un utilisateur inscrit              |\n");
+        printf("| 2)  Réserver un livre pour soi                                 |\n"); // a retirer
+        printf("| 3)  Réserver un livre pour un utilisateur inscrit              |\n"); // a retirer
         printf("| 4)  Ajouter un compte utilisateur ou administrateur            |\n");
         printf("| 5)  Supprimer un compte utilisateur ou administrateur          |\n");
         printf("| 6)  Consulter les statistiques globales de la bibliothèque     |\n");
