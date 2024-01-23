@@ -5,13 +5,49 @@
 #include "../header/utilitaire.h"
 #include <mysql/mysql.h>
 
-void consultation_stat_site(MYSQL *conn) {
+void consultation_stat_site(MYSQL *conn, int user_type) {
+    MYSQL_RES *res;
+    MYSQL_ROW row;
     // Saisie utilisateur pour choisir un site
     char site[20];
-    while (strcmp(site, "Site A") != 0 && strcmp(site, "Site B") != 0 && strcmp(site, "Site C") != 0) {
-        printf("Choisissez un site (Site A, Site B, Site C) : ");
-        fgets(site, sizeof(site), stdin);
-        site[strcspn(site, "\n")] = '\0'; // Supprimer le caractère de nouvelle ligne de la saisie
+    switch (user_type)
+    {
+        case 1: // admin general
+            while (strcmp(site, "Site A") != 0 && strcmp(site, "Site B") != 0 && strcmp(site, "Site C") != 0) {
+                printf("Choisissez un site (Site A, Site B, Site C) : ");
+                fgets(site, sizeof(site), stdin);
+                site[strcspn(site, "\n")] = '\0'; // Supprimer le caractère de nouvelle ligne de la saisie
+            }
+            break;
+        case 2: // admin site
+            if (mysql_query(conn, "SELECT SitePrincipal FROM Utilisateur") != 0) {
+            fprintf(stderr, "Erreur lors de la récupération des statistiques : %s\n", mysql_error(conn));
+            consultation_stat(conn, user_type);
+            }
+            // Récupère le résultat de la requête
+            res = mysql_store_result(conn);
+            // Vérifie s'il y a un résultat
+            if (res) {
+                // Récupère la première ligne du résultat
+                row = mysql_fetch_row(res);
+
+                // Vérifie s'il y a une colonne dans la ligne
+                if (row) {
+                    // Affiche la valeur de la colonne SitePrincipal
+                    printf("Site Principal : %s\n", row[0]);
+                } else {
+                    printf("Aucun résultat trouvé.\n");
+                    consultation_stat(conn, user_type);
+                }
+            } else {
+                fprintf(stderr, "Erreur lors de la récupération du résultat : %s\n", mysql_error(conn));
+                consultation_stat(conn, user_type);
+            }
+            break;
+        default:
+            consultation_stat_site(conn, user_type);
+            printf("Entrée erronée");
+            break;
     }
 
     // Saisie utilisateur pour choisir l'unité de temps
@@ -34,7 +70,8 @@ void consultation_stat_site(MYSQL *conn) {
              "WHERE DATE_FORMAT(Emprunt.DateEmprunt, '%%Y-%%m-%%d') = DATE_FORMAT(NOW(), '%%Y-%%m-%%d') "
              "AND DATE_FORMAT(Reservation.DateReservation, '%%Y-%%m-%%d') = DATE_FORMAT(NOW(), '%%Y-%%m-%%d') "
              "AND Exemplaire.SitePrincipal = '%s' "
-             "GROUP BY Exemplaire.SitePrincipal;", site);
+             "GROUP BY Exemplaire.SitePrincipal;", res);
+    mysql_free_result(res);
 
     // Exécution de la requête
     if (mysql_query(conn, query) != 0) {
@@ -112,7 +149,7 @@ void consultation_stat(MYSQL *conn) {
     switch (user_type)
     {
     case 1: // admin general
-        printf("Veuillez choisir de consulter les statistiques par site ou les 3 sites : 1 / 2");
+        printf("Veuillez choisir de consulter les statistiques par site ou les 3 sites : 1 | 2");
         int choix;
         scanf("%d", &choix);
         switch (choix) 
@@ -121,18 +158,20 @@ void consultation_stat(MYSQL *conn) {
                 consultation_stat_3site(conn);
                 break;
             case 2: // consultation stat par site
-                consultation_stat_site(conn);
+                consultation_stat_site(conn, user_type);
                 break;
             default: // choix invalide
                 consultation_stat(conn);
+                printf("Entrée erronée");
                 break;
         }
         break;
     case 2: // adminsite
-        consultation_stat_site(conn);
+        consultation_stat_site(conn, user_type);
         break;
     default: // autre
         consultation_stat(conn);
+        printf("Entrée erronée");
         break;
     }
 }

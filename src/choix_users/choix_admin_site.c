@@ -63,7 +63,7 @@ void choix_admin_site_bibliotheque(MYSQL *conn, char *username)
         break;
 
     case 6:
-        consultation_stat_site(conn);
+        consultation_stat(conn);
         break;
 
     case 7:
