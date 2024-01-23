@@ -106,7 +106,6 @@ void consultation_stat_3site(MYSQL* conn) {
         scanf("%19s", unite);
         unite[strcspn(unite, "\n")] = '\0'; // Supprimer le caractère de nouvelle ligne de la saisie
     }
-    printf("%s")
     // Construction de la requête SQL pour récupérer le nombre d'emprunts et de réservations par site
     char query[1000];
     snprintf(query, sizeof(query),
