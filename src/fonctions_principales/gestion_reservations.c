@@ -156,5 +156,118 @@ void enregistrer_reservation(MYSQL *conn, char *email_utilisateur, int id_exempl
     }
 }
 
-// fonction permettant de voir ses réservations
-// fonction permettant d'annuler une de ses réservations
+// Fonction pour afficher toutes les réservations d'un utilisateur
+void afficher_reservations_utilisateur(MYSQL *conn, char *email_utilisateur)
+{
+    // Requête SQL pour récupérer les réservations de l'utilisateur
+    char query[1024];
+    sprintf(query, "SELECT R.ID_Reservation, L.Titre, L.Auteur, L.ISBN, R.EstReserve, R.DateReservation FROM Reservation R JOIN Exemplaire E ON R.ID_Exemplaire = E.ID_Exemplaire JOIN Livre L ON E.ISBN = L.ISBN WHERE R.ID_Utilisateur = '%s'", email_utilisateur);
+
+    // Exécuter la requête SQL
+    if (mysql_query(conn, query))
+    {
+        fprintf(stderr, "Erreur lors de la récupération des réservations : %s\n", mysql_error(conn));
+        return;
+    }
+
+    // Récupérer le résultat de la requête
+    MYSQL_RES *result = mysql_store_result(conn);
+
+    // Afficher les réservations
+    printf("\n+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+\n");
+    printf("|%-14s|%-100s|%-50s|%-13s|%-19s|%-9s|\n", "ID_Réservation", "Titre", "Auteur", "ISBN", "Date de réservation", "Réservé");
+    printf("+--------------|---------------------------------------------------------------------------------------------------|--------------------------------------------------|-------------|-------------------|---------+\n");
+
+    while (MYSQL_ROW row = mysql_fetch_row(result))
+    {
+        printf("|%-10s|%-100s|%-50s|%-13s|%-19s|%-9s|\n", row[0], row[1], row[2], row[3], row[5], (atoi(row[4]) ? "Oui" : "Non"));
+    }
+
+    printf("+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+\n");
+
+    // Libérer la mémoire du résultat
+    mysql_free_result(result);
+}
+
+// Fonction pour annuler une réservation par son ID
+void annuler_reservation_par_id(MYSQL *conn, char *email_utilisateur)
+{
+    int ID_Reservation;
+    int choix_recherche = 0;
+
+    while (choix_recherche != 3)
+    {
+        printf("\n+-----------------------------------+\n");
+        printf("|-------Annuler une réservation-------|\n");
+        printf("|1) Voir toutes mes réservations      |\n");
+        printf("|2) Annuler la réservation avec son ID|\n");
+        printf("+-------------------------------------+\n");
+        printf("\nVeuillez entrer le numéro du choix correspondant à ce que vous voulez faire : ");
+        scanf("%d", &choix_recherche);
+
+        switch (choix_recherche)
+        {
+        case 1:
+            afficher_reservations_utilisateur(conn, email_utilisateur);
+            break;
+
+        case 2:
+            break;
+
+        default:
+            printf("\n+-----------------------------------+\n");
+            printf("+Choix invalide. Veuillez réessayer.+\n");
+            printf("+-----------------------------------+\n\n");
+            break;
+        }
+    }
+
+    printf("Veuillez saisir l'ID de la réservation que vous souhaitez supprimer : ");
+    scanf("%d", &ID_Reservation);
+    getchar();
+
+    // Vérifier si la réservation existe
+    if (!reservation_existe(conn, id_reservation))
+    {
+        printf("La réservation avec l'ID %d n'existe pas.\n", id_reservation);
+        return;
+    }
+
+    // Annuler la réservation
+    char query[1024];
+    sprintf(query, "DELETE FROM Reservation WHERE ID_Reservation = %d", id_reservation);
+
+    // Exécuter la requête SQL
+    if (mysql_query(conn, query))
+    {
+        fprintf(stderr, "Erreur lors de l'annulation de la réservation : %s\n", mysql_error(conn));
+        return;
+    }
+
+    printf("La réservation avec l'ID %d a été annulée avec succès.\n", id_reservation);
+}
+
+// Fonction pour vérifier si une réservation existe
+bool reservation_existe(MYSQL *conn, int id_reservation)
+{
+    // Requête SQL pour vérifier l'existence de la réservation
+    char query[1024];
+    sprintf(query, "SELECT COUNT(*) FROM Reservation WHERE ID_Reservation = %d", id_reservation);
+
+    // Exécuter la requête SQL
+    if (mysql_query(conn, query))
+    {
+        fprintf(stderr, "Erreur lors de la vérification de l'existence de la réservation : %s\n", mysql_error(conn));
+        return false;
+    }
+
+    // Récupérer le résultat de la requête
+    MYSQL_RES *result = mysql_store_result(conn);
+    MYSQL_ROW row = mysql_fetch_row(result);
+    int nombre_reservations = atoi(row[0]);
+
+    // Libérer la mémoire du résultat
+    mysql_free_result(result);
+
+    return (nombre_reservations > 0);
+}

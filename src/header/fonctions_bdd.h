@@ -44,6 +44,9 @@ bool au_moins_un_exemplaire_disponible(MYSQL *conn, char *isbn_livre);
 int obtenir_id_exemplaire_disponible(MYSQL *conn, char *isbn_livre);
 void mettre_a_jour_disponibilite_exemplaire(MYSQL *conn, int id_exemplaire, bool disponibilite);
 void enregistrer_reservation(MYSQL *conn, char *email_utilisateur, int id_exemplaire);
+void afficher_reservations_utilisateur(MYSQL *conn, char *email_utilisateur);
+void annuler_reservation_par_id(MYSQL *conn, char *email_utilisateur);
+bool reservation_existe(MYSQL *conn, int id_reservation);
 
 // gestion_restitution.c
 void enregistrer_restitution(MYSQL *conn, int id_emprunt, const char *site_restitution);
