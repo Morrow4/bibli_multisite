@@ -87,18 +87,18 @@ void effectuerEmprunt(MYSQL *conn, const char *ISBN, const char *username)
     sprintf(query, "UPDATE Exemplaire SET Disponibilite = false WHERE ID_Exemplaire = '%d' AND Disponibilite = true", Var_IdExemplaire);
     if (mysql_query(conn, query) != 0)
     {
-        fprintf(stderr, "Erreur lors de la mise à jour du nombre d'exemplaires\n");
+        fprintf(stderr, "Erreur lors de la mise à jour du nombre d'exemplaires : %s\n", mysql_error(conn));
         return;
     }
 
     // récupération de l'ID_Utilisateur = Email
     qui(username);
     printf("recuperation de l'id user : %s\n", username);
-    printf("recuperation de l'id user : %d\n", Var_IdExemplaire);   
-    sprintf(query, "INSERT INTO Emprunt (ID_Exemplaire, ID_Utilisateur) VALUES ('%d', '%s')", &Var_IdExemplaire, username);
+    printf("recuperation de l'id exemplaire : %d\n", Var_IdExemplaire);   
+    sprintf(query, "INSERT INTO Emprunt (ID_Exemplaire, ID_Utilisateur) VALUES ('%d', '%s')", Var_IdExemplaire, username);
     if (mysql_query(conn, query) != 0)
     {
-        fprintf(stderr, "Erreur lors de l'ajout de l'emprunt\n");
+        fprintf(stderr, "Erreur lors de l'ajout de l'emprunt : %s\n", mysql_error(conn));
         return;
     }
     free((char *)username);
