@@ -13,6 +13,8 @@ void ajout_exemplaire(MYSQL *conn)
     char ISBN[14];
     char site_principal[51];
     char chercheur_str[6];
+    bool is_valid_site = false;
+    bool is_valid_chercheur = false;
 
     printf("Veuillez saisir les informations de l'exemplaire :\n\n");
 
@@ -26,11 +28,37 @@ void ajout_exemplaire(MYSQL *conn)
         }
     } while (strlen(ISBN) != 13);
 
-    printf("Site principal : ");
-    scanf(" %50[^\n]", site_principal);
+    // Saisir le site principal avec vérification
+    do
+    {
+        printf("Nouveau site principal (Site A, Site B, ou Site C) : ");
+        scanf(" %50[^\n]", site_principal);
 
-    printf("Ce livre est pour chercheur (vrai/faux) : ");
-    scanf(" %5[^\n]", chercheur_str);
+        if (strcmp(site_principal, "Site A") == 0 || strcmp(site_principal, "Site B") == 0 || strcmp(site_principal, "Site C") == 0)
+        {
+            is_valid_site = true;
+        }
+        else
+        {
+            printf("Veuillez saisir un site principal valide.\n");
+        }
+    } while (!is_valid_site);
+
+    // Saisir la variable chercheur_str avec vérification
+    do
+    {
+        printf("Est un livre pour chercheur (vrai/faux) : ");
+        scanf(" %5[^\n]", chercheur_str);
+
+        if (strcmp(chercheur_str, "vrai") == 0 || strcmp(chercheur_str, "faux") == 0)
+        {
+            is_valid_chercheur = true;
+        }
+        else
+        {
+            printf("Veuillez saisir une valeur valide pour chercheur (vrai/faux).\n");
+        }
+    } while (!is_valid_chercheur);
 
     // Convertir les chaînes en valeurs booléennes
     int chercheur = (strcmp(chercheur_str, "vrai") == 0) ? 1 : 0;
