@@ -2,8 +2,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "../header/utilitaire.h"
 #include <mysql/mysql.h>
+#include "../header/utilitaire.h"
+#include "../header/fonctions_bdd.h"
 
 void consultation_stat_site(MYSQL *conn, int user_type) {
     MYSQL_RES *res;
