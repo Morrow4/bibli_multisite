@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "../header/utilitaire.h"
 #include <mysql/mysql.h>
 
 void consultation_stat_site(MYSQL *conn) {
@@ -38,14 +39,12 @@ void consultation_stat_site(MYSQL *conn) {
     // Exécution de la requête
     if (mysql_query(conn, query) != 0) {
         fprintf(stderr, "Erreur lors de la récupération des statistiques : %s\n", mysql_error(conn));
-        exit(EXIT_FAILURE);
     }
 
     // Récupération du résultat
     MYSQL_RES *result = mysql_store_result(conn);
     if (result == NULL) {
         fprintf(stderr, "mysql_store_result() failed\n");
-        exit(EXIT_FAILURE);
     }
 
     // Affichage des statistiques par site
@@ -86,14 +85,12 @@ void consultation_stat_3site(MYSQL* conn) {
     // Exécution de la requête
     if (mysql_query(conn, query) != 0) {
         fprintf(stderr, "Erreur lors de la récupération des statistiques : %s\n", mysql_error(conn));
-        exit(EXIT_FAILURE);
     }
 
     // Récupération du résultat
     MYSQL_RES *result = mysql_store_result(conn);
     if (result == NULL) {
         fprintf(stderr, "mysql_store_result() failed\n");
-        exit(EXIT_FAILURE);
     }
 
     // Affichage des statistiques
@@ -117,7 +114,7 @@ void consultation_stat(MYSQL *conn) {
     case 1: // admingeneral
         printf("Veuillez choisir de consulter les statistiques par site ou les 3 sites : 1 / 2");
         int choix;
-        scanf("%d", choix);
+        scanf("%d", &choix);
         switch (choix) 
         {
             case 1: // consultation stat pour les 3 sites
