@@ -6,6 +6,8 @@
 #include <mysql/mysql.h>
 
 void consultation_stat_site(MYSQL *conn, int user_type) {
+    MYSQL_RES *res;
+    MYSQL_ROW row;
     // Saisie utilisateur pour choisir un site
     char site[20];
     switch (user_type)
