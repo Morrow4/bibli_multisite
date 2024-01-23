@@ -83,9 +83,9 @@ int get_user_group(MYSQL *conn)
     return user_group;
 }
 
-bool estEntier(const char *str)
+bool estEntier(char *str)
 {
-    const char *c;
+    char *c;
 
     if (!str || *str == '\0')
     {
@@ -105,7 +105,7 @@ bool estEntier(const char *str)
     return true;
 }
 
-bool limiteTailleInt(const char *str, int limite)
+bool limiteTailleInt(char *str, int limite)
 {
     if (!str || *str == '\0')
     {
