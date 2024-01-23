@@ -21,6 +21,7 @@ void ajout_livre(MYSQL *conn)
     {
         printf("ISBN (13 caractères) : ");
         scanf("%13s", ISBN);
+        getchar();
         if (strlen(ISBN) != 13)
         {
             printf("L'ISBN doit avoir précisément 13 caractères. Veuillez réessayer.\n");
@@ -29,15 +30,19 @@ void ajout_livre(MYSQL *conn)
 
     printf("Titre : ");
     scanf(" %254[^\n]", titre);
+    getchar();
 
     printf("Auteur : ");
     scanf(" %100[^\n]", auteur);
+    getchar();
 
     printf("Edition : ");
     scanf(" %100[^\n]", edition);
+    getchar();
 
     printf("Genre : ");
     scanf(" %100[^\n]", genre);
+    getchar();
 
     // Préparer la requête SQL pour l'ajout du livre
     const char *query = "INSERT INTO Livre (ISBN, Titre, Auteur, Edition, Genre) VALUES (?, ?, ?, ?, ?)";
@@ -114,6 +119,7 @@ void mise_a_jour_livre(MYSQL *conn)
     {
         printf("Veuillez saisir l'ISBN du livre que vous souhaitez mettre à jour (13 caractères) : ");
         scanf("%13s", ISBN);
+        getchar();
         if (strlen(ISBN) != 13)
         {
             printf("L'ISBN doit avoir précisément 13 caractères. Veuillez réessayer.\n");
@@ -124,15 +130,19 @@ void mise_a_jour_livre(MYSQL *conn)
 
     printf("Nouveau Titre : ");
     scanf(" %254[^\n]", titre);
+    getchar();
 
     printf("Nouvel Auteur : ");
     scanf(" %100[^\n]", auteur);
+    getchar();
 
     printf("Nouvelle Edition : ");
     scanf(" %100[^\n]", edition);
+    getchar();
 
     printf("Nouveau Genre : ");
     scanf(" %100[^\n]", genre);
+    getchar();
 
     // Préparer la requête SQL pour la mise à jour du livre
     const char *query = "UPDATE Livre SET Titre=?, Auteur=?, Edition=?, Genre=? WHERE ISBN=?";
@@ -205,6 +215,7 @@ void suppression_livre(MYSQL *conn)
     {
         printf("Veuillez saisir l'ISBN du livre que vous souhaitez supprimer (13 caractères) : ");
         scanf("%13s", ISBN);
+        getchar();
         if (strlen(ISBN) != 13)
         {
             printf("L'ISBN doit avoir précisément 13 caractères. Veuillez réessayer.\n");
@@ -304,6 +315,7 @@ void rechercherLivreParTitre(MYSQL *conn)
     // Saisie du titre
     printf("Entrez le titre du livre : ");
     scanf(" %100[^\n]", titre);
+    getchar();
 
     // Construction de la requête SQL avec une requête préparée
     MYSQL_STMT *stmt;
@@ -376,6 +388,7 @@ void rechercherLivreParAuteur(MYSQL *conn)
     // Saisie de l'auteur
     printf("Entrez le nom de l'auteur : ");
     scanf(" %100[^\n]", auteur);
+    getchar();
 
     // Construction de la requête SQL avec une requête préparée
     MYSQL_STMT *stmt;

@@ -22,6 +22,7 @@ void ajout_exemplaire(MYSQL *conn)
     {
         printf("ISBN (13 caractères) : ");
         scanf("%13s", ISBN);
+        getchar();
         if (strlen(ISBN) != 13)
         {
             printf("L'ISBN doit avoir précisément 13 caractères. Veuillez réessayer.\n");
@@ -33,6 +34,7 @@ void ajout_exemplaire(MYSQL *conn)
     {
         printf("Nouveau site principal (Site A, Site B, ou Site C) : ");
         scanf(" %50[^\n]", site_principal);
+        getchar();
 
         if (strcmp(site_principal, "Site A") == 0 || strcmp(site_principal, "Site B") == 0 || strcmp(site_principal, "Site C") == 0)
         {
@@ -49,6 +51,7 @@ void ajout_exemplaire(MYSQL *conn)
     {
         printf("Est un livre pour chercheur (vrai/faux) : ");
         scanf(" %5[^\n]", chercheur_str);
+        getchar();
 
         if (strcmp(chercheur_str, "vrai") == 0 || strcmp(chercheur_str, "faux") == 0)
         {
@@ -162,6 +165,7 @@ void mise_a_jour_exemplaire(MYSQL *conn)
     // Saisir l'ID de l'exemplaire
     printf("Veuillez saisir l'ID de l'exemplaire : ");
     scanf("%d", &id_exemplaire);
+    getchar();
 
     // Saisir les nouvelles informations de l'exemplaire
     printf("\nVeuillez saisir les nouvelles informations de l'exemplaire :\n\n");
@@ -171,6 +175,7 @@ void mise_a_jour_exemplaire(MYSQL *conn)
     {
         printf("Nouveau site principal (Site A, Site B, ou Site C) : ");
         scanf(" %50[^\n]", site_principal);
+        getchar();
 
         if (strcmp(site_principal, "Site A") == 0 || strcmp(site_principal, "Site B") == 0 || strcmp(site_principal, "Site C") == 0)
         {
@@ -187,6 +192,7 @@ void mise_a_jour_exemplaire(MYSQL *conn)
     {
         printf("Nouvelle disponibilité (vrai/faux) : ");
         scanf(" %5[^\n]", disponibilite_str);
+        getchar();
 
         if (strcmp(disponibilite_str, "vrai") == 0 || strcmp(disponibilite_str, "faux") == 0)
         {
@@ -203,6 +209,7 @@ void mise_a_jour_exemplaire(MYSQL *conn)
     {
         printf("Est un livre pour chercheur (vrai/faux) : ");
         scanf(" %5[^\n]", chercheur_str);
+        getchar();
 
         if (strcmp(chercheur_str, "vrai") == 0 || strcmp(chercheur_str, "faux") == 0)
         {
@@ -315,6 +322,7 @@ void suppression_exemplaire(MYSQL *conn)
     // Saisir l'ID de l'exemplaire
     printf("Veuillez saisir l'ID de l'exemplaire à supprimer : ");
     scanf("%d", &id_exemplaire);
+    getchar();
 
     // Préparer la requête SQL pour la suppression de l'exemplaire
     const char *query = "DELETE FROM Exemplaire WHERE ID_Exemplaire=?";
