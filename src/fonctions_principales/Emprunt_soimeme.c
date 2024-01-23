@@ -140,14 +140,13 @@ void Emprunt_soimeme(MYSQL *conn, char *username)
     {
     case 1: // admingeneral
         printf("Vous êtes administrateurs général, merci d'utiliser votre compte adhérent. \n");
-        continue;
         break;
     case 2: // adminsite
         printf("Vous êtes administrateurs site, merci d'utiliser votre compte adhérent. \n");
         return;
         break;
     case 3: //adherent
-        continue;
+        printf("Bienvenue dans le menu d'emprunt des livres! \n");
     default:
         return;
         break;
