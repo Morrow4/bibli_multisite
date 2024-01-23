@@ -7,15 +7,19 @@
 void consultation_stat_site(MYSQL *conn) {
     // Saisie utilisateur pour choisir un site
     char site[20];
-    printf("Choisissez un site (Site A, Site B, Site C) : ");
-    fgets(site, sizeof(site), stdin);
-    site[strcspn(site, "\n")] = '\0'; // Supprimer le caractère de nouvelle ligne de la saisie
+    while (strcmp(site, "jour") != 0 && strcmp(site, "mois") != 0 && strcmp(site, "année") != 0) {
+        printf("Choisissez un site (Site A, Site B, Site C) : ");
+        fgets(site, sizeof(site), stdin);
+        site[strcspn(site, "\n")] = '\0'; // Supprimer le caractère de nouvelle ligne de la saisie
+    }
 
     // Saisie utilisateur pour choisir l'unité de temps
     char unite[10];
-    printf("Choisissez l'unité de temps (jour, mois, année) : ");
-    fgets(unite, sizeof(unite), stdin);
-    unite[strcspn(unite, "\n")] = '\0'; // Supprimer le caractère de nouvelle ligne de la saisie
+    while (strcmp(unite, "jour") != 0 && strcmp(unite, "mois") != 0 && strcmp(unite, "année") != 0) {
+        printf("Choisissez l'unité de temps (jour, mois, année) : ");
+        fgets(unite, sizeof(unite), stdin);
+        unite[strcspn(unite, "\n")] = '\0'; // Supprimer le caractère de nouvelle ligne de la saisie
+    }
 
     // Construction de la requête SQL pour récupérer le nombre d'emprunts et de réservations par site
     char query[1000];
@@ -61,22 +65,22 @@ void consultation_stat_site(MYSQL *conn) {
 void consultation_stat_3site(MYSQL* conn) {
     // Saisie utilisateur pour choisir l'unité de temps
     char unite[10];
-    printf("Choisissez l'unité de temps (jour, mois, année) : ");
-    fgets(unite, sizeof(unite), stdin);
-    unite[strcspn(unite, "\n")] = '\0'; // Supprimer le caractère de nouvelle ligne de la saisie
+    while (strcmp(unite, "jour") != 0 && strcmp(unite, "mois") != 0 && strcmp(unite, "année") != 0) {
+        printf("Choisissez l'unité de temps (jour, mois, année) : ");
+        fgets(unite, sizeof(unite), stdin);
+        unite[strcspn(unite, "\n")] = '\0'; // Supprimer le caractère de nouvelle ligne de la saisie
+    }
 
     // Construction de la requête SQL pour récupérer le nombre d'emprunts et de réservations par site
     char query[1000];
     snprintf(query, sizeof(query),
-            "SELECT 'Tous les sites' AS SitePrincipal, "
-            "COUNT(DISTINCT Emprunt.ID_Emprunt) AS nb_emprunts, "
+            "SELECT COUNT(DISTINCT Emprunt.ID_Emprunt) AS nb_emprunts, "
             "COUNT(DISTINCT Reservation.ID_Reservation) AS nb_reservations "
             "FROM Emprunt "
             "LEFT JOIN Exemplaire ON Emprunt.ID_Exemplaire = Exemplaire.ID_Exemplaire "
             "LEFT JOIN Reservation ON Exemplaire.ID_Exemplaire = Reservation.ID_Exemplaire "
             "WHERE DATE_FORMAT(Emprunt.DateEmprunt, '%%Y-%%m-%%d') = DATE_FORMAT(NOW(), '%%Y-%%m-%%d') "
-            "AND DATE_FORMAT(Reservation.DateReservation, '%%Y-%%m-%%d') = DATE_FORMAT(NOW(), '%%Y-%%m-%%d') "
-            "GROUP BY 'Tous les sites';");
+            "AND DATE_FORMAT(Reservation.DateReservation, '%%Y-%%m-%%d') = DATE_FORMAT(NOW(), '%%Y-%%m-%%d');");
 
 
     // Exécution de la requête
@@ -92,14 +96,14 @@ void consultation_stat_3site(MYSQL* conn) {
         exit(EXIT_FAILURE);
     }
 
-    // Affichage des statistiques par site
-    printf("%-20s%-15s%-15s\n", "Site", "Emprunts", "Réservations");
-    printf("--------------------------------------------\n");
+    // Affichage des statistiques
+    printf("%-15s%-15s\n", "Emprunts", "Réservations");
+    printf("---------------------------\n");
 
     // Parcours des lignes du résultat
     MYSQL_ROW row;
     while ((row = mysql_fetch_row(result)) != NULL) {
-        printf("%-20s%-15s%-15s\n", row[0], row[1], row[2]);
+        printf("%-15s%-15s\n", row[0], row[1]);
     }
 
     // Libération de la mémoire du résultat
@@ -121,13 +125,11 @@ void consultation_stat(MYSQL *conn) {
             case 2: // consultation stat par site
                 consultation_stat_site(conn);
             default: // choix invalide
+                consultation_stat(conn);
         }
     case 2: // adminsite
         consultation_stat_site(conn);
     default: // autre
-        printf("Déconnexion\n");
-        break;
+        consultation_stat(conn);
     }
-    // Fermer la connexion à la base de données lorsque vous avez fini de l'utiliser
-    mysql_close(conn);
 }
