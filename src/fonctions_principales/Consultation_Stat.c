@@ -17,7 +17,7 @@ void consultation_stat_site(MYSQL *conn, int user_type) {
         case 1: // admin general
             while (strcmp(site, "Site A") != 0 && strcmp(site, "Site B") != 0 && strcmp(site, "Site C") != 0) {
                 printf("Choisissez un site (Site A, Site B, Site C) : ");
-                scanf("%s", &unite);
+                scanf("%s", &site);
                 fgets(site, sizeof(site), stdin);
                 site[strcspn(site, "\n")] = '\0'; // Supprimer le caractère de nouvelle ligne de la saisie
             }
