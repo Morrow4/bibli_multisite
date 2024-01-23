@@ -2,6 +2,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void Affichage_delai_attente_livre(){
+void Affichage_delai_attente_livre() {
     return;
 }
