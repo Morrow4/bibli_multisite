@@ -368,6 +368,12 @@ void afficher_tous_les_livres(MYSQL *conn)
     mysql_free_result(result);
 }
 
+// Fonction pour échapper les caractères spéciaux dans une chaîne
+void escapeString(MYSQL *conn, const char *source, char *destination, size_t dest_size)
+{
+    mysql_real_escape_string(conn, destination, source, strlen(source));
+}
+
 void rechercherLivreParTitre(MYSQL *conn)
 {
     char titre[255];
@@ -377,9 +383,12 @@ void rechercherLivreParTitre(MYSQL *conn)
     scanf(" %254[^\n]", titre);
     getchar();
 
+    char escaped_titre[2 * strlen(titre) + 1];
+    escapeString(conn, titre, escaped_titre, sizeof(escaped_titre));
+
     // Construction de la requête SQL
     char query[512];
-    snprintf(query, sizeof(query), "SELECT Livre.ISBN, Livre.Titre, Livre.Auteur, Exemplaire.ID_Exemplaire FROM Livre JOIN Exemplaire ON Livre.ISBN = Exemplaire.ISBN WHERE Livre.Titre LIKE '%%%s%%'", titre);
+    snprintf(query, sizeof(query), "SELECT Livre.ISBN, Livre.Titre, Livre.Auteur, Exemplaire.ID_Exemplaire FROM Livre JOIN Exemplaire ON Livre.ISBN = Exemplaire.ISBN WHERE Livre.Titre LIKE '%%%s%%'", escaped_titre);
 
     // Exécution de la requête
     if (mysql_query(conn, query))
@@ -422,9 +431,12 @@ void rechercherLivreParAuteur(MYSQL *conn)
     scanf(" %100[^\n]", auteur);
     getchar();
 
+    char escaped_auteur[2 * strlen(auteur) + 1];
+    escapeString(conn, auteur, escaped_auteur, sizeof(escaped_auteur));
+
     // Construction de la requête SQL
     char query[512];
-    snprintf(query, sizeof(query), "SELECT Livre.ISBN, Livre.Titre, Livre.Auteur, Exemplaire.ID_Exemplaire FROM Livre JOIN Exemplaire ON Livre.ISBN = Exemplaire.ISBN WHERE Livre.Auteur LIKE '%%%s%%'", auteur);
+    snprintf(query, sizeof(query), "SELECT Livre.ISBN, Livre.Titre, Livre.Auteur, Exemplaire.ID_Exemplaire FROM Livre JOIN Exemplaire ON Livre.ISBN = Exemplaire.ISBN WHERE Livre.Auteur LIKE '%%%s%%'", escaped_auteur);
 
     // Exécution de la requête
     if (mysql_query(conn, query))
