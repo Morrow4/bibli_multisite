@@ -16,127 +16,40 @@ int nombreLivresParTitre(const char *titreRecherche)
 {
     printf("je rentre dans la fonction\n");
     int nombreLivres = 0;
-    MYSQL_STMT *stmt;
-    MYSQL_BIND param[1];
-    my_ulonglong affected_rows;
-
-    // Préparation de la requête
-    stmt = mysql_stmt_init(conn);
-    if (!stmt)
-    {
-        fprintf(stderr, "Erreur lors de l'initialisation de la requête préparée : %s\n", mysql_error(conn));
-        return nombreLivres;
-    }
-
-    const char *query = ("SELECT COUNT(*) FROM Livre WHERE Titre = %s", &titreRecherche);
-    if (mysql_stmt_prepare(stmt, query, strlen(query)) != 0)
-    {
-        fprintf(stderr, "Erreur lors de la préparation de la requête préparée : %s\n", mysql_stmt_error(stmt));
-        mysql_stmt_close(stmt);
-        return nombreLivres;
-    }
-
-    // Liaison du paramètre
-    memset(param, 0, sizeof(param));
-    param[0].buffer_type = MYSQL_TYPE_STRING;
-    param[0].buffer = (void *)titreRecherche;
-    param[0].buffer_length = strlen(titreRecherche);
-
-    if (mysql_stmt_bind_param(stmt, param) != 0)
-    {
-        fprintf(stderr, "Erreur lors de la liaison du paramètre : %s\n", mysql_stmt_error(stmt));
-        mysql_stmt_close(stmt);
-        return nombreLivres;
-    }
-
-    // Exécution de la requête
-    if (mysql_stmt_execute(stmt) != 0)
-    {
-        fprintf(stderr, "Erreur lors de l'exécution de la requête préparée : %s\n", mysql_stmt_error(stmt));
-        mysql_stmt_close(stmt);
-        return nombreLivres;
-    }
-
-    // Récupération du résultat
-    MYSQL_RES *result_metadata = mysql_stmt_result_metadata(stmt);
-    if (result_metadata)
-    {
-        mysql_free_result(result_metadata);
-    }
-
-    // Liaison du résultat
-    MYSQL_BIND result_param[1];
-    memset(result_param, 0, sizeof(result_param));
-    result_param[0].buffer_type = MYSQL_TYPE_LONG;
-    result_param[0].buffer = &nombreLivres;
-
-    if (mysql_stmt_bind_result(stmt, result_param) != 0)
-    {
-        fprintf(stderr, "Erreur lors de la liaison du résultat : %s\n", mysql_stmt_error(stmt));
-        mysql_stmt_close(stmt);
-        return nombreLivres;
-    }
-
-    // Récupération du résultat
-    if (mysql_stmt_fetch(stmt) != 0)
-    {
-        fprintf(stderr, "Erreur lors de la récupération du résultat : %s\n", mysql_stmt_error(stmt));
-    }
-
-    // Fermeture de la requête préparée
-    mysql_stmt_close(stmt);
-
-    return nombreLivres;
-}
-
-
-// Fonction pour afficher les détails du livre
-void afficherDetailsLivre(const Livre *livre)
-{
-    printf("%-30s%-30s%-15s\n", livre->Titre, livre->Edition, livre->ISBN);
-}
-
-// Fonction pour effectuer l'emprunt
-void effectuerEmprunt(MYSQL *conn, const char *ISBN, const char *username)
-{
-    qui(username);
+    MYSQL_RES *result;
+    MYSQL_ROW row;
 
     char query[255];
-    // Réduire le nombre d'exemplaires disponibles
-    // Verifier s'il existe des ISBN pour l'exemplaire demandé
-    sprintf(query, "SELECT ID_Exemplaire FROM Exemplaire WHERE ISBN = '%s' AND Disponibilite = true LIMIT 1", ISBN);
+    snprintf(query, sizeof(query), "SELECT COUNT(*) FROM Livre WHERE Titre = '%s'", titreRecherche);
+
+    // Exécutez la requête SQL
     if (mysql_query(conn, query) != 0)
     {
-        fprintf(stderr, "Erreur de verification\n");
-        return;
+        fprintf(stderr, "Erreur lors de l'exécution de la requête SQL : %s\n", mysql_error(conn));
+        return nombreLivres;
     }
 
-    // Stocker dans une variable
-    int Var_IdExemplaire;
+    // Récupérez le résultat de la requête
     result = mysql_store_result(conn);
-    if ((row = mysql_fetch_row(result)) != NULL)
+
+    // Vérifiez si le résultat est non nul
+    if (result != NULL)
     {
-        sscanf(row[0], "%d", &Var_IdExemplaire);
+        // Récupérez la première ligne du résultat
+        if ((row = mysql_fetch_row(result)) != NULL)
+        {
+            sscanf(row[0], "%d", &nombreLivres);
+        }
+
+        // Libérez le résultat après l'avoir utilisé
+        mysql_free_result(result);
+    }
+    else
+    {
+        fprintf(stderr, "Aucun résultat retourné par la requête\n");
     }
 
-    // Maj table exemplaire
-    sprintf(query, "UPDATE Exemplaire SET Disponibilite = false WHERE ID_Exemplaire = '%d' AND Disponibilite = true LIMIT 1", Var_IdExemplaire);
-    if (mysql_query(conn, query) != 0)
-    {
-        fprintf(stderr, "Erreur lors de la mise à jour du nombre d'exemplaires\n");
-        return;
-    }
-
-    // récupération de l'ID_Utilisateur = Email
-    qui(username);
-
-    sprintf(query, "INSERT INTO Emprunt (ID_Exemplaire, ID_Utilisateur, DateEmprunt) VALUES ('%d', '%s', 'NOW()')", Var_IdExemplaire, username);
-    if (mysql_query(conn, query) != 0)
-    {
-        fprintf(stderr, "Erreur lors de l'ajout de l'emprunt\n");
-        return;
-    }
-    free((char *)username);
+    return nombreLivres;
 }
 
 // Fonction pour vérifier et effectuer l'emprunt
