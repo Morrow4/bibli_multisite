@@ -107,12 +107,13 @@ void consultation_stat_3site(MYSQL* conn) {
 }
 
 void consultation_stat(MYSQL *conn) {
+    int user_type = get_user_group(conn);
     switch (user_type)
     {
     case 1: // admingeneral
         printf("Veuillez choisir de consulter les statistiques par site ou les 3 sites : 1 / 2");
         int choix;
-        scanf("%s", choix);
+        scanf("%d", choix);
         switch (choix) 
         {
             case 1: // consultation stat pour les 3 sites
