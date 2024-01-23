@@ -171,7 +171,7 @@ void ajout_compte(MYSQL *conn, char *username)
     //  Ajout de l'utilisateur dans la base de donnée //Modifier pour mail
     char query[1024];
     if ((strcmp(site, "Site A") == 0) || (strcmp(site, "Site B") == 0)||(strcmp(site, "Site C") == 0) ){
-    sprintf(query, "INSERT INTO Utilisateur (Email, Nom, Prenom, MotDePasse, TypeUtilisateur, EstChercheur, Site) VALUES ('%s','%s', '%s', '%s', '%s', '%s', '%s')",
+    sprintf(query, "INSERT INTO Utilisateur (Email, Nom, Prenom, MotDePasse, TypeUtilisateur, EstChercheur, SitePrincipal) VALUES ('%s','%s', '%s', '%s', '%s', '%s', '%s')",
             login, nom, prenom, password, type_user, (strcmp(estChercheur, "o") == 0) ? "1" : "0", site);
     }else{
     sprintf(query, "INSERT INTO Utilisateur (Email, Nom, Prenom, MotDePasse, TypeUtilisateur, EstChercheur) VALUES ('%s','%s', '%s', '%s', '%s', '%s')",
