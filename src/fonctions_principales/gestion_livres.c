@@ -308,11 +308,11 @@ void afficher_tous_les_livres(MYSQL *conn)
 
 void rechercherLivreParTitre(MYSQL *conn)
 {
-    char titre[101];
+    char titre[255];
 
     // Saisie du titre
     printf("Entrez le titre du livre : ");
-    scanf(" %100[^\n]", titre);
+    scanf(" %254[^\n]", titre);
     getchar();
 
     // Construction de la requête SQL
@@ -351,8 +351,15 @@ void rechercherLivreParTitre(MYSQL *conn)
     mysql_free_result(result); // Libération de la mémoire du résultat des livres
 }
 
-void rechercherLivreParAuteur(MYSQL *conn, const char *auteur)
+void rechercherLivreParAuteur(MYSQL *conn)
 {
+    char auteur[101];
+
+    // Saisie du titre
+    printf("Entrez le titre de l'auteur : ");
+    scanf(" %100[^\n]", auteur);
+    getchar();
+
     // Construction de la requête SQL
     char query[512];
     snprintf(query, sizeof(query), "SELECT Livre.ISBN, Livre.Titre, Livre.Auteur, Exemplaire.ID_Exemplaire FROM Livre JOIN Exemplaire ON Livre.ISBN = Exemplaire.ISBN WHERE Livre.Auteur LIKE '%%%s%%'", auteur);
