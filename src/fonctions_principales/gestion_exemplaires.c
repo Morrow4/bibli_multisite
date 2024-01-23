@@ -127,6 +127,37 @@ void mise_a_jour_exemplaire(MYSQL *conn)
     bool is_valid_site = false;
     bool is_valid_disponibilite = false;
     bool is_valid_chercheur = false;
+    int choix_recherche;
+
+    while (choix_recherche != 3)
+    {
+        printf("Modifier les informations de l'exemplaire d'un livre.\n");
+        printf("1) Rechercher le numéro d'identification de l'exemplaire du livre par son titre.\n");
+        printf("2) Rechercher le numéro d'identification de l'exemplaire du livre par son auteur.\n");
+        printf("3) Saisir les nouvelles informations de l'exemplaire.\n");
+        printf("\nVeuillez entrer le numéro du choix correspondant à ce que vous voulez faire : ");
+        scanf("%d", &choix_recherche);
+
+        switch (choix_user)
+        {
+        case 1:
+            rechercherLivreParTitre(conn);
+            break;
+
+        case 2:
+            rechercherLivreParAuteur(conn);
+            break;
+
+        case 3:
+            break;
+
+        default:
+            printf("\n+-----------------------------------+\n");
+            printf("+Choix invalide. Veuillez réessayer.+\n");
+            printf("+-----------------------------------+\n\n");
+            break;
+        }
+    }
 
     // Saisir l'ID de l'exemplaire
     printf("Veuillez saisir l'ID de l'exemplaire : ");
