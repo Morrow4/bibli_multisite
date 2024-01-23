@@ -8,9 +8,8 @@
 
 void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
 {
-    system("clear");
-    int choix_user;
-    char ISBN[13];
+    // system("clear");
+    int choix_user = 0;
     int id_emprunt = -1;
     char login_utilisateur[100];
     char site_restitution[50];
@@ -18,13 +17,13 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
     while (choix_user != 17) // L'option de déconnexion est le choix 17
     {
         printf("\n+----------------------------------------------------------------+\n");
-        printf("|                           MENU PRINCIPAL                       |\n");
+        printf("|                         MENU PRINCIPAL                         |\n");
         printf("|                                                                |\n");
-        printf("|---------------------- Administrateur Général ------------------|\n");
+        printf("|-------------------- Administrateur Général --------------------|\n");
         printf("|----------------------------------------------------------------|\n");
         printf("| 1)  Lister les livres et leur disponibilité dans les sites     |\n");
-        printf("| 2)  Réserver un livre pour soi                                 |\n");
-        printf("| 3)  Réserver un livre pour un utilisateur inscrit              |\n");
+        printf("| 2)  Réserver un livre pour soi                                 |\n"); // a retirer
+        printf("| 3)  Réserver un livre pour un utilisateur inscrit              |\n"); // a retirer
         printf("| 4)  Ajouter un compte utilisateur ou administrateur            |\n");
         printf("| 5)  Supprimer un compte utilisateur ou administrateur          |\n");
         printf("| 6)  Consulter les statistiques globales de la bibliothèque     |\n");
@@ -52,18 +51,14 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
 
         case 2:
             system("clear");
-            printf("Veuillez saisir l'ISBN du livre que vous voulez réserver : ");
-            scanf("%s", ISBN);
-            reserver_livre(conn, username, ISBN);
+            reserver_livre(conn, username);
             break;
 
         case 3:
             system("clear");
             printf("Veuillez saisir le login de l'utilisateur qui veut réserver un livre : ");
             scanf("%s", login_utilisateur);
-            printf("Veuillez saisir l'ISBN du livre que vous voulez réserver : ");
-            scanf("%s", ISBN);
-            reserver_livre(conn, login_utilisateur, ISBN);
+            reserver_livre(conn, login_utilisateur);
             break;
 
         case 4:

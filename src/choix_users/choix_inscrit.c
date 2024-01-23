@@ -10,7 +10,6 @@ void choix_inscrit_bibliotheque(MYSQL *conn, char *username)
 {
     system("clear");
     int choix_user;
-    char ISBN[13];
 
     printf("+------------------------- Bienvenue ! -------------------------+\n");
     printf("|                 Que souhaitez-vous faire ?                    |\n");
@@ -35,9 +34,7 @@ void choix_inscrit_bibliotheque(MYSQL *conn, char *username)
         break;
 
     case 3:
-        printf("Veuillez saisir l'ISBN du livre que vous voulez réserver : ");
-        scanf("%s", ISBN);
-        reserver_livre(conn, username, ISBN);
+        reserver_livre(conn, username);
         break;
 
     case 13:

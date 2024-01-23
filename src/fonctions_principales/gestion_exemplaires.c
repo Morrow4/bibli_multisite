@@ -15,14 +15,16 @@ void ajout_exemplaire(MYSQL *conn)
     char chercheur_str[6];
     bool is_valid_site = false;
     bool is_valid_chercheur = false;
-    int choix_recherche;
+    int choix_recherche = 0;
 
     while (choix_recherche != 3)
     {
-        printf("\nAjouter l'exemplaire d'un livre.\n");
-        printf("1) Rechercher l'ISBN du livre par son titre.\n");
-        printf("2) Rechercher l'ISBN du livre par son auteur.\n");
-        printf("3) Saisir les informations de l'exemplaire.\n");
+        printf("\n+--------------------------------------------+\n");
+        printf("|------Ajouter un exemplaire d'un livre------|\n");
+        printf("|1) Rechercher l'ISBN du livre par son titre |\n");
+        printf("|2) Rechercher l'ISBN du livre par son auteur|\n");
+        printf("|3) Saisir les informations de l'exemplaire  |\n");
+        printf("+--------------------------------------------+\n");
         printf("\nVeuillez entrer le numéro du choix correspondant à ce que vous voulez faire : ");
         scanf("%d", &choix_recherche);
 
@@ -161,14 +163,16 @@ void mise_a_jour_exemplaire(MYSQL *conn)
     bool is_valid_site = false;
     bool is_valid_disponibilite = false;
     bool is_valid_chercheur = false;
-    int choix_recherche;
+    int choix_recherche = 0;
 
     while (choix_recherche != 3)
     {
-        printf("\nModifier l'exemplaire d'un livre.\n");
-        printf("1) Rechercher le numéro d'identification de l'exemplaire du livre par son titre.\n");
-        printf("2) Rechercher le numéro d'identification de l'exemplaire du livre par son auteur.\n");
-        printf("3) Saisir les nouvelles informations de l'exemplaire.\n");
+        printf("\n+-----------------------------------------------------------+\n");
+        printf("|--------------Modifier l'exemplaire d'un livre-------------|\n");
+        printf("|1) Rechercher l'ID de l'exemplaire du livre par son titre  |\n");
+        printf("|2) Rechercher l'ID' de l'exemplaire du livre par son auteur|\n");
+        printf("|3) Saisir les nouvelles informations de l'exemplaire       |\n");
+        printf("+-----------------------------------------------------------+\n");
         printf("\nVeuillez entrer le numéro du choix correspondant à ce que vous voulez faire : ");
         scanf("%d", &choix_recherche);
 
@@ -318,14 +322,16 @@ void suppression_exemplaire(MYSQL *conn)
     MYSQL_STMT *stmt;
     MYSQL_BIND bind[1];
     int id_exemplaire;
-    int choix_recherche;
+    int choix_recherche = 0;
 
     while (choix_recherche != 3)
     {
-        printf("\nSupprimer l'exemplaire d'un livre.\n");
-        printf("1) Rechercher le numéro d'identification de l'exemplaire du livre par son titre.\n");
-        printf("2) Rechercher le numéro d'identification de l'exemplaire du livre par son auteur.\n");
-        printf("3) Supprimer l'exemplaire.\n");
+        printf("\n+-----------------------------------------------------------+\n");
+        printf("|-------------Supprimer l'exemplaire d'un livre-------------|\n");
+        printf("|1) Rechercher l'ID de l'exemplaire du livre par son titre  |\n");
+        printf("|2) Rechercher l'ID' de l'exemplaire du livre par son auteur|\n");
+        printf("|3) Supprimer l'exemplaire                                  |\n");
+        printf("+-----------------------------------------------------------+\n");
         printf("\nVeuillez entrer le numéro du choix correspondant à ce que vous voulez faire : ");
         scanf("%d", &choix_recherche);
 

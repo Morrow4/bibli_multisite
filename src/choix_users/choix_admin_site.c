@@ -10,7 +10,6 @@ void choix_admin_site_bibliotheque(MYSQL *conn, char *username)
 {
     system("clear");
     int choix_user;
-    char ISBN[13];
     int id_emprunt = -1;
     char login_utilisateur[100];
     char site_restitution[50];
@@ -43,18 +42,14 @@ void choix_admin_site_bibliotheque(MYSQL *conn, char *username)
 
     case 2:
         system("clear");
-        printf("Veuillez saisir l'ISBN du livre que vous voulez réserver : ");
-        scanf("%s", ISBN);
-        reserver_livre(conn, username, ISBN);
+        reserver_livre(conn, username);
         break;
 
     case 3:
         system("clear");
         printf("Veuillez saisir le login de l'utilisateur qui veut réserver un livre : ");
         scanf("%s", login_utilisateur);
-        printf("Veuillez saisir l'ISBN du livre que vous voulez réserver : ");
-        scanf("%s", ISBN);
-        reserver_livre(conn, login_utilisateur, ISBN);
+        reserver_livre(conn, login_utilisateur);
         break;
 
     case 4:
@@ -74,8 +69,6 @@ void choix_admin_site_bibliotheque(MYSQL *conn, char *username)
         break;
 
     case 8:
-        printf("Veuillez saisir l'ISBN du livre que vous voulez supprimer : ");
-        scanf("%s", ISBN);
         suppression_livre(conn);
         break;
 

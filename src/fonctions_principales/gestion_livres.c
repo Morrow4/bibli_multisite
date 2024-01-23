@@ -114,14 +114,16 @@ void mise_a_jour_livre(MYSQL *conn)
     char auteur[101];
     char edition[101];
     char genre[101];
-    int choix_recherche;
+    int choix_recherche = 0;
 
     while (choix_recherche != 3)
     {
-        printf("\nModifier les informations d'un livre.\n");
-        printf("1) Rechercher l'ISBN du livre par son titre.\n");
-        printf("2) Rechercher l'ISBN du livre par son auteur.\n");
-        printf("3) Modifier les informations du livre.\n");
+        printf("\n+--------------------------------------------+\n");
+        printf("|----Modifier les informations d'un livre----|\n");
+        printf("|1) Rechercher l'ISBN du livre par son titre |\n");
+        printf("|2) Rechercher l'ISBN du livre par son auteur|\n");
+        printf("|3) Modifier les informations du livre       |\n");
+        printf("+--------------------------------------------+\n");
         printf("\nVeuillez entrer le numéro du choix correspondant à ce que vous voulez faire : ");
         scanf("%d", &choix_recherche);
 
@@ -241,14 +243,16 @@ void suppression_livre(MYSQL *conn)
     MYSQL_STMT *stmt;
     MYSQL_BIND bind[1];
     char ISBN[14];
-    int choix_recherche;
+    int choix_recherche = 0;
 
     while (choix_recherche != 3)
     {
-        printf("\nSupprimer un livre.\n");
-        printf("1) Rechercher l'ISBN du livre par son titre.\n");
-        printf("2) Rechercher l'ISBN du livre par son auteur.\n");
-        printf("3) Supprimer le livre.\n");
+        printf("\n+--------------------------------------------+\n");
+        printf("|-------------Supprimer un livre-------------|\n");
+        printf("|1) Rechercher l'ISBN du livre par son titre |\n");
+        printf("|2) Rechercher l'ISBN du livre par son auteur|\n");
+        printf("|3) Supprimer le livre                       |\n");
+        printf("+--------------------------------------------+\n");
         printf("\nVeuillez entrer le numéro du choix correspondant à ce que vous voulez faire : ");
         scanf("%d", &choix_recherche);
 
@@ -353,16 +357,18 @@ void afficher_tous_les_livres(MYSQL *conn)
     }
 
     // Afficher les en-têtes
-    printf("%-15s %-70s %-40s %-15s\n", "ISBN", "Titre", "Auteur", "Disponibilité");
-    printf("-----------------------------------------------------------------------------------------------------------------------------------------------\n");
+    printf("\n+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+\n");
+    printf("|%-13s|%-100s|%-50s|%-13s|\n", "ISBN", "Titre", "Auteur", "Disponibilite");
+    printf("+-------------+----------------------------------------------------------------------------------------------------+--------------------------------------------------+-------------+\n");
 
     // Afficher chaque livre avec sa disponibilité
     MYSQL_ROW row;
     while ((row = mysql_fetch_row(result)))
     {
         // Afficher les détails du livre
-        printf("%-15s %-70s %-40s %-15s\n", row[0], row[1], row[2], (row[3] && atoi(row[3]) ? "Disponible" : "Indisponible"));
+        printf("|%-13s|%-100s|%-50s|%-13s|\n", row[0], row[1], row[2], (row[3] && atoi(row[3]) ? "Disponible" : "Indisponible"));
     }
+    printf("+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+\n");
 
     // Libérer la mémoire du résultat
     mysql_free_result(result);
@@ -389,7 +395,7 @@ void rechercherLivreParTitre(MYSQL *conn)
 
     // Construction de la requête SQL avec la chaîne échappée
     char query[512];
-    snprintf(query, sizeof(query), "SELECT Livre.ISBN, Livre.Titre, Livre.Auteur, Exemplaire.ID_Exemplaire FROM Livre JOIN Exemplaire ON Livre.ISBN = Exemplaire.ISBN WHERE Livre.Titre LIKE '%%%s%%'", escaped_titre);
+    snprintf(query, sizeof(query), "SELECT Livre.ISBN, Livre.Titre, Livre.Auteur, Exemplaire.ID_Exemplaire, Exemplaire.Disponibilite FROM Livre JOIN Exemplaire ON Livre.ISBN = Exemplaire.ISBN WHERE Livre.Titre LIKE '%%%s%%'", escaped_titre);
 
     // Exécution de la requête
     if (mysql_query(conn, query))
@@ -409,18 +415,18 @@ void rechercherLivreParTitre(MYSQL *conn)
     }
 
     // Affichage des en-têtes du tableau
-    printf("+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+\n");
-    printf("|%-15s|%-13s|%-100s|%-50s|\n", "ID_Exemplaire", "ISBN", "Titre", "Auteur");
-    printf("+---------------+-------------+----------------------------------------------------------------------------------------------------+--------------------------------------------------+\n");
+    printf("\n+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+\n");
+    printf("|%-15s|%-13s|%-100s|%-50s|%-13s|\n", "ID_Exemplaire", "ISBN", "Titre", "Auteur", "Disponibilite");
+    printf("+---------------+-------------+----------------------------------------------------------------------------------------------------+--------------------------------------------------+-------------+\n");
 
     // Parcours des résultats
     MYSQL_ROW row;
     while ((row = mysql_fetch_row(result)))
     {
         // Affichage des informations de chaque ligne
-        printf("|%-15s|%-13s|%-100s|%-50s|\n", row[3], row[0], row[1], row[2]);
+        printf("|%-15s|%-13s|%-100s|%-50s|%-13s|\n", row[3], row[0], row[1], row[2], row[4]);
     }
-    printf("+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+\n");
+    printf("+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+\n");
 
     mysql_free_result(result); // Libération de la mémoire du résultat des livres
 }
@@ -440,7 +446,7 @@ void rechercherLivreParAuteur(MYSQL *conn)
 
     // Construction de la requête SQL avec la chaîne échappée
     char query[512];
-    snprintf(query, sizeof(query), "SELECT Livre.ISBN, Livre.Titre, Livre.Auteur, Exemplaire.ID_Exemplaire FROM Livre JOIN Exemplaire ON Livre.ISBN = Exemplaire.ISBN WHERE Livre.Auteur LIKE '%%%s%%'", escaped_auteur);
+    snprintf(query, sizeof(query), "SELECT Livre.ISBN, Livre.Titre, Livre.Auteur, Exemplaire.ID_Exemplaire, Exemplaire.Disponibilite FROM Livre JOIN Exemplaire ON Livre.ISBN = Exemplaire.ISBN WHERE Livre.Auteur LIKE '%%%s%%'", escaped_auteur);
 
     // Exécution de la requête
     if (mysql_query(conn, query))
@@ -460,18 +466,18 @@ void rechercherLivreParAuteur(MYSQL *conn)
     }
 
     // Affichage des en-têtes du tableau
-    printf("+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+\n");
-    printf("|%-15s|%-13s|%-100s|%-50s|\n", "ID_Exemplaire", "ISBN", "Titre", "Auteur");
-    printf("+---------------+-------------+----------------------------------------------------------------------------------------------------+--------------------------------------------------+\n");
+    printf("\n+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+\n");
+    printf("|%-15s|%-13s|%-100s|%-50s|%-13s|\n", "ID_Exemplaire", "ISBN", "Titre", "Auteur", "Disponibilite");
+    printf("+---------------+-------------+----------------------------------------------------------------------------------------------------+--------------------------------------------------+-------------+\n");
 
     // Parcours des résultats
     MYSQL_ROW row;
     while ((row = mysql_fetch_row(result)))
     {
         // Affichage des informations de chaque ligne
-        printf("|%-15s|%-13s|%-100s|%-50s|\n", row[3], row[0], row[1], row[2]);
+        printf("|%-15s|%-13s|%-100s|%-50s|%-13s|\n", row[3], row[0], row[1], row[2], row[4]);
     }
-    printf("+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+\n");
+    printf("+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+\n");
 
     mysql_free_result(result); // Libération de la mémoire du résultat des livres
 }
