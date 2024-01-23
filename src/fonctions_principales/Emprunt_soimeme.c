@@ -136,7 +136,7 @@ void Emprunt_soimeme(MYSQL *conn, char *username)
     sprintf(username, "%d", getuid());
     int user_group = get_user_group(conn);
 
-    if (user_group != 1||2||3 )
+    if (user_group != 1|| user_group !=2 || user_group != 3 )
     {
         printf("Seul les personnes adhérentes peuvent emprunter un livre\n \n");
         return;
