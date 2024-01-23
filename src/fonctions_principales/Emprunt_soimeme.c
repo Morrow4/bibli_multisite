@@ -124,6 +124,7 @@ void verifierEtEffectuerEmprunt(MYSQL *conn, const char *ISBN, const char *usern
     else
     {
         printf("Livre non trouvé, veuillez contacter un administrateur.\n");
+        return;
     }
 }
 
@@ -135,9 +136,10 @@ void Emprunt_soimeme(MYSQL *conn, char *username)
     sprintf(username, "%d", getuid());
     int user_group = get_user_group(conn);
 
-    if (user_group != 2)
+    if (user_group != 1|| user_group !=2 || user_group != 3 )
     {
-        return; // Besoin de logguer ici
+        printf("Seul les personnes adhérentes peuvent emprunter un livre\n \n");
+        return;
     }
 
     printf("Avez-vous son ISBN? (o/n) Appuyez sur tout autre touche pour sortir du menu : ");
