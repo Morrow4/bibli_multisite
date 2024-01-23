@@ -178,7 +178,8 @@ void afficher_reservations_utilisateur(MYSQL *conn, char *email_utilisateur)
     printf("|%-14s|%-100s|%-50s|%-13s|%-19s|%-9s|\n", "ID_Réservation", "Titre", "Auteur", "ISBN", "Date de réservation", "Réservé");
     printf("+--------------|---------------------------------------------------------------------------------------------------|--------------------------------------------------|-------------|-------------------|---------+\n");
 
-    while (MYSQL_ROW row = mysql_fetch_row(result))
+    MYSQL_ROW row;
+    while ((row = mysql_fetch_row(result)) != NULL)
     {
         printf("|%-10s|%-100s|%-50s|%-13s|%-19s|%-9s|\n", row[0], row[1], row[2], row[3], row[5], (atoi(row[4]) ? "Oui" : "Non"));
     }
@@ -192,7 +193,7 @@ void afficher_reservations_utilisateur(MYSQL *conn, char *email_utilisateur)
 // Fonction pour annuler une réservation par son ID
 void annuler_reservation_par_id(MYSQL *conn, char *email_utilisateur)
 {
-    int ID_Reservation;
+    int id_reservation;
     int choix_recherche = 0;
 
     while (choix_recherche != 3)
@@ -223,7 +224,7 @@ void annuler_reservation_par_id(MYSQL *conn, char *email_utilisateur)
     }
 
     printf("Veuillez saisir l'ID de la réservation que vous souhaitez supprimer : ");
-    scanf("%d", &ID_Reservation);
+    scanf("%d", &id_reservation);
     getchar();
 
     // Vérifier si la réservation existe
