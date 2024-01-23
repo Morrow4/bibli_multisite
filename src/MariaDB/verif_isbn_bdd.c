@@ -24,6 +24,9 @@ int trouverRetard(MYSQL *conn, const char *isbn, double *joursDeRetard)
     char query[TAILLE_REQUETE];
     sprintf(query, "SELECT ex.ISBN, e.DateEmprunt FROM Emprunt e JOIN Exemplaire ex ON e.ID_Exemplaire = ex.ID_Exemplaire WHERE ex.ISBN = '%s'", isbn);
 
+    // Afficher la requête générée
+    printf("Requête SQL : %s\n", query);
+    
     // Exécuter la requête SQL
     if (mysql_query(conn, query) != 0)
     {
