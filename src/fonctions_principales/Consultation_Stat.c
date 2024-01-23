@@ -17,7 +17,7 @@ void consultation_stat_site(MYSQL *conn, int user_type) {
         case 1: // admin general
             while (strcmp(site, "Site A") != 0 && strcmp(site, "Site B") != 0 && strcmp(site, "Site C") != 0) {
                 printf("Choisissez un site (Site A, Site B, Site C) : ");
-                scanf("%19s", site);
+                fgets(site, sizeof(site), stdin);
                 site[strcspn(site, "\n")] = '\0'; // Supprimer le caractère de nouvelle ligne de la saisie
             }
             break;
@@ -56,7 +56,7 @@ void consultation_stat_site(MYSQL *conn, int user_type) {
     char unite[20];
     while (strcmp(unite, "jour") != 0 && strcmp(unite, "mois") != 0 && strcmp(unite, "année") != 0) {
         printf("Choisissez l'unité de temps (jour, mois, année) : ");
-        scanf("%19s", unite);
+        fgets(unite, sizeof(unite), stdin);
         unite[strcspn(unite, "\n")] = '\0'; // Supprimer le caractère de nouvelle ligne de la saisie
     }
 
@@ -103,7 +103,7 @@ void consultation_stat_3site(MYSQL* conn) {
     char unite[20];
     while (strcmp(unite, "jour") != 0 && strcmp(unite, "mois") != 0 && strcmp(unite, "année") != 0) {
         printf("Choisissez l'unité de temps (jour, mois, année) : ");
-        scanf("%19s", unite);
+        fgets(unite, sizeof(unite), stdin);
         unite[strcspn(unite, "\n")] = '\0'; // Supprimer le caractère de nouvelle ligne de la saisie
     }
     // Construction de la requête SQL pour récupérer le nombre d'emprunts et de réservations par site
