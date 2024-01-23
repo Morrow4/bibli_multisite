@@ -106,6 +106,7 @@ void effectuerEmprunt(MYSQL *conn, const char *ISBN, const char *username)
 
 //Fonction pour trouver le nombre de jour de retard
 // Fonction pour trouver le retard pour un ISBN donné
+/*
 int trouverRetard(MYSQL *conn, const char *ISBN, double *joursDeRetard)
 {
     // Requête pour récupérer la date la plus ancienne d'emprunt
@@ -147,7 +148,7 @@ int trouverRetard(MYSQL *conn, const char *ISBN, double *joursDeRetard)
         return 0;  // Retourne 0 si aucun résultat trouvé
     }
 }
-
+*/
 // Fonction pour vérifier et effectuer l'emprunt
 void verifierEtEffectuerEmprunt(MYSQL *conn, const char *ISBN, const char *username)
 {
