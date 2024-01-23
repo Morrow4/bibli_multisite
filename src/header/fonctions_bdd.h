@@ -84,7 +84,7 @@ void suppression_exemplaire(MYSQL *conn);
 void recherche_exemplaire(MYSQL *conn, char *ISBN);
 
 // Consultation_Stat.c
-void consultation_stat(MYSQL *conn);
+void consultation_stat(MYSQL *conn, int user_type);
 void consultation_stat_site(MYSQL *conn, int user_type);
 void consultation_stat_3site(MYSQL *conn);
 

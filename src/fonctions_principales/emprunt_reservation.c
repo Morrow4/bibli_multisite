@@ -106,3 +106,4 @@ void enregistrer_emprunt(MYSQL *conn, char *email_utilisateur, int id_exemplaire
         fprintf(stderr, "Erreur lors de l'enregistrement de l'emprunt : %s\n", mysql_error(conn));
     }
 }
+
