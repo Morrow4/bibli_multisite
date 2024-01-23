@@ -1,94 +1,274 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 #include <mysql/mysql.h>
 #include "../header/fonctions_bdd.h"
 #include "../header/utilitaire.h"
 
 void ajout_exemplaire(MYSQL *conn)
 {
-    // Saisie des nouvelles informations de l exemplaire
+    MYSQL_STMT *stmt;
+    MYSQL_BIND bind[3];
     char ISBN[14];
     char site_principal[51];
     char chercheur_str[6];
 
-    printf("Veuillez saisir les informations de l exemplaire :\n");
-    printf("ISBN : ");
-    scanf("%13s", ISBN);
+    printf("Veuillez saisir les informations de l'exemplaire :\n\n");
 
-    printf("site_principal : ");
-    scanf("%50s", site_principal);
+    do
+    {
+        printf("ISBN (13 caractères) : ");
+        scanf("%13s", ISBN);
+        if (strlen(ISBN) != 13)
+        {
+            printf("L'ISBN doit avoir précisément 13 caractères. Veuillez réessayer.\n");
+        }
+    } while (strlen(ISBN) != 13);
+
+    printf("Site principal : ");
+    scanf(" %50[^\n]", site_principal);
 
     printf("Ce livre est pour chercheur (vrai/faux) : ");
-    scanf("%5s", chercheur_str);
+    scanf(" %5[^\n]", chercheur_str);
 
-    // Convertir les chaines en valeurs booleennes
+    // Convertir les chaînes en valeurs booléennes
     int chercheur = (strcmp(chercheur_str, "vrai") == 0) ? 1 : 0;
 
-    // Preparer la requete SQL pour l'ajout de l exemplaire
-    char query[1024];
-    sprintf(query, "INSERT INTO Exemplaire (ISBN, SitePrincipal, EstLivrePourChercheur) VALUES ('%s', '%s', '%d')", ISBN, site_principal, chercheur);
+    // Préparer la requête SQL pour l'ajout de l'exemplaire
+    const char *query = "INSERT INTO Exemplaire (ISBN, SitePrincipal, EstLivrePourChercheur) VALUES (?, ?, ?)";
+    stmt = mysql_stmt_init(conn);
 
-    // Executer la requête SQL
-    if (mysql_query(conn, query))
+    if (!stmt)
     {
-        fprintf(stderr, "Erreur lors de l ajout de l exemplaire : %s\n", mysql_error(conn));
+        fprintf(stderr, "\nÉchec de l'initialisation de la requête préparée : %s\n", mysql_error(conn));
         return;
     }
 
-    printf("Succes de l ajout de l exemplaire !\n");
+    if (mysql_stmt_prepare(stmt, query, strlen(query)))
+    {
+        fprintf(stderr, "\nÉchec de la préparation de la requête : %s\n", mysql_stmt_error(stmt));
+        mysql_stmt_close(stmt);
+        return;
+    }
+
+    memset(bind, 0, sizeof(bind));
+
+    // Lier les variables d'entrée à la requête préparée
+    bind[0].buffer_type = MYSQL_TYPE_STRING;
+    bind[0].buffer = ISBN;
+    bind[0].buffer_length = strlen(ISBN);
+
+    bind[1].buffer_type = MYSQL_TYPE_STRING;
+    bind[1].buffer = site_principal;
+    bind[1].buffer_length = strlen(site_principal);
+
+    bind[2].buffer_type = MYSQL_TYPE_LONG;
+    bind[2].buffer = &chercheur;
+    bind[2].buffer_length = sizeof(chercheur);
+
+    if (mysql_stmt_bind_param(stmt, bind))
+    {
+        fprintf(stderr, "\nÉchec de la liaison des paramètres : %s\n", mysql_stmt_error(stmt));
+        mysql_stmt_close(stmt);
+        return;
+    }
+
+    // Exécuter la requête préparée
+    if (mysql_stmt_execute(stmt))
+    {
+        fprintf(stderr, "\nErreur lors de l'exécution de la requête : %s\n", mysql_stmt_error(stmt));
+        mysql_stmt_close(stmt);
+        return;
+    }
+
+    printf("\nSuccès de l'ajout de l'exemplaire !\n");
+
+    // Fermer la requête préparée
+    mysql_stmt_close(stmt);
 }
 
-void mise_a_jour_exemplaire(MYSQL *conn, int id_exemplaire)
+void mise_a_jour_exemplaire(MYSQL *conn)
 {
-    // Saisie des nouvelles informations de l exemplaire
+    MYSQL_STMT *stmt;
+    MYSQL_BIND bind[4];
+    int id_exemplaire;
     char site_principal[51];
     char disponibilite_str[6];
     char chercheur_str[6];
+    bool is_valid_site = false;
+    bool is_valid_disponibilite = false;
+    bool is_valid_chercheur = false;
 
-    printf("Veuillez saisir les nouvelles informations de l exemplaire (sans espace) :\n");
+    // Saisir l'ID de l'exemplaire
+    printf("Veuillez saisir l'ID de l'exemplaire : ");
+    scanf("%d", &id_exemplaire);
 
-    printf("Nouveau Site principal : ");
-    scanf("%50s", site_principal);
+    // Saisir les nouvelles informations de l'exemplaire
+    printf("\nVeuillez saisir les nouvelles informations de l'exemplaire :\n\n");
 
-    printf("Nouvelle Disponibilite (vrai/faux) : ");
-    scanf("%5s", disponibilite_str);
+    // Saisir le site principal avec vérification
+    do
+    {
+        printf("Nouveau site principal (Site A, Site B, ou Site C) : ");
+        scanf(" %50[^\n]", site_principal);
 
-    printf("Est un livre pour chercheur (vrai/faux) : ");
-    scanf("%5s", chercheur_str);
+        if (strcmp(site_principal, "Site A") == 0 || strcmp(site_principal, "Site B") == 0 || strcmp(site_principal, "Site C") == 0)
+        {
+            is_valid_site = true;
+        }
+        else
+        {
+            printf("Veuillez saisir un site principal valide.\n");
+        }
+    } while (!is_valid_site);
 
-    // Convertir les chaines en valeurs booleennes
+    // Saisir la disponibilité avec vérification
+    do
+    {
+        printf("Nouvelle disponibilité (vrai/faux) : ");
+        scanf(" %5[^\n]", disponibilite_str);
+
+        if (strcmp(disponibilite_str, "vrai") == 0 || strcmp(disponibilite_str, "faux") == 0)
+        {
+            is_valid_disponibilite = true;
+        }
+        else
+        {
+            printf("Veuillez saisir une disponibilité valide (vrai/faux).\n");
+        }
+    } while (!is_valid_disponibilite);
+
+    // Saisir la variable chercheur_str avec vérification
+    do
+    {
+        printf("Est un livre pour chercheur (vrai/faux) : ");
+        scanf(" %5[^\n]", chercheur_str);
+
+        if (strcmp(chercheur_str, "vrai") == 0 || strcmp(chercheur_str, "faux") == 0)
+        {
+            is_valid_chercheur = true;
+        }
+        else
+        {
+            printf("Veuillez saisir une valeur valide pour chercheur (vrai/faux).\n");
+        }
+    } while (!is_valid_chercheur);
+
+    // Convertir les chaînes en valeurs booléennes
     int disponibilite = (strcmp(disponibilite_str, "vrai") == 0) ? 1 : 0;
     int est_chercheur = (strcmp(chercheur_str, "vrai") == 0) ? 1 : 0;
 
-    // Preparer la requete SQL pour la mise a jour de l exemplaire
-    char query[1024];
-    sprintf(query, "UPDATE Exemplaire SET SitePrincipal='%s', Disponibilite=%d, EstLivrePourChercheur=%d WHERE ID_Exemplaire=%d", site_principal, disponibilite, est_chercheur, id_exemplaire);
+    // Préparer la requête SQL pour la mise à jour de l'exemplaire
+    const char *query = "UPDATE Exemplaire SET SitePrincipal=?, Disponibilite=?, EstLivrePourChercheur=? WHERE ID_Exemplaire=?";
+    stmt = mysql_stmt_init(conn);
 
-    // Executer la requete SQL
-    if (mysql_query(conn, query))
+    if (!stmt)
     {
-        fprintf(stderr, "Erreur lors de la mise a jour de l exemplaire : %s\n", mysql_error(conn));
+        fprintf(stderr, "\nÉchec de l'initialisation de la requête préparée : %s\n", mysql_error(conn));
         return;
     }
 
-    printf("Succes de la mise a jour de l exemplaire !\n");
+    if (mysql_stmt_prepare(stmt, query, strlen(query)))
+    {
+        fprintf(stderr, "\nÉchec de la préparation de la requête : %s\n", mysql_stmt_error(stmt));
+        mysql_stmt_close(stmt);
+        return;
+    }
+
+    memset(bind, 0, sizeof(bind));
+
+    // Lier les variables d'entrée à la requête préparée
+    bind[0].buffer_type = MYSQL_TYPE_STRING;
+    bind[0].buffer = site_principal;
+    bind[0].buffer_length = strlen(site_principal);
+
+    bind[1].buffer_type = MYSQL_TYPE_LONG;
+    bind[1].buffer = &disponibilite;
+    bind[1].buffer_length = sizeof(disponibilite);
+
+    bind[2].buffer_type = MYSQL_TYPE_LONG;
+    bind[2].buffer = &est_chercheur;
+    bind[2].buffer_length = sizeof(est_chercheur);
+
+    bind[3].buffer_type = MYSQL_TYPE_LONG;
+    bind[3].buffer = &id_exemplaire;
+    bind[3].buffer_length = sizeof(id_exemplaire);
+
+    if (mysql_stmt_bind_param(stmt, bind))
+    {
+        fprintf(stderr, "\nÉchec de la liaison des paramètres : %s\n", mysql_stmt_error(stmt));
+        mysql_stmt_close(stmt);
+        return;
+    }
+
+    // Exécuter la requête préparée
+    if (mysql_stmt_execute(stmt))
+    {
+        fprintf(stderr, "\nErreur lors de l'exécution de la requête : %s\n", mysql_stmt_error(stmt));
+        mysql_stmt_close(stmt);
+        return;
+    }
+
+    printf("\nSuccès de la mise à jour de l'exemplaire !\n");
+
+    // Fermer la requête préparée
+    mysql_stmt_close(stmt);
 }
 
-void suppression_exemplaire(MYSQL *conn, int id_exemplaire)
+void suppression_exemplaire(MYSQL *conn)
 {
-    // Preparer la requete SQL pour la suppression de l exemplaire
-    char query[1024];
-    sprintf(query, "DELETE FROM Exemplaire WHERE ID_Exemplaire=%d", id_exemplaire);
+    MYSQL_STMT *stmt;
+    MYSQL_BIND bind[1];
+    int id_exemplaire;
 
-    // Executer la requete SQL
-    if (mysql_query(conn, query))
+    // Saisir l'ID de l'exemplaire
+    printf("Veuillez saisir l'ID de l'exemplaire à supprimer : ");
+    scanf("%d", &id_exemplaire);
+
+    // Préparer la requête SQL pour la suppression de l'exemplaire
+    const char *query = "DELETE FROM Exemplaire WHERE ID_Exemplaire=?";
+    stmt = mysql_stmt_init(conn);
+
+    if (!stmt)
     {
-        fprintf(stderr, "Erreur lors de la suppression de l exemplaire : %s\n", mysql_error(conn));
+        fprintf(stderr, "\nÉchec de l'initialisation de la requête préparée : %s\n", mysql_error(conn));
         return;
     }
 
-    printf("Succes de la suppression de l exemplaire !\n");
+    if (mysql_stmt_prepare(stmt, query, strlen(query)))
+    {
+        fprintf(stderr, "\nÉchec de la préparation de la requête : %s\n", mysql_stmt_error(stmt));
+        mysql_stmt_close(stmt);
+        return;
+    }
+
+    memset(bind, 0, sizeof(bind));
+
+    // Lier les variables d'entrée à la requête préparée
+    bind[0].buffer_type = MYSQL_TYPE_LONG;
+    bind[0].buffer = &id_exemplaire;
+    bind[0].buffer_length = sizeof(id_exemplaire);
+
+    if (mysql_stmt_bind_param(stmt, bind))
+    {
+        fprintf(stderr, "\nÉchec de la liaison des paramètres : %s\n", mysql_stmt_error(stmt));
+        mysql_stmt_close(stmt);
+        return;
+    }
+
+    // Exécuter la requête préparée
+    if (mysql_stmt_execute(stmt))
+    {
+        fprintf(stderr, "\nErreur lors de l'exécution de la requête : %s\n", mysql_stmt_error(stmt));
+        mysql_stmt_close(stmt);
+        return;
+    }
+
+    printf("\nSuccès de la suppression de l'exemplaire !\n");
+
+    // Fermer la requête préparée
+    mysql_stmt_close(stmt);
 }
 
 void recherche_exemplaire(MYSQL *conn, char *ISBN)
