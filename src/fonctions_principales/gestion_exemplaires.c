@@ -280,6 +280,37 @@ void suppression_exemplaire(MYSQL *conn)
     MYSQL_STMT *stmt;
     MYSQL_BIND bind[1];
     int id_exemplaire;
+    int choix_recherche;
+
+    while (choix_recherche != 3)
+    {
+        printf("Supprimer l'exemplaire d'un livre.\n");
+        printf("1) Rechercher le numéro d'identification de l'exemplaire du livre par son titre.\n");
+        printf("2) Rechercher le numéro d'identification de l'exemplaire du livre par son auteur.\n");
+        printf("3) Supprimer l'exemplaire.\n");
+        printf("\nVeuillez entrer le numéro du choix correspondant à ce que vous voulez faire : ");
+        scanf("%d", &choix_recherche);
+
+        switch (choix_user)
+        {
+        case 1:
+            rechercherLivreParTitre(conn);
+            break;
+
+        case 2:
+            rechercherLivreParAuteur(conn);
+            break;
+
+        case 3:
+            break;
+
+        default:
+            printf("\n+-----------------------------------+\n");
+            printf("+Choix invalide. Veuillez réessayer.+\n");
+            printf("+-----------------------------------+\n\n");
+            break;
+        }
+    }
 
     // Saisir l'ID de l'exemplaire
     printf("Veuillez saisir l'ID de l'exemplaire à supprimer : ");
@@ -328,40 +359,4 @@ void suppression_exemplaire(MYSQL *conn)
 
     // Fermer la requête préparée
     mysql_stmt_close(stmt);
-}
-
-void recherche_exemplaire(MYSQL *conn, char *ISBN)
-{
-    // Preparer la requete SQL pour la recherche d exemplaires par ISBN
-    char query[1024];
-    sprintf(query, "SELECT ID_Exemplaire, SitePrincipal, Disponibilite, EstLivrePourChercheur FROM Exemplaire WHERE ISBN='%s'", ISBN);
-
-    // Executer la requete SQL
-    if (mysql_query(conn, query))
-    {
-        fprintf(stderr, "Erreur lors de la recherche d exemplaires : %s\n", mysql_error(conn));
-        return;
-    }
-
-    MYSQL_RES *result = mysql_store_result(conn);
-
-    if (!result)
-    {
-        fprintf(stderr, "La requete ne retourne aucun resultat\n");
-        return;
-    }
-
-    // Afficher les informations des exemplaires trouves
-    printf("Resultats de la recherche d exemplaires pour le livre avec ISBN %s :\n", ISBN);
-    MYSQL_ROW row;
-    while ((row = mysql_fetch_row(result)) != NULL)
-    {
-        printf("ID_Exemplaire: %s\n", row[0]);
-        printf("SitePrincipal: %s\n", row[1]);
-        printf("Disponibilite: %s\n", row[2]);
-        printf("EstLivrePourChercheur: %s\n", row[3]);
-        printf("------------------------------\n");
-    }
-
-    mysql_free_result(result);
 }
