@@ -27,8 +27,6 @@ void Inscri_liste_attente_livre();
 void Affichage_delai_attente_livre();
 // Emprunt_pour_adherent.c
 void Emprunt_pour_adherent();
-// Consultation_Stat.c
-void Consultation_Stat();
 //--------------------------------
 
 // gestion_livres.c
@@ -80,5 +78,9 @@ void ajout_exemplaire(MYSQL *conn);
 void mise_a_jour_exemplaire(MYSQL *conn);
 void suppression_exemplaire(MYSQL *conn);
 void recherche_exemplaire(MYSQL *conn, char *ISBN);
+
+// Consultation_Stat.c
+void consultation_stat();
+void consultation_stat_site(MYSQL *conn);
 
 #endif
