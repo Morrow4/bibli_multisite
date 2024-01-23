@@ -295,27 +295,55 @@ void afficher_tous_les_livres(MYSQL *conn)
     mysql_free_result(result);
 }
 
-void rechercherLivreParTitre(MYSQL *conn, const char *titre)
+void rechercherLivreParTitre(MYSQL *conn)
 {
-    char query[256];
+    char titre[101];
     MYSQL_RES *result;
     MYSQL_ROW row;
 
-    // Construction de la requête SQL
-    snprintf(query, sizeof(query), "SELECT Livre.ISBN, Livre.Titre, Livre.Auteur, Exemplaire.ID_Exemplaire FROM Livre "
-                                   "JOIN Exemplaire ON Livre.ISBN = Exemplaire.ISBN "
-                                   "WHERE Livre.Titre LIKE '%%%s%%'",
-             titre);
+    // Saisie du titre
+    printf("Entrez le titre du livre : ");
+    scanf(" %100[^\n]", titre);
+
+    // Construction de la requête SQL avec une requête préparée
+    MYSQL_STMT *stmt;
+    MYSQL_BIND bind[1];
+    const char *query = "SELECT Livre.ISBN, Livre.Titre, Livre.Auteur, Exemplaire.ID_Exemplaire FROM Livre JOIN Exemplaire ON Livre.ISBN = Exemplaire.ISBN WHERE Livre.Titre LIKE ?";
+
+    stmt = mysql_stmt_init(conn);
+    if (!stmt)
+    {
+        fprintf(stderr, "mysql_stmt_init() a échoué\n");
+        exit(1);
+    }
+
+    if (mysql_stmt_prepare(stmt, query, strlen(query)))
+    {
+        fprintf(stderr, "mysql_stmt_prepare() a échoué\n");
+        exit(1);
+    }
+
+    memset(bind, 0, sizeof(bind));
+
+    bind[0].buffer_type = MYSQL_TYPE_STRING;
+    bind[0].buffer = titre;
+    bind[0].buffer_length = strlen(titre);
+
+    if (mysql_stmt_bind_param(stmt, bind))
+    {
+        fprintf(stderr, "mysql_stmt_bind_param() a échoué\n");
+        exit(1);
+    }
 
     // Exécution de la requête
-    if (mysql_query(conn, query))
+    if (mysql_stmt_execute(stmt))
     {
-        fprintf(stderr, "Erreur lors de l'exécution de la requête : %s\n", mysql_error(conn));
+        fprintf(stderr, "Erreur lors de l'exécution de la requête : %s\n", mysql_stmt_error(stmt));
         exit(1);
     }
 
     // Récupération du résultat de la requête
-    result = mysql_store_result(conn);
+    result = mysql_stmt_result_metadata(stmt);
 
     // Vérification s'il y a des résultats
     if (result == NULL)
@@ -336,29 +364,58 @@ void rechercherLivreParTitre(MYSQL *conn, const char *titre)
     }
 
     mysql_free_result(result); // Libération de la mémoire du résultat des livres
+    mysql_stmt_close(stmt);    // Fermeture de la déclaration préparée
 }
 
-void rechercherLivreParAuteur(MYSQL *conn, const char *auteur)
+void rechercherLivreParAuteur(MYSQL *conn)
 {
-    char query[256];
+    char auteur[101]; // Assurez-vous que la taille est suffisante pour stocker l'auteur
     MYSQL_RES *result;
     MYSQL_ROW row;
 
-    // Construction de la requête SQL
-    snprintf(query, sizeof(query), "SELECT Livre.ISBN, Livre.Titre, Livre.Auteur, Exemplaire.ID_Exemplaire FROM Livre "
-                                   "JOIN Exemplaire ON Livre.ISBN = Exemplaire.ISBN "
-                                   "WHERE Livre.Auteur LIKE '%%%s%%'",
-             auteur);
+    // Saisie de l'auteur
+    printf("Entrez le nom de l'auteur : ");
+    scanf(" %100[^\n]", auteur);
+
+    // Construction de la requête SQL avec une requête préparée
+    MYSQL_STMT *stmt;
+    MYSQL_BIND bind[1];
+    const char *query = "SELECT Livre.ISBN, Livre.Titre, Livre.Auteur, Exemplaire.ID_Exemplaire FROM Livre JOIN Exemplaire ON Livre.ISBN = Exemplaire.ISBN WHERE Livre.Auteur LIKE ?";
+
+    stmt = mysql_stmt_init(conn);
+    if (!stmt)
+    {
+        fprintf(stderr, "mysql_stmt_init() a échoué\n");
+        exit(1);
+    }
+
+    if (mysql_stmt_prepare(stmt, query, strlen(query)))
+    {
+        fprintf(stderr, "mysql_stmt_prepare() a échoué\n");
+        exit(1);
+    }
+
+    memset(bind, 0, sizeof(bind));
+
+    bind[0].buffer_type = MYSQL_TYPE_STRING;
+    bind[0].buffer = auteur;
+    bind[0].buffer_length = strlen(auteur);
+
+    if (mysql_stmt_bind_param(stmt, bind))
+    {
+        fprintf(stderr, "mysql_stmt_bind_param() a échoué\n");
+        exit(1);
+    }
 
     // Exécution de la requête
-    if (mysql_query(conn, query))
+    if (mysql_stmt_execute(stmt))
     {
-        fprintf(stderr, "Erreur lors de l'exécution de la requête : %s\n", mysql_error(conn));
+        fprintf(stderr, "Erreur lors de l'exécution de la requête : %s\n", mysql_stmt_error(stmt));
         exit(1);
     }
 
     // Récupération du résultat de la requête
-    result = mysql_store_result(conn);
+    result = mysql_stmt_result_metadata(stmt);
 
     // Vérification s'il y a des résultats
     if (result == NULL)
@@ -379,4 +436,5 @@ void rechercherLivreParAuteur(MYSQL *conn, const char *auteur)
     }
 
     mysql_free_result(result); // Libération de la mémoire du résultat des livres
+    mysql_stmt_close(stmt);    // Fermeture de la déclaration préparée
 }
