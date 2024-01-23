@@ -17,7 +17,7 @@ void consultation_stat_site(MYSQL *conn, int user_type) {
         case 1: // admin general
             while (strcmp(site, "Site A") != 0 && strcmp(site, "Site B") != 0 && strcmp(site, "Site C") != 0) {
                 printf("Choisissez un site (Site A, Site B, Site C) : ");
-                fgets(site, sizeof(site), stdin);
+                scanf("%19", site);
                 site[strcspn(site, "\n")] = '\0'; // Supprimer le caractère de nouvelle ligne de la saisie
             }
             break;
@@ -56,7 +56,7 @@ void consultation_stat_site(MYSQL *conn, int user_type) {
     char unite[20];
     while (strcmp(unite, "jour") != 0 && strcmp(unite, "mois") != 0 && strcmp(unite, "année") != 0) {
         printf("Choisissez l'unité de temps (jour, mois, année) : ");
-        fgets(unite, sizeof(unite), stdin);
+        fscanf("%19s", unite);
         unite[strcspn(unite, "\n")] = '\0'; // Supprimer le caractère de nouvelle ligne de la saisie
     }
 
@@ -103,10 +103,10 @@ void consultation_stat_3site(MYSQL* conn) {
     char unite[20];
     while (strcmp(unite, "jour") != 0 && strcmp(unite, "mois") != 0 && strcmp(unite, "année") != 0) {
         printf("Choisissez l'unité de temps (jour, mois, année) : ");
-        fgets(unite, sizeof(unite), stdin);
+        scanf("%19s", unite);
         unite[strcspn(unite, "\n")] = '\0'; // Supprimer le caractère de nouvelle ligne de la saisie
     }
-
+    printf("%s")
     // Construction de la requête SQL pour récupérer le nombre d'emprunts et de réservations par site
     char query[1000];
     snprintf(query, sizeof(query),
@@ -147,7 +147,7 @@ void consultation_stat_3site(MYSQL* conn) {
 void consultation_stat(MYSQL *conn, int user_type) {
     switch (user_type) {
     case 1: // admin general
-        printf("Veuillez choisir de consulter les statistiques par site ou les 3 sites : 1 | 2 : \n");
+        printf("Veuillez choisir de consulter les statistiques pour les 3 sites ou par site : 1 | 2 : \n");
         int choix;
         scanf("%d", &choix);
         switch (choix) 
