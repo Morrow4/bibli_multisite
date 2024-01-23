@@ -67,6 +67,7 @@ void effectuerEmprunt(MYSQL *conn, const char *ISBN, const char *username)
     char query[255];
     // Réduire le nombre d'exemplaires disponibles
     // Verifier s'il existe des ISBN pour l'exemplaire demandé
+    printf("ISBN = '%s'\n", ISBN);
     sprintf(query, "SELECT ID_Exemplaire FROM Exemplaire WHERE ISBN = '%s' AND Disponibilite = true LIMIT 1", ISBN);
     if (mysql_query(conn, query) != 0)
     {
@@ -83,9 +84,9 @@ void effectuerEmprunt(MYSQL *conn, const char *ISBN, const char *username)
     }
 
     mysql_free_result(result); 
-
+///////////////////////////////////////////////////////////////////////////////////////////////:
     // Maj table exemplaire
-    sprintf(query, "UPDATE Exemplaire SET Disponibilite = false WHERE ID_Exemplaire = '%d' AND Disponibilite = true LIMIT 1", Var_IdExemplaire);
+    sprintf(query, "UPDATE Exemplaire SET Disponibilite = false WHERE ID_Exemplaire = '%d' AND Disponibilite = true", Var_IdExemplaire);
     if (mysql_query(conn, query) != 0)
     {
         fprintf(stderr, "Erreur lors de la mise à jour du nombre d'exemplaires\n");
