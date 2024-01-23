@@ -149,7 +149,7 @@ void consultation_stat(MYSQL *conn) {
     switch (user_type)
     {
     case 1: // admin general
-        printf("Veuillez choisir de consulter les statistiques par site ou les 3 sites : 1 | 2");
+        printf("Veuillez choisir de consulter les statistiques par site ou les 3 sites : 1 | 2 : \n");
         int choix;
         scanf("%d", &choix);
         switch (choix) 
