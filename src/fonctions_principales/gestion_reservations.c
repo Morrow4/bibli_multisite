@@ -68,7 +68,7 @@ void reserver_livre(MYSQL *conn, char *email_utilisateur)
         enregistrer_reservation(conn, email_utilisateur, id_exemplaire);
 
         char envoi_mail[500];
-        sprintf(envoi_mail, "(echo 'Bonjour\n nous vous confirmons la réservation du livre à l'ISBN' '%s' | mail -s 'Confirmation de réservation' '%s')", ISBN, email_utilisateur);
+        sprintf(envoi_mail, "(echo 'Bonjour\n nous vous confirmons la réservation du livre qui a l'ISBN suivant : ' '%s' | mail -s 'Confirmation de réservation' '%s')", ISBN, email_utilisateur);
 
         printf("Réservation effectuée avec succès !\n");
     }
@@ -79,79 +79,28 @@ void reserver_livre(MYSQL *conn, char *email_utilisateur)
 }
 
 // Fonction pour vérifier si au moins un exemplaire est disponible
-bool au_moins_un_exemplaire_disponible(MYSQL *conn, const char *isbn_livre)
+bool au_moins_un_exemplaire_disponible(MYSQL *conn, char *isbn_livre)
 {
-    MYSQL_STMT *stmt;
-    MYSQL_BIND bind[2];
-    int disponibilite;
+    // Requête SQL pour vérifier la disponibilité d'au moins un exemplaire
+    char query[1024];
+    sprintf(query, "SELECT COUNT(*) FROM Exemplaire WHERE ISBN='%s' AND Disponibilite=true", isbn_livre);
 
-    // Préparer la requête SQL pour vérifier la disponibilité d'au moins un exemplaire
-    const char *query = "SELECT COUNT(*) FROM Exemplaire WHERE ISBN=? AND Disponibilite=true";
-    stmt = mysql_stmt_init(conn);
-
-    if (!stmt)
+    // Exécuter la requête SQL
+    if (mysql_query(conn, query))
     {
-        fprintf(stderr, "\nÉchec de l'initialisation de la requête préparée : %s\n", mysql_error(conn));
-        return false;
-    }
-
-    if (mysql_stmt_prepare(stmt, query, strlen(query)))
-    {
-        fprintf(stderr, "\nÉchec de la préparation de la requête : %s\n", mysql_stmt_error(stmt));
-        mysql_stmt_close(stmt);
-        return false;
-    }
-
-    memset(bind, 0, sizeof(bind));
-
-    // Lier les variables d'entrée et de sortie à la requête préparée
-    bind[0].buffer_type = MYSQL_TYPE_STRING;
-    bind[0].buffer = (void *)isbn_livre;
-    bind[0].buffer_length = strlen(isbn_livre);
-
-    bind[1].buffer_type = MYSQL_TYPE_LONG;
-    bind[1].buffer = &disponibilite;
-    bind[1].buffer_length = sizeof(disponibilite);
-
-    if (mysql_stmt_bind_param(stmt, bind))
-    {
-        fprintf(stderr, "\nÉchec de la liaison des paramètres : %s\n", mysql_stmt_error(stmt));
-        mysql_stmt_close(stmt);
-        return false;
-    }
-
-    // Exécuter la requête préparée
-    if (mysql_stmt_execute(stmt))
-    {
-        fprintf(stderr, "\nErreur lors de l'exécution de la requête : %s\n", mysql_stmt_error(stmt));
-        mysql_stmt_close(stmt);
-        return false;
-    }
-
-    // Lier la variable de sortie au résultat de la requête
-    bind[0].buffer_type = MYSQL_TYPE_LONG;
-    bind[0].buffer = &disponibilite;
-    bind[0].buffer_length = sizeof(disponibilite);
-
-    if (mysql_stmt_bind_result(stmt, bind))
-    {
-        fprintf(stderr, "\nÉchec de la liaison des résultats : %s\n", mysql_stmt_error(stmt));
-        mysql_stmt_close(stmt);
+        fprintf(stderr, "Erreur lors de la vérification de la disponibilité des exemplaires : %s\n", mysql_error(conn));
         return false;
     }
 
     // Récupérer le résultat de la requête
-    if (mysql_stmt_fetch(stmt) == MYSQL_NO_DATA)
-    {
-        fprintf(stderr, "\nAucune donnée trouvée\n");
-        mysql_stmt_close(stmt);
-        return false;
-    }
+    MYSQL_RES *result = mysql_store_result(conn);
+    MYSQL_ROW row = mysql_fetch_row(result);
+    int nombre_exemplaires_disponibles = atoi(row[0]);
 
-    // Fermer la requête préparée
-    mysql_stmt_close(stmt);
+    // Libérer la mémoire du résultat
+    mysql_free_result(result);
 
-    return (disponibilite > 0);
+    return (nombre_exemplaires_disponibles > 0);
 }
 
 // Fonction pour obtenir l'ID de l'exemplaire disponible
