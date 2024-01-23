@@ -162,8 +162,8 @@ void consultation_stat(MYSQL *conn, int user_type) {
                     consultation_stat(conn, user_type);
                     printf("Entrée erronée");
                     break;
-                break;
             }
+            break;
         case 2: // adminsite
             consultation_stat_site(conn, user_type);
             break;
