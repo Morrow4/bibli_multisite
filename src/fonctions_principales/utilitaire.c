@@ -112,7 +112,7 @@ bool limiteTailleInt(const char *str, int limite)
         return false;
     }
 
-    if (strlen(str) > (size_t)limite)
+    if (strlen(str) > (size_t)limite) //comparaison en unsigned long
     {
         return false;
     }
