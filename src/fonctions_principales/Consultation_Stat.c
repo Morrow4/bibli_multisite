@@ -127,6 +127,7 @@ void consultation_stat(MYSQL *conn) {
                 consultation_stat(conn);
                 break;
         }
+        break;
     case 2: // adminsite
         consultation_stat_site(conn);
         break;
