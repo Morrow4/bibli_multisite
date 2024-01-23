@@ -20,7 +20,6 @@ void consultation_stat_site(MYSQL *conn, int user_type) {
                 fgets(site, sizeof(site), stdin);
                 site[strcspn(site, "\n")] = '\0'; // Supprimer le caractère de nouvelle ligne de la saisie
             }
-            break;
         case 2: // admin site
             if (mysql_query(conn, "SELECT SitePrincipal FROM Utilisateur") != 0) {
             fprintf(stderr, "Erreur lors de la récupération des statistiques : %s\n", mysql_error(conn));
@@ -45,7 +44,6 @@ void consultation_stat_site(MYSQL *conn, int user_type) {
                 fprintf(stderr, "Erreur lors de la récupération du résultat : %s\n", mysql_error(conn));
                 consultation_stat(conn, user_type);
             }
-            break;
         default:
             consultation_stat_site(conn, user_type);
             printf("Entrée erronée");
@@ -55,7 +53,7 @@ void consultation_stat_site(MYSQL *conn, int user_type) {
     // Saisie utilisateur pour choisir l'unité de temps
     char unite[20];
     while (strcmp(unite, "jour") != 0 && strcmp(unite, "mois") != 0 && strcmp(unite, "année") != 0) {
-        printf("Choisissez l'unité de temps (jour, mois, année) : ");
+        printf("Choisissez l'unité de temps (jour, mois, année) : \n");
         fgets(unite, sizeof(unite), stdin);
         unite[strcspn(unite, "\n")] = '\0'; // Supprimer le caractère de nouvelle ligne de la saisie
     }
@@ -102,7 +100,7 @@ void consultation_stat_3site(MYSQL* conn) {
     // Saisie utilisateur pour choisir l'unité de temps
     char unite[20];
     while (strcmp(unite, "jour") != 0 && strcmp(unite, "mois") != 0 && strcmp(unite, "année") != 0) {
-        printf("Choisissez l'unité de temps (jour, mois, année) : ");
+        printf("Choisissez l'unité de temps (jour, mois, année) : \n");
         fgets(unite, sizeof(unite), stdin);
         unite[strcspn(unite, "\n")] = '\0'; // Supprimer le caractère de nouvelle ligne de la saisie
     }
@@ -153,19 +151,15 @@ void consultation_stat(MYSQL *conn, int user_type) {
         {
             case 1: // consultation stat pour les 3 sites
                 consultation_stat_3site(conn);
-                break;
             case 2: // consultation stat par site
                 consultation_stat_site(conn, user_type);
-                break;
             default: // choix invalide
                 consultation_stat(conn, user_type);
                 printf("Entrée erronée");
                 break;
         }
-        break;
     case 2: // adminsite
         consultation_stat_site(conn, user_type);
-        break;
     default: // autre
         consultation_stat(conn, user_type);
         printf("Entrée erronée");
