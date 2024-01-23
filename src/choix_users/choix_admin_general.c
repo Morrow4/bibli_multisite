@@ -116,15 +116,11 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
             break;
 
         case 15:
-            printf("Veuillez saisir le numéro d'identification de l'exemplaire que vous voulez mettre à jour : ");
-            scanf("%d", &id_exemplaire);
-            mise_a_jour_exemplaire(conn, id_exemplaire);
+            mise_a_jour_exemplaire(conn);
             break;
 
         case 16:
-            printf("Veuillez saisir le numéro d'identification de l'exemplaire que vous voulez supprimer : ");
-            scanf("%d", &id_exemplaire);
-            suppression_exemplaire(conn, id_exemplaire);
+            suppression_exemplaire(conn);
             break;
 
         case 17:
