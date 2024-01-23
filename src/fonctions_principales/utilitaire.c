@@ -105,7 +105,7 @@ bool estEntier(const char *str)
     return true;
 }
 
-bool limiteTailleInt(const char *str, int limite)
+bool limiteTailleInt(const char *str, size_t limite)
 {
     if (!str || *str == '\0')
     {
