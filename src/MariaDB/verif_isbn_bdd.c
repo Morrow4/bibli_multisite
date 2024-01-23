@@ -28,10 +28,9 @@ int trouverRetard(MYSQL *conn, const char *isbn, double *joursDeRetard)
     // Exécuter la requête SQL
     if (mysql_query(conn, query) != 0)
     {
-        fprintf(stderr, "mysql_query() a échoué\n");
+        fprintf(stderr, "Erreur lors de l'exécution de la requête SQL : %s\n", mysql_error(conn));
         return -1; // Erreur
     }
-
     // Récupérer le résultat de la requête
     res = mysql_store_result(conn);
 
