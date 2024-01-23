@@ -63,9 +63,9 @@ void ajout_compte(MYSQL *conn, char *username)
         strcpy(type_user, "AdminSite");
         printf("\nQUel est le site de l'utilisateur?\nSite [A / B / C]?");
         scanf("%s", site);
-        if (strcmp(site, "A") == 0) { site = "Site A"; };
-        if (strcmp(site, "B") == 0) { site = "Site B"; };
-        if (strcmp(site, "C") == 0) { site = "Site C"; };
+        if (strcmp(site, "A") == 0) { strcpy(site, "Site A"); };
+        if (strcmp(site, "B") == 0) { strcpy(site, "Site B"); };
+        if (strcmp(site, "C") == 0) { strcpy(site, "Site C"); };
         break;
     case 3: // admingeneral
         strcpy(type_user, "AdminGeneral");
