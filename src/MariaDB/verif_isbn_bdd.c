@@ -56,7 +56,7 @@ int trouverRetard(MYSQL *conn, const char *isbn, double *joursDeRetard)
         // Calculer le retard en jours
         // Le format de la date d'emprunt est par defaut dans la db : "YYYY-MM-DD HH:MM:SS"
         struct tm tm_emprunt;
-        strftime(dernierEmprunt.dateEmprunt, "%Y-%m-%d %H:%M:%S", &tm_emprunt);
+        strptime(dernierEmprunt.dateEmprunt, "%Y-%m-%d %H:%M:%S", &tm_emprunt);
         time_t temps_emprunt = mktime(&tm_emprunt);
 
         time_t temps_actuel;
