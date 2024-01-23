@@ -114,7 +114,7 @@ void mise_a_jour_livre(MYSQL *conn)
     char auteur[101];
     char edition[101];
     char genre[101];
-    int choix_recherche;
+    int choix_recherche = 0;
 
     while (choix_recherche != 3)
     {
@@ -243,7 +243,7 @@ void suppression_livre(MYSQL *conn)
     MYSQL_STMT *stmt;
     MYSQL_BIND bind[1];
     char ISBN[14];
-    int choix_recherche;
+    int choix_recherche = 0;
 
     while (choix_recherche != 3)
     {

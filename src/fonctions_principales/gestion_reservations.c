@@ -10,7 +10,7 @@
 void reserver_livre(MYSQL *conn, char *email_utilisateur)
 {
     char ISBN[14];
-    int choix_recherche;
+    int choix_recherche = 0;
 
     while (choix_recherche != 3)
     {

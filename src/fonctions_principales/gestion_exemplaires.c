@@ -15,7 +15,7 @@ void ajout_exemplaire(MYSQL *conn)
     char chercheur_str[6];
     bool is_valid_site = false;
     bool is_valid_chercheur = false;
-    int choix_recherche;
+    int choix_recherche = 0;
 
     while (choix_recherche != 3)
     {
@@ -163,7 +163,7 @@ void mise_a_jour_exemplaire(MYSQL *conn)
     bool is_valid_site = false;
     bool is_valid_disponibilite = false;
     bool is_valid_chercheur = false;
-    int choix_recherche;
+    int choix_recherche = 0;
 
     while (choix_recherche != 3)
     {
@@ -322,7 +322,7 @@ void suppression_exemplaire(MYSQL *conn)
     MYSQL_STMT *stmt;
     MYSQL_BIND bind[1];
     int id_exemplaire;
-    int choix_recherche;
+    int choix_recherche = 0;
 
     while (choix_recherche != 3)
     {
