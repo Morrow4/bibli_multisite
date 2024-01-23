@@ -12,7 +12,6 @@ typedef struct
 {
     char isbn[14];
     char dateEmprunt[20];
-    char siteDeRestitution[50];
 } EmpruntInfo;
 
 int trouverRetard(MYSQL *conn, const char *isbn, double *joursDeRetard)
@@ -50,7 +49,6 @@ int trouverRetard(MYSQL *conn, const char *isbn, double *joursDeRetard)
         row = mysql_fetch_row(res);
         strcpy(dernierEmprunt.isbn, row[0]);
         strcpy(dernierEmprunt.dateEmprunt, row[1]);
-        strcpy(dernierEmprunt.siteDeRestitution, row[2]);
 
         // Calculer le retard en jours
         // Le format de la date d'emprunt est par defaut dans la db : "YYYY-MM-DD HH:MM:SS"
