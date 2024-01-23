@@ -60,7 +60,6 @@ void ajout_compte(MYSQL *conn, char *username);
 void blocage_compte(MYSQL *conn, char *username);
 
 // emprunt_reservation.c
-void reserver_livre(MYSQL *conn, char *email_utilisateur, char *isbn_livre);
 void emprunter_livre(MYSQL *conn, char *email_utilisateur, int id_reservation);
 bool reservation_existe_et_valide(MYSQL *conn, int id_reservation);
 int obtenir_id_exemplaire_reservé(MYSQL *conn, int id_reservation);
