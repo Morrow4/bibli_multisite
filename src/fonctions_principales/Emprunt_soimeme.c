@@ -136,10 +136,21 @@ void Emprunt_soimeme(MYSQL *conn, char *username)
     sprintf(username, "%d", getuid());
     int user_group = get_user_group(conn);
 
-    if (user_group != 1|| user_group !=2 || user_group != 3 )
+    switch (user_group) // pour faire un switch il faut apparemment une variable de type int, donc j'ai modifié tout ça en conséquent
     {
-        printf("Seul les personnes adhérentes peuvent emprunter un livre\n \n");
+    case 1: // admingeneral
+        printf("Vous êtes administrateurs général, merci d'utiliser votre compte adhérent. \n");
+        continue;
+        break;
+    case 2: // adminsite
+        printf("Vous êtes administrateurs site, merci d'utiliser votre compte adhérent. \n");
         return;
+        break;
+    case 3: //adherent
+        continue;
+    default:
+        return;
+        break;
     }
 
     printf("Avez-vous son ISBN? (o/n) Appuyez sur tout autre touche pour sortir du menu : ");
