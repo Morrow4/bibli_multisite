@@ -34,8 +34,8 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
         printf("| 9)  Supprimer un livre                                         |\n");
         printf("| 10) Bloquer un utilisateur temporairement                      |\n");
         printf("| 11) Valider la restitution d'un livre                          |\n");
-        printf("| 12) Emprunter un livre pour soi                                |\n");
-        printf("| 13) Emprunter un livre pour un utilisateur inscrit             |\n");
+        printf("| 12) Emprunter un livre pour soi                                |\n"); // a retirer
+        printf("| 13) Emprunter un livre pour un utilisateur inscrit             |\n"); // a retirer
         printf("| 14) Ajouter un exemplaire                                      |\n");
         printf("| 15) Mettre à jour les informations d'un exemplaire             |\n");
         printf("| 16) Supprimer un exemplaire                                    |\n");
