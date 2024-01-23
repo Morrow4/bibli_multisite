@@ -15,41 +15,79 @@ MYSQL *conn;
 int nombreLivresParTitre(const char *titreRecherche)
 {
     int nombreLivres = 0;
-    MYSQL_RES *result;
-    MYSQL_ROW row;
+    MYSQL_STMT *stmt;
+    MYSQL_BIND param[1];
+    my_ulonglong affected_rows;
 
-    char query[255];
-    sprintf(query, "SELECT COUNT(*) FROM Livre WHERE Titre = '%s'", titreRecherche);
-
-    // Exécutez la requête SQL
-    if (mysql_query(conn, query) != 0)
+    // Préparation de la requête
+    stmt = mysql_stmt_init(conn);
+    if (!stmt)
     {
-        fprintf(stderr, "Erreur lors de l'exécution de la requête SQL : %s\n", mysql_error(conn));
+        fprintf(stderr, "Erreur lors de l'initialisation de la requête préparée : %s\n", mysql_error(conn));
         return nombreLivres;
     }
 
-    // Récupérez le résultat de la requête
-    result = mysql_store_result(conn);
-
-    // Vérifiez si le résultat est non nul
-    if (result != NULL)
+    const char *query = "SELECT COUNT(*) FROM Livre WHERE Titre = ?";
+    if (mysql_stmt_prepare(stmt, query, strlen(query)) != 0)
     {
-        // Récupérez la première ligne du résultat
-        if ((row = mysql_fetch_row(result)) != NULL)
-        {
-            sscanf(row[0], "%d", &nombreLivres);
-        }
+        fprintf(stderr, "Erreur lors de la préparation de la requête préparée : %s\n", mysql_stmt_error(stmt));
+        mysql_stmt_close(stmt);
+        return nombreLivres;
+    }
 
-        // Libérez le résultat après l'avoir utilisé
-        mysql_free_result(result);
-    }
-    else
+    // Liaison du paramètre
+    memset(param, 0, sizeof(param));
+    param[0].buffer_type = MYSQL_TYPE_STRING;
+    param[0].buffer = (void *)titreRecherche;
+    param[0].buffer_length = strlen(titreRecherche);
+
+    if (mysql_stmt_bind_param(stmt, param) != 0)
     {
-        fprintf(stderr, "Aucun résultat retourné par la requête\n");
+        fprintf(stderr, "Erreur lors de la liaison du paramètre : %s\n", mysql_stmt_error(stmt));
+        mysql_stmt_close(stmt);
+        return nombreLivres;
     }
+
+    // Exécution de la requête
+    if (mysql_stmt_execute(stmt) != 0)
+    {
+        fprintf(stderr, "Erreur lors de l'exécution de la requête préparée : %s\n", mysql_stmt_error(stmt));
+        mysql_stmt_close(stmt);
+        return nombreLivres;
+    }
+
+    // Récupération du résultat
+    MYSQL_RES *result_metadata = mysql_stmt_result_metadata(stmt);
+    if (result_metadata)
+    {
+        mysql_free_result(result_metadata);
+    }
+
+    // Liaison du résultat
+    MYSQL_BIND result_param[1];
+    memset(result_param, 0, sizeof(result_param));
+    result_param[0].buffer_type = MYSQL_TYPE_LONG;
+    result_param[0].buffer = &nombreLivres;
+
+    if (mysql_stmt_bind_result(stmt, result_param) != 0)
+    {
+        fprintf(stderr, "Erreur lors de la liaison du résultat : %s\n", mysql_stmt_error(stmt));
+        mysql_stmt_close(stmt);
+        return nombreLivres;
+    }
+
+    // Récupération du résultat
+    if (mysql_stmt_fetch(stmt) != 0)
+    {
+        fprintf(stderr, "Erreur lors de la récupération du résultat : %s\n", mysql_stmt_error(stmt));
+    }
+
+    // Fermeture de la requête préparée
+    mysql_stmt_close(stmt);
 
     return nombreLivres;
 }
+
 
 // Fonction pour afficher les détails du livre
 void afficherDetailsLivre(const Livre *livre)
@@ -174,6 +212,7 @@ void Emprunt_soimeme(MYSQL *conn, char *username)
         if (Livres == NULL)
         {
             fprintf(stderr, "Erreur d'allocation mémoire\n");
+            printf("L'erreur à la récupération de livre");
             free(Livres);
             return;
         }
