@@ -395,7 +395,7 @@ void rechercherLivreParTitre(MYSQL *conn)
 
     // Construction de la requête SQL avec la chaîne échappée
     char query[512];
-    snprintf(query, sizeof(query), "SELECT Livre.ISBN, Livre.Titre, Livre.Auteur, Exemplaire.ID_Exemplaire FROM Livre JOIN Exemplaire ON Livre.ISBN = Exemplaire.ISBN WHERE Livre.Titre LIKE '%%%s%%'", escaped_titre);
+    snprintf(query, sizeof(query), "SELECT Livre.ISBN, Livre.Titre, Livre.Auteur, Exemplaire.ID_Exemplaire, Exemplaire.Disponibilite FROM Livre JOIN Exemplaire ON Livre.ISBN = Exemplaire.ISBN WHERE Livre.Titre LIKE '%%%s%%'", escaped_titre);
 
     // Exécution de la requête
     if (mysql_query(conn, query))
@@ -416,15 +416,15 @@ void rechercherLivreParTitre(MYSQL *conn)
 
     // Affichage des en-têtes du tableau
     printf("\n+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+\n");
-    printf("|%-15s|%-13s|%-100s|%-50s|\n", "ID_Exemplaire", "ISBN", "Titre", "Auteur");
-    printf("+---------------+-------------+----------------------------------------------------------------------------------------------------+--------------------------------------------------+\n");
+    printf("|%-15s|%-13s|%-100s|%-50s|%-15s|\n", "ID_Exemplaire", "ISBN", "Titre", "Auteur", "Disponibilité");
+    printf("+---------------+-------------+----------------------------------------------------------------------------------------------------+--------------------------------------------------+---------------+\n");
 
     // Parcours des résultats
     MYSQL_ROW row;
     while ((row = mysql_fetch_row(result)))
     {
         // Affichage des informations de chaque ligne
-        printf("|%-15s|%-13s|%-100s|%-50s|\n", row[3], row[0], row[1], row[2]);
+        printf("|%-15s|%-13s|%-100s|%-50s|%-15s|\n", row[3], row[0], row[1], row[2], row[4]);
     }
     printf("+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+\n");
 
@@ -446,7 +446,7 @@ void rechercherLivreParAuteur(MYSQL *conn)
 
     // Construction de la requête SQL avec la chaîne échappée
     char query[512];
-    snprintf(query, sizeof(query), "SELECT Livre.ISBN, Livre.Titre, Livre.Auteur, Exemplaire.ID_Exemplaire FROM Livre JOIN Exemplaire ON Livre.ISBN = Exemplaire.ISBN WHERE Livre.Auteur LIKE '%%%s%%'", escaped_auteur);
+    snprintf(query, sizeof(query), "SELECT Livre.ISBN, Livre.Titre, Livre.Auteur, Exemplaire.ID_Exemplaire, Exemplaire.Disponibilite FROM Livre JOIN Exemplaire ON Livre.ISBN = Exemplaire.ISBN WHERE Livre.Auteur LIKE '%%%s%%'", escaped_auteur);
 
     // Exécution de la requête
     if (mysql_query(conn, query))
@@ -467,15 +467,15 @@ void rechercherLivreParAuteur(MYSQL *conn)
 
     // Affichage des en-têtes du tableau
     printf("\n+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+\n");
-    printf("|%-15s|%-13s|%-100s|%-50s|\n", "ID_Exemplaire", "ISBN", "Titre", "Auteur");
-    printf("+---------------+-------------+----------------------------------------------------------------------------------------------------+--------------------------------------------------+\n");
+    printf("|%-15s|%-13s|%-100s|%-50s|%-15s|\n", "ID_Exemplaire", "ISBN", "Titre", "Auteur", "Disponibilité");
+    printf("+---------------+-------------+----------------------------------------------------------------------------------------------------+--------------------------------------------------+---------------+\n");
 
     // Parcours des résultats
     MYSQL_ROW row;
     while ((row = mysql_fetch_row(result)))
     {
         // Affichage des informations de chaque ligne
-        printf("|%-15s|%-13s|%-100s|%-50s|\n", row[3], row[0], row[1], row[2]);
+        printf("|%-15s|%-13s|%-100s|%-50s|%-15s|\n", row[3], row[0], row[1], row[2], row[4]);
     }
     printf("+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+\n");
 
