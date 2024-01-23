@@ -40,7 +40,7 @@ void rechercherLivreParAuteur(MYSQL *conn);
 
 // gestion_reservation.c
 void reserver_livre(MYSQL *conn, char *email_utilisateur);
-bool au_moins_un_exemplaire_disponible(MYSQL *conn, const char *isbn_livre);
+bool au_moins_un_exemplaire_disponible(MYSQL *conn, char *isbn_livre);
 int obtenir_id_exemplaire_disponible(MYSQL *conn, char *isbn_livre);
 void mettre_a_jour_disponibilite_exemplaire(MYSQL *conn, int id_exemplaire, bool disponibilite);
 void enregistrer_reservation(MYSQL *conn, char *email_utilisateur, int id_exemplaire);
