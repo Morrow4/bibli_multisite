@@ -12,7 +12,6 @@ typedef struct
 {
     char isbn[14];
     char dateEmprunt[20];
-    char siteDeRestitution[50];
 } EmpruntInfo;
 
 int trouverRetard(MYSQL *conn, const char *isbn, double *joursDeRetard)
@@ -23,15 +22,17 @@ int trouverRetard(MYSQL *conn, const char *isbn, double *joursDeRetard)
 
     // Construire la requête SQL pour obtenir les informations sur les emprunts
     char query[TAILLE_REQUETE];
-    sprintf(query, "SELECT e.ISBN, e.DateEmprunt, e.SiteDeRestitution FROM Emprunt e JOIN Exemplaire ex ON e.ID_Exemplaire = ex.ID_Exemplaire WHERE ex.ISBN = '%s'", isbn);
+    sprintf(query, "SELECT ex.ISBN, e.DateEmprunt FROM Emprunt e JOIN Exemplaire ex ON e.ID_Exemplaire = ex.ID_Exemplaire WHERE ex.ISBN = '%s'", isbn);
 
+    // Afficher la requête générée
+    printf("Requête SQL : %s\n", query);
+    
     // Exécuter la requête SQL
     if (mysql_query(conn, query) != 0)
     {
-        fprintf(stderr, "mysql_query() a échoué\n");
+        fprintf(stderr, "\nErreur lors de l'exécution de la requête d'information sur les emprunts : %s\n", mysql_error(conn));
         return -1; // Erreur
     }
-
     // Récupérer le résultat de la requête
     res = mysql_store_result(conn);
 
@@ -51,7 +52,6 @@ int trouverRetard(MYSQL *conn, const char *isbn, double *joursDeRetard)
         row = mysql_fetch_row(res);
         strcpy(dernierEmprunt.isbn, row[0]);
         strcpy(dernierEmprunt.dateEmprunt, row[1]);
-        strcpy(dernierEmprunt.siteDeRestitution, row[2]);
 
         // Calculer le retard en jours
         // Le format de la date d'emprunt est par defaut dans la db : "YYYY-MM-DD HH:MM:SS"
