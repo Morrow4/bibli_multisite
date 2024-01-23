@@ -9,7 +9,7 @@
 void consultation_stat_site(MYSQL *conn, int user_type) {
     MYSQL_RES *res;
     MYSQL_ROW row;
-    user_type = get_user_group(conn);
+
     // Saisie utilisateur pour choisir un site
     char site[20];
     switch (user_type)
@@ -146,8 +146,8 @@ void consultation_stat_3site(MYSQL* conn) {
     mysql_free_result(result);
 }
 
-void consultation_stat(conn, user_type) {
-    int user_type = get_user_group(conn);
+void consultation_stat(MYSQL *conn, int user_type){
+    user_type = get_user_group(conn);
     switch (user_type)
     {
     case 1: // admin general
