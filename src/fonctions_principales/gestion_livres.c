@@ -114,6 +114,37 @@ void mise_a_jour_livre(MYSQL *conn)
     char auteur[101];
     char edition[101];
     char genre[101];
+    int choix_recherche;
+
+    while (choix_recherche != 3)
+    {
+        printf("\nModifier les informations d'un livre.\n");
+        printf("1) Rechercher l'ISBN du livre par son titre.\n");
+        printf("2) Rechercher l'ISBN du livre par son auteur.\n");
+        printf("3) Modifier les informations du livre.\n");
+        printf("\nVeuillez entrer le numéro du choix correspondant à ce que vous voulez faire : ");
+        scanf("%d", &choix_recherche);
+
+        switch (choix_recherche)
+        {
+        case 1:
+            rechercherLivreParTitre(conn);
+            break;
+
+        case 2:
+            rechercherLivreParAuteur(conn);
+            break;
+
+        case 3:
+            break;
+
+        default:
+            printf("\n+-----------------------------------+\n");
+            printf("+Choix invalide. Veuillez réessayer.+\n");
+            printf("+-----------------------------------+\n\n");
+            break;
+        }
+    }
 
     do
     {
@@ -210,6 +241,37 @@ void suppression_livre(MYSQL *conn)
     MYSQL_STMT *stmt;
     MYSQL_BIND bind[1];
     char ISBN[14];
+    int choix_recherche;
+
+    while (choix_recherche != 3)
+    {
+        printf("\nSupprimer un livre.\n");
+        printf("1) Rechercher l'ISBN du livre par son titre.\n");
+        printf("2) Rechercher l'ISBN du livre par son auteur.\n");
+        printf("3) Supprimer le livre.\n");
+        printf("\nVeuillez entrer le numéro du choix correspondant à ce que vous voulez faire : ");
+        scanf("%d", &choix_recherche);
+
+        switch (choix_recherche)
+        {
+        case 1:
+            rechercherLivreParTitre(conn);
+            break;
+
+        case 2:
+            rechercherLivreParAuteur(conn);
+            break;
+
+        case 3:
+            break;
+
+        default:
+            printf("\n+-----------------------------------+\n");
+            printf("+Choix invalide. Veuillez réessayer.+\n");
+            printf("+-----------------------------------+\n\n");
+            break;
+        }
+    }
 
     do
     {
