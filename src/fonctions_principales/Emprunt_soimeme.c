@@ -61,6 +61,7 @@ void afficherDetailsLivre(const Livre *livre)
 // Fonction pour effectuer l'emprunt
 void effectuerEmprunt(MYSQL *conn, const char *ISBN, const char *username)
 {
+    printf("effectuer emprunt debut\n");
     qui(username);
 
     char query[255];
@@ -72,7 +73,7 @@ void effectuerEmprunt(MYSQL *conn, const char *ISBN, const char *username)
         fprintf(stderr, "Erreur de verification\n");
         return;
     }
-
+    printf("effectuer emprunt erreur de verif\n");
     // Stocker dans une variable
     int Var_IdExemplaire;
     result = mysql_store_result(conn);
@@ -93,7 +94,7 @@ void effectuerEmprunt(MYSQL *conn, const char *ISBN, const char *username)
 
     // récupération de l'ID_Utilisateur = Email
     qui(username);
-
+    printf("recuperation de l'id user\n");
     sprintf(query, "INSERT INTO Emprunt (ID_Exemplaire, ID_Utilisateur, DateEmprunt) VALUES ('%d', '%s', 'NOW()')", Var_IdExemplaire, username);
     if (mysql_query(conn, query) != 0)
     {
