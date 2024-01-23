@@ -144,7 +144,7 @@ void mise_a_jour_exemplaire(MYSQL *conn)
         switch (choix_recherche)
         {
         case 1:
-            rechercherLivreParTitre2(conn);
+            rechercherLivreParTitre(conn);
             break;
 
         case 2:
@@ -367,49 +367,4 @@ void suppression_exemplaire(MYSQL *conn)
 
     // Fermer la requête préparée
     mysql_stmt_close(stmt);
-}
-
-void rechercherLivreParTitre2(MYSQL *conn)
-{
-    char titre[101];
-
-    // Saisie du titre
-    printf("Entrez le titre du livre : ");
-    scanf(" %100[^\n]", titre);
-    getchar();
-
-    // Construction de la requête SQL
-    char query[512];
-    snprintf(query, sizeof(query), "SELECT Livre.ISBN, Livre.Titre, Livre.Auteur, Exemplaire.ID_Exemplaire FROM Livre JOIN Exemplaire ON Livre.ISBN = Exemplaire.ISBN WHERE Livre.Titre LIKE '%%%s%%'", titre);
-
-    // Exécution de la requête
-    if (mysql_query(conn, query))
-    {
-        fprintf(stderr, "Erreur lors de l'exécution de la requête : %s\n", mysql_error(conn));
-        exit(1);
-    }
-
-    // Récupération du résultat de la requête
-    MYSQL_RES *result = mysql_store_result(conn);
-
-    // Vérification s'il y a des résultats
-    if (result == NULL)
-    {
-        fprintf(stderr, "Aucun livre trouvé avec le titre : %s\n", titre);
-        return;
-    }
-
-    // Affichage des en-têtes du tableau
-    printf("%-15s %-13s %-30s %-50s\n", "ID_Exemplaire", "ISBN", "Titre", "Auteur");
-    printf("--------------------------------------------------------------\n");
-
-    // Parcours des résultats
-    MYSQL_ROW row;
-    while ((row = mysql_fetch_row(result)))
-    {
-        // Affichage des informations de chaque ligne
-        printf("%-15s %-13s %-30s %-50s\n", row[3], row[0], row[1], row[2]);
-    }
-
-    mysql_free_result(result); // Libération de la mémoire du résultat des livres
 }
