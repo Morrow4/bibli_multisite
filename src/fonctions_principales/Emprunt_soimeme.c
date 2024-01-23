@@ -14,6 +14,7 @@ MYSQL *conn;
 // Fonction Compter le nombre de livres par titre
 int nombreLivresParTitre(const char *titreRecherche)
 {
+    printf("je rentre dans la fonction\n");
     int nombreLivres = 0;
     MYSQL_STMT *stmt;
     MYSQL_BIND param[1];
