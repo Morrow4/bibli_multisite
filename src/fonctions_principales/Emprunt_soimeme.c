@@ -81,6 +81,8 @@ void effectuerEmprunt(MYSQL *conn, const char *ISBN, const char *username)
         sscanf(row[0], "%d", &Var_IdExemplaire);
     }
 
+    mysql_free_result(result); 
+
     // Maj table exemplaire
     sprintf(query, "UPDATE Exemplaire SET Disponibilite = false WHERE ID_Exemplaire = '%d' AND Disponibilite = true LIMIT 1", Var_IdExemplaire);
     if (mysql_query(conn, query) != 0)
