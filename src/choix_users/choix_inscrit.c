@@ -8,17 +8,20 @@
 
 void choix_inscrit_bibliotheque(MYSQL *conn, char *username)
 {
+    system("clear");
     int choix_user;
     char ISBN[13];
 
-    printf("+---------------------------Bienvenue !--------------------------+\n\n");
-    printf("+--------------------Que souhaitez-vous faire ?--------------------+\n");
-    printf("1) Lister les livres et leur disponibilité dans les différents sites\n");
-    printf("2) Emprunter un livre\n");
-    printf("3) Réserver un livre\n");
-    printf("4) Déconnexion\n");
-
+    printf("+------------------------- Bienvenue ! -------------------------+\n");
+    printf("|                 Que souhaitez-vous faire ?                    |\n");
+    printf("|--------------------------------------------------------------|\n");
+    printf("| 1) Lister les livres et leur disponibilité dans les sites     |\n");
+    printf("| 2) Emprunter un livre                                         |\n");
+    printf("| 3) Réserver un livre                                          |\n");
+    printf("| 4) Déconnexion                                               |\n");
+    printf("+--------------------------------------------------------------+\n");
     printf("Veuillez entrer le numéro du choix correspondant : \n");
+
     scanf("%d", &choix_user);
 
     switch (choix_user)

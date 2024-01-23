@@ -8,6 +8,7 @@
 
 void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
 {
+    system("clear");
     int choix_user;
     char ISBN[13];
     int id_emprunt = -1;
@@ -17,26 +18,29 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
 
     while (choix_user != 17) // L'option de déconnexion est le choix 17
     {
-        printf("\n+-------------------------------MENU-------------------------------+\n");
-        printf("+----------------------Administrateur Général----------------------+\n");
-        printf("1) Lister les livres et leur disponibilité dans les différents sites\n");
-        printf("2) Réserver un livre pour soi\n");
-        printf("3) Réserver un livre pour un utilisateur inscrit\n");
-        printf("4) Ajouter un compte utilisateur ou administrateur\n");
-        printf("5) Supprimer un compte utilisateur ou administrateur\n");
-        printf("6) Consulter les statistiques globales de la bibliothèque\n");
-        printf("7) Ajouter un livre\n");
-        printf("8) Mettre à jour les informations d'un livre\n");
-        printf("9) Supprimer un livre\n");
-        printf("10) Bloquer un utilisateur temporairement\n");
-        printf("11) Valider la restitution d'un livre\n");
-        printf("12) Emprunter un livre pour soi\n");
-        printf("13) Emprunter un livre pour un utilisateur inscrit\n");
-        printf("14) Ajouter un exemplaire\n");
-        printf("15) Mettre à jour les informations d'un exemplaire\n");
-        printf("16) Supprimer un exemplaire\n");
-        printf("17) Déconnexion\n");
-
+        printf("\n+--------------------------------------------------------------+\n");
+        printf("|                        MENU PRINCIPAL                          |\n");
+        printf("|                                                                |\n");
+        printf("|---------------------- Administrateur Général ------------------|\n");
+        printf("|----------------------------------------------------------------|\n");
+        printf("| 1)  Lister les livres et leur disponibilité dans les sites     |\n");
+        printf("| 2)  Réserver un livre pour soi                                 |\n");
+        printf("| 3)  Réserver un livre pour un utilisateur inscrit              |\n");
+        printf("| 4)  Ajouter un compte utilisateur ou administrateur            |\n");
+        printf("| 5)  Supprimer un compte utilisateur ou administrateur          |\n");
+        printf("| 6)  Consulter les statistiques globales de la bibliothèque     |\n");
+        printf("| 7)  Ajouter un livre                                           |\n");
+        printf("| 8)  Mettre à jour les informations d'un livre                  |\n");
+        printf("| 9)  Supprimer un livre                                         |\n");
+        printf("| 10) Bloquer un utilisateur temporairement                      |\n");
+        printf("| 11) Valider la restitution d'un livre                          |\n");
+        printf("| 12) Emprunter un livre pour soi                                |\n");
+        printf("| 13) Emprunter un livre pour un utilisateur inscrit             |\n");
+        printf("| 14) Ajouter un exemplaire                                      |\n");
+        printf("| 15) Mettre à jour les informations d'un exemplaire             |\n");
+        printf("| 16) Supprimer un exemplaire                                    |\n");
+        printf("| 17) Déconnexion                                                |\n");
+        printf("+---------------------------------------------------------------+\n");
         printf("\nVeuillez entrer le numéro du choix correspondant à ce que vous voulez faire : ");
         scanf("%d", &choix_user);
         printf("\n\n");

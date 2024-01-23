@@ -24,6 +24,7 @@ int is_valid(const char *str)
 
 void ajout_compte(MYSQL *conn, char *username)
 {
+    system("clear");
     int choix_type;     // variable pour type d'utilisateur
     char type_user[15]; // nom du type utilisateur choisi
 
@@ -32,7 +33,9 @@ void ajout_compte(MYSQL *conn, char *username)
     switch (user_group) // pour faire un switch il faut apparemment une variable de type int, donc j'ai modifié tout ça en conséquent
     {
     case 1: // admingeneral
-        printf("Quel type d'utilisateur souhaitez-vous ajouter? [1]adherent/[2]adminsite/[3]admingeneral: ");
+        printf("Quel type d'utilisateur souhaitez-vous ajouter? \n")
+        printf("-------------------------------------------\n");
+        printf("[1]adherent\n[2]adminsite\n[3]admingeneral \n");
         do
         {
             printf("Le choix doit être compris entre 1 et 3\n");
@@ -214,6 +217,8 @@ void ajout_compte(MYSQL *conn, char *username)
 void suppression_compte(MYSQL *conn, char *username)
 {
 
+    system("clear");
+
     int choix_type; // variable pour type d'utilisateur
     char login[101];
     char type_user[15]; // nom du type d'utilisateur
@@ -223,7 +228,9 @@ void suppression_compte(MYSQL *conn, char *username)
     switch (user_group) // pour faire un switch il faut apparemment une variable de type int, donc j'ai modifié tout ça en conséquent
     {
     case 1: // admingeneral
-        printf("Quel type d'utilisateur souhaitez-vous supprimer? [1]adherent/[2]adminsite/[3]admingeneral: ");
+        printf("Quel type d'utilisateur souhaitez-vous supprimer? \n")
+        printf("-------------------------------------------\n");
+        printf("[1]adherent\n[2]adminsite\n[3]admingeneral \n");
         do
         {
             printf("Le choix doit être compris entre 1 et 3\n");
@@ -335,6 +342,7 @@ void suppression_compte(MYSQL *conn, char *username)
 
 void blocage_compte(MYSQL *conn, char *username)
 {
+    system("clear");
 
     int choix_type;     // variable pour type d'utilisateur
     char type_user[15]; // nom du type utilisateur choisi
@@ -345,7 +353,9 @@ void blocage_compte(MYSQL *conn, char *username)
     switch (user_group) // pour faire un switch il faut apparemment une variable de type int, donc j'ai modifié tout ça en conséquent
     {
     case 1: // admingeneral
-        printf("Quel type d'utilisateur souhaitez-vous bloquer? [1]adherent/[2]adminsite/[3]admingeneral: ");
+        printf("Quel type d'utilisateur souhaitez-vous bloquer? \n")
+        printf("-------------------------------------------\n");
+        printf("[1]adherent\n[2]adminsite\n[3]admingeneral \n");
         do
         {
             printf("Le choix doit être compris entre 1 et 3\n");

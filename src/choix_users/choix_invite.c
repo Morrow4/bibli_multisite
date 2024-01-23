@@ -8,12 +8,13 @@
 
 void choix_invite_bibliotheque(MYSQL *conn)
 {
+    system("clear");
     int choix_user;
 
     printf("+---------------------------Bienvenue !--------------------------+\n\n");
     printf("+--------------------Que souhaitez-vous faire ?--------------------+\n");
     printf("1) Lister les livres et leur disponibilité dans les différents sites\n");
-    printf("2) Déconnexion\n");
+    printf("Appuyez sur n'importe quelle autre touche pour vous déconnecter\n");
 
     printf("Veuillez entrer le numéro du choix correspondant : \n");
     scanf("%d", &choix_user);
