@@ -38,6 +38,8 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
         printf("| 15) Mettre à jour les informations d'un exemplaire             |\n");
         printf("| 16) Supprimer un exemplaire                                    |\n");
         printf("| 17) Déconnexion                                                |\n");
+        printf("| 18) Annuler une réservation                                    |\n");
+        printf("| 19) Voir mes réservations                                      |\n");
         printf("+----------------------------------------------------------------+\n");
         printf("\nVeuillez entrer le numéro du choix correspondant à ce que vous voulez faire : ");
         scanf("%d", &choix_user);
@@ -135,6 +137,14 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
         case 17:
             deconnexion(conn);
             system("clear");
+            break;
+
+        case 18:
+            annuler_reservation_par_id(conn, username);
+            break;
+
+        case 19:
+            afficher_reservations_utilisateur(conn, username);
             break;
 
         default:
