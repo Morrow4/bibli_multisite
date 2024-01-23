@@ -74,7 +74,6 @@ void effectuerEmprunt(MYSQL *conn, const char *ISBN, const char *username)
         fprintf(stderr, "Erreur de verification\n");
         return;
     }
-    printf("effectuer emprunt erreur de verif\n");
     // Stocker dans une variable
     int Var_IdExemplaire;
     result = mysql_store_result(conn);
@@ -84,7 +83,6 @@ void effectuerEmprunt(MYSQL *conn, const char *ISBN, const char *username)
     }
 
     mysql_free_result(result); 
-///////////////////////////////////////////////////////////////////////////////////////////////:
     // Maj table exemplaire
     sprintf(query, "UPDATE Exemplaire SET Disponibilite = false WHERE ID_Exemplaire = '%d' AND Disponibilite = true", Var_IdExemplaire);
     if (mysql_query(conn, query) != 0)
@@ -96,7 +94,7 @@ void effectuerEmprunt(MYSQL *conn, const char *ISBN, const char *username)
     // récupération de l'ID_Utilisateur = Email
     qui(username);
     printf("recuperation de l'id user\n");
-    sprintf(query, "INSERT INTO Emprunt (ID_Exemplaire, ID_Utilisateur, DateEmprunt) VALUES ('%d', '%s', 'NOW()')", Var_IdExemplaire, username);
+    sprintf(query, "INSERT INTO Emprunt (ID_Exemplaire, ID_Utilisateur, DateEmprunt) VALUES ('%d', '%s', NOW())", Var_IdExemplaire, username);
     if (mysql_query(conn, query) != 0)
     {
         fprintf(stderr, "Erreur lors de l'ajout de l'emprunt\n");
