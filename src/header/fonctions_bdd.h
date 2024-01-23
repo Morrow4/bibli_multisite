@@ -35,8 +35,9 @@ void Consultation_Stat();
 void ajout_livre(MYSQL *conn);
 void mise_a_jour_livre(MYSQL *conn);
 void suppression_livre(MYSQL *conn);
-void recherche_ISBN(MYSQL *conn, char *titre, char *auteur);
 void afficher_tous_les_livres(MYSQL *conn);
+void rechercherLivreParTitre(MYSQL *conn, const char *titre);
+void rechercherLivreParAuteur(MYSQL *conn, const char *auteur);
 
 // gestion_reservation.c
 bool au_moins_un_exemplaire_disponible(MYSQL *conn, char *isbn_livre);
