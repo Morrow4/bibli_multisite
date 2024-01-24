@@ -72,7 +72,7 @@ void consultation_stat_site(MYSQL *conn, int user_type) {
                  "LEFT JOIN Exemplaire ON Emprunt.ID_Exemplaire = Exemplaire.ID_Exemplaire "
                  "WHERE DATE_FORMAT(Emprunt.DateEmprunt, '%%Y-%%m-%%d') = DATE_FORMAT(NOW(), '%%Y-%%m-%%d') "
                  "AND Exemplaire.SitePrincipal = '%s' "
-                 "GROUP BY Exemplaire.SitePrincipal;", site);
+                 "GROUP BY Exemplaire.SitePrincipal;", row[0]);
     } else if (strcmp(unite, "mois") == 0) {
         snprintf(query, sizeof(query),
                  "SELECT Exemplaire.SitePrincipal, "
@@ -81,7 +81,7 @@ void consultation_stat_site(MYSQL *conn, int user_type) {
                  "LEFT JOIN Exemplaire ON Emprunt.ID_Exemplaire = Exemplaire.ID_Exemplaire "
                  "WHERE DATE_FORMAT(Emprunt.DateEmprunt, '%%Y-%%m') = DATE_FORMAT(NOW(), '%%Y-%%m') "
                  "AND Exemplaire.SitePrincipal = '%s' "
-                 "GROUP BY Exemplaire.SitePrincipal;", site);
+                 "GROUP BY Exemplaire.SitePrincipal;", row[0]);
     } else if (strcmp(unite, "année") == 0) {
         snprintf(query, sizeof(query),
                  "SELECT Exemplaire.SitePrincipal, "
@@ -90,7 +90,7 @@ void consultation_stat_site(MYSQL *conn, int user_type) {
                  "LEFT JOIN Exemplaire ON Emprunt.ID_Exemplaire = Exemplaire.ID_Exemplaire "
                  "WHERE DATE_FORMAT(Emprunt.DateEmprunt, '%%Y') = DATE_FORMAT(NOW(), '%%Y') "
                  "AND Exemplaire.SitePrincipal = '%s' "
-                 "GROUP BY Exemplaire.SitePrincipal;", site);
+                 "GROUP BY Exemplaire.SitePrincipal;", row[0]);
     }
 
     // Exécution de la requête
@@ -122,7 +122,7 @@ void consultation_stat_site(MYSQL *conn, int user_type) {
                  "LEFT JOIN Exemplaire ON Reservation.ID_Exemplaire = Exemplaire.ID_Exemplaire "
                  "WHERE DATE_FORMAT(Reservation.DateReservation, '%%Y-%%m-%%d') = DATE_FORMAT(NOW(), '%%Y-%%m-%%d') "
                  "AND Exemplaire.SitePrincipal = '%s' "
-                 "GROUP BY Exemplaire.SitePrincipal;", site);
+                 "GROUP BY Exemplaire.SitePrincipal;", row[0]);
     } else if (strcmp(unite, "mois") == 0) {
         snprintf(query, sizeof(query),
                  "SELECT Exemplaire.SitePrincipal, "
@@ -132,7 +132,7 @@ void consultation_stat_site(MYSQL *conn, int user_type) {
                  "WHERE DATE_FORMAT(Emprunt.DateEmprunt, '%%Y-%%m') = DATE_FORMAT(NOW(), '%%Y-%%m') "
                  "AND DATE_FORMAT(Reservation.DateReservation, '%%Y-%%m') = DATE_FORMAT(NOW(), '%%Y-%%m') "
                  "AND Exemplaire.SitePrincipal = '%s' "
-                 "GROUP BY Exemplaire.SitePrincipal;", site);
+                 "GROUP BY Exemplaire.SitePrincipal;", row[0]);
     } else if (strcmp(unite, "année") == 0) {
         snprintf(query, sizeof(query),
                  "SELECT Exemplaire.SitePrincipal, "
@@ -141,7 +141,7 @@ void consultation_stat_site(MYSQL *conn, int user_type) {
                  "LEFT JOIN Exemplaire ON Reservation.ID_Exemplaire = Exemplaire.ID_Exemplaire "
                  "WHERE DATE_FORMAT(Reservation.DateReservation, '%%Y') = DATE_FORMAT(NOW(), '%%Y') "
                  "AND Exemplaire.SitePrincipal = '%s' "
-                 "GROUP BY Exemplaire.SitePrincipal;", site);
+                 "GROUP BY Exemplaire.SitePrincipal;", row[0]);
     }
 
     // Exécution de la requête
