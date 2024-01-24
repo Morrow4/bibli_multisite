@@ -175,15 +175,14 @@ void afficher_reservations_utilisateur(MYSQL *conn, char *email_utilisateur)
 
     // Afficher les réservations
     printf("\n+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+\n");
-    printf("|%-14s|%-100s|%-50s|%-13s|%-19s|%-9s|\n", "ID_Réservation", "Titre", "Auteur", "ISBN", "Date de réservation", "Réservé");
+    printf("|%-14s|%-100s|%-50s|%-13s|%-19s|%-7s|\n", "ID_Réservation", "Titre", "Auteur", "ISBN", "Date de réservation", "Réservé");
     printf("+--------------|----------------------------------------------------------------------------------------------------|--------------------------------------------------|-------------|-------------------|-------+\n");
 
     MYSQL_ROW row;
     while ((row = mysql_fetch_row(result)) != NULL)
     {
-        printf("|%-14s|%-100s|%-50s|%-13s|%-19s|%-9s|\n", row[0], row[1], row[2], row[3], row[5], (atoi(row[4]) ? "Oui" : "Non"));
+        printf("|%-14s|%-100s|%-50s|%-13s|%-19s|%-7s|\n", row[0], row[1], row[2], row[3], row[5], (atoi(row[4]) ? "Oui" : "Non"));
     }
-
     printf("+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+\n");
 
     // Libérer la mémoire du résultat
@@ -196,9 +195,9 @@ void annuler_reservation_par_id(MYSQL *conn, char *email_utilisateur)
     int id_reservation;
     int choix_recherche = 0;
 
-    while (choix_recherche != 3)
+    while (choix_recherche != 2)
     {
-        printf("\n+-----------------------------------+\n");
+        printf("\n+-------------------------------------+\n");
         printf("|-------Annuler une réservation-------|\n");
         printf("|1) Voir toutes mes réservations      |\n");
         printf("|2) Annuler la réservation avec son ID|\n");
@@ -223,12 +222,12 @@ void annuler_reservation_par_id(MYSQL *conn, char *email_utilisateur)
         }
     }
 
-    printf("Veuillez saisir l'ID de la réservation que vous souhaitez supprimer : ");
+    printf("\nVeuillez saisir l'ID de la réservation que vous souhaitez supprimer : ");
     scanf("%d", &id_reservation);
     getchar();
 
     // Vérifier si la réservation existe
-    if (!reservation_existe(conn, id_reservation))
+    if (!reservation_existe_et_valide(conn, id_reservation))
     {
         printf("La réservation avec l'ID %d n'existe pas.\n", id_reservation);
         return;
@@ -261,29 +260,29 @@ void annuler_reservation_par_id(MYSQL *conn, char *email_utilisateur)
     printf("La réservation avec l'ID %d a été annulée avec succès.\n", id_reservation);
 }
 
-// Fonction pour vérifier si une réservation existe
-bool reservation_existe(MYSQL *conn, int id_reservation)
+// Fonction pour vérifier si la réservation existe et est encore valide
+bool reservation_existe_et_valide(MYSQL *conn, int id_reservation)
 {
-    // Requête SQL pour vérifier l'existence de la réservation
+    // Requête SQL pour vérifier si la réservation existe et est encore valide
     char query[1024];
-    sprintf(query, "SELECT COUNT(*) FROM Reservation WHERE ID_Reservation = %d", id_reservation);
+    sprintf(query, "SELECT COUNT(*) FROM Reservation WHERE ID_Reservation=%d AND EstReserve=true", id_reservation);
 
     // Exécuter la requête SQL
     if (mysql_query(conn, query))
     {
-        fprintf(stderr, "Erreur lors de la vérification de l'existence de la réservation : %s\n", mysql_error(conn));
+        fprintf(stderr, "Erreur lors de la vérification de l'existence et de la validité de la réservation : %s\n", mysql_error(conn));
         return false;
     }
 
     // Récupérer le résultat de la requête
     MYSQL_RES *result = mysql_store_result(conn);
     MYSQL_ROW row = mysql_fetch_row(result);
-    int nombre_reservations = atoi(row[0]);
+    int nombre_reservations_valides = atoi(row[0]);
 
     // Libérer la mémoire du résultat
     mysql_free_result(result);
 
-    return (nombre_reservations > 0);
+    return (nombre_reservations_valides > 0);
 }
 
 // Fonction pour obtenir l'ID de l'exemplaire à partir de l'ID de la réservation
@@ -317,4 +316,75 @@ int obtenir_id_exemplaire_de_reservation(MYSQL *conn, int id_reservation)
     mysql_free_result(result);
 
     return id_exemplaire;
+}
+
+// Fonction permettant d'emprunter une réservation
+void emprunter_livre_apres_reservation(MYSQL *conn, char *email_utilisateur)
+{
+    int id_reservation;
+    int choix_recherche = 0;
+
+    while (choix_recherche != 2)
+    {
+        printf("\n+---------------------------------+\n");
+        printf("|----Emprunter un livre réservé---|\n");
+        printf("|1) Voir toutes mes réservations  |\n");
+        printf("|2) Emprunter le livre avec son ID|\n");
+        printf("+---------------------------------+\n");
+        printf("\nVeuillez entrer le numéro du choix correspondant à ce que vous voulez faire : ");
+        scanf("%d", &choix_recherche);
+
+        switch (choix_recherche)
+        {
+        case 1:
+            afficher_reservations_utilisateur(conn, email_utilisateur);
+            break;
+
+        case 2:
+            break;
+
+        default:
+            printf("\n+-----------------------------------+\n");
+            printf("+Choix invalide. Veuillez réessayer.+\n");
+            printf("+-----------------------------------+\n\n");
+            break;
+        }
+    }
+
+    printf("\nVeuillez saisir l'ID de la réservation liée au livre que vous souhaitez emprunter : ");
+    scanf("%d", &id_reservation);
+    getchar();
+
+    // Vérifier si la réservation existe et est encore valide
+    if (reservation_existe_et_valide(conn, id_reservation))
+    {
+        // Obtenir l'ID de l'exemplaire réservé
+        int id_exemplaire = obtenir_id_exemplaire_de_reservation(conn, id_reservation);
+
+        // Mettre à jour le champ EstReserve de la réservation
+        mettre_a_jour_est_reserve_reservation(conn, id_reservation, false);
+
+        // Appeler la fonction d'emprunt
+        Emprunt_soimeme(conn, email_utilisateur);
+
+        printf("Emprunt effectué avec succès !\n");
+    }
+    else
+    {
+        printf("La réservation n'existe pas ou n'est plus valide.\n");
+    }
+}
+
+// Fonction pour mettre à jour le champ EstReserve de la réservation
+void mettre_a_jour_est_reserve_reservation(MYSQL *conn, int id_reservation, bool est_reserve)
+{
+    // Requête SQL pour mettre à jour le champ EstReserve de la réservation
+    char query[1024];
+    sprintf(query, "UPDATE Reservation SET EstReserve=%d WHERE ID_Reservation=%d", est_reserve, id_reservation);
+
+    // Exécuter la requête SQL
+    if (mysql_query(conn, query))
+    {
+        fprintf(stderr, "Erreur lors de la mise à jour du champ EstReserve de la réservation : %s\n", mysql_error(conn));
+    }
 }

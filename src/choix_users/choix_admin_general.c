@@ -49,7 +49,7 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
         printf("      /                  \\|________)     /  /  | |                     /\n");
         printf("\n+----------------------------------------------------------------+\n");
         printf("|                         MENU PRINCIPAL                         |\n");
-        printf("|                                                                |\n");
+        printf("|----------------------------------------------------------------|\n");
         printf("|-------------------- Administrateur Général --------------------|\n");
         printf("|----------------------------------------------------------------|\n");
         printf("| 1)  Lister les livres et leur disponibilité dans les sites     |\n");
@@ -71,6 +71,7 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
         printf("| 17) Déconnexion                                                |\n");
         printf("| 18) Annuler une réservation                                    |\n");
         printf("| 19) Voir mes réservations                                      |\n");
+        printf("| 20) Emprunter un livre réservé                                 |\n");
         printf("+----------------------------------------------------------------+\n");
 
         printf("\nVeuillez entrer le numéro du choix correspondant à ce que vous voulez faire : ");
@@ -107,7 +108,7 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
 
         case 6:
             consultation_stat(conn, user_type);
-            //system("clear");
+            // system("clear");
             break;
 
         case 7:
@@ -177,6 +178,10 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
 
         case 19:
             afficher_reservations_utilisateur(conn, username);
+            break;
+
+        case 20:
+            emprunter_livre_apres_reservation(conn, username);
             break;
 
         default:

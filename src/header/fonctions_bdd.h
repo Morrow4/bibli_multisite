@@ -46,8 +46,10 @@ void mettre_a_jour_disponibilite_exemplaire(MYSQL *conn, int id_exemplaire, bool
 void enregistrer_reservation(MYSQL *conn, char *email_utilisateur, int id_exemplaire);
 void afficher_reservations_utilisateur(MYSQL *conn, char *email_utilisateur);
 void annuler_reservation_par_id(MYSQL *conn, char *email_utilisateur);
-bool reservation_existe(MYSQL *conn, int id_reservation);
+bool reservation_existe_et_valide(MYSQL *conn, int id_reservation);
 int obtenir_id_exemplaire_de_reservation(MYSQL *conn, int id_reservation);
+void emprunter_livre_apres_reservation(MYSQL *conn, char *email_utilisateur);
+void mettre_a_jour_est_reserve_reservation(MYSQL *conn, int id_reservation, bool est_reserve);
 
 // gestion_restitution.c
 void enregistrer_restitution(MYSQL *conn, int id_emprunt, const char *site_restitution);
@@ -62,13 +64,6 @@ int is_valid(const char *str);
 void suppression_compte(MYSQL *conn, char *username);
 void ajout_compte(MYSQL *conn, char *username);
 void blocage_compte(MYSQL *conn, char *username);
-
-// emprunt_reservation.c
-void emprunter_livre(MYSQL *conn, char *email_utilisateur, int id_reservation);
-bool reservation_existe_et_valide(MYSQL *conn, int id_reservation);
-int obtenir_id_exemplaire_reservé(MYSQL *conn, int id_reservation);
-void mettre_a_jour_est_reserve_reservation(MYSQL *conn, int id_reservation, bool est_reserve);
-void enregistrer_emprunt(MYSQL *conn, char *email_utilisateur, int id_exemplaire);
 
 // Emprunt_soimeme.c
 int nombreLivresParTitre(const char *titreRecherche);
