@@ -43,7 +43,7 @@ void enregistrer_restitution(MYSQL *conn, char *email_utilisateur)
     scanf("%d", &id_emprunt);
     getchar();
 
-    printf("\nVeuillez saisir le site dans lequel le est livre restitué : ");
+    printf("\nVeuillez saisir le site dans lequel le livre est restitué : ");
     scanf("%s", site_restitution);
     getchar();
 
