@@ -193,7 +193,7 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
             break;
 
         case 21:
-            valider_restitution_apres_transit(MYSQL * conn);
+            valider_restitution_apres_transit(conn);
             break;
 
         default:
