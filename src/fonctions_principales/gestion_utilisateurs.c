@@ -200,7 +200,7 @@ void ajout_compte(MYSQL *conn, char *username)
 
     // Ajout de l'utilisateur dans le serveur 
     char createMaria[1024], grantMaria[1024], flushMaria[30];
-    sprintf(createMaria, "CREATE USER '%s'@'localhost';",login);
+    sprintf(createMaria, "CREATE USER '%s'@'localhost'",login);
     sprintf(grantMaria, "GRANT ALL PRIVILEGES ON *.* TO '%s'@'localhost' WITH GRANT OPTION", login);
     sprintf(flushMaria, "FLUSH PRIVILEGES");
 
