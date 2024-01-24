@@ -98,7 +98,7 @@ void choix_admin_site_bibliotheque(MYSQL *conn, char *username)
         break;
 
     case 11:
-        Emprunt_soimeme(conn, username);
+        emprunter_livre(conn, username);
         break;
 
     case 12:
