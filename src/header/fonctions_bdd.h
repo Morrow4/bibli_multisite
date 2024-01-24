@@ -47,6 +47,7 @@ void enregistrer_reservation(MYSQL *conn, char *email_utilisateur, int id_exempl
 void afficher_reservations_utilisateur(MYSQL *conn, char *email_utilisateur);
 void annuler_reservation_par_id(MYSQL *conn, char *email_utilisateur);
 bool reservation_existe(MYSQL *conn, int id_reservation);
+int obtenir_id_exemplaire_de_reservation(MYSQL *conn, int id_reservation);
 
 // gestion_restitution.c
 void enregistrer_restitution(MYSQL *conn, int id_emprunt, const char *site_restitution);
