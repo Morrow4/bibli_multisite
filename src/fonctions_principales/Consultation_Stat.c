@@ -17,7 +17,7 @@ void consultation_stat_site(MYSQL *conn, int user_type) {
         case 1: // admin general
             while (strcmp(site, "Site A") != 0 && strcmp(site, "Site B") != 0 && strcmp(site, "Site C") != 0) {
                 while (getchar() != '\n');
-                printf("Choisissez un site (Site A, Site B, Site C) : \n");
+                printf("Choisissez un site (Site A, Site B, Site C) :\n");
                 fgets(site, sizeof(site), stdin);
                 site[strcspn(site, "\n")] = '\0'; // Supprimer le caractère de nouvelle ligne de la saisie
             }
@@ -111,12 +111,27 @@ void consultation_stat_3site(MYSQL* conn) {
     }
     // Construction de la requête SQL pour récupérer le nombre d'emprunts par site
     char query[1000];
-    snprintf(query, sizeof(query),
-            "SELECT COUNT(DISTINCT Emprunt.ID_Emprunt) AS nb_emprunts "
-            "FROM Emprunt "
-            "LEFT JOIN Exemplaire ON Emprunt.ID_Exemplaire = Exemplaire.ID_Exemplaire "
-            "WHERE DATE_FORMAT(Emprunt.DateEmprunt, '%%Y-%%m-%%d') = DATE_FORMAT(NOW(), '%%Y-%%m-%%d');");
 
+    // Construisez la requête en fonction de l'unité de temps choisie
+    if (strcmp(unite, "jour") == 0) {
+        snprintf(query, sizeof(query),
+                 "SELECT COUNT(DISTINCT Emprunt.ID_Emprunt) AS nb_emprunts "
+                 "FROM Emprunt "
+                 "LEFT JOIN Exemplaire ON Emprunt.ID_Exemplaire = Exemplaire.ID_Exemplaire "
+                 "WHERE DATE_FORMAT(Emprunt.DateEmprunt, '%%Y-%%m-%%d') = DATE_FORMAT(NOW(), '%%Y-%%m-%%d');");
+    } else if (strcmp(unite, "mois") == 0) {
+        snprintf(query, sizeof(query),
+                 "SELECT COUNT(DISTINCT Emprunt.ID_Emprunt) AS nb_emprunts "
+                 "FROM Emprunt "
+                 "LEFT JOIN Exemplaire ON Emprunt.ID_Exemplaire = Exemplaire.ID_Exemplaire "
+                 "WHERE DATE_FORMAT(Emprunt.DateEmprunt, '%%Y-%%m') = DATE_FORMAT(NOW(), '%%Y-%%m');");
+    } else if (strcmp(unite, "année") == 0) {
+        snprintf(query, sizeof(query),
+                 "SELECT COUNT(DISTINCT Emprunt.ID_Emprunt) AS nb_emprunts "
+                 "FROM Emprunt "
+                 "LEFT JOIN Exemplaire ON Emprunt.ID_Exemplaire = Exemplaire.ID_Exemplaire "
+                 "WHERE DATE_FORMAT(Emprunt.DateEmprunt, '%%Y') = DATE_FORMAT(NOW(), '%%Y');");
+    }
 
     // Exécution de la requête
     if (mysql_query(conn, query) != 0) {
@@ -139,12 +154,23 @@ void consultation_stat_3site(MYSQL* conn) {
         printf("%-15s\n", row[0]);
     }
 
-    // Construction de la requête SQL pour récupérer le nombre de réservations par site
-    snprintf(query, sizeof(query),
-        "SELECT COUNT(DISTINCT Reservation.ID_Reservation) AS nb_reservations "
-        "FROM Emprunt "
-        "LEFT JOIN Reservation ON Exemplaire.ID_Exemplaire = Reservation.ID_Exemplaire "
-        "WHERE DATE_FORMAT(Reservation.DateReservation, '%%Y-%%m-%%d') = DATE_FORMAT(NOW(), '%%Y-%%m-%%d');");
+    // Construisez la requête en fonction de l'unité de temps choisie pour les réservations
+    if (strcmp(unite, "jour") == 0) {
+        snprintf(query, sizeof(query),
+                 "SELECT COUNT(DISTINCT Reservation.ID_Reservation) AS nb_reservations "
+                 "FROM Reservation "
+                 "WHERE DATE_FORMAT(Reservation.DateReservation, '%%Y-%%m-%%d') = DATE_FORMAT(NOW(), '%%Y-%%m-%%d');");
+    } else if (strcmp(unite, "mois") == 0) {
+        snprintf(query, sizeof(query),
+                 "SELECT COUNT(DISTINCT Reservation.ID_Reservation) AS nb_reservations "
+                 "FROM Reservation "
+                 "WHERE DATE_FORMAT(Reservation.DateReservation, '%%Y-%%m') = DATE_FORMAT(NOW(), '%%Y-%%m');");
+    } else if (strcmp(unite, "année") == 0) {
+        snprintf(query, sizeof(query),
+                 "SELECT COUNT(DISTINCT Reservation.ID_Reservation) AS nb_reservations "
+                 "FROM Reservation "
+                 "WHERE DATE_FORMAT(Reservation.DateReservation, '%%Y') = DATE_FORMAT(NOW(), '%%Y');");
+    }
 
     // Exécution de la requête
     if (mysql_query(conn, query) != 0) {
