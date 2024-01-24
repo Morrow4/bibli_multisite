@@ -59,6 +59,9 @@ int valider_restitution(MYSQL *conn, int id_emprunt, char *site_restitution);
 void marquer_restitution_en_transit(MYSQL *conn, int id_emprunt, char *site_restitution);
 void marquer_exemplaire_disponible(MYSQL *conn, int id_emprunt);
 void mettre_a_jour_date_restitution(MYSQL *conn, int id_restitution);
+void afficher_livres_restitues_apres_transit(MYSQL *conn);
+void valider_restitution_apres_transit(MYSQL *conn);
+int obtenir_id_emprunt_de_restitution(MYSQL *conn, int id_restitution);
 
 // gestion_utilisateurs.c
 int is_valid(const char *str);
@@ -66,13 +69,14 @@ void suppression_compte(MYSQL *conn, char *username);
 void ajout_compte(MYSQL *conn, char *username);
 void blocage_compte(MYSQL *conn, char *username);
 
-// Emprunt_soimeme.c
+// gestion_emprunts.c
 int nombreLivresParTitre(const char *titreRecherche);
 void afficherDetailsLivre(const Livre *livre);
 void effectuerEmprunt(MYSQL *conn, const char *ISBN, const char *username);
 void verifierEtEffectuerEmprunt(MYSQL *conn, const char *ISBN, const char *username);
 int trouverRetard(MYSQL *conn, const char *ISBN, double *joursDeRetard);
 void Emprunt_soimeme(MYSQL *conn, char *username);
+void afficher_emprunts_non_restitues_utilisateur(MYSQL *conn, char *email_utilisateur);
 
 // gestion_exemplaires.c
 void ajout_exemplaire(MYSQL *conn);
