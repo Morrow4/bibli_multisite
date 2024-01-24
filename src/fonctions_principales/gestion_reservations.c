@@ -222,7 +222,7 @@ void annuler_reservation_par_id(MYSQL *conn, char *email_utilisateur)
         }
     }
 
-    printf("Veuillez saisir l'ID de la réservation que vous souhaitez supprimer : ");
+    printf("\nVeuillez saisir l'ID de la réservation que vous souhaitez supprimer : ");
     scanf("%d", &id_reservation);
     getchar();
 
