@@ -19,7 +19,7 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
     {
         printf("\n+----------------------------------------------------------------+\n");
         printf("|                         MENU PRINCIPAL                         |\n");
-        printf("|                                                                |\n");
+        printf("|----------------------------------------------------------------|\n");
         printf("|-------------------- Administrateur Général --------------------|\n");
         printf("|----------------------------------------------------------------|\n");
         printf("| 1)  Lister les livres et leur disponibilité dans les sites     |\n");
@@ -76,7 +76,7 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
 
         case 6:
             consultation_stat(conn, user_type);
-            //system("clear");
+            // system("clear");
             break;
 
         case 7:
