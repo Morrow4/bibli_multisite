@@ -72,7 +72,7 @@ void consultation_stat_site(MYSQL *conn, int user_type) {
              "WHERE DATE_FORMAT(Emprunt.DateEmprunt, '%%Y-%%m-%%d') = DATE_FORMAT(NOW(), '%%Y-%%m-%%d') "
              "AND DATE_FORMAT(Reservation.DateReservation, '%%Y-%%m-%%d') = DATE_FORMAT(NOW(), '%%Y-%%m-%%d') "
              "AND Exemplaire.SitePrincipal = '%p' "
-             "GROUP BY Exemplaire.SitePrincipal;", res);
+             "GROUP BY Exemplaire.SitePrincipal;", site);
     mysql_free_result(res);
 
     // Exécution de la requête
