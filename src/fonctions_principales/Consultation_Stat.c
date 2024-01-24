@@ -16,9 +16,10 @@ void consultation_stat_site(MYSQL *conn, int user_type) {
     {
         case 1: // admin general
             while (strcmp(site, "Site A") != 0 && strcmp(site, "Site B") != 0 && strcmp(site, "Site C") != 0) {
+                while (getchar() != '\n');
+                printf("Choisissez un site (Site A, Site B, Site C) : \n");
                 fgets(site, sizeof(site), stdin);
                 site[strcspn(site, "\n")] = '\0'; // Supprimer le caractère de nouvelle ligne de la saisie
-                printf("Choisissez un site (Site A, Site B, Site C) : \n");
             }
             break;
         case 2: // admin site
@@ -55,9 +56,10 @@ void consultation_stat_site(MYSQL *conn, int user_type) {
     // Saisie utilisateur pour choisir l'unité de temps
     char unite[20];
     while (strcmp(unite, "jour") != 0 && strcmp(unite, "mois") != 0 && strcmp(unite, "année") != 0) {
+        while (getchar() != '\n');
+        printf("Choisissez l'unité de temps (jour, mois, année) : \n");
         fgets(unite, sizeof(unite), stdin);
         unite[strcspn(unite, "\n")] = '\0'; // Supprimer le caractère de nouvelle ligne de la saisie
-        printf("Choisissez l'unité de temps (jour, mois, année) : \n");
     }
 
     // Construction de la requête SQL pour récupérer le nombre d'emprunts et de réservations par site
@@ -102,9 +104,10 @@ void consultation_stat_3site(MYSQL* conn) {
     // Saisie utilisateur pour choisir l'unité de temps
     char unite[20];
     while (strcmp(unite, "jour") != 0 && strcmp(unite, "mois") != 0 && strcmp(unite, "année") != 0) {
+        while (getchar() != '\n');
+        printf("Choisissez l'unité de temps (jour, mois, année) : \n");
         fgets(unite, sizeof(unite), stdin);
         unite[strcspn(unite, "\n")] = '\0'; // Supprimer le caractère de nouvelle ligne de la saisie
-        printf("Choisissez l'unité de temps (jour, mois, année) : \n");
     }
     // Construction de la requête SQL pour récupérer le nombre d'emprunts et de réservations par site
     char query[1000];
