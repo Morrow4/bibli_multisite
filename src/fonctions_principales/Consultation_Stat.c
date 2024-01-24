@@ -81,7 +81,7 @@ void consultation_stat_site(MYSQL *conn, int user_type) {
 
 
     printf("PROB1\n");        
-    mysql_free_result(res);
+    mysql_free_result(result);
     printf("PROB2\n");  
     // Exécution de la requête
     if (mysql_query(conn, query) != 0) {
