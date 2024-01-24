@@ -48,8 +48,11 @@ void ajout_compte(MYSQL *conn, char *username);
 void blocage_compte(MYSQL *conn, char *username);
 
 // gestion_emprunts.c
-void effectuerEmprunt(MYSQL *conn, char *ISBN, char *username);
 void emprunter_livre(MYSQL *conn, char *username);
+void effectuerEmprunt(MYSQL *conn, char *ISBN, char *username);
+int ISBNExiste(MYSQL *conn, char *ISBN);
+int obtenirIdExemplaireDisponible(MYSQL *conn, char *ISBN);
+void mettreAJourDisponibiliteExemplaire(MYSQL *conn, int id_exemplaire, int disponibilite);
 void afficher_emprunts_non_restitues_utilisateur(MYSQL *conn, char *email_utilisateur);
 
 // gestion_exemplaires.c
