@@ -203,18 +203,32 @@ void ajout_compte(MYSQL *conn, char *username)
     }
     fprintf(log_file, "Utilisateur créé dans la base de donnée bibliotèque: %s, Groupe: %s\n", login, type_user); // log ajout bdd
 
-    // Ajout de l'utilisateur dans le serveur 
-    char createMaria[1024], grantMaria[1024], flushMaria[30];
+    // Ajout de l'utilisateur dans le serveur   
+    char createMaria[1024];
+    sprintf(createMaria, "CREATE USER '%s'@'localhost' IDENTIFIED BY ''", login);
+    if (mysql_query(conn, createMaria))
+    {
+        fprintf(stderr, "Erreur lors de la création de l'utilisateur: %s\n", mysql_error(conn));
+        sleep(5);
+    }
+    else
+    {
+        printf("Utilisateur créé dans Mariadb avec succès.\n");
 
-    sprintf(createMaria, "CREATE USER %s@localhost",username);
-    sprintf(grantMaria, "GRANT ALL PRIVILEGES ON *.* TO %s@localhost WITH GRANT OPTION", username);
-    sprintf(flushMaria, "FLUSH PRIVILEGES");
-    // Afficher les commandes pour déboguer
-    printf("Commande CREATE USER : %s\n", createMaria);
-    printf("Commande GRANT : %s\n", grantMaria);
-    printf("Commande FLUSH PRIVILEGES : %s\n", flushMaria);
-    sleep(5);
-    fprintf(log_file, "Utilisateur créé dans Mariadb: %s, Groupe: %s\n", login, type_user); // log ajout bdd    
+        char grantMaria[1024];
+        sprintf(grantMaria, "GRANT ALL PRIVILEGES ON *.* TO '%s'@'localhost' WITH GRANT OPTION", login);
+        if (mysql_query(conn, grantMaria))
+        {
+            fprintf(stderr, "Erreur lors de l'accord des privilèges: %s\n", mysql_error(conn));
+            sleep(5);
+        }
+        else
+        {
+            printf("Privilèges accordés avec succès.\n");
+            sleep(5);
+        }
+    }
+
 
 
     // Création de l'utilisateur sur le système
