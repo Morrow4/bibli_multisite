@@ -46,148 +46,151 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
 
     while (choix_user != 17) // L'option de déconnexion est le choix 17
     {
-        printf("\n+----------------------------------------------------------------+\n");
-        printf("|                         MENU PRINCIPAL                         |\n");
-        printf("|----------------------------------------------------------------|\n");
-        printf("|-------------------- Administrateur Général --------------------|\n");
+        printf("+----------------------------------------------------------------+\n");
+        printf("|                      Menu Principal                             |\n");
+        printf("+----------------------------------------------------------------+\n");
+        printf("|                        Gestion des Livres                      |\n");
         printf("|----------------------------------------------------------------|\n");
         printf("| 1)  Lister les livres et leur disponibilité dans les sites     |\n");
-        printf("| 3)  Réserver un livre pour un utilisateur inscrit              |\n");
-        printf("| 4)  Ajouter un compte utilisateur ou administrateur            |\n");
-        printf("| 5)  Supprimer un compte utilisateur ou administrateur          |\n");
-        printf("| 6)  Consulter les statistiques globales de la bibliothèque     |\n");
-        printf("| 7)  Ajouter un livre                                           |\n");
-        printf("| 8)  Mettre à jour les informations d'un livre                  |\n");
-        printf("| 9)  Supprimer un livre                                         |\n");
-        printf("| 10) Bloquer un utilisateur temporairement                      |\n");
-        printf("| 11) Enregistrer la restitution d'un livre                      |\n");
-        printf("| 13) Emprunter un livre pour un utilisateur inscrit             |\n");
-        printf("| 14) Ajouter un exemplaire                                      |\n");
-        printf("| 15) Mettre à jour les informations d'un exemplaire             |\n");
-        printf("| 16) Supprimer un exemplaire                                    |\n");
-        printf("| 17) Déconnexion                                                |\n");
-        printf("| 18) Annuler une réservation                                    |\n");
-        printf("| 19) Voir mes réservations                                      |\n");
-        printf("| 20) Emprunter un livre réservé                                 |\n");
-        printf("| 21) Valider la restitution des livres rappatriés               |\n");
+        printf("| 2)  Ajouter un livre                                           |\n");
+        printf("| 3)  Mettre à jour les informations d'un livre                  |\n");
+        printf("| 4)  Supprimer un livre                                         |\n");
+        printf("| 5)  Ajouter un exemplaire                                      |\n");
+        printf("| 6)  Mettre à jour les informations d'un exemplaire             |\n");
+        printf("| 7)  Supprimer un exemplaire                                    |\n");
+        printf("| 8)  Enregistrer la restitution d'un livre                       |\n");
+        printf("| 9)  Valider la restitution des livres rappatriés               |\n");
+        printf("|----------------------------------------------------------------|\n");
+        printf("|                        Gestion des Utilisateurs                 |\n");
+        printf("|----------------------------------------------------------------|\n");
+        printf("| 10) Ajouter un compte utilisateur ou administrateur            |\n");
+        printf("| 11) Supprimer un compte utilisateur ou administrateur          |\n");
+        printf("| 12) Bloquer un utilisateur temporairement                      |\n");
+        printf("|----------------------------------------------------------------|\n");
+        printf("|                        Gestion des Réservations                |\n");
+        printf("|----------------------------------------------------------------|\n");
+        printf("| 13) Réserver un livre pour un utilisateur inscrit               |\n");
+        printf("| 14) Emprunter un livre pour un utilisateur inscrit              |\n");
+        printf("| 15) Annuler une réservation                                    |\n");
+        printf("| 16) Voir mes réservations                                      |\n");
+        printf("| 17) Emprunter un livre réservé                                 |\n");
+        printf("|----------------------------------------------------------------|\n");
+        printf("|                        Statistiques                             |\n");
+        printf("|----------------------------------------------------------------|\n");
+        printf("| 18) Consulter les statistiques globales de la bibliothèque     |\n");
+        printf("|----------------------------------------------------------------|\n");
+        printf("|                        Autres Options                           |\n");
+        printf("|----------------------------------------------------------------|\n");
+        printf("| 19) Déconnexion                                                |\n");
         printf("+----------------------------------------------------------------+\n");
-
         printf("\nVeuillez entrer le numéro du choix correspondant à ce que vous voulez faire : ");
         scanf("%d", &choix_user);
         printf("\n\n");
-
         switch (choix_user)
         {
-        case 1:
-            system("clear");
-            afficher_tous_les_livres(conn);
-            break;
+            case 1:
+                system("clear");
+                afficher_tous_les_livres(conn);
+                break;
 
-        case 3:
-            system("clear");
-            printf("Veuillez saisir le login de l'utilisateur qui veut réserver un livre : ");
-            scanf("%s", login_utilisateur);
-            reserver_livre(conn, login_utilisateur);
-            break;
+            case 2:
+                system("clear");
+                ajout_livre(conn);
+                break;
 
-        case 4:
-            ajout_compte(conn, username);
-            system("clear");
-            break;
+            case 3:
+                system("clear");
+                mise_a_jour_livre(conn);
+                break;
 
-        case 5:
-            suppression_compte(conn, username);
-            system("clear");
-            break;
+            case 4:
+                system("clear");
+                suppression_livre(conn);
+                break;
 
-        case 6:
-            system("clear");
-            consultation_stat(conn, user_type);
-            // system("clear");
-            break;
+            case 5:
+                system("clear");
+                ajout_exemplaire(conn);
+                break;
 
-        case 7:
-            ajout_livre(conn);
-            system("clear");
-            break;
+            case 6:
+                system("clear");
+                mise_a_jour_exemplaire(conn);
+                break;
 
-        case 8:
-            mise_a_jour_livre(conn);
-            system("clear");
-            break;
+            case 7:
+                system("clear");
+                suppression_exemplaire(conn);
+                break;
 
-        case 9:
-            system("clear");
-            suppression_livre(conn);
-            system("clear");
-            break;
+            case 8:
+                system("clear");
+                enregistrer_restitution(conn, username);
+                break;
 
-        case 10:
-            system("clear");
-            blocage_compte(conn, username);
-            system("clear");
-            break;
+            case 9:
+                system("clear");
+                valider_restitution_apres_transit(conn);
+                break;
 
-        case 11:
-            enregistrer_restitution(conn, username);
-            system("clear");
-            break;
+            case 10:
+                system("clear");
+                ajout_compte(conn, username);
+                break;
 
-        case 13:
-            printf("Veuillez saisir le login de l'utilisateur qui veut emprunter un livre : ");
-            scanf("%s", login_utilisateur);
-            Emprunt_soimeme(conn, login_utilisateur);
-            system("clear");
-            break;
+            case 11:
+                system("clear");
+                suppression_compte(conn, username);
+                break;
 
-        case 14:
-            ajout_exemplaire(conn);
-            system("clear");
-            break;
+            case 12:
+                system("clear");
+                blocage_compte(conn, username);
+                break;
 
-        case 15:
-            mise_a_jour_exemplaire(conn);
-            system("clear");
-            break;
+            case 13:
+                system("clear");
+                reserver_livre(conn, login_utilisateur);
+                break;
 
-        case 16:
-            suppression_exemplaire(conn);
-            system("clear");
-            break;
+            case 14:
+                printf("Veuillez saisir le login de l'utilisateur qui veut emprunter un livre : ");
+                scanf("%s", login_utilisateur);
+                Emprunt_soimeme(conn, login_utilisateur);
+                system("clear");
+                break;
 
-        case 17:
-            deconnexion(conn);
-            system("clear");
-            break;
+            case 15:
+                system("clear");
+                annuler_reservation_par_id(conn, username);
+                break;
 
-        case 18:
-            system("clear");
-            annuler_reservation_par_id(conn, username);
-            system("clear");
-            break;
+            case 16:
+                system("clear");
+                afficher_reservations_utilisateur(conn, username);
+                break;
 
-        case 19:
-            system("clear");
-            afficher_reservations_utilisateur(conn, username);
-            system("clear");
-            break;
+            case 17:
+                system("clear");
+                emprunter_livre_apres_reservation(conn, username);
+                break;
 
-        case 20:
-            system("clear");
-            emprunter_livre_apres_reservation(conn, username);
-            system("clear");
-            break;
+            case 18:
+                system("clear");
+                consultation_stat(conn, user_type);
+                break;
 
-        case 21:
-            valider_restitution_apres_transit(conn);
-            break;
+            case 19:
+                system("clear");
+                deconnexion(conn);
+                break;
 
-        default:
-            printf("\n+-----------------------------------+\n");
-            printf("+Choix invalide. Veuillez réessayer.+\n");
-            printf("+-----------------------------------+\n\n");
-            system("clear");
-            break;
+            default:
+                printf("\n+-----------------------------------+\n");
+                printf("+ Choix invalide. Veuillez réessayer.+\n");
+                printf("+-----------------------------------+\n\n");
+                system("clear");
+                break;
         }
     }
 }
