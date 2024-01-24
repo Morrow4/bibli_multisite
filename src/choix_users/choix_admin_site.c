@@ -15,6 +15,21 @@ void choix_admin_site_bibliotheque(MYSQL *conn, char *username)
     char site_restitution[50];
     int user_type = 1;
 
+#include <stdio.h>
+
+int main() {
+    printf("                      .--.   _\n");
+    printf("                  .---|__| .((\\=.\n");
+    printf("               .--|===|--|/    ,(\n");
+    printf("               |  |===|  |\\      y\n");
+    printf("               |--|   |  | `.__,'\n");
+    printf("               |--|   |  | /  \\\\\n");
+    printf("               |  |   |  |/|  | \\`----.\n");
+    printf("               |  |   |  ||\\  \\  |___.'_\n");
+    printf("              _|  |   |__||,\\  \\-+-._.' )_\n");
+    printf("             / |  |===|--|\\  \\  \\      /  \\\n");
+    printf("            /  `--^---'--' `--`-'---^-'    \\\n");
+    printf("              '================================`\n");
     printf("\n+--------------------------------------------------------------+\n");
     printf("|                     MENU Administrateur Site                   |\n");
     printf("|--------------------------------------------------------------  |\n");
@@ -32,6 +47,8 @@ void choix_admin_site_bibliotheque(MYSQL *conn, char *username)
     printf("| 12) Emprunter un livre pour un utilisateur inscrit             |\n"); // a retirer
     printf("| 13) Déconnexion                                                |\n");
     printf("+--------------------------------------------------------------+\n\n");
+
+
     printf("\nVeuillez entrer le numéro du choix correspondant : \n");
     scanf("%d", &choix_user);
 
