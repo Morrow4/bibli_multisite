@@ -11,53 +11,6 @@ MYSQL_RES *result;
 MYSQL_ROW row;
 MYSQL *conn;
 
-// Fonction Compter le nombre de livres par titre
-int nombreLivresParTitre(const char *titreRecherche)
-{
-    printf("je rentre dans la fonction\n");
-    int nombreLivres = 0;
-    MYSQL_RES *result;
-    MYSQL_ROW row;
-
-    char query[255];
-    snprintf(query, sizeof(query), "SELECT COUNT(*) FROM Livre WHERE Titre = '%s'", titreRecherche);
-
-    // Exécutez la requête SQL
-    if (mysql_query(conn, query) != 0)
-    {
-        fprintf(stderr, "Erreur lors de l'exécution de la requête SQL : %s\n", mysql_error(conn));
-        return nombreLivres;
-    }
-
-    // Récupérez le résultat de la requête
-    result = mysql_store_result(conn);
-
-    // Vérifiez si le résultat est non nul
-    if (result != NULL)
-    {
-        // Récupérez la première ligne du résultat
-        if ((row = mysql_fetch_row(result)) != NULL)
-        {
-            sscanf(row[0], "%d", &nombreLivres);
-        }
-
-        // Libérez le résultat après l'avoir utilisé
-        mysql_free_result(result);
-    }
-    else
-    {
-        fprintf(stderr, "Aucun résultat retourné par la requête\n");
-    }
-
-    return nombreLivres;
-}
-
-// Fonction pour afficher les détails du livre
-void afficherDetailsLivre(const Livre *livre)
-{
-    printf("%-30s%-30s%-15s\n", livre->Titre, livre->Edition, livre->ISBN);
-}
-
 // Fonction pour effectuer l'emprunt
 void effectuerEmprunt(MYSQL *conn, const char *ISBN, const char *username)
 {
@@ -137,10 +90,10 @@ void verifierEtEffectuerEmprunt(MYSQL *conn, const char *ISBN, const char *usern
 // Fonction pour l'emprunt de livre
 void Emprunt_soimeme(MYSQL *conn, char *username)
 {
-    int numLivre;
-    int tailleTab;
     sprintf(username, "%d", getuid());
     int user_group = get_user_group(conn);
+    char ISBN[14];
+    int choix_recherche = 0;
 
     switch (user_group) // pour faire un switch il faut apparemment une variable de type int, donc j'ai modifié tout ça en conséquent
     {
@@ -158,68 +111,51 @@ void Emprunt_soimeme(MYSQL *conn, char *username)
         break;
     }
     system("clear");
-    printf("Avez-vous son ISBN? (o/n) Appuyez sur tout autre touche pour sortir du menu : ");
-    char reponse;
-    scanf(" %c", &reponse);
 
-    if (reponse == 'n' || reponse == 'N')
+    while (choix_recherche != 3)
     {
-        int choix_recherche = 0;
-        char ISBN[14];
-        while (choix_recherche != 3)
+        printf("\n+--------------------------------------------+\n");
+        printf("|-------------Emprunter un livre-------------|\n");
+        printf("|1) Rechercher l'ISBN du livre par son titre |\n");
+        printf("|2) Rechercher l'ISBN du livre par son auteur|\n");
+        printf("|3) Emprunter le livre avec son ISBN         |\n");
+        printf("+--------------------------------------------+\n");
+        printf("\nVeuillez entrer le numéro du choix correspondant à ce que vous voulez faire : ");
+        scanf("%d", &choix_recherche);
+
+        switch (choix_recherche)
         {
-            printf("\n+--------------------------------------------+\n");
-            printf("|-------------Choix du livre-----------------|\n");
-            printf("|1) Rechercher l'ISBN du livre par son titre |\n");
-            printf("|2) Rechercher l'ISBN du livre par son auteur|\n");
-            printf("|3) Saisir les informations de l'exemplaire  |\n");
-            printf("+--------------------------------------------+\n");
-            printf("\nVeuillez entrer le numéro du choix correspondant à ce que vous voulez faire : ");
-            scanf("%d", &choix_recherche);
+        case 1:
+            rechercherLivreParTitre(conn);
+            break;
 
-            switch (choix_recherche)
-            {
-            case 1:
-                rechercherLivreParTitre(conn);
-                break;
+        case 2:
+            rechercherLivreParAuteur(conn);
+            break;
 
-            case 2:
-                rechercherLivreParAuteur(conn);
-                break;
+        case 3:
+            break;
 
-            case 3:
-                break;
-
-            default:
-                printf("\n+-----------------------------------+\n");
-                printf("+Choix invalide. Veuillez réessayer.+\n");
-                printf("+-----------------------------------+\n\n");
-                break;
-            }
+        default:
+            printf("\n+-----------------------------------+\n");
+            printf("+Choix invalide. Veuillez réessayer.+\n");
+            printf("+-----------------------------------+\n\n");
+            break;
         }
-        do
-        {
-            printf("ISBN (13 caractères) : ");
-            scanf("%13s", ISBN);
-            getchar();
-            if (strlen(ISBN) != 13)
-            {
-                printf("L'ISBN doit avoir précisément 13 caractères. Veuillez réessayer.\n");
-            }
-        } while (strlen(ISBN) != 13);
     }
-    else if (reponse == 'o' || reponse == 'O')
-    {
-        char ISBN_test[15];
-        // Comparaison de ISBN_test avec ceux de la base de données
-        printf("Veuillez saisir l'ISBN du livre : ");
-        scanf(" %s", ISBN_test);
 
-        // Vérifier et effectuer l'emprunt
-        struct passwd *pwd = getpwuid(getuid());
-        char *username = pwd->pw_name;
-        verifierEtEffectuerEmprunt(conn, ISBN_test, username);
-    }
+    do
+    {
+        printf("ISBN (13 caractères) : ");
+        scanf("%13s", ISBN);
+        getchar();
+        if (strlen(ISBN) != 13)
+        {
+            printf("L'ISBN doit avoir précisément 13 caractères. Veuillez réessayer.\n");
+        }
+    } while (strlen(ISBN) != 13);
+
+    verifierEtEffectuerEmprunt(conn, ISBN, username);
 }
 
 void afficher_emprunts_non_restitues_utilisateur(MYSQL *conn, char *email_utilisateur)
