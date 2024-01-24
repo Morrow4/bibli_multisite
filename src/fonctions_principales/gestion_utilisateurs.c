@@ -357,7 +357,7 @@ void suppression_compte(MYSQL *conn, char *username)
     {
         fprintf(stderr, "Erreur lors de l'exécution du script de suppression d'utilisateur.\n");
     }
-    printf("utilisateur supprimé\n");
+    printf("utilisateur supprimé du système\n");
     fclose(log_file);
     free(time_str);
     sleep(5);
