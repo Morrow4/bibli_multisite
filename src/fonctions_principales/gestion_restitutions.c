@@ -9,7 +9,7 @@
 void enregistrer_restitution(MYSQL *conn, char *email_utilisateur)
 {
     int id_emprunt;
-    char *site_restitution;
+    char site_restitution[50];
     int choix_recherche = 0;
 
     while (choix_recherche != 2)
