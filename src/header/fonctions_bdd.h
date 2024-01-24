@@ -7,28 +7,6 @@
 #include <string.h>
 #include <stdbool.h>
 
-// Structure pour stocker les informations d'un livre
-typedef struct Livre
-{
-    char ISBN[14];
-    char Titre[255];
-    char Auteur[100];
-    char Edition[100];
-    char Genre[100];
-} Livre;
-
-//------Les fonctions à faire-----------
-//---------------------------------------
-// Liste_livres_et_dispo.c
-void Liste_livres_et_dispo(MYSQL *conn);
-// Inscri_liste_attente_livre.c
-void Inscri_liste_attente_livre();
-// Affichage_delai_attente_livre.c
-void Affichage_delai_attente_livre();
-// Emprunt_pour_adherent.c
-void Emprunt_pour_adherent();
-//--------------------------------
-
 // gestion_livres.c
 void ajout_livre(MYSQL *conn);
 void mise_a_jour_livre(MYSQL *conn);
@@ -70,8 +48,6 @@ void ajout_compte(MYSQL *conn, char *username);
 void blocage_compte(MYSQL *conn, char *username);
 
 // gestion_emprunts.c
-int nombreLivresParTitre(const char *titreRecherche);
-void afficherDetailsLivre(const Livre *livre);
 void effectuerEmprunt(MYSQL *conn, const char *ISBN, const char *username);
 void verifierEtEffectuerEmprunt(MYSQL *conn, const char *ISBN, const char *username);
 int trouverRetard(MYSQL *conn, const char *ISBN, double *joursDeRetard);
