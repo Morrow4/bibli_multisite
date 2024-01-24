@@ -33,18 +33,23 @@ void ajout_compte(MYSQL *conn, char *username)
     switch (user_group) // pour faire un switch il faut apparemment une variable de type int, donc j'ai modifié tout ça en conséquent
     {
     case 1: // admingeneral
-        printf("Quel type d'utilisateur souhaitez-vous ajouter? \n");
-        printf("-------------------------------------------\n");
-        printf("[1]adherent\n[2]adminsite\n[3]admingeneral \n");
-        do
-        {
-            printf("Le choix doit être compris entre 1 et 3\n");
-            do
-            {
+        do {
+            printf("Quel type d'utilisateur souhaitez-vous ajouter? \n");
+            printf("-------------------------------------------\n");
+            printf("[1]adherent\n[2]adminsite\n[3]admingeneral \n");
+
+            do {
                 printf("Entrez votre choix : ");
                 scanf("%d", &choix_type);
-            } while (!gestion_int(choix_type));     // verification que c'est bien un entier et pas trop grand pour le buffer
-        } while (choix_type < 1 || choix_type > 3); // verification de la valeur comprise
+                if (!gestion_int(choix_type)) {
+                    printf("Veuillez entrer un entier valide.\n");
+                }
+            } while (choix_type < 1 || choix_type > 3);
+
+            if (choix_type < 1 || choix_type > 3) {
+                printf("Le choix doit être compris entre 1 et 3\n");
+            }
+        } while (choix_type < 1 || choix_type > 3);
         break;
     case 2: // adminsite
         choix_type = 1;
