@@ -12,19 +12,17 @@ MYSQL_ROW row;
 MYSQL *conn;
 
 // Fonction pour effectuer l'emprunt
-void effectuerEmprunt(MYSQL *conn, const char *ISBN, const char *username)
+void effectuerEmprunt(MYSQL *conn, char *ISBN, char *username)
 {
-    printf("effectuer emprunt debut\n");
     qui(username);
 
     char query[255];
     // Réduire le nombre d'exemplaires disponibles
     // Verifier s'il existe des ISBN pour l'exemplaire demandé
-    printf("ISBN = '%s'\n", ISBN);
     sprintf(query, "SELECT ID_Exemplaire FROM Exemplaire WHERE ISBN = '%s' AND Disponibilite = true LIMIT 1", ISBN);
     if (mysql_query(conn, query) != 0)
     {
-        fprintf(stderr, "Erreur de verification\n");
+        fprintf(stderr, "Erreur de vérification\n");
         return;
     }
     // Stocker dans une variable
@@ -45,50 +43,18 @@ void effectuerEmprunt(MYSQL *conn, const char *ISBN, const char *username)
     }
 
     // récupération de l'ID_Utilisateur = Email
-    qui(username);
-    printf("recuperation de l'id user : %s\n", username);
-    printf("recuperation de l'id exemplaire : %d\n", Var_IdExemplaire);
     sprintf(query, "INSERT INTO Emprunt (ID_Exemplaire, ID_Utilisateur) VALUES ('%d', '%s')", Var_IdExemplaire, username);
     if (mysql_query(conn, query) != 0)
     {
         fprintf(stderr, "Erreur lors de l'ajout de l'emprunt : %s\n", mysql_error(conn));
         return;
     }
-    printf("Exemplaire emprunté!\n");
+    printf("Exemplaire emprunté !\n");
     free((char *)username);
 }
 
-// Fonction pour vérifier et effectuer l'emprunt
-void verifierEtEffectuerEmprunt(MYSQL *conn, const char *ISBN, const char *username)
-{
-    printf("verifier et effectuer emprunt : je rentre dans la fonction\n");
-    double joursDeRetard;
-    int livreTrouve = trouverRetard(conn, ISBN, &joursDeRetard);
-
-    if (livreTrouve == 0)
-    {
-        printf("Livre non emprunté auparavant.\n");
-        // Continuer le processus d'emprunt
-        effectuerEmprunt(conn, ISBN, username);
-        return;
-    }
-
-    if (joursDeRetard > 14)
-    {
-        double joursRestants = 14 - joursDeRetard;
-        printf("Le livre a %.2f jours de retard.\n", joursRestants);
-    }
-    else
-    {
-        printf("Livre trouvé, pas de retard.\n");
-    }
-
-    // Continuer le processus d'emprunt
-    effectuerEmprunt(conn, ISBN, username);
-}
-
 // Fonction pour l'emprunt de livre
-void Emprunt_soimeme(MYSQL *conn, char *username)
+void emprunter_livre(MYSQL *conn, char *username)
 {
     sprintf(username, "%d", getuid());
     int user_group = get_user_group(conn);
@@ -155,7 +121,7 @@ void Emprunt_soimeme(MYSQL *conn, char *username)
         }
     } while (strlen(ISBN) != 13);
 
-    verifierEtEffectuerEmprunt(conn, ISBN, username);
+    effectuerEmprunt(conn, ISBN, username);
 }
 
 void afficher_emprunts_non_restitues_utilisateur(MYSQL *conn, char *email_utilisateur)
