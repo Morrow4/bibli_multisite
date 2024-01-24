@@ -200,10 +200,14 @@ void ajout_compte(MYSQL *conn, char *username)
 
     // Ajout de l'utilisateur dans le serveur 
     char createMaria[1024], grantMaria[1024], flushMaria[30];
+
     sprintf(createMaria, "CREATE USER '%s'@'localhost'",login);
     sprintf(grantMaria, "GRANT ALL PRIVILEGES ON *.* TO '%s'@'localhost' WITH GRANT OPTION", login);
     sprintf(flushMaria, "FLUSH PRIVILEGES");
-
+    // Afficher les commandes pour déboguer
+    printf("Commande CREATE USER : %s\n", createMaria);
+    printf("Commande GRANT : %s\n", grantMaria);
+    printf("Commande FLUSH PRIVILEGES : %s\n", flushMaria);
     fprintf(log_file, "Utilisateur créé dans Mariadb: %s, Groupe: %s\n", login, type_user); // log ajout bdd    
 
 
