@@ -53,7 +53,7 @@ void consultation_stat_site(MYSQL *conn, int user_type) {
     }
 
     // Saisie utilisateur pour choisir l'unité de temps
-    char unite[10];
+    char unite[20];
     while (strcmp(unite, "jour") != 0 && strcmp(unite, "mois") != 0 && strcmp(unite, "année") != 0) {
         printf("Choisissez l'unité de temps (jour, mois, année) : ");
         fgets(unite, sizeof(unite), stdin);
@@ -100,7 +100,7 @@ void consultation_stat_site(MYSQL *conn, int user_type) {
    
 void consultation_stat_3site(MYSQL* conn) {
     // Saisie utilisateur pour choisir l'unité de temps
-    char unite[10];
+    char unite[20];
     while (strcmp(unite, "jour") != 0 && strcmp(unite, "mois") != 0 && strcmp(unite, "année") != 0) {
         printf("Choisissez l'unité de temps (jour, mois, année) : ");
         fgets(unite, sizeof(unite), stdin);
