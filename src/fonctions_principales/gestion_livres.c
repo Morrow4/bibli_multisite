@@ -159,7 +159,7 @@ void mise_a_jour_livre(MYSQL *conn)
         }
     } while (strlen(ISBN) != 13);
 
-    printf("\nVeuillez saisir les nouvelles informations du livre (sans espace) :\n\n");
+    printf("\nVeuillez saisir les nouvelles informations du livre :\n\n");
 
     printf("Nouveau Titre : ");
     scanf(" %254[^\n]", titre);

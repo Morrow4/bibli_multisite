@@ -14,7 +14,7 @@ int is_valid(const char *str)
     {
         if (!strchr(ALLOWED_CHARS_FORMAT, *str))
         {
-            printf("caractere non autorisé\n");
+            printf("caractère non autorisé\n");
             return 0; // caractère non autorisé trouvé = is not valid
         }
         str++;
@@ -47,7 +47,7 @@ void ajout_compte(MYSQL *conn, char *username)
             } while (choix_type < 1 || choix_type > 3);
 
             if (choix_type < 1 || choix_type > 3) {
-                printf("Le choix doit être compris entre 1 et 3\n");
+                printf("Le choix doit être compris entre 1 et 3.\n");
             }
         } while (choix_type < 1 || choix_type > 3);
         break;
@@ -78,8 +78,8 @@ void ajout_compte(MYSQL *conn, char *username)
     }
     char login[101], password[256], nom[51], prenom[51], estChercheur[2], info_valid[2];
     // Alerte utilisateur
-    printf("\nATTENTION : Les caractères speciaux ne pourront pas être utilisé\n");
-    printf("\n Veuillez remplir le formulaire dans son integralité, une validation sera demandée en fin de saisie\n");
+    printf("\nATTENTION : Les caractères spéciaux ne pourront pas être utilisés.\n");
+    printf("\n Veuillez remplir le formulaire dans son integralité, une validation sera demandée en fin de saisie.\n");
     do
     {
         // Saisie formulaire utilisateur
@@ -87,7 +87,7 @@ void ajout_compte(MYSQL *conn, char *username)
         do
         {
             mon_compteur_login--;
-            printf("Entrez l'adresse (qui fera office de login): ");
+            printf("Entrez l'adresse (qui fera office de login) : ");
             scanf("%100s", login);
             //printf("login debut : %s\n", login);
             if (mon_compteur_login == 0)
@@ -143,7 +143,7 @@ void ajout_compte(MYSQL *conn, char *username)
             }
         } while ((strcmp(estChercheur, "o") != 0 && strcmp(estChercheur, "n") != 0) && (mon_compteur_cherch >= 0));
 
-        printf("\nVerification des informations :\n");
+        printf("\nVérification des informations :\n");
         printf("---------------------------------\n");
         printf("Login          : %s\n", login);
         printf("Mot de passe   : %s\n", password);
@@ -201,25 +201,25 @@ void ajout_compte(MYSQL *conn, char *username)
         printf("Utilisateur ajouté à la bibliothèque.\n");
         sleep(5);
     }
-    fprintf(log_file, "Utilisateur créé dans la base de donnée bibliotèque: %s, Groupe: %s\n", login, type_user); // log ajout bdd
+    fprintf(log_file, "Utilisateur créé dans la base de données bibliotèque : %s, Groupe: %s\n", login, type_user); // log ajout bdd
 
     // Ajout de l'utilisateur dans le serveur   
     char createMaria[1024];
     sprintf(createMaria, "CREATE USER '%s'@'localhost' IDENTIFIED BY ''", login);
     if (mysql_query(conn, createMaria))
     {
-        fprintf(stderr, "Erreur lors de la création de l'utilisateur: %s\n", mysql_error(conn));
+        fprintf(stderr, "Erreur lors de la création de l'utilisateur : %s\n", mysql_error(conn));
         sleep(5);
     }
     else
     {
-        printf("Utilisateur créé dans Mariadb avec succès.\n");
+        printf("Utilisateur créé dans Mariadb avec succès .\n");
 
         char grantMaria[1024];
         sprintf(grantMaria, "GRANT ALL PRIVILEGES ON *.* TO '%s'@'localhost' WITH GRANT OPTION", login);
         if (mysql_query(conn, grantMaria))
         {
-            fprintf(stderr, "Erreur lors de l'accord des privilèges: %s\n", mysql_error(conn));
+            fprintf(stderr, "Erreur lors de l'accord des privilèges : %s\n", mysql_error(conn));
             sleep(5);
         }
         else
@@ -245,15 +245,15 @@ void ajout_compte(MYSQL *conn, char *username)
     }
     else
     {
-        fprintf(log_file, "Utilisateur créé dans le systeme: %s, Groupe: %s\n", login, type_user); // log ajout sys
+        fprintf(log_file, "Utilisateur créé dans le systeme : %s, Groupe: %s\n", login, type_user); // log ajout sys
         //char passwd[500];
         char chpasswd_command[500];
         sprintf(chpasswd_command, "echo '%s:%s' | sudo chpasswd", username, user_password);
         system(chpasswd_command);
         //system(passwd);                                                        // Cela utilise chpasswd pour définir le mot de passe de l'utilisateur
-        fprintf(log_file, "Mot de passe de l'utilisateur attribué: %s, Groupe: %s\n", login, type_user); // log mp sys
+        fprintf(log_file, "Mot de passe de l'utilisateur attribué : %s, Groupe: %s\n", login, type_user); // log mp sys
         system("clear");
-        printf("\nUtilisateur créé!");
+        printf("\nUtilisateur créé \n");
         // Fermetures
     }
 
@@ -321,7 +321,7 @@ void suppression_compte(MYSQL *conn, char *username)
     qui_et_quand(&username, &time_str);
 
     // Écrivez l'en-tête du log
-    fprintf(log_file, "Tentative de suppression par l'utilisateur: %s, Date et heure: %s\n", username, time_str);
+    fprintf(log_file, "Tentative de suppression par l'utilisateur : %s, Date et heure: %s\n", username, time_str);
     int mon_compteur_log = 5;
     do
     {
@@ -341,8 +341,8 @@ void suppression_compte(MYSQL *conn, char *username)
     sprintf(query_select, "SELECT * FROM Utilisateur WHERE Email = '%s'", login);
     if (mysql_query(conn, query_select))
     {
-        fprintf(log_file, "Erreur lors de la vérification de l'utilisateur dans la base de données: %s\n", mysql_error(conn));
-        printf("Erreur d'identification de l'utilisateur dans la base de donnée\n");
+        fprintf(log_file, "Erreur lors de la vérification de l'utilisateur dans la base de données : %s\n", mysql_error(conn));
+        printf("Erreur d'identification de l'utilisateur dans la base de données.\n");
         fclose(log_file);
         free(time_str);
         return;
@@ -381,7 +381,7 @@ void suppression_compte(MYSQL *conn, char *username)
     {
         fprintf(stderr, "Erreur lors de l'exécution du script de suppression d'utilisateur.\n");
     }
-    printf("utilisateur supprimé du système\n");
+    printf("Utilisateur supprimé du système\n");
     fclose(log_file);
     free(time_str);
     sleep(5);
@@ -447,7 +447,7 @@ void blocage_compte(MYSQL *conn, char *username)
     qui_et_quand(&username, &time_str);
 
     // Écrivez l'en-tête du log
-    fprintf(log_file, "Tentative de blocage par l'utilisateur: %s, Date et heure: %s\n", username, time_str);
+    fprintf(log_file, "Tentative de blocage par l'utilisateur : %s, Date et heure: %s\n", username, time_str);
     int mon_compteur_log = 5;
     do
     {
@@ -476,7 +476,7 @@ void blocage_compte(MYSQL *conn, char *username)
     sprintf(query_select, "SELECT * FROM Utilisateur WHERE ID_Utilisateur = '%s'", login);
     if (mysql_query(conn, query_select))
     {
-        fprintf(log_file, "Erreur lors de la vérification de l'utilisateur dans la base de données: %s\n", mysql_error(conn));
+        fprintf(log_file, "Erreur lors de la vérification de l'utilisateur dans la base de données : %s\n", mysql_error(conn));
         fclose(log_file);
         free(time_str);
         return;
@@ -496,7 +496,7 @@ void blocage_compte(MYSQL *conn, char *username)
     sprintf(query, "UPDATE Utilisateur SET EstBloque = true, CommentaireBlocage = '%s' WHERE Email = '%s';", raison, login);
     if (mysql_query(conn, query))
     {
-        fprintf(log_file, "Erreur de blocage dans la base de données: %s\n", mysql_error(conn));
+        fprintf(log_file, "Erreur de blocage dans la base de données : %s\n", mysql_error(conn));
     }
     else
     {
