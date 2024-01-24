@@ -41,6 +41,7 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
         printf("| 17) Déconnexion                                                |\n");
         printf("| 18) Annuler une réservation                                    |\n");
         printf("| 19) Voir mes réservations                                      |\n");
+        printf("| 20) Emprunter un livre réservé                                 |\n");
         printf("+----------------------------------------------------------------+\n");
         printf("\nVeuillez entrer le numéro du choix correspondant à ce que vous voulez faire : ");
         scanf("%d", &choix_user);
@@ -146,6 +147,10 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
 
         case 19:
             afficher_reservations_utilisateur(conn, username);
+            break;
+
+        case 20:
+            emprunter_livre_apres_reservation(conn, username);
             break;
 
         default:
