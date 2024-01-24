@@ -181,7 +181,7 @@ void mettreAJourDisponibiliteExemplaire(MYSQL *conn, int id_exemplaire, int disp
 void afficher_emprunts_non_restitues_utilisateur(MYSQL *conn, char *email_utilisateur)
 {
     // Requête SQL pour récupérer les emprunts non restitués de l'utilisateur
-    const char *query = "SELECT Emprunt.ID_Emprunt, Livre.Titre, Livre.Auteur, Emprunt.DateEmprunt FROM Emprunt JOIN Exemplaire ON Emprunt.ID_Exemplaire = Exemplaire.ID_Exemplaire JOIN Livre ON Exemplaire.ISBN = Livre.ISBN WHERE Emprunt.ID_Utilisateur = ? AND Emprunt.DateRestitution IS NULL";
+    const char *query = "SELECT Emprunt.ID_Emprunt, Livre.Titre, Livre.Auteur, Emprunt.DateEmprunt FROM Emprunt JOIN Exemplaire ON Emprunt.ID_Exemplaire = Exemplaire.ID_Exemplaire JOIN Livre ON Exemplaire.ISBN = Livre.ISBN LEFT JOIN Restitution ON Emprunt.ID_Emprunt = Restitution.ID_Emprunt WHERE Emprunt.ID_Utilisateur = ? AND (Restitution.EstRestitue IS NULL OR Restitution.EstRestitue = false)";
 
     // Préparer la requête SQL
     MYSQL_STMT *stmt;
