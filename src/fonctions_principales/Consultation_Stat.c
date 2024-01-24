@@ -114,6 +114,7 @@ void consultation_stat_site(MYSQL *conn, int user_type) {
     //MYSQL_ROW row;
     while ((row = mysql_fetch_row(result)) != NULL) {
         printf("%-20s%-15s\n", row[0], row[1]);
+        printf("\n");
     }
 
     // Construisez la requête en fonction de l'unité de temps choisie pour les réservations
@@ -165,6 +166,7 @@ void consultation_stat_site(MYSQL *conn, int user_type) {
     //MYSQL_ROW row;
     while ((row = mysql_fetch_row(result)) != NULL) {
         printf("%-20s%-15s\n", row[0], row[1]);
+        printf("\n");
     }
 
     // Libération de la mémoire du résultat
@@ -224,6 +226,7 @@ void consultation_stat_3site(MYSQL* conn) {
     MYSQL_ROW row;
     while ((row = mysql_fetch_row(result)) != NULL) {
         printf("%-15s\n", row[0]);
+        printf("\n");
     }
 
     // Construisez la requête en fonction de l'unité de temps choisie pour les réservations
@@ -262,6 +265,7 @@ void consultation_stat_3site(MYSQL* conn) {
     // Parcours des lignes du résultat
     while ((row = mysql_fetch_row(result)) != NULL) {
         printf("%-15s\n", row[0]);
+        printf("\n");
     }
 
     // Libération de la mémoire du résultat
