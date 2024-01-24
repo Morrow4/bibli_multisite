@@ -121,6 +121,8 @@ void verifier_et_valider_restitution(MYSQL *conn, int id_restitution)
     {
         // Si la restitution est validee, marquer l exemplaire comme disponible
         marquer_exemplaire_disponible(conn, id_emprunt);
+
+        printf("La restitution a bien été enregistrée !\n");
     }
 }
 
