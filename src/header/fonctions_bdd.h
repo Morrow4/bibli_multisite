@@ -50,6 +50,7 @@ bool reservation_existe_et_valide(MYSQL *conn, int id_reservation);
 int obtenir_id_exemplaire_de_reservation(MYSQL *conn, int id_reservation);
 void emprunter_livre_apres_reservation(MYSQL *conn, char *email_utilisateur);
 void mettre_a_jour_est_reserve_reservation(MYSQL *conn, int id_reservation, bool est_reserve);
+void enregistrer_emprunt(MYSQL *conn, char *email_utilisateur, int id_exemplaire);
 
 // gestion_restitution.c
 void enregistrer_restitution(MYSQL *conn, int id_emprunt, const char *site_restitution);
