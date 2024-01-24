@@ -22,7 +22,7 @@ void consultation_stat_site(MYSQL *conn, int user_type) {
                 site[strcspn(site, "\n")] = '\0'; // Supprimer le caractère de nouvelle ligne de la saisie
                 system("clear");
             }
-            continue;
+            break;
         case 2: // admin site
             if (mysql_query(conn, "SELECT SitePrincipal FROM Utilisateur") != 0) {
             fprintf(stderr, "Erreur lors de la récupération des statistiques : %s\n", mysql_error(conn));
