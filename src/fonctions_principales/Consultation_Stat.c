@@ -139,9 +139,6 @@ void consultation_stat_3site(MYSQL* conn) {
         printf("%-15s\n", row[0]);
     }
 
-    // Libération de la mémoire du résultat
-    mysql_free_result(result);
-
     // Construction de la requête SQL pour récupérer le nombre de réservations par site
     snprintf(query, sizeof(query),
         "SELECT COUNT(DISTINCT Reservation.ID_Reservation) AS nb_reservations "
@@ -165,7 +162,6 @@ void consultation_stat_3site(MYSQL* conn) {
     printf("---------------------------\n");
 
     // Parcours des lignes du résultat
-    MYSQL_ROW row;
     while ((row = mysql_fetch_row(result)) != NULL) {
         printf("%-15s\n", row[0]);
     }
