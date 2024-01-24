@@ -15,8 +15,6 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
     char site_restitution[50];
     int user_type = 1;
 
-    while (choix_user != 17) // L'option de déconnexion est le choix 17
-    {
         printf("   ____________________________________________________________________________\n");
         printf("  |____________________________________________________________________________|\n");
         printf("  | __     __   ____   ___ ||  ____    ____     _  __        __   __   _  __  |\n");
@@ -47,6 +45,9 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
         printf("  |___\\_/   /________//   ________         /  / ||_|_|_|_|               /\n");
         printf("  |___ /   (|________/   |\\_______\\       /  / | |                       /\n");
         printf("      /                  \\|________)     /  /  | |                     /\n");
+
+    while (choix_user != 17) // L'option de déconnexion est le choix 17
+    {
         printf("\n+----------------------------------------------------------------+\n");
         printf("|                         MENU PRINCIPAL                         |\n");
         printf("|----------------------------------------------------------------|\n");
