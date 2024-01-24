@@ -213,6 +213,7 @@ void ajout_compte(MYSQL *conn, char *username)
     printf("Commande CREATE USER : %s\n", createMaria);
     printf("Commande GRANT : %s\n", grantMaria);
     printf("Commande FLUSH PRIVILEGES : %s\n", flushMaria);
+    sleep(5);
     fprintf(log_file, "Utilisateur créé dans Mariadb: %s, Groupe: %s\n", login, type_user); // log ajout bdd    
 
 
