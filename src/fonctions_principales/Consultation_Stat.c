@@ -100,7 +100,7 @@ void consultation_stat_site(MYSQL *conn, int user_type) {
     // Libération de la mémoire du résultat
     mysql_free_result(result);
 }
-    printf("PROB5\n");  
+   
 void consultation_stat_3site(MYSQL* conn) {
     // Saisie utilisateur pour choisir l'unité de temps
     char unite[10];
