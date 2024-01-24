@@ -28,11 +28,11 @@ void choix_inscrit_bibliotheque(MYSQL *conn, char *username)
     printf("           `--------------------~___~-------------------''\n");
     printf("+------------------------- Bienvenue ! -------------------------+\n");
     printf("|                 Que souhaitez-vous faire ?                    |\n");
-    printf("|--------------------------------------------------------------|\n");
+    printf("|---------------------------------------------------------------|\n");
     printf("| 1) Lister les livres et leur disponibilité dans les sites     |\n");
     printf("| 2) Emprunter un livre                                         |\n");
     printf("| 3) Réserver un livre                                          |\n");
-    printf("| 4) Déconnexion                                               |\n");
+    printf("| 4) Déconnexion                                                |\n");
     printf("+--------------------------------------------------------------+\n");
     printf("Veuillez entrer le numéro du choix correspondant : \n");
 

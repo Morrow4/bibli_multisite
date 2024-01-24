@@ -46,7 +46,7 @@ void choix_admin_site_bibliotheque(MYSQL *conn, char *username)
         printf("|----------------------------------------------------------------|\n");
         printf("| 10) Ajouter un compte utilisateur                              |\n");
         printf("| 11) Supprimer un compte utilisateur                            |\n");
-        printf("| 12) Bloquer           un utilisateur                           |\n");
+        printf("| 12) Bloquer un utilisateur                                     |\n");
         printf("|----------------------------------------------------------------|\n");
         printf("|                        Gestion des Réservations                |\n");
         printf("|----------------------------------------------------------------|\n");
