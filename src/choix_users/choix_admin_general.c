@@ -44,7 +44,7 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
     printf("  |___ /   (|________/   |\\_______\\       /  / | |                       /\n");
     printf("      /                  \\|________)     /  /  | |                     /\n");
 
-    while (choix_user != 19) // L'option de déconnexion est le choix 17
+    while (choix_user != 20)
     {
         printf("+----------------------------------------------------------------+\n");
         printf("|                         Menu Principal                         |\n");
@@ -67,21 +67,22 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
         printf("| 11) Supprimer un compte utilisateur ou administrateur          |\n");
         printf("| 12) Bloquer un utilisateur                                     |\n");
         printf("|----------------------------------------------------------------|\n");
-        printf("|                    Gestion des Réservations                    |\n");
+        printf("|            Gestion des Réservations et des Emprunts            |\n");
         printf("|----------------------------------------------------------------|\n");
         printf("| 13) Réserver un livre pour un utilisateur inscrit              |\n");
         printf("| 14) Emprunter un livre pour un utilisateur inscrit             |\n");
         printf("| 15) Annuler une réservation                                    |\n");
         printf("| 16) Voir mes réservations                                      |\n");
-        printf("| 17) Emprunter un livre après réservation                       |\n");
+        printf("| 17) Voir mes emprunts                                          |\n");
+        printf("| 18) Emprunter un livre après réservation                       |\n");
         printf("|----------------------------------------------------------------|\n");
         printf("|                          Statistiques                          |\n");
         printf("|----------------------------------------------------------------|\n");
-        printf("| 18) Consulter les statistiques globales de la bibliothèque     |\n");
+        printf("| 19) Consulter les statistiques globales de la bibliothèque     |\n");
         printf("|----------------------------------------------------------------|\n");
         printf("|                         Autres Options                         |\n");
         printf("|----------------------------------------------------------------|\n");
-        printf("| 19) Déconnexion                                                |\n");
+        printf("| 20) Déconnexion                                                |\n");
         printf("+----------------------------------------------------------------+\n");
         printf("\nVeuillez entrer le numéro du choix correspondant à ce que vous voulez faire : ");
         scanf("%d", &choix_user);
@@ -164,25 +165,38 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
 
         case 15:
             system("clear");
+            printf("Veuillez saisir le login de l'utilisateur qui veut annuler un emprunt : ");
+            scanf("%s", login_utilisateur);
             annuler_reservation_par_id(conn, username);
             break;
 
         case 16:
             system("clear");
+            printf("Veuillez saisir le login de l'utilisateur dont vous voulez afficher les réservations : ");
+            scanf("%s", login_utilisateur);
             afficher_reservations_utilisateur(conn, username);
             break;
 
         case 17:
             system("clear");
-            emprunter_livre_apres_reservation(conn, username);
+            printf("Veuillez saisir le login de l'utilisateur dont vous voulez afficher les emprunts : ");
+            scanf("%s", login_utilisateur);
+            afficher_emprunts_non_restitues_utilisateur(conn, login_utilisateur);
             break;
 
         case 18:
             system("clear");
-            consultation_stat(conn, user_type);
+            printf("Veuillez saisir le login de l'utilisateur qui veut emprunter un livre réservé : ");
+            scanf("%s", login_utilisateur);
+            emprunter_livre_apres_reservation(conn, username);
             break;
 
         case 19:
+            system("clear");
+            consultation_stat(conn, user_type);
+            break;
+
+        case 20:
             system("clear");
             deconnexion(conn);
             break;
