@@ -44,7 +44,7 @@ void enregistrer_restitution(MYSQL *conn, char *email_utilisateur)
     getchar();
 
     printf("\nVeuillez saisir le site dans lequel le est livre restitué : ");
-    scanf("%d", site_restitution);
+    scanf("%s", site_restitution);
     getchar();
 
     // Requête SQL pour insérer une nouvelle restitution
