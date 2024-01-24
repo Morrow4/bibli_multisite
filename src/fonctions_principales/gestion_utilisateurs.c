@@ -74,7 +74,7 @@ void ajout_compte(MYSQL *conn, char *username)
     char login[101], password[256], nom[51], prenom[51], estChercheur[2], info_valid[2];
     // Alerte utilisateur
     printf("\nATTENTION : Les caractères speciaux ne pourront pas être utilisé\n");
-    printf("En cas d'erreur de saisi, veuillez remplir le formulaire dans son integralité, une validation sera demandée en fin de saisie\n");
+    printf("\n Veuillez remplir le formulaire dans son integralité, une validation sera demandée en fin de saisie\n");
     do
     {
         // Saisie formulaire utilisateur
@@ -84,7 +84,7 @@ void ajout_compte(MYSQL *conn, char *username)
             mon_compteur_login--;
             printf("Entrez l'adresse (qui fera office de login): ");
             scanf("%100s", login);
-            printf("login debut : %s\n", login);
+            //printf("login debut : %s\n", login);
             if (mon_compteur_login == 0)
             {
                 return;
@@ -138,10 +138,18 @@ void ajout_compte(MYSQL *conn, char *username)
             }
         } while ((strcmp(estChercheur, "o") != 0 && strcmp(estChercheur, "n") != 0) && (mon_compteur_cherch >= 0));
 
-        printf("Le login est %s, le mot de passe est %s, son groupe est %s, le nom est %s, le prenom est %s, la personne est chercheur : %s\n", login, password, type_user, nom, prenom, estChercheur);
+        printf("\nVerification des informations :\n");
+        printf("---------------------------------\n");
+        printf("Login          : %s\n", login);
+        printf("Mot de passe   : %s\n", password);
+        printf("Groupe         : %s\n", type_user);
+        printf("Nom            : %s\n", nom);
+        printf("Prénom         : %s\n", prenom);
+        printf("Est chercheur  : %s\n", (strcmp(estChercheur, "o") == 0) ? "Oui" : "Non");
+        printf("---------------------------------\n");
         do
         {
-            printf("Validez-vous ces informations? o/n : ");
+            printf("--> Validez-vous ces informations? o/n : ");
             scanf("%1s", info_valid);
             if (strcmp(info_valid, "n") == 0)
             {
@@ -180,10 +188,13 @@ void ajout_compte(MYSQL *conn, char *username)
     if (mysql_query(conn, query))
     {
         fprintf(stderr, "Erreur d'insertion: %s\n", mysql_error(conn));
+        sleep(5);
     }
     else
     {
+        system("clear");   
         printf("Utilisateur ajouté à la bibliothèque.\n");
+        sleep(5);
     }
     fprintf(log_file, "Utilisateur créé dans la base de donnée bibliotèque: %s, Groupe: %s\n", login, type_user); // log ajout bdd
 
@@ -204,22 +215,24 @@ void ajout_compte(MYSQL *conn, char *username)
     if (system(add_user_command) != 0)
     {
         fprintf(stderr, "Erreur lors de l'exécution du script d'ajout d'utilisateur.\n");
+        fclose(log_file);
+        sleep(5);
         exit(1);
     }
     else
     {
-        printf("Utilisateur ajouté avec succès au système.\n");
+        fprintf(log_file, "Utilisateur créé dans le systeme: %s, Groupe: %s\n", login, type_user); // log ajout sys
+        //char passwd[500];
+        char chpasswd_command[500];
+        sprintf(chpasswd_command, "echo '%s:%s' | sudo chpasswd", username, user_password);
+        system(chpasswd_command);
+        //system(passwd);                                                        // Cela utilise chpasswd pour définir le mot de passe de l'utilisateur
+        fprintf(log_file, "Mot de passe de l'utilisateur attribué: %s, Groupe: %s\n", login, type_user); // log mp sys
+        system("clear");
+        printf("\nUtilisateur créé!");
+        // Fermetures
     }
-    fprintf(log_file, "Utilisateur créé dans le systeme: %s, Groupe: %s\n", login, type_user); // log ajout sys
 
-    char passwd[500];
-    char chpasswd_command[500];
-    sprintf(chpasswd_command, "echo '%s:%s' | sudo chpasswd", username, user_password);
-    system(chpasswd_command);
-    system(passwd);                                                                                  // Cela utilise chpasswd pour définir le mot de passe de l'utilisateur
-    fprintf(log_file, "Mot de passe de l'utilisateur attribué: %s, Groupe: %s\n", login, type_user); // log mp sys
-
-    // Fermetures
     fclose(log_file);
 }
 
