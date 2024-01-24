@@ -119,7 +119,7 @@ void consultation_stat_site(MYSQL *conn, int user_type) {
                  "SELECT Exemplaire.SitePrincipal, "
                  "COUNT(DISTINCT Reservation.ID_Reservation) AS nb_reservations "
                  "FROM Reservation "
-                 "LEFT JOIN Reservation ON Exemplaire.ID_Exemplaire = Reservation.ID_Exemplaire "
+                 "LEFT JOIN Exemplaire ON Reservation.ID_Exemplaire = Exemplaire.ID_Exemplaire "
                  "WHERE DATE_FORMAT(Reservation.DateReservation, '%%Y-%%m-%%d') = DATE_FORMAT(NOW(), '%%Y-%%m-%%d') "
                  "AND Exemplaire.SitePrincipal = '%s' "
                  "GROUP BY Exemplaire.SitePrincipal;", site);
@@ -128,7 +128,7 @@ void consultation_stat_site(MYSQL *conn, int user_type) {
                  "SELECT Exemplaire.SitePrincipal, "
                  "COUNT(DISTINCT Reservation.ID_Reservation) AS nb_reservations "
                  "FROM Reservation "
-                 "LEFT JOIN Reservation ON Exemplaire.ID_Exemplaire = Reservation.ID_Exemplaire "
+                 "LEFT JOIN Exemplaire ON Reservation.ID_Exemplaire = Exemplaire.ID_Exemplaire "
                  "WHERE DATE_FORMAT(Emprunt.DateEmprunt, '%%Y-%%m') = DATE_FORMAT(NOW(), '%%Y-%%m') "
                  "AND DATE_FORMAT(Reservation.DateReservation, '%%Y-%%m') = DATE_FORMAT(NOW(), '%%Y-%%m') "
                  "AND Exemplaire.SitePrincipal = '%s' "
@@ -138,7 +138,7 @@ void consultation_stat_site(MYSQL *conn, int user_type) {
                  "SELECT Exemplaire.SitePrincipal, "
                  "COUNT(DISTINCT Reservation.ID_Reservation) AS nb_reservations "
                  "FROM Reservation "
-                 "LEFT JOIN Reservation ON Exemplaire.ID_Exemplaire = Reservation.ID_Exemplaire "
+                 "LEFT JOIN Exemplaire ON Reservation.ID_Exemplaire = Exemplaire.ID_Exemplaire "
                  "WHERE DATE_FORMAT(Reservation.DateReservation, '%%Y') = DATE_FORMAT(NOW(), '%%Y') "
                  "AND Exemplaire.SitePrincipal = '%s' "
                  "GROUP BY Exemplaire.SitePrincipal;", site);
