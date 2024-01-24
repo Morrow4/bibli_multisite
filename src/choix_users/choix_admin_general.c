@@ -15,8 +15,6 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
     char site_restitution[50];
     int user_type = 1;
 
-    while (choix_user != 17) // L'option de déconnexion est le choix 17
-    {
         printf("   ____________________________________________________________________________\n");
         printf("  |____________________________________________________________________________|\n");
         printf("  | __     __   ____   ___ ||  ____    ____     _  __        __   __   _  __  |\n");
@@ -47,6 +45,9 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
         printf("  |___\\_/   /________//   ________         /  / ||_|_|_|_|               /\n");
         printf("  |___ /   (|________/   |\\_______\\       /  / | |                       /\n");
         printf("      /                  \\|________)     /  /  | |                     /\n");
+
+    while (choix_user != 17) // L'option de déconnexion est le choix 17
+    {
         printf("\n+----------------------------------------------------------------+\n");
         printf("|                         MENU PRINCIPAL                         |\n");
         printf("|----------------------------------------------------------------|\n");
@@ -81,6 +82,7 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
         switch (choix_user)
         {
         case 1:
+            system("clear");
             afficher_tous_les_livres(conn);
             break;
 
@@ -107,6 +109,7 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
             break;
 
         case 6:
+            system("clear");
             consultation_stat(conn, user_type);
             // system("clear");
             break;
@@ -122,11 +125,13 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
             break;
 
         case 9:
+            system("clear");
             suppression_livre(conn);
             system("clear");
             break;
 
         case 10:
+            system("clear");
             blocage_compte(conn, username);
             system("clear");
             break;
@@ -173,15 +178,21 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
             break;
 
         case 18:
+            system("clear");
             annuler_reservation_par_id(conn, username);
+            system("clear");
             break;
 
         case 19:
+            system("clear");
             afficher_reservations_utilisateur(conn, username);
+            system("clear");
             break;
 
         case 20:
+            system("clear");
             emprunter_livre_apres_reservation(conn, username);
+            system("clear");
             break;
 
         default:
