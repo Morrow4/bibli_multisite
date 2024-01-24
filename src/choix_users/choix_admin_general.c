@@ -139,7 +139,7 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
             printf("Veuillez saisir le login de l'utilisateur qui veut emprunter un livre : ");
             scanf("%s", login_utilisateur);
             Emprunt_soimeme(conn, login_utilisateur);
-            system("clear");
+            // system("clear");
             break;
 
         case 14:
