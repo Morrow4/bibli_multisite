@@ -180,45 +180,41 @@ void mettreAJourDisponibiliteExemplaire(MYSQL *conn, int id_exemplaire, int disp
 
 void afficher_emprunts_non_restitues_utilisateur(MYSQL *conn, char *email_utilisateur)
 {
-    // Requête SQL pour récupérer les emprunts non restitués de l'utilisateur
-    const char *query = "SELECT Emprunt.ID_Emprunt, Livre.Titre, Livre.Auteur, Emprunt.DateEmprunt FROM Emprunt JOIN Exemplaire ON Emprunt.ID_Exemplaire = Exemplaire.ID_Exemplaire JOIN Livre ON Exemplaire.ISBN = Livre.ISBN LEFT JOIN Restitution ON Emprunt.ID_Emprunt = Restitution.ID_Emprunt WHERE Emprunt.ID_Utilisateur = ? AND (Restitution.EstRestitue IS NULL OR Restitution.EstRestitue = false)";
-
-    // Préparer la requête SQL
-    MYSQL_STMT *stmt;
-    MYSQL_BIND bind[1];
-    memset(bind, 0, sizeof(bind));
-
-    stmt = mysql_stmt_init(conn);
-
+    // Préparer la requête SQL avec un paramètre
+    MYSQL_STMT *stmt = mysql_stmt_init(conn);
     if (!stmt)
     {
-        fprintf(stderr, "\nÉchec de l'initialisation de la requête préparée : %s\n", mysql_error(conn));
+        fprintf(stderr, "Échec de l'initialisation de la déclaration\n");
         return;
     }
 
-    if (mysql_stmt_prepare(stmt, query, strlen(query)))
+    char *sql_query = "SELECT E.*, R.* FROM Emprunt E LEFT JOIN Restitution R ON E.ID_Emprunt = R.ID_Emprunt WHERE E.ID_Utilisateur = ? AND (R.EstRestitue IS NULL OR R.EstRestitue = false)";
+    if (mysql_stmt_prepare(stmt, sql_query, strlen(sql_query)) != 0)
     {
-        fprintf(stderr, "\nÉchec de la préparation de la requête : %s\n", mysql_stmt_error(stmt));
+        fprintf(stderr, "Échec de la préparation de la déclaration\n");
         mysql_stmt_close(stmt);
         return;
     }
 
-    // Lier les variables d'entrée à la requête préparée
-    bind[0].buffer_type = MYSQL_TYPE_STRING;
-    bind[0].buffer = email_utilisateur;
-    bind[0].buffer_length = strlen(email_utilisateur);
+    // Lier le paramètre à la déclaration
+    MYSQL_BIND param_bind;
+    memset(&param_bind, 0, sizeof(param_bind));
 
-    if (mysql_stmt_bind_param(stmt, bind))
+    param_bind.buffer_type = MYSQL_TYPE_STRING;
+    param_bind.buffer = email_utilisateur;
+    param_bind.buffer_length = strlen(email_utilisateur);
+
+    if (mysql_stmt_bind_param(stmt, &param_bind) != 0)
     {
-        fprintf(stderr, "\nÉchec de la liaison des paramètres : %s\n", mysql_stmt_error(stmt));
+        fprintf(stderr, "Échec de la liaison des paramètres\n");
         mysql_stmt_close(stmt);
         return;
     }
 
-    // Exécuter la requête préparée
-    if (mysql_stmt_execute(stmt))
+    // Exécuter la déclaration
+    if (mysql_stmt_execute(stmt) != 0)
     {
-        fprintf(stderr, "\nErreur lors de l'exécution de la requête : %s\n", mysql_stmt_error(stmt));
+        fprintf(stderr, "Échec de l'exécution de la déclaration\n");
         mysql_stmt_close(stmt);
         return;
     }
