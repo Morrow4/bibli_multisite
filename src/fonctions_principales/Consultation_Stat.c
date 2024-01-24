@@ -76,12 +76,9 @@ void consultation_stat_site(MYSQL *conn, int user_type) {
              
              printf("Site saisi : %s\n", site);
              printf("Requête SQL : %s\n", query);
-            printf("Erreur MySQL après mysql_query : %s\n", mysql_error(conn));
-            printf("Erreur MySQL après mysql_store_result : %s\n", mysql_error(conn));
-
 
     printf("PROB1\n");        
-    mysql_free_result(result);
+    //mysql_free_result(result);
     printf("PROB2\n");  
     // Exécution de la requête
     if (mysql_query(conn, query) != 0) {
