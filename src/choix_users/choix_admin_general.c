@@ -52,7 +52,6 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
         printf("|-------------------- Administrateur Général --------------------|\n");
         printf("|----------------------------------------------------------------|\n");
         printf("| 1)  Lister les livres et leur disponibilité dans les sites     |\n");
-        printf("| 2)  Réserver un livre pour soi                                 |\n"); // a retirer
         printf("| 3)  Réserver un livre pour un utilisateur inscrit              |\n");
         printf("| 4)  Ajouter un compte utilisateur ou administrateur            |\n");
         printf("| 5)  Supprimer un compte utilisateur ou administrateur          |\n");
@@ -62,7 +61,6 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
         printf("| 9)  Supprimer un livre                                         |\n");
         printf("| 10) Bloquer un utilisateur temporairement                      |\n");
         printf("| 11) Enregistrer la restitution d'un livre                      |\n");
-        printf("| 12) Emprunter un livre pour soi                                |\n"); // a retirer
         printf("| 13) Emprunter un livre pour un utilisateur inscrit             |\n");
         printf("| 14) Ajouter un exemplaire                                      |\n");
         printf("| 15) Mettre à jour les informations d'un exemplaire             |\n");
@@ -83,11 +81,6 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
         case 1:
             system("clear");
             afficher_tous_les_livres(conn);
-            break;
-
-        case 2:
-            system("clear");
-            reserver_livre(conn, username);
             break;
 
         case 3:
@@ -139,11 +132,6 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
             printf("Veuillez saisir le login de l'utilisateur qui veut réserver un livre : ");
             scanf("%s", login_utilisateur);
             enregistrer_restitution(conn, username);
-            system("clear");
-            break;
-
-        case 12:
-            Emprunt_soimeme(conn, username);
             system("clear");
             break;
 

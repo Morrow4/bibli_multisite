@@ -109,16 +109,13 @@ void consultation_stat_3site(MYSQL* conn) {
         fgets(unite, sizeof(unite), stdin);
         unite[strcspn(unite, "\n")] = '\0'; // Supprimer le caractère de nouvelle ligne de la saisie
     }
-    // Construction de la requête SQL pour récupérer le nombre d'emprunts et de réservations par site
+    // Construction de la requête SQL pour récupérer le nombre d'emprunts par site
     char query[1000];
     snprintf(query, sizeof(query),
-            "SELECT COUNT(DISTINCT Emprunt.ID_Emprunt) AS nb_emprunts, "
-            "COUNT(DISTINCT Reservation.ID_Reservation) AS nb_reservations "
+            "SELECT COUNT(DISTINCT Emprunt.ID_Emprunt) AS nb_emprunts "
             "FROM Emprunt "
             "LEFT JOIN Exemplaire ON Emprunt.ID_Exemplaire = Exemplaire.ID_Exemplaire "
-            "LEFT JOIN Reservation ON Exemplaire.ID_Exemplaire = Reservation.ID_Exemplaire "
-            "WHERE DATE_FORMAT(Emprunt.DateEmprunt, '%%Y-%%m-%%d') = DATE_FORMAT(NOW(), '%%Y-%%m-%%d') "
-            "AND DATE_FORMAT(Reservation.DateReservation, '%%Y-%%m-%%d') = DATE_FORMAT(NOW(), '%%Y-%%m-%%d');");
+            "WHERE DATE_FORMAT(Emprunt.DateEmprunt, '%%Y-%%m-%%d') = DATE_FORMAT(NOW(), '%%Y-%%m-%%d');");
 
 
     // Exécution de la requête
@@ -133,13 +130,40 @@ void consultation_stat_3site(MYSQL* conn) {
     }
 
     // Affichage des statistiques
-    printf("%-15s%-15s\n", "Emprunts", "Réservations");
+    printf("%-15s\n", "Emprunts");
     printf("---------------------------\n");
 
     // Parcours des lignes du résultat
     MYSQL_ROW row;
     while ((row = mysql_fetch_row(result)) != NULL) {
-        printf("%-15s%-15s\n", row[0], row[1]);
+        printf("%-15s\n", row[0]);
+    }
+
+    // Construction de la requête SQL pour récupérer le nombre de réservations par site
+    snprintf(query, sizeof(query),
+        "SELECT COUNT(DISTINCT Reservation.ID_Reservation) AS nb_reservations "
+        "FROM Emprunt "
+        "LEFT JOIN Reservation ON Exemplaire.ID_Exemplaire = Reservation.ID_Exemplaire "
+        "WHERE DATE_FORMAT(Reservation.DateReservation, '%%Y-%%m-%%d') = DATE_FORMAT(NOW(), '%%Y-%%m-%%d');");
+
+    // Exécution de la requête
+    if (mysql_query(conn, query) != 0) {
+        fprintf(stderr, "Erreur lors de la récupération des statistiques : %s\n", mysql_error(conn));
+    }
+
+    // Récupération du résultat
+    result = mysql_store_result(conn);
+    if (result == NULL) {
+        fprintf(stderr, "mysql_store_result() failed\n");
+    }
+
+    // Affichage des statistiques
+    printf("%-15s\n", "Réservations");
+    printf("---------------------------\n");
+
+    // Parcours des lignes du résultat
+    while ((row = mysql_fetch_row(result)) != NULL) {
+        printf("%-15s\n", row[0]);
     }
 
     // Libération de la mémoire du résultat

@@ -164,50 +164,49 @@ void Emprunt_soimeme(MYSQL *conn, char *username)
 
     if (reponse == 'n' || reponse == 'N')
     {
-        printf("Saisissez le titre du livre : ");
-        char titreSaisi[255];
-        scanf(" %[^\n]", titreSaisi);
-
-        // Appel de la fonction compter le nombre de livres par titre
-        tailleTab = nombreLivresParTitre(titreSaisi);
-
-        // Affichage dans un tableau le numéro d'affichage des livres, titre, éditions, isbn
-        printf("Numéro  Titre                          Edition                       ISBN\n");
-        printf("---------------------------------------------------------------------------\n");
-
-        // Récupérer les livres
-        Livre *Livres = malloc(tailleTab * sizeof(Livre));
-        if (Livres == NULL)
+        int choix_recherche = 0;
+        char ISBN[14];
+        while (choix_recherche != 3)
         {
-            fprintf(stderr, "Erreur d'allocation mémoire\n");
-            printf("L'erreur à la récupération de livre");
-            free(Livres);
-            return;
-        }
+            printf("\n+--------------------------------------------+\n");
+            printf("|-------------Choix du livre-----------------|\n");
+            printf("|1) Rechercher l'ISBN du livre par son titre |\n");
+            printf("|2) Rechercher l'ISBN du livre par son auteur|\n");
+            printf("|3) Saisir les informations de l'exemplaire  |\n");
+            printf("+--------------------------------------------+\n");
+            printf("\nVeuillez entrer le numéro du choix correspondant à ce que vous voulez faire : ");
+            scanf("%d", &choix_recherche);
 
-        for (int i = 0; i < tailleTab; i++)
+            switch (choix_recherche)
+            {
+            case 1:
+                rechercherLivreParTitre(conn);
+                break;
+
+            case 2:
+                rechercherLivreParAuteur(conn);
+                break;
+
+            case 3:
+                break;
+
+            default:
+                printf("\n+-----------------------------------+\n");
+                printf("+Choix invalide. Veuillez réessayer.+\n");
+                printf("+-----------------------------------+\n\n");
+                break;
+            }
+        }
+        do
         {
-            afficherDetailsLivre(&Livres[i]);
-        }
-
-        // Saisie du numéro du livre
-        printf("Quel est le numéro du livre concerné par la demande? (saisissez un chiffre)\n");
-        scanf("%d", &numLivre);
-
-        // Vérification que le numéro saisi correspond au nombre de livres affiché
-        if (0 < numLivre && numLivre <= tailleTab)
-        {
-            // Récupération de l'ISBN en variable "ISBN_true"
-            char ISBN_true[14];
-            strcpy(ISBN_true, Livres[numLivre - 1].ISBN);
-
-            // Vérifier et effectuer l'emprunt
-            verifierEtEffectuerEmprunt(conn, ISBN_true, username);
-        }
-        else
-        {
-            printf("Numéro de livre incorrect. Sortie du menu.\n");
-        }
+            printf("ISBN (13 caractères) : ");
+            scanf("%13s", ISBN);
+            getchar();
+            if (strlen(ISBN) != 13)
+            {
+                printf("L'ISBN doit avoir précisément 13 caractères. Veuillez réessayer.\n");
+            }
+        } while (strlen(ISBN) != 13);
     }
     else if (reponse == 'o' || reponse == 'O')
     {
@@ -220,10 +219,6 @@ void Emprunt_soimeme(MYSQL *conn, char *username)
         struct passwd *pwd = getpwuid(getuid());
         char *username = pwd->pw_name;
         verifierEtEffectuerEmprunt(conn, ISBN_test, username);
-    }
-    else
-    {
-        return;
     }
 }
 
