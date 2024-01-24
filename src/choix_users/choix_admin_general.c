@@ -124,7 +124,7 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
             break;
 
         case 8:
-            system("clear");
+            // system("clear");
             printf("Veuillez saisir le login de l'utilisateur qui veut restituer un livre : ");
             scanf("%s", login_utilisateur);
             enregistrer_restitution(conn, login_utilisateur);
