@@ -365,7 +365,7 @@ void emprunter_livre_apres_reservation(MYSQL *conn, char *email_utilisateur)
         mettre_a_jour_est_reserve_reservation(conn, id_reservation, false);
 
         // Appeler la fonction d'emprunt
-        Emprunt_soimeme(conn, email_utilisateur);
+        enregistrer_emprunt(conn, email_utilisateur, id_exemplaire);
 
         printf("Emprunt effectué avec succès !\n");
     }
@@ -387,4 +387,21 @@ void mettre_a_jour_est_reserve_reservation(MYSQL *conn, int id_reservation, bool
     {
         fprintf(stderr, "Erreur lors de la mise à jour du champ EstReserve de la réservation : %s\n", mysql_error(conn));
     }
+}
+
+// Fonction pour enregistrer un emprunt
+void enregistrer_emprunt(MYSQL *conn, char *email_utilisateur, int id_exemplaire)
+{
+    // Requête SQL pour enregistrer l'emprunt
+    char query[1024];
+    sprintf(query, "INSERT INTO Emprunt (ID_Exemplaire, ID_Utilisateur) VALUES (%d, '%s')", id_exemplaire, email_utilisateur);
+
+    // Exécuter la requête SQL
+    if (mysql_query(conn, query))
+    {
+        fprintf(stderr, "Erreur lors de l'enregistrement de l'emprunt : %s\n", mysql_error(conn));
+        return;
+    }
+
+    printf("Emprunt enregistré avec succès !\n");
 }
