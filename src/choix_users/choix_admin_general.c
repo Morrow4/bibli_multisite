@@ -136,6 +136,8 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
             break;
 
         case 11:
+            printf("Veuillez saisir le login de l'utilisateur qui veut réserver un livre : ");
+            scanf("%s", login_utilisateur);
             enregistrer_restitution(conn, username);
             system("clear");
             break;
@@ -186,11 +188,15 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
 
         case 20:
             system("clear");
+            printf("Veuillez saisir le login de l'utilisateur qui veut réserver un livre : ");
+            scanf("%s", login_utilisateur);
             emprunter_livre_apres_reservation(conn, username);
             system("clear");
             break;
 
         case 21:
+            printf("Veuillez saisir le login de l'utilisateur qui veut réserver un livre : ");
+            scanf("%s", login_utilisateur);
             valider_restitution_apres_transit(conn);
             break;
 
