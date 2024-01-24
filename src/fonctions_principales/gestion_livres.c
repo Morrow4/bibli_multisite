@@ -337,7 +337,7 @@ void suppression_livre(MYSQL *conn)
 void afficher_tous_les_livres(MYSQL *conn)
 {
     // Requête SQL pour récupérer les livres avec leur disponibilité
-    const char *query = "SELECT Livre.ISBN, Livre.Titre, Livre.Auteur, Livre.Edition, Livre.Genre, Exemplaire.Disponibilite FROM Livre LEFT JOIN Exemplaire ON Livre.ISBN = Exemplaire.ISBN";
+    const char *query = "SELECT Livre.ISBN, Livre.Titre, Livre.Auteur, Livre.Edition, Livre.Genre, CASE WHEN EXISTS (SELECT 1 FROM Exemplaire WHERE Exemplaire.ISBN = Livre.ISBN AND Exemplaire.Disponibilite = true) THEN 'Disponible' ELSE 'Indisponible' END AS Disponibilite FROM Livre";
 
     // Exécuter la requête SQL
     if (mysql_query(conn, query))
@@ -366,7 +366,7 @@ void afficher_tous_les_livres(MYSQL *conn)
     while ((row = mysql_fetch_row(result)))
     {
         // Afficher les détails du livre
-        printf("|%-13s|%-100s|%-50s|%-13s|\n", row[0], row[1], row[2], (row[5] && atoi(row[5]) ? "Disponible" : "Indisponible"));
+        printf("|%-13s|%-100s|%-50s|%-13s|\n", row[0], row[1], row[2], (row[3] && atoi(row[3]) ? "Disponible" : "Indisponible"));
     }
     printf("+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+\n");
 
