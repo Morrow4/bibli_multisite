@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 #include <mysql/mysql.h>
 #include "../header/fonctions_bdd.h"
 #include "../header/utilitaire.h"
@@ -10,6 +11,7 @@ void enregistrer_restitution(MYSQL *conn, char *email_utilisateur)
 {
     int id_emprunt;
     char site_restitution[50];
+    bool is_valid_site = false;
     int choix_recherche = 0;
 
     while (choix_recherche != 2)
@@ -43,9 +45,21 @@ void enregistrer_restitution(MYSQL *conn, char *email_utilisateur)
     scanf("%d", &id_emprunt);
     getchar();
 
-    printf("\nVeuillez saisir le site dans lequel le livre est restitué : ");
-    scanf("%s", site_restitution);
-    getchar();
+    do
+    {
+        printf("Veuillez saisir le site dans lequel le livre est restitué (Site A, Site B, ou Site C) : ");
+        scanf(" %50[^\n]", site_principal);
+        getchar();
+
+        if (strcmp(site_principal, "Site A") == 0 || strcmp(site_principal, "Site B") == 0 || strcmp(site_principal, "Site C") == 0)
+        {
+            is_valid_site = true;
+        }
+        else
+        {
+            printf("Veuillez saisir un site principal valide.\n");
+        }
+    } while (!is_valid_site);
 
     // Requête SQL pour insérer une nouvelle restitution
     char query[1024];
