@@ -14,7 +14,7 @@ void choix_invite_bibliotheque(MYSQL *conn)
     printf("                            c'',)\n");
     printf("                             <|>\n");
     printf("                            _/\\_\n");
-    printf("                           |||  ||\n")
+    printf("                           |||  ||\n");
     printf("+---------------------------Bienvenue !--------------------------+\n\n");
     printf("+--------------------Que souhaitez-vous faire ?--------------------+\n");
     printf("1) Lister les livres et leur disponibilité dans les différents sites\n");
