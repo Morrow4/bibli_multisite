@@ -56,30 +56,10 @@ void effectuerEmprunt(MYSQL *conn, char *ISBN, char *username)
 // Fonction pour l'emprunt de livre
 void emprunter_livre(MYSQL *conn, char *username)
 {
-    sprintf(username, "%d", getuid());
-    int user_group = get_user_group(conn);
+    system("clear");
+
     char ISBN[14];
     int choix_recherche = 0;
-
-    switch (user_group) 
-    {
-    case 1: // admingeneral
-        printf("Vous êtes administrateurs général, merci d'utiliser votre compte adhérent. \n");
-        exit(0);
-        sleep(3);
-        break;
-    case 2: // adminsite
-        printf("Vous êtes administrateurs site, merci d'utiliser votre compte adhérent. \n");
-        sleep(3);
-        exit(0);
-        break;
-    case 3: // adherent
-        printf("Bienvenue dans le menu d'emprunt des livres! \n");
-    default:
-        return;
-        break;
-    }
-    system("clear");
 
     while (choix_recherche != 3)
     {
