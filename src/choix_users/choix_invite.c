@@ -31,7 +31,7 @@ void choix_invite_bibliotheque(MYSQL *conn)
         break;
 
     default:
-        choix_invite_bibliotheque(conn);
+        //choix_invite_bibliotheque(conn);
         break;
     }
 }

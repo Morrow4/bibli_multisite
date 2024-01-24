@@ -57,7 +57,7 @@ void choix_inscrit_bibliotheque(MYSQL *conn, char *username)
         break;
 
     default:
-        choix_inscrit_bibliotheque(conn, username);
+        //choix_inscrit_bibliotheque(conn, username);
         break;
     }
 }
