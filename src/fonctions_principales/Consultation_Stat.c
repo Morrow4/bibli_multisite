@@ -152,7 +152,7 @@ void consultation_stat_3site(MYSQL* conn) {
     }
 
     // Récupération du résultat
-    MYSQL_RES *result = mysql_store_result(conn);
+    result = mysql_store_result(conn);
     if (result == NULL) {
         fprintf(stderr, "mysql_store_result() failed\n");
     }
