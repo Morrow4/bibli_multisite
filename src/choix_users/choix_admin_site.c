@@ -10,9 +10,7 @@ void choix_admin_site_bibliotheque(MYSQL *conn, char *username)
 {
     system("clear");
     int choix_user;
-    int id_emprunt = -1;
     char login_utilisateur[100];
-    char site_restitution[50];
     int user_type = 1;
 
     printf("                      .--.   _\n");
@@ -139,7 +137,7 @@ void choix_admin_site_bibliotheque(MYSQL *conn, char *username)
         case 14:
             printf("Veuillez saisir le login de l'utilisateur qui veut emprunter un livre : ");
             scanf("%s", login_utilisateur);
-            Emprunt_soimeme(conn, login_utilisateur);
+            Emprunt_livre(conn, login_utilisateur);
             // system("clear");
             break;
 
