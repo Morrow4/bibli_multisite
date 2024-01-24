@@ -234,6 +234,19 @@ void annuler_reservation_par_id(MYSQL *conn, char *email_utilisateur)
         return;
     }
 
+    // Obtenir l'ID de l'exemplaire associé à la réservation
+    int id_exemplaire = obtenir_id_exemplaire_de_reservation(conn, id_reservation);
+
+    // Vérifier si l'obtention de l'ID de l'exemplaire a échoué
+    if (id_exemplaire == -1)
+    {
+        printf("Annulation de la réservation annulée.\n");
+        return;
+    }
+
+    // Mettre à jour le champ Disponibilite de l'exemplaire à true
+    mettre_a_jour_disponibilite_exemplaire(conn, id_exemplaire, true);
+
     // Annuler la réservation
     char query[1024];
     sprintf(query, "DELETE FROM Reservation WHERE ID_Reservation = %d", id_reservation);
@@ -271,4 +284,37 @@ bool reservation_existe(MYSQL *conn, int id_reservation)
     mysql_free_result(result);
 
     return (nombre_reservations > 0);
+}
+
+// Fonction pour obtenir l'ID de l'exemplaire à partir de l'ID de la réservation
+int obtenir_id_exemplaire_de_reservation(MYSQL *conn, int id_reservation)
+{
+    // Requête SQL pour obtenir l'ID de l'exemplaire à partir de l'ID de la réservation
+    char query[1024];
+    sprintf(query, "SELECT ID_Exemplaire FROM Reservation WHERE ID_Reservation = %d", id_reservation);
+
+    // Exécuter la requête SQL
+    if (mysql_query(conn, query))
+    {
+        fprintf(stderr, "Erreur lors de l'obtention de l'ID de l'exemplaire de la réservation : %s\n", mysql_error(conn));
+        return -1;
+    }
+
+    // Récupérer le résultat de la requête
+    MYSQL_RES *result = mysql_store_result(conn);
+    MYSQL_ROW row = mysql_fetch_row(result);
+
+    if (row == NULL)
+    {
+        fprintf(stderr, "La réservation avec l'ID %d ne correspond à aucun exemplaire.\n", id_reservation);
+        mysql_free_result(result);
+        return -1;
+    }
+
+    int id_exemplaire = atoi(row[0]);
+
+    // Libérer la mémoire du résultat
+    mysql_free_result(result);
+
+    return id_exemplaire;
 }
