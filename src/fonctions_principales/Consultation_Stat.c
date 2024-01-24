@@ -82,18 +82,18 @@ void consultation_stat_site(MYSQL *conn, int user_type) {
 
     printf("PROB1\n");        
     mysql_free_result(res);
-
+    printf("PROB2\n");  
     // Exécution de la requête
     if (mysql_query(conn, query) != 0) {
         fprintf(stderr, "Erreur lors de la récupération des statistiques : %s\n", mysql_error(conn));
     }
-    printf("PROB2\n");  
+    printf("PROB3\n");  
     // Récupération du résultat
     MYSQL_RES *result = mysql_store_result(conn);
     if (result == NULL) {
         fprintf(stderr, "mysql_store_result() failed\n");
     }
-    printf("PROB3\n");  
+    printf("PROB4\n");  
     // Affichage des statistiques par site
     printf("%-20s%-15s%-15s\n", "Site", "Emprunts", "Réservations");
     printf("--------------------------------------------\n");
