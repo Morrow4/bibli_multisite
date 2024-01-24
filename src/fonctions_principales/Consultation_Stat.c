@@ -73,24 +73,17 @@ void consultation_stat_site(MYSQL *conn, int user_type) {
              "AND DATE_FORMAT(Reservation.DateReservation, '%%Y-%%m-%%d') = DATE_FORMAT(NOW(), '%%Y-%%m-%%d') "
              "AND Exemplaire.SitePrincipal = '%s' "
              "GROUP BY Exemplaire.SitePrincipal;",site);
-             
-             printf("Site saisi : %s\n", site);
-             printf("Requête SQL : %s\n", query);
 
-    printf("PROB1\n");        
-    //mysql_free_result(result);
-    printf("PROB2\n");  
     // Exécution de la requête
     if (mysql_query(conn, query) != 0) {
         fprintf(stderr, "Erreur lors de la récupération des statistiques : %s\n", mysql_error(conn));
     }
-    printf("PROB3\n");  
     // Récupération du résultat
     MYSQL_RES *result = mysql_store_result(conn);
     if (result == NULL) {
         fprintf(stderr, "mysql_store_result() failed\n");
     }
-    printf("PROB4\n");  
+
     // Affichage des statistiques par site
     printf("%-20s%-15s%-15s\n", "Site", "Emprunts", "Réservations");
     printf("--------------------------------------------\n");
@@ -100,7 +93,7 @@ void consultation_stat_site(MYSQL *conn, int user_type) {
     while ((row = mysql_fetch_row(result)) != NULL) {
         printf("%-20s%-15s%-15s\n", row[0], row[1], row[2]);
     }
-        printf("PROB4\n");  
+
     // Libération de la mémoire du résultat
     mysql_free_result(result);
 }
