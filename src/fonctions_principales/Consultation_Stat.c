@@ -38,7 +38,7 @@ void consultation_stat_site(MYSQL *conn, int user_type) {
                 if (row) {
                     // Affiche la valeur de la colonne SitePrincipal
                     printf("Site Principal : %s\n", row[0]);
-                    strcpy(site, row);
+                    strcpy(site, row[0]);
                 } else {
                     printf("Aucun résultat trouvé.\n");
                     consultation_stat(conn, user_type);
