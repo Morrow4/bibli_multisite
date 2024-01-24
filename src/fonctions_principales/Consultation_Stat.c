@@ -63,6 +63,7 @@ void consultation_stat_site(MYSQL *conn, int user_type) {
     }
 
     // Construisez la requête en fonction de l'unité de temps choisie pour les emprunts
+    char query[1000];
     if (strcmp(unite, "jour") == 0) {
         snprintf(query, sizeof(query),
                  "SELECT Exemplaire.SitePrincipal, "
@@ -154,7 +155,7 @@ void consultation_stat_site(MYSQL *conn, int user_type) {
     }
 
     // Affichage des statistiques par site
-    printf("%-20s%-15s%-15s\n", "Site", "Réservations");
+    printf("%-20s%-15s\n", "Site", "Réservations");
     printf("--------------------------------------------\n");
 
     // Parcours des lignes du résultat
