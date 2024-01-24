@@ -183,7 +183,6 @@ void afficher_reservations_utilisateur(MYSQL *conn, char *email_utilisateur)
     {
         printf("|%-14s|%-100s|%-50s|%-13s|%-19s|%-7s|\n", row[0], row[1], row[2], row[3], row[5], (atoi(row[4]) ? "Oui" : "Non"));
     }
-
     printf("+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+\n");
 
     // Libérer la mémoire du résultat
@@ -196,9 +195,9 @@ void annuler_reservation_par_id(MYSQL *conn, char *email_utilisateur)
     int id_reservation;
     int choix_recherche = 0;
 
-    while (choix_recherche != 3)
+    while (choix_recherche != 2)
     {
-        printf("\n+-----------------------------------+\n");
+        printf("\n+-------------------------------------+\n");
         printf("|-------Annuler une réservation-------|\n");
         printf("|1) Voir toutes mes réservations      |\n");
         printf("|2) Annuler la réservation avec son ID|\n");
