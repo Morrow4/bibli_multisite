@@ -26,38 +26,41 @@ void choix_inscrit_bibliotheque(MYSQL *conn, char *username)
     printf("           |||'__________________ | __________________'|||\n");
     printf("           ||/===================\\|/===================\\||\n");
     printf("           `--------------------~___~-------------------''\n");
-    printf("+------------------------- Bienvenue ! -------------------------+\n");
-    printf("|                 Que souhaitez-vous faire ?                    |\n");
-    printf("|---------------------------------------------------------------|\n");
-    printf("| 1) Lister les livres et leur disponibilité dans les sites     |\n");
-    printf("| 2) Emprunter un livre                                         |\n");
-    printf("| 3) Réserver un livre                                          |\n");
-    printf("| 4) Déconnexion                                                |\n");
-    printf("+--------------------------------------------------------------+\n");
-    printf("Veuillez entrer le numéro du choix correspondant : \n");
-
-    scanf("%d", &choix_user);
-
-    switch (choix_user)
+    while (choix_user != 19) // L'option de déconnexion est le choix 17
     {
-    case 1:
-        // Liste_livres_et_dispo(conn);
-        break;
+        printf("+------------------------- Bienvenue ! -------------------------+\n");
+        printf("|                 Que souhaitez-vous faire ?                    |\n");
+        printf("|---------------------------------------------------------------|\n");
+        printf("| 1) Lister les livres et leur disponibilité dans les sites     |\n");
+        printf("| 2) Emprunter un livre                                         |\n");
+        printf("| 3) Réserver un livre                                          |\n");
+        printf("| 4) Déconnexion                                                |\n");
+        printf("+--------------------------------------------------------------+\n");
+        printf("Veuillez entrer le numéro du choix correspondant : \n");
 
-    case 2:
-        emprunter_livre(conn, username);
-        break;
+        scanf("%d", &choix_user);
 
-    case 3:
-        reserver_livre(conn, username);
-        break;
+        switch (choix_user)
+        {
+        case 1:
+            afficher_tous_les_livres(conn);
+            break;
 
-    case 4:
-        deconnexion(conn);
-        break;
+        case 2:
+            emprunter_livre(conn, username);
+            break;
 
-    default:
-        choix_inscrit_bibliotheque(conn, username);
-        break;
+        case 3:
+            reserver_livre(conn, username);
+            break;
+
+        case 4:
+            deconnexion(conn);
+            break;
+
+        default:
+            //choix_inscrit_bibliotheque(conn, username);
+            break;
+        }
     }
 }

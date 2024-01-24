@@ -27,11 +27,11 @@ void choix_invite_bibliotheque(MYSQL *conn)
     {
     case 1:
         printf("Voici la liste des livres et leur disponibilité dans les différents sites\n");
-        // Liste_livres_et_dispo(conn);
+        afficher_tous_les_livres(conn);
         break;
 
     default:
-        choix_invite_bibliotheque(conn);
+        //choix_invite_bibliotheque(conn);
         break;
     }
 }
