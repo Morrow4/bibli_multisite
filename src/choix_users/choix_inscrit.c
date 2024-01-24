@@ -38,7 +38,7 @@ void choix_inscrit_bibliotheque(MYSQL *conn, char *username)
         printf("| 4) Voir mes réservations                                      |\n");
         printf("| 5) Voir mes emprunts                                          |\n");
         printf("| 6) Déconnexion                                                |\n");
-        printf("+--------------------------------------------------------------+\n");
+        printf("+---------------------------------------------------------------+\n");
         printf("Veuillez entrer le numéro du choix correspondant : \n");
 
         scanf("%d", &choix_user);
