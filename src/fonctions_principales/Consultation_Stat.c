@@ -59,9 +59,10 @@ void consultation_stat_site(MYSQL *conn, int user_type) {
     char unite[20];
     while (strcmp(unite, "jour") != 0 && strcmp(unite, "mois") != 0 && strcmp(unite, "année") != 0) {
         while (getchar() != '\n');
-        printf("Choisissez l'unité de temps (jour, mois, année) : \n");
+        printf("Choisissez l'unité de temps (jour, mois, année) : ");
         fgets(unite, sizeof(unite), stdin);
         unite[strcspn(unite, "\n")] = '\0'; // Supprimer le caractère de nouvelle ligne de la saisie
+        system("clear");
     }
 
     // Construisez la requête en fonction de l'unité de temps choisie pour les emprunts
@@ -175,9 +176,10 @@ void consultation_stat_3site(MYSQL* conn) {
     char unite[20];
     while (strcmp(unite, "jour") != 0 && strcmp(unite, "mois") != 0 && strcmp(unite, "année") != 0) {
         while (getchar() != '\n');
-        printf("Choisissez l'unité de temps (jour, mois, année) : \n");
+        printf("Choisissez l'unité de temps (jour, mois, année) : ");
         fgets(unite, sizeof(unite), stdin);
         unite[strcspn(unite, "\n")] = '\0'; // Supprimer le caractère de nouvelle ligne de la saisie
+        system("clear");
     }
     // Construction de la requête SQL pour récupérer le nombre d'emprunts par site
     char query[1000];
@@ -270,7 +272,7 @@ void consultation_stat(MYSQL *conn, int user_type) {
     switch (user_type) 
     {
         case 1: // admin general
-            printf("Veuillez choisir de consulter les statistiques pour les 3 sites ou par site : 1 / 2 :");
+            printf("Veuillez choisir de consulter les statistiques pour les 3 sites ou par site : 1 / 2 : ");
             int choix;
             scanf("%d", &choix);
             system("clear");
