@@ -48,16 +48,16 @@ void enregistrer_restitution(MYSQL *conn, char *email_utilisateur)
     do
     {
         printf("Veuillez saisir le site dans lequel le livre est restitué (Site A, Site B, ou Site C) : ");
-        scanf(" %50[^\n]", site_principal);
+        scanf(" %50[^\n]", site_restitution);
         getchar();
 
-        if (strcmp(site_principal, "Site A") == 0 || strcmp(site_principal, "Site B") == 0 || strcmp(site_principal, "Site C") == 0)
+        if (strcmp(site_restitution, "Site A") == 0 || strcmp(site_restitution, "Site B") == 0 || strcmp(site_restitution, "Site C") == 0)
         {
             is_valid_site = true;
         }
         else
         {
-            printf("Veuillez saisir un site principal valide.\n");
+            printf("Veuillez saisir un site de restitution valide.\n");
         }
     } while (!is_valid_site);
 
