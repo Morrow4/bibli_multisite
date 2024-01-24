@@ -26,7 +26,8 @@ void choix_inscrit_bibliotheque(MYSQL *conn, char *username)
     printf("           |||'__________________ | __________________'|||\n");
     printf("           ||/===================\\|/===================\\||\n");
     printf("           `--------------------~___~-------------------''\n");
-    while (choix_user != 19) // L'option de déconnexion est le choix 17
+
+    while (choix_user != 6)
     {
         printf("+------------------------- Bienvenue ! -------------------------+\n");
         printf("|                 Que souhaitez-vous faire ?                    |\n");
@@ -34,7 +35,9 @@ void choix_inscrit_bibliotheque(MYSQL *conn, char *username)
         printf("| 1) Lister les livres et leur disponibilité dans les sites     |\n");
         printf("| 2) Emprunter un livre                                         |\n");
         printf("| 3) Réserver un livre                                          |\n");
-        printf("| 4) Déconnexion                                                |\n");
+        printf("| 4) Voir mes réservations                                      |\n");
+        printf("| 5) Voir mes emprunts                                          |\n");
+        printf("| 6) Déconnexion                                                |\n");
         printf("+--------------------------------------------------------------+\n");
         printf("Veuillez entrer le numéro du choix correspondant : \n");
 
@@ -55,6 +58,16 @@ void choix_inscrit_bibliotheque(MYSQL *conn, char *username)
             break;
 
         case 4:
+            system("clear");
+            afficher_reservations_utilisateur(conn, username);
+            break;
+
+        case 5:
+            system("clear");
+            afficher_emprunts_non_restitues_utilisateur(conn, username);
+            break;
+
+        case 6:
             deconnexion(conn);
             break;
 
