@@ -15,36 +15,36 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
     char site_restitution[50];
     int user_type = 1;
 
-        printf("   ____________________________________________________________________________\n");
-        printf("  |____________________________________________________________________________|\n");
-        printf("  | __     __   ____   ___ ||  ____    ____     _  __        __   __   _  __  |\n");
-        printf("  ||  |__ |--|_| || |_|   |||_|**|*|__|+|+||___| ||  |     _|  |_|  ||#||==|  / /|\n");
-        printf("  ||==|^^||--| |=||=| |=*=||| |~~|~|  |=|=|| | |~||==|    | |  | |  || ||==| / / |\n");
-        printf("  ||  |##||  | | || | |JRO|||-|  | |==|+|+||-|-|~||__|    | |  | |==|| ||__|/_/__|\n");
-        printf("  ||__|__||__|_|_||_|_|___|||_|__|_|__|_|_||_|_|_||__|    | |__|_|__||_||__|/__/\n");
-        printf("  ||_______________________||__________________________| |___________________|\n");
-        printf("  | _____________________  ||      __   __  _  __    _ | | _______   __   __   |\n");
-        printf("  ||=|=|=|=|=|=|=|=|=|=|=| __..\\/ |  |_|  ||#||==|  / /| ||=|=|=|=|_|  |_|  | |\n");
-        printf("  || | | | | | | | | | | |\\/\\ \\  \\|++|=|  || ||==| / / | || | | | | | |  | |  | |\n");
-        printf("  ||_|_|_|_|_|_|_|_|_|_|_/\\/\\._.__\\__|_|__||_||__|/_/__| ||_|_|_|_|_|_|__|_|__|_|\n");
-        printf("  ||____________________ /\\~()/()~\\/\\ __________________| |___________________|\n");
-        printf("  | __   __    _  _     \\_  (_ .  _/ _    ___     _____| |__    _  /    ________|\n");
-        printf("  ||~~|_|..|__| || |_ _   \\ //\\\\ /  |=|__|~|~|___| | | | |||\\ \\  |=|/   //    /|\n");
-        printf("  ||--|+|^^|==|1||2| | |__/\\ __ /\\__| |==|x|x|+|+|=|=|=||| \\ \\/ |*/  .//____//.//\n");
-        printf("  ||__|_|__|__|_||_|_| /  \\ \\  / /  \\_|__|_|_|_|_|_|_|_|||__\\_\\|/   /(____|/ //\n");
-        printf("  |_________________ _/    \\/\\/\\/    \\_ _______________| |___ /   /________//\n");
-        printf("  | _____   _   __  |/      \\../      \\|  __   __   ___|     /                  \\\n");
-        printf("  ||_____|_| |_|##|_||   |   \\/ __|   ||_|==|_|++|_|-|||    /                    \\\n");
-        printf("  ||______||=|#|--| |\\   \\   o    /   /| |  |~|  | | |||   /                      \\\n");
-        printf("  ||______||_|_|__|_|_\\   \\  o   /   /_|_|__|_|__|_|_|||  |     ________     ______\\\n");
-        printf("  |_________ __________\\___\\____/___/___________ ______| |____|________)     /  /\n");
-        printf("  |__    _  /    ________     ______           /| _ _ _|       |_________/   /\n");
-        printf("  |\\ \\  |=|/   //    /| //   /  /  / |        /  || | | |                     /\n");
-        printf("  | \\ \\/ |*/  .//____//.//   /__/__/ (_)      /  ||=|=|=|                    /\n");
-        printf("__|  \\ \\/|/   /(____|/ //                    /  /||~|~|~|__                  /\n");
-        printf("  |___\\_/   /________//   ________         /  / ||_|_|_|_|               /\n");
-        printf("  |___ /   (|________/   |\\_______\\       /  / | |                       /\n");
-        printf("      /                  \\|________)     /  /  | |                     /\n");
+    printf("   ____________________________________________________________________________\n");
+    printf("  |____________________________________________________________________________|\n");
+    printf("  | __     __   ____   ___ ||  ____    ____     _  __        __   __   _  __  |\n");
+    printf("  ||  |__ |--|_| || |_|   |||_|**|*|__|+|+||___| ||  |     _|  |_|  ||#||==|  / /|\n");
+    printf("  ||==|^^||--| |=||=| |=*=||| |~~|~|  |=|=|| | |~||==|    | |  | |  || ||==| / / |\n");
+    printf("  ||  |##||  | | || | |JRO|||-|  | |==|+|+||-|-|~||__|    | |  | |==|| ||__|/_/__|\n");
+    printf("  ||__|__||__|_|_||_|_|___|||_|__|_|__|_|_||_|_|_||__|    | |__|_|__||_||__|/__/\n");
+    printf("  ||_______________________||__________________________| |___________________|\n");
+    printf("  | _____________________  ||      __   __  _  __    _ | | _______   __   __   |\n");
+    printf("  ||=|=|=|=|=|=|=|=|=|=|=| __..\\/ |  |_|  ||#||==|  / /| ||=|=|=|=|_|  |_|  | |\n");
+    printf("  || | | | | | | | | | | |\\/\\ \\  \\|++|=|  || ||==| / / | || | | | | | |  | |  | |\n");
+    printf("  ||_|_|_|_|_|_|_|_|_|_|_/\\/\\._.__\\__|_|__||_||__|/_/__| ||_|_|_|_|_|_|__|_|__|_|\n");
+    printf("  ||____________________ /\\~()/()~\\/\\ __________________| |___________________|\n");
+    printf("  | __   __    _  _     \\_  (_ .  _/ _    ___     _____| |__    _  /    ________|\n");
+    printf("  ||~~|_|..|__| || |_ _   \\ //\\\\ /  |=|__|~|~|___| | | | |||\\ \\  |=|/   //    /|\n");
+    printf("  ||--|+|^^|==|1||2| | |__/\\ __ /\\__| |==|x|x|+|+|=|=|=||| \\ \\/ |*/  .//____//.//\n");
+    printf("  ||__|_|__|__|_||_|_| /  \\ \\  / /  \\_|__|_|_|_|_|_|_|_|||__\\_\\|/   /(____|/ //\n");
+    printf("  |_________________ _/    \\/\\/\\/    \\_ _______________| |___ /   /________//\n");
+    printf("  | _____   _   __  |/      \\../      \\|  __   __   ___|     /                  \\\n");
+    printf("  ||_____|_| |_|##|_||   |   \\/ __|   ||_|==|_|++|_|-|||    /                    \\\n");
+    printf("  ||______||=|#|--| |\\   \\   o    /   /| |  |~|  | | |||   /                      \\\n");
+    printf("  ||______||_|_|__|_|_\\   \\  o   /   /_|_|__|_|__|_|_|||  |     ________     ______\\\n");
+    printf("  |_________ __________\\___\\____/___/___________ ______| |____|________)     /  /\n");
+    printf("  |__    _  /    ________     ______           /| _ _ _|       |_________/   /\n");
+    printf("  |\\ \\  |=|/   //    /| //   /  /  / |        /  || | | |                     /\n");
+    printf("  | \\ \\/ |*/  .//____//.//   /__/__/ (_)      /  ||=|=|=|                    /\n");
+    printf("__|  \\ \\/|/   /(____|/ //                    /  /||~|~|~|__                  /\n");
+    printf("  |___\\_/   /________//   ________         /  / ||_|_|_|_|               /\n");
+    printf("  |___ /   (|________/   |\\_______\\       /  / | |                       /\n");
+    printf("      /                  \\|________)     /  /  | |                     /\n");
 
     while (choix_user != 17) // L'option de déconnexion est le choix 17
     {
@@ -55,7 +55,7 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
         printf("|----------------------------------------------------------------|\n");
         printf("| 1)  Lister les livres et leur disponibilité dans les sites     |\n");
         printf("| 2)  Réserver un livre pour soi                                 |\n"); // a retirer
-        printf("| 3)  Réserver un livre pour un utilisateur inscrit              |\n"); // a retirer
+        printf("| 3)  Réserver un livre pour un utilisateur inscrit              |\n");
         printf("| 4)  Ajouter un compte utilisateur ou administrateur            |\n");
         printf("| 5)  Supprimer un compte utilisateur ou administrateur          |\n");
         printf("| 6)  Consulter les statistiques globales de la bibliothèque     |\n");
@@ -63,9 +63,9 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
         printf("| 8)  Mettre à jour les informations d'un livre                  |\n");
         printf("| 9)  Supprimer un livre                                         |\n");
         printf("| 10) Bloquer un utilisateur temporairement                      |\n");
-        printf("| 11) Valider la restitution d'un livre                          |\n");
+        printf("| 11) Enregistrer la restitution d'un livre                      |\n");
         printf("| 12) Emprunter un livre pour soi                                |\n"); // a retirer
-        printf("| 13) Emprunter un livre pour un utilisateur inscrit             |\n"); // a retirer
+        printf("| 13) Emprunter un livre pour un utilisateur inscrit             |\n");
         printf("| 14) Ajouter un exemplaire                                      |\n");
         printf("| 15) Mettre à jour les informations d'un exemplaire             |\n");
         printf("| 16) Supprimer un exemplaire                                    |\n");
@@ -73,6 +73,7 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
         printf("| 18) Annuler une réservation                                    |\n");
         printf("| 19) Voir mes réservations                                      |\n");
         printf("| 20) Emprunter un livre réservé                                 |\n");
+        printf("| 21) Valider la restitution des livres rappatriés               |\n");
         printf("+----------------------------------------------------------------+\n");
 
         printf("\nVeuillez entrer le numéro du choix correspondant à ce que vous voulez faire : ");
@@ -137,11 +138,7 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
             break;
 
         case 11:
-            printf("Veuillez saisir le numéro d'identification de l'emprunt à restituer : ");
-            scanf("%d", &id_emprunt);
-            printf("Veuillez saisir le site sur lequel le livre est restitué : ");
-            scanf("%s", site_restitution);
-            enregistrer_restitution(conn, id_emprunt, site_restitution);
+            enregistrer_restitution(conn, username);
             system("clear");
             break;
 
@@ -193,6 +190,10 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
             system("clear");
             emprunter_livre_apres_reservation(conn, username);
             system("clear");
+            break;
+
+        case 21:
+            valider_restitution_apres_transit(conn);
             break;
 
         default:

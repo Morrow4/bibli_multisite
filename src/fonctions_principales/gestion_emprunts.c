@@ -82,7 +82,7 @@ void effectuerEmprunt(MYSQL *conn, const char *ISBN, const char *username)
         sscanf(row[0], "%d", &Var_IdExemplaire);
     }
 
-    mysql_free_result(result); 
+    mysql_free_result(result);
     // Maj table exemplaire
     sprintf(query, "UPDATE Exemplaire SET Disponibilite = false WHERE ID_Exemplaire = '%d' AND Disponibilite = true", Var_IdExemplaire);
     if (mysql_query(conn, query) != 0)
@@ -94,7 +94,7 @@ void effectuerEmprunt(MYSQL *conn, const char *ISBN, const char *username)
     // récupération de l'ID_Utilisateur = Email
     qui(username);
     printf("recuperation de l'id user : %s\n", username);
-    printf("recuperation de l'id exemplaire : %d\n", Var_IdExemplaire);   
+    printf("recuperation de l'id exemplaire : %d\n", Var_IdExemplaire);
     sprintf(query, "INSERT INTO Emprunt (ID_Exemplaire, ID_Utilisateur) VALUES ('%d', '%s')", Var_IdExemplaire, username);
     if (mysql_query(conn, query) != 0)
     {
@@ -151,7 +151,7 @@ void Emprunt_soimeme(MYSQL *conn, char *username)
         printf("Vous êtes administrateurs site, merci d'utiliser votre compte adhérent. \n");
         return;
         break;
-    case 3: //adherent
+    case 3: // adherent
         printf("Bienvenue dans le menu d'emprunt des livres! \n");
     default:
         return;
@@ -225,4 +225,81 @@ void Emprunt_soimeme(MYSQL *conn, char *username)
     {
         return;
     }
+}
+
+void afficher_emprunts_non_restitues_utilisateur(MYSQL *conn, char *email_utilisateur)
+{
+    // Requête SQL pour récupérer les emprunts non restitués de l'utilisateur
+    const char *query = "SELECT Emprunt.ID_Emprunt, Livre.Titre, Livre.Auteur, Emprunt.DateEmprunt FROM Emprunt JOIN Exemplaire ON Emprunt.ID_Exemplaire = Exemplaire.ID_Exemplaire JOIN Livre ON Exemplaire.ISBN = Livre.ISBN WHERE Emprunt.ID_Utilisateur = ? AND Emprunt.DateRestitution IS NULL";
+
+    // Préparer la requête SQL
+    MYSQL_STMT *stmt;
+    MYSQL_BIND bind[1];
+    memset(bind, 0, sizeof(bind));
+
+    stmt = mysql_stmt_init(conn);
+
+    if (!stmt)
+    {
+        fprintf(stderr, "\nÉchec de l'initialisation de la requête préparée : %s\n", mysql_error(conn));
+        return;
+    }
+
+    if (mysql_stmt_prepare(stmt, query, strlen(query)))
+    {
+        fprintf(stderr, "\nÉchec de la préparation de la requête : %s\n", mysql_stmt_error(stmt));
+        mysql_stmt_close(stmt);
+        return;
+    }
+
+    // Lier les variables d'entrée à la requête préparée
+    bind[0].buffer_type = MYSQL_TYPE_STRING;
+    bind[0].buffer = email_utilisateur;
+    bind[0].buffer_length = strlen(email_utilisateur);
+
+    if (mysql_stmt_bind_param(stmt, bind))
+    {
+        fprintf(stderr, "\nÉchec de la liaison des paramètres : %s\n", mysql_stmt_error(stmt));
+        mysql_stmt_close(stmt);
+        return;
+    }
+
+    // Exécuter la requête préparée
+    if (mysql_stmt_execute(stmt))
+    {
+        fprintf(stderr, "\nErreur lors de l'exécution de la requête : %s\n", mysql_stmt_error(stmt));
+        mysql_stmt_close(stmt);
+        return;
+    }
+
+    // Récupérer le résultat de la requête
+    MYSQL_RES *result = mysql_stmt_result_metadata(stmt);
+
+    // Vérifier si le résultat est valide
+    if (!result)
+    {
+        fprintf(stderr, "Aucun résultat retourné par la requête\n");
+        mysql_stmt_close(stmt);
+        return;
+    }
+
+    // Afficher les en-têtes
+    printf("\n+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+\n");
+    printf("|%-13s|%-100s|%-50s|%-20s|\n", "ID_Emprunt", "Titre", "Auteur", "Date d'emprunt");
+    printf("+-------------+----------------------------------------------------------------------------------------------------+--------------------------------------------------+--------------------+\n");
+
+    // Afficher chaque emprunt non restitué de l'utilisateur
+    MYSQL_ROW row;
+    while ((row = mysql_fetch_row(result)))
+    {
+        // Afficher les détails de l'emprunt
+        printf("|%-13s|%-100s|%-50s|%-20s|\n", row[0], row[1], row[2], row[3]);
+    }
+    printf("n+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+\n");
+
+    // Libérer la mémoire du résultat
+    mysql_free_result(result);
+
+    // Fermer la requête préparée
+    mysql_stmt_close(stmt);
 }
