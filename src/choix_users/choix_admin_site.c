@@ -40,7 +40,6 @@ void choix_admin_site_bibliotheque(MYSQL *conn, char *username)
     printf("| 8)  Supprimer un livre                                         |\n");
     printf("| 9)  Bloquer un utilisateur temporairement                      |\n");
     printf("| 10) Valider la restitution d'un livre                          |\n");
-    printf("| 11) Emprunter un livre pour soi                                |\n"); // a retirer
     printf("| 12) Emprunter un livre pour un utilisateur inscrit             |\n"); // a retirer
     printf("| 13) Déconnexion                                                |\n");
     printf("+--------------------------------------------------------------+\n\n");
