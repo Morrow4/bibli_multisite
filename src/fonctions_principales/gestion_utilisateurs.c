@@ -360,6 +360,7 @@ void suppression_compte(MYSQL *conn, char *username)
     printf("utilisateur supprimé\n");
     fclose(log_file);
     free(time_str);
+    sleep(5);
 }
 
 void blocage_compte(MYSQL *conn, char *username)
