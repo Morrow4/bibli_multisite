@@ -47,9 +47,9 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
     while (choix_user != 19) // L'option de déconnexion est le choix 17
     {
         printf("+----------------------------------------------------------------+\n");
-        printf("|                      Menu Principal                             |\n");
+        printf("|                         Menu Principal                         |\n");
         printf("+----------------------------------------------------------------+\n");
-        printf("|                        Gestion des Livres                      |\n");
+        printf("|                       Gestion des Livres                       |\n");
         printf("|----------------------------------------------------------------|\n");
         printf("| 1)  Lister les livres et leur disponibilité dans les sites     |\n");
         printf("| 2)  Ajouter un livre                                           |\n");
@@ -61,13 +61,13 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
         printf("| 8)  Enregistrer la restitution d'un livre                      |\n");
         printf("| 9)  Valider la restitution des livres rappatriés               |\n");
         printf("|----------------------------------------------------------------|\n");
-        printf("|                        Gestion des Utilisateurs                |\n");
+        printf("|                    Gestion des Utilisateurs                    |\n");
         printf("|----------------------------------------------------------------|\n");
         printf("| 10) Ajouter un compte utilisateur ou administrateur            |\n");
         printf("| 11) Supprimer un compte utilisateur ou administrateur          |\n");
         printf("| 12) Bloquer un utilisateur                                     |\n");
         printf("|----------------------------------------------------------------|\n");
-        printf("|                        Gestion des Réservations                |\n");
+        printf("|                    Gestion des Réservations                    |\n");
         printf("|----------------------------------------------------------------|\n");
         printf("| 13) Réserver un livre pour un utilisateur inscrit              |\n");
         printf("| 14) Emprunter un livre pour un utilisateur inscrit             |\n");
@@ -75,11 +75,11 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
         printf("| 16) Voir mes réservations                                      |\n");
         printf("| 17) Emprunter un livre après réservation                       |\n");
         printf("|----------------------------------------------------------------|\n");
-        printf("|                        Statistiques                            |\n");
+        printf("|                          Statistiques                          |\n");
         printf("|----------------------------------------------------------------|\n");
         printf("| 18) Consulter les statistiques globales de la bibliothèque     |\n");
         printf("|----------------------------------------------------------------|\n");
-        printf("|                        Autres Options                          |\n");
+        printf("|                         Autres Options                         |\n");
         printf("|----------------------------------------------------------------|\n");
         printf("| 19) Déconnexion                                                |\n");
         printf("+----------------------------------------------------------------+\n");
