@@ -52,7 +52,7 @@ void choix_inscrit_bibliotheque(MYSQL *conn, char *username)
         reserver_livre(conn, username);
         break;
 
-    case 13:
+    case 4:
         deconnexion(conn);
         break;
 
