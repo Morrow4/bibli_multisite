@@ -17,9 +17,10 @@ void consultation_stat_site(MYSQL *conn, int user_type) {
         case 1: // admin general
             while (strcmp(site, "Site A") != 0 && strcmp(site, "Site B") != 0 && strcmp(site, "Site C") != 0) {
                 while (getchar() != '\n');
-                printf("Choisissez un site (Site A, Site B, Site C) :\n");
+                printf("Choisissez un site (Site A, Site B, Site C) :");
                 fgets(site, sizeof(site), stdin);
                 site[strcspn(site, "\n")] = '\0'; // Supprimer le caractère de nouvelle ligne de la saisie
+                system("clear");
             }
             break;
         case 2: // admin site
@@ -269,7 +270,7 @@ void consultation_stat(MYSQL *conn, int user_type) {
     switch (user_type) 
     {
         case 1: // admin general
-            printf("Veuillez choisir de consulter les statistiques pour les 3 sites ou par site : 1 | 2 : \n");
+            printf("Veuillez choisir de consulter les statistiques pour les 3 sites ou par site : 1 / 2 :");
             int choix;
             scanf("%d", &choix);
             system("clear");
