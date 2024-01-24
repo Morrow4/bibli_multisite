@@ -90,6 +90,7 @@ void consultation_stat_site(MYSQL *conn, int user_type) {
                  "WHERE DATE_FORMAT(Emprunt.DateEmprunt, '%%Y') = DATE_FORMAT(NOW(), '%%Y') "
                  "AND Exemplaire.SitePrincipal = '%s' "
                  "GROUP BY Exemplaire.SitePrincipal;", site);
+    }
 
     // Exécution de la requête
     if (mysql_query(conn, query) != 0) {
@@ -140,6 +141,7 @@ void consultation_stat_site(MYSQL *conn, int user_type) {
                  "WHERE DATE_FORMAT(Reservation.DateReservation, '%%Y') = DATE_FORMAT(NOW(), '%%Y') "
                  "AND Exemplaire.SitePrincipal = '%s' "
                  "GROUP BY Exemplaire.SitePrincipal;", site);
+    }
 
     // Exécution de la requête
     if (mysql_query(conn, query) != 0) {
