@@ -73,6 +73,13 @@ void consultation_stat_site(MYSQL *conn, int user_type) {
              "AND DATE_FORMAT(Reservation.DateReservation, '%%Y-%%m-%%d') = DATE_FORMAT(NOW(), '%%Y-%%m-%%d') "
              "AND Exemplaire.SitePrincipal = '%p' "
              "GROUP BY Exemplaire.SitePrincipal;",site);
+             
+             printf("Site saisi : %s\n", site);
+             printf("Requête SQL : %s\n", query);
+            printf("Erreur MySQL après mysql_query : %s\n", mysql_error(conn));
+            printf("Erreur MySQL après mysql_store_result : %s\n", mysql_error(conn));
+
+
     printf("PROB1\n");        
     mysql_free_result(res);
 
