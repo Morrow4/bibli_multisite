@@ -14,11 +14,11 @@ void enregistrer_restitution(MYSQL *conn, char *email_utilisateur)
 
     while (choix_recherche != 2)
     {
-        printf("\n+--------------------------------------------+\n");
-        printf("|---------Restituer un livre emprunté--------|\n");
-        printf("|1) Voir tous mes emprunts non restitués     |\n");
-        printf("|2) Restituer un livre avec l'ID de l'emprunt|\n");
-        printf("+--------------------------------------------+\n");
+        printf("\n+-----------------------------------------------------------------+\n");
+        printf("|-------------------Restituer un livre emprunté-------------------|\n");
+        printf("|1) Voir tous les emprunts non restitués de l'adhérent sélectionné|\n");
+        printf("|2) Restituer un livre avec l'ID de l'emprunt                     |\n");
+        printf("+-----------------------------------------------------------------+\n");
         printf("\nVeuillez entrer le numéro du choix correspondant à ce que vous voulez faire : ");
         scanf("%d", &choix_recherche);
 

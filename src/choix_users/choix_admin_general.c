@@ -125,6 +125,8 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
 
         case 8:
             system("clear");
+            printf("Veuillez saisir le login de l'utilisateur qui veut emprunter un livre : ");
+            scanf("%s", login_utilisateur);
             enregistrer_restitution(conn, username);
             break;
 
