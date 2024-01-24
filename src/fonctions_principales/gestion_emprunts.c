@@ -11,75 +11,13 @@ MYSQL_RES *result;
 MYSQL_ROW row;
 MYSQL *conn;
 
-// Fonction pour effectuer l'emprunt
-void effectuerEmprunt(MYSQL *conn, char *ISBN, char *username)
-{
-    qui(username);
-
-    char query[255];
-    // Réduire le nombre d'exemplaires disponibles
-    // Verifier s'il existe des ISBN pour l'exemplaire demandé
-    sprintf(query, "SELECT ID_Exemplaire FROM Exemplaire WHERE ISBN = '%s' AND Disponibilite = true LIMIT 1", ISBN);
-    if (mysql_query(conn, query) != 0)
-    {
-        fprintf(stderr, "Erreur de vérification\n");
-        return;
-    }
-    // Stocker dans une variable
-    int Var_IdExemplaire;
-    result = mysql_store_result(conn);
-    if ((row = mysql_fetch_row(result)) != NULL)
-    {
-        sscanf(row[0], "%d", &Var_IdExemplaire);
-    }
-
-    mysql_free_result(result);
-    // Maj table exemplaire
-    sprintf(query, "UPDATE Exemplaire SET Disponibilite = false WHERE ID_Exemplaire = '%d' AND Disponibilite = true", Var_IdExemplaire);
-    if (mysql_query(conn, query) != 0)
-    {
-        fprintf(stderr, "Erreur lors de la mise à jour du nombre d'exemplaires : %s\n", mysql_error(conn));
-        return;
-    }
-
-    // récupération de l'ID_Utilisateur = Email
-    sprintf(query, "INSERT INTO Emprunt (ID_Exemplaire, ID_Utilisateur) VALUES ('%d', '%s')", Var_IdExemplaire, username);
-    if (mysql_query(conn, query) != 0)
-    {
-        fprintf(stderr, "Erreur lors de l'ajout de l'emprunt : %s\n", mysql_error(conn));
-        return;
-    }
-    printf("Exemplaire emprunté !\n");
-    free((char *)username);
-}
-
 // Fonction pour l'emprunt de livre
 void emprunter_livre(MYSQL *conn, char *username)
 {
-    sprintf(username, "%d", getuid());
-    int user_group = get_user_group(conn);
+    system("clear");
+
     char ISBN[14];
     int choix_recherche = 0;
-
-    switch (user_group) 
-    {
-    case 1: // admingeneral
-        printf("Vous êtes administrateurs général, merci d'utiliser votre compte adhérent. \n");
-        exit(0);
-        sleep(3);
-        break;
-    case 2: // adminsite
-        printf("Vous êtes administrateurs site, merci d'utiliser votre compte adhérent. \n");
-        sleep(3);
-        exit(0);
-        break;
-    case 3: // adherent
-        printf("Bienvenue dans le menu d'emprunt des livres! \n");
-    default:
-        return;
-        break;
-    }
-    system("clear");
 
     while (choix_recherche != 3)
     {
@@ -125,6 +63,119 @@ void emprunter_livre(MYSQL *conn, char *username)
     } while (strlen(ISBN) != 13);
 
     effectuerEmprunt(conn, ISBN, username);
+}
+
+void effectuerEmprunt(MYSQL *conn, char *ISBN, char *username)
+{
+    // Vérifier si l'ISBN existe dans la base de données
+    if (!ISBNExiste(conn, ISBN))
+    {
+        printf("L'ISBN %s n'existe pas dans la base de données.\n", ISBN);
+        return;
+    }
+
+    // Récupérer un exemplaire disponible de l'ISBN demandé
+    int id_exemplaire = obtenirIdExemplaireDisponible(conn, ISBN);
+
+    if (id_exemplaire == -1)
+    {
+        printf("Aucun exemplaire disponible pour l'ISBN %s.\n", ISBN);
+        return;
+    }
+
+    // Mettre à jour le champ Disponibilite de l'exemplaire à false
+    mettreAJourDisponibiliteExemplaire(conn, id_exemplaire, false);
+
+    // Insérer une nouvelle ligne dans la table Emprunt
+    char query[1024];
+    sprintf(query, "INSERT INTO Emprunt (ID_Exemplaire, ID_Utilisateur) VALUES (%d, '%s')", id_exemplaire, username);
+
+    // Exécuter la requête SQL
+    if (mysql_query(conn, query))
+    {
+        fprintf(stderr, "Erreur lors de l'enregistrement de l'emprunt : %s\n", mysql_error(conn));
+        // En cas d'erreur, remettre le champ Disponibilite de l'exemplaire à true
+        mettreAJourDisponibiliteExemplaire(conn, id_exemplaire, true);
+        return;
+    }
+
+    printf("Emprunt du livre avec ISBN %s effectué avec succès.\n", ISBN);
+}
+
+// Fonction pour vérifier si un ISBN existe dans la table Livre
+int ISBNExiste(MYSQL *conn, char *ISBN)
+{
+    char query[1024];
+    sprintf(query, "SELECT COUNT(*) FROM Livre WHERE ISBN = '%s'", ISBN);
+
+    if (mysql_query(conn, query))
+    {
+        fprintf(stderr, "Erreur lors de la vérification de l'existence de l'ISBN : %s\n", mysql_error(conn));
+        return 0; // Considérer que l'ISBN n'existe pas en cas d'erreur
+    }
+
+    MYSQL_RES *result = mysql_store_result(conn);
+
+    if (!result)
+    {
+        fprintf(stderr, "Aucun résultat retourné par la requête\n");
+        return 0; // Considérer que l'ISBN n'existe pas en cas d'erreur
+    }
+
+    MYSQL_ROW row = mysql_fetch_row(result);
+    int count = atoi(row[0]);
+
+    mysql_free_result(result);
+
+    return count > 0;
+}
+
+// Fonction pour obtenir l'ID d'un exemplaire disponible associé à un ISBN
+int obtenirIdExemplaireDisponible(MYSQL *conn, char *ISBN)
+{
+    char query[1024];
+    sprintf(query, "SELECT ID_Exemplaire FROM Exemplaire WHERE ISBN = '%s' AND Disponibilite = true LIMIT 1", ISBN);
+
+    if (mysql_query(conn, query))
+    {
+        fprintf(stderr, "Erreur lors de l'obtention de l'ID de l'exemplaire disponible : %s\n", mysql_error(conn));
+        return -1;
+    }
+
+    MYSQL_RES *result = mysql_store_result(conn);
+
+    if (!result)
+    {
+        fprintf(stderr, "Aucun résultat retourné par la requête\n");
+        return -1;
+    }
+
+    MYSQL_ROW row = mysql_fetch_row(result);
+
+    if (!row)
+    {
+        fprintf(stderr, "Aucun exemplaire disponible trouvé pour l'ISBN %s\n", ISBN);
+        mysql_free_result(result);
+        return -1;
+    }
+
+    int id_exemplaire = atoi(row[0]);
+
+    mysql_free_result(result);
+
+    return id_exemplaire;
+}
+
+// Fonction pour mettre à jour le champ Disponibilite d'un exemplaire
+void mettreAJourDisponibiliteExemplaire(MYSQL *conn, int id_exemplaire, int disponibilite)
+{
+    char query[1024];
+    sprintf(query, "UPDATE Exemplaire SET Disponibilite = %d WHERE ID_Exemplaire = %d", disponibilite, id_exemplaire);
+
+    if (mysql_query(conn, query))
+    {
+        fprintf(stderr, "Erreur lors de la mise à jour de la disponibilité de l'exemplaire : %s\n", mysql_error(conn));
+    }
 }
 
 void afficher_emprunts_non_restitues_utilisateur(MYSQL *conn, char *email_utilisateur)

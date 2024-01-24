@@ -45,7 +45,7 @@ void choix_inscrit_bibliotheque(MYSQL *conn, char *username)
         break;
 
     case 2:
-        Emprunt_soimeme(conn, username);
+        emprunter_livre(conn, username);
         break;
 
     case 3:

@@ -107,9 +107,6 @@ void verifier_et_valider_restitution(MYSQL *conn, int id_restitution)
     {
         // Si la restitution est validee, marquer l exemplaire comme disponible
         marquer_exemplaire_disponible(conn, id_emprunt);
-
-        // Mettre a jour la date de restitution
-        mettre_a_jour_date_restitution(conn, id_restitution);
     }
 }
 
@@ -187,20 +184,6 @@ void marquer_exemplaire_disponible(MYSQL *conn, int id_emprunt)
     if (mysql_query(conn, query))
     {
         fprintf(stderr, "Erreur lors du marquage de l'exemplaire comme disponible : %s\n", mysql_error(conn));
-    }
-}
-
-// Fonction pour mettre a jour la date de restitution
-void mettre_a_jour_date_restitution(MYSQL *conn, int id_restitution)
-{
-    // Requete SQL pour mettre a jour la date de restitution
-    char query[1024];
-    sprintf(query, "UPDATE Restitution SET DateRestitution=NOW() WHERE ID_Restitution=%d", id_restitution);
-
-    // Executer la requete SQL
-    if (mysql_query(conn, query))
-    {
-        fprintf(stderr, "Erreur lors de la mise à jour de la date de restitution : %s\n", mysql_error(conn));
     }
 }
 
@@ -296,9 +279,6 @@ void valider_restitution_apres_transit(MYSQL *conn)
 
     // Marquer l'exemplaire comme disponible
     marquer_exemplaire_disponible(conn, id_emprunt);
-
-    // Mettre à jour la date de restitution
-    mettre_a_jour_date_restitution(conn, id_restitution);
 
     printf("La restitution après transit avec l'ID %d a été validée avec succès.\n", id_restitution);
 }

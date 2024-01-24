@@ -62,19 +62,36 @@ void consultation_stat_site(MYSQL *conn, int user_type) {
         unite[strcspn(unite, "\n")] = '\0'; // Supprimer le caractère de nouvelle ligne de la saisie
     }
 
-    // Construction de la requête SQL pour récupérer le nombre d'emprunts et de réservations par site
+    // Construisez la requête en fonction de l'unité de temps choisie pour les emprunts
     char query[1000];
-    snprintf(query, sizeof(query),
-             "SELECT Exemplaire.SitePrincipal, "
-             "COUNT(DISTINCT Emprunt.ID_Emprunt) AS nb_emprunts, "
-             "COUNT(DISTINCT Reservation.ID_Reservation) AS nb_reservations "
-             "FROM Emprunt "
-             "LEFT JOIN Exemplaire ON Emprunt.ID_Exemplaire = Exemplaire.ID_Exemplaire "
-             "LEFT JOIN Reservation ON Exemplaire.ID_Exemplaire = Reservation.ID_Exemplaire "
-             "WHERE DATE_FORMAT(Emprunt.DateEmprunt, '%%Y-%%m-%%d') = DATE_FORMAT(NOW(), '%%Y-%%m-%%d') "
-             "AND DATE_FORMAT(Reservation.DateReservation, '%%Y-%%m-%%d') = DATE_FORMAT(NOW(), '%%Y-%%m-%%d') "
-             "AND Exemplaire.SitePrincipal = '%s' "
-             "GROUP BY Exemplaire.SitePrincipal;",site);
+    if (strcmp(unite, "jour") == 0) {
+        snprintf(query, sizeof(query),
+                 "SELECT Exemplaire.SitePrincipal, "
+                 "COUNT(DISTINCT Emprunt.ID_Emprunt) AS nb_emprunts "
+                 "FROM Emprunt "
+                 "LEFT JOIN Exemplaire ON Emprunt.ID_Exemplaire = Exemplaire.ID_Exemplaire "
+                 "WHERE DATE_FORMAT(Emprunt.DateEmprunt, '%%Y-%%m-%%d') = DATE_FORMAT(NOW(), '%%Y-%%m-%%d') "
+                 "AND Exemplaire.SitePrincipal = '%s' "
+                 "GROUP BY Exemplaire.SitePrincipal;", site);
+    } else if (strcmp(unite, "mois") == 0) {
+        snprintf(query, sizeof(query),
+                 "SELECT Exemplaire.SitePrincipal, "
+                 "COUNT(DISTINCT Emprunt.ID_Emprunt) AS nb_emprunts, "
+                 "FROM Emprunt "
+                 "LEFT JOIN Exemplaire ON Emprunt.ID_Exemplaire = Exemplaire.ID_Exemplaire "
+                 "WHERE DATE_FORMAT(Emprunt.DateEmprunt, '%%Y-%%m') = DATE_FORMAT(NOW(), '%%Y-%%m') "
+                 "AND Exemplaire.SitePrincipal = '%s' "
+                 "GROUP BY Exemplaire.SitePrincipal;", site);
+    } else if (strcmp(unite, "année") == 0) {
+        snprintf(query, sizeof(query),
+                 "SELECT Exemplaire.SitePrincipal, "
+                 "COUNT(DISTINCT Emprunt.ID_Emprunt) AS nb_emprunts, "
+                 "FROM Emprunt "
+                 "LEFT JOIN Exemplaire ON Emprunt.ID_Exemplaire = Exemplaire.ID_Exemplaire "
+                 "WHERE DATE_FORMAT(Emprunt.DateEmprunt, '%%Y') = DATE_FORMAT(NOW(), '%%Y') "
+                 "AND Exemplaire.SitePrincipal = '%s' "
+                 "GROUP BY Exemplaire.SitePrincipal;", site);
+    }
 
     // Exécution de la requête
     if (mysql_query(conn, query) != 0) {
@@ -87,13 +104,64 @@ void consultation_stat_site(MYSQL *conn, int user_type) {
     }
 
     // Affichage des statistiques par site
-    printf("%-20s%-15s%-15s\n", "Site", "Emprunts", "Réservations");
+    printf("%-20s%-15s\n", "Site", "Emprunts");
     printf("--------------------------------------------\n");
 
     // Parcours des lignes du résultat
     //MYSQL_ROW row;
     while ((row = mysql_fetch_row(result)) != NULL) {
-        printf("%-20s%-15s%-15s\n", row[0], row[1], row[2]);
+        printf("%-20s%-15s\n", row[0], row[1]);
+    }
+
+// Construisez la requête en fonction de l'unité de temps choisie pour les réservations
+    if (strcmp(unite, "jour") == 0) {
+        snprintf(query, sizeof(query),
+                 "SELECT Exemplaire.SitePrincipal, "
+                 "COUNT(DISTINCT Reservation.ID_Reservation) AS nb_reservations "
+                 "FROM Reservation "
+                 "LEFT JOIN Exemplaire ON Reservation.ID_Exemplaire = Exemplaire.ID_Exemplaire "
+                 "WHERE DATE_FORMAT(Reservation.DateReservation, '%%Y-%%m-%%d') = DATE_FORMAT(NOW(), '%%Y-%%m-%%d') "
+                 "AND Exemplaire.SitePrincipal = '%s' "
+                 "GROUP BY Exemplaire.SitePrincipal;", site);
+    } else if (strcmp(unite, "mois") == 0) {
+        snprintf(query, sizeof(query),
+                 "SELECT Exemplaire.SitePrincipal, "
+                 "COUNT(DISTINCT Reservation.ID_Reservation) AS nb_reservations "
+                 "FROM Reservation "
+                 "LEFT JOIN Exemplaire ON Reservation.ID_Exemplaire = Exemplaire.ID_Exemplaire "
+                 "WHERE DATE_FORMAT(Emprunt.DateEmprunt, '%%Y-%%m') = DATE_FORMAT(NOW(), '%%Y-%%m') "
+                 "AND DATE_FORMAT(Reservation.DateReservation, '%%Y-%%m') = DATE_FORMAT(NOW(), '%%Y-%%m') "
+                 "AND Exemplaire.SitePrincipal = '%s' "
+                 "GROUP BY Exemplaire.SitePrincipal;", site);
+    } else if (strcmp(unite, "année") == 0) {
+        snprintf(query, sizeof(query),
+                 "SELECT Exemplaire.SitePrincipal, "
+                 "COUNT(DISTINCT Reservation.ID_Reservation) AS nb_reservations "
+                 "FROM Reservation "
+                 "LEFT JOIN Exemplaire ON Reservation.ID_Exemplaire = Exemplaire.ID_Exemplaire "
+                 "WHERE DATE_FORMAT(Reservation.DateReservation, '%%Y') = DATE_FORMAT(NOW(), '%%Y') "
+                 "AND Exemplaire.SitePrincipal = '%s' "
+                 "GROUP BY Exemplaire.SitePrincipal;", site);
+    }
+
+    // Exécution de la requête
+    if (mysql_query(conn, query) != 0) {
+        fprintf(stderr, "Erreur lors de la récupération des statistiques : %s\n", mysql_error(conn));
+    }
+    // Récupération du résultat
+    result = mysql_store_result(conn);
+    if (result == NULL) {
+        fprintf(stderr, "mysql_store_result() failed\n");
+    }
+
+    // Affichage des statistiques par site
+    printf("%-20s%-15s\n", "Site", "Réservations");
+    printf("--------------------------------------------\n");
+
+    // Parcours des lignes du résultat
+    //MYSQL_ROW row;
+    while ((row = mysql_fetch_row(result)) != NULL) {
+        printf("%-20s%-15s\n", row[0], row[1]);
     }
 
     // Libération de la mémoire du résultat
