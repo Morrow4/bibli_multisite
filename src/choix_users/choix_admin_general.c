@@ -81,6 +81,7 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
         switch (choix_user)
         {
         case 1:
+            system("clear");
             afficher_tous_les_livres(conn);
             break;
 
@@ -107,6 +108,7 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
             break;
 
         case 6:
+            system("clear");
             consultation_stat(conn, user_type);
             // system("clear");
             break;
@@ -122,11 +124,13 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
             break;
 
         case 9:
+            system("clear");
             suppression_livre(conn);
             system("clear");
             break;
 
         case 10:
+            system("clear");
             blocage_compte(conn, username);
             system("clear");
             break;
@@ -173,15 +177,21 @@ void choix_admin_general_bibliotheque(MYSQL *conn, char *username)
             break;
 
         case 18:
+            system("clear");
             annuler_reservation_par_id(conn, username);
+            system("clear");
             break;
 
         case 19:
+            system("clear");
             afficher_reservations_utilisateur(conn, username);
+            system("clear");
             break;
 
         case 20:
+            system("clear");
             emprunter_livre_apres_reservation(conn, username);
+            system("clear");
             break;
 
         default:
