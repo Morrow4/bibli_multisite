@@ -237,7 +237,7 @@ void ajout_compte(MYSQL *conn, char *username)
     sprintf(add_user_command, "/usr/local/bin/bibli_multisite/script/add_user.sh %s %s", type_user, username);
     if (system(add_user_command) != 0)
     {
-        fprintf(stderr, "Erreur lors de l'exécution du script d'ajout d'utilisateur);
+        fprintf(stderr, "Erreur lors de l'exécution du script d'ajout d'utilisateur");
         fclose(log_file);
         sleep(5);
         exit(1);
