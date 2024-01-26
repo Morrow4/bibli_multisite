@@ -241,18 +241,16 @@ void ajout_compte(MYSQL *conn, char *username)
     FILE *script_output = popen(add_user_command, "r");
     if (script_output == NULL) {
         perror("Erreur lors de l'exécution du script d'ajout d'utilisateur");
+        // Lire la sortie du script
+        char script_buffer[1024];
+        while (fgets(script_buffer, sizeof(script_buffer), script_output) != NULL) {
+            // Affichez la sortie du script ou traitez-la selon vos besoins
+            printf("Script Output: %s", script_buffer);
+        }
         fclose(log_file);
         sleep(5);
         exit(1);
     }
-
-    // Lire la sortie du script
-    char script_buffer[1024];
-    while (fgets(script_buffer, sizeof(script_buffer), script_output) != NULL) {
-        // Affichez la sortie du script ou traitez-la selon vos besoins
-        printf("Script Output: %s", script_buffer);
-    }
-
     else
     {
         fprintf(log_file, "Utilisateur créé dans le systeme : %s, Groupe: %s\n", login, type_user); // log ajout sys
