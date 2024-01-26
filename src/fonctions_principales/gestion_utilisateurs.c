@@ -235,15 +235,15 @@ void ajout_compte(MYSQL *conn, char *username)
     // Exécutez la commande pour ajouter l'utilisateur
     char add_user_command[500];
     sprintf(add_user_command, "/usr/local/bin/bibli_multisite/script/add_user.sh %s %s", type_user, username);
-    if (system(add_user_command) != 0)
-    {
-        fprintf(stderr, "Erreur lors de l'exécution du script d'ajout d'utilisateur");
-        fclose(log_file);
-        sleep(5);
-        exit(1);
-    }
-    else
-    {
+    //if (system(add_user_command) != 0)
+    //{
+    //    fprintf(stderr, "Erreur lors de l'exécution du script d'ajout d'utilisateur");
+    //    fclose(log_file);
+    //    sleep(5);
+    //    exit(1);
+    //}
+    //else
+    //{
         fprintf(log_file, "Utilisateur créé dans le systeme : %s, Groupe: %s\n", login, type_user); // log ajout sys
         //char passwd[500];
         char chpasswd_command[500];
@@ -254,7 +254,7 @@ void ajout_compte(MYSQL *conn, char *username)
         system("clear");
         printf("\nUtilisateur créé \n");
         // Fermetures
-    }
+    //}
 
     fclose(log_file);
 }
