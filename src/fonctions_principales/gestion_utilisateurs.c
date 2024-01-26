@@ -251,7 +251,6 @@ void ajout_compte(MYSQL *conn, char *username)
         system(chpasswd_command);
         //system(passwd);                                                        // Cela utilise chpasswd pour définir le mot de passe de l'utilisateur
         fprintf(log_file, "Mot de passe de l'utilisateur attribué : %s, Groupe: %s\n", login, type_user); // log mp sys
-        system("clear");
         printf("\nUtilisateur créé \n");
         // Fermetures
     //}
